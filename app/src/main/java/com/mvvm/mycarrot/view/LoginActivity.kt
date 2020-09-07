@@ -5,18 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ActivityLoginBinding
+import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
+    lateinit var viewModel: FirebaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +25,28 @@ class LoginActivity : AppCompatActivity() {
         binding.apply {
             activitiy = this@LoginActivity
         }
+        viewModel = ViewModelProvider(
+            this,
+            FirebaseViewModel.Factory(application)
+        ).get(FirebaseViewModel::class.java)
 
-        auth = FirebaseAuth.getInstance()
+
+        viewModel.getCurrentUser().observe(this) {
+            Log.d("fhrm", "LoginActivity -onCreate(),    : ")
+        }
+
+        viewModel.getLoginMode().observe(this) { loginMode ->
+            viewModel.clear()
+            if (loginMode == 1) startActivity(Intent(this, SignupActivity::class.java))
+            else if (loginMode == 2) startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        binding.test.setOnClickListener {
+            var a= ViewModelProvider(
+                this,
+                FirebaseViewModel.Factory(application)
+            ).get(FirebaseViewModel::class.java)
+        }
 
     }
 
@@ -36,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account.idToken!!)
+                viewModel.firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 Log.w("fhrm", "Google sign in failed", e)
             }
@@ -54,28 +75,8 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, GOOGLE_SIGNIN_CODE)
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth?.signInWithCredential(credential)
-            ?.addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    currentUser= auth?.currentUser
-                    startMainActivity()
-                } else {
-                    Log.d("fhrm", "LoginActivity -firebaseAuthWithGoogle(),    : error")
-                }
-            }
-    }
-
-    private fun startMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
-
 
     companion object {
         const val GOOGLE_SIGNIN_CODE = 9001
-        var auth: FirebaseAuth? = null
-        var currentUser: FirebaseUser? = null
     }
 }
