@@ -5,6 +5,9 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import android.widget.Toast
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.view.navigation.ChatFragment
 import com.mvvm.mycarrot.view.navigation.HomeFragment
@@ -63,6 +66,8 @@ class MainActivity : AppCompatActivity() {
         initDefulatFragment()
 
     }
+
+
 
     private fun initDefulatFragment() {
         supportFragmentManager.beginTransaction()

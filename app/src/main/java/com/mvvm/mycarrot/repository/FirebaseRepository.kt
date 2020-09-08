@@ -2,6 +2,8 @@ package com.mvvm.mycarrot.repository
 
 import android.app.Application
 import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -9,9 +11,10 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.view.LoginActivity
+import java.util.*
 
 
-class FirebaseRepository private constructor(){
+class FirebaseRepository private constructor() {
     /**
      *
      * loginMode: LoginActivity에서 startactvity 할 activity를 정하는 모드
@@ -24,13 +27,19 @@ class FirebaseRepository private constructor(){
     private val firebaseStore = FirebaseFirestore.getInstance()
     var curretUserObject: MutableLiveData<UserObject> = MutableLiveData()
     var loginMode: MutableLiveData<Int> = MutableLiveData(0)
+    var location: MutableLiveData<String> = MutableLiveData("관악구 은천동")
+    var lat = 37.55
+    var long = 126.97
 
-    companion object{
-        @Volatile private var instance:FirebaseRepository? = null
-        @JvmStatic fun getInstance():FirebaseRepository =
-                instance ?: synchronized(this){
-                    instance?: FirebaseRepository().also { instance = it }
-                }
+    companion object {
+        @Volatile
+        private var instance: FirebaseRepository? = null
+
+        @JvmStatic
+        fun getInstance(): FirebaseRepository =
+            instance ?: synchronized(this) {
+                instance ?: FirebaseRepository().also { instance = it }
+            }
     }
 
     init {
@@ -50,7 +59,6 @@ class FirebaseRepository private constructor(){
                     var user = document.toObject<UserObject>(UserObject::class.java)
                     curretUserObject.value = user
                     loginMode.value = 2
-                    Log.d("fhrm", "FirebaseRepository -initCurrentUser(),    이미 있음")
                 }
             }
     }
@@ -61,7 +69,6 @@ class FirebaseRepository private constructor(){
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     loginMode.value = 1
-                    Log.d("fhrm", "FirebaseRepository -firebaseAuthWithGoogle(),    loginMode.value = 1")
                 }
             }
     }
@@ -76,17 +83,29 @@ class FirebaseRepository private constructor(){
 
         firebaseStore.collection("users").document(userObject.userId!!).set(userObject)
             .addOnSuccessListener {
-                Log.d("fhrm", "FirebaseRepository -signupUserObject(),    새로 만들어서 들어옴, ${loginMode.value}")
-                Log.d("fhrm", "FirebaseRepository -signupUserObject(),    ${loginMode.value}")
                 curretUserObject.value = userObject
+                loginMode.value = 2
             }
-        loginMode.value = 2
-        Log.d("fhrm", "FirebaseRepository -firebaseAuthWithGoogle(),    loginMode.value = 2")
 
+    }
+
+    fun setLatLong(inputLat: Double, inputLong: Double, application: Application) {
+        lat = inputLat
+        long = inputLong
+
+        // LatLong to Address
+        var mGeocoder = Geocoder(application, Locale.KOREAN)
+        var mResultList: List<Address>?
+        mResultList = mGeocoder.getFromLocation(lat, long, 1)
+
+        var temp = mResultList[0].getAddressLine(0).split(' ')
+        var retVal = temp[2] +" "+ temp[3]
+
+        if (!mResultList.isNullOrEmpty()) location.value = retVal
     }
 
     fun getCurretUser() = curretUserObject
     fun getloginMode() = loginMode
-
+    fun getlocation() = location
 
 }

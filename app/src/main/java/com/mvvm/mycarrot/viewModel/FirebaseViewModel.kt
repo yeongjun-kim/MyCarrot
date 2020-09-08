@@ -47,7 +47,13 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
 
     }
 
-    class Factory(val application: Application) : ViewModelProvider.Factory {
+    fun setLatLong(inputLat:Double, inputLong:Double, application:Application) {
+        firebaseRepository.setLatLong(inputLat, inputLong,application)
+    }
+
+    fun getLocation() = firebaseRepository.getlocation()
+
+        class Factory(val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return FirebaseViewModel(application) as T
         }
