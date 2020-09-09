@@ -6,8 +6,11 @@
     <data>
 
         <variable
-            name="activitiy"
+            name="av"
             type="com.mvvm.mycarrot.view.WriteActivity" />
+        <variable
+            name="vm"
+            type="com.mvvm.mycarrot.viewModel.WriteViewModel" />
     </data>
 
     <LinearLayout
@@ -27,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="18dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> activitiy.finish()}"
+                android:onClick="@{() -> av.finish()}"
                 android:gravity="center_vertical|left"
                 android:text="닫기"
                 android:textSize="14sp" />
@@ -44,7 +47,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:onClick="@{() -> activitiy.commit()}"
+                android:onClick="@{() -> av.commit()}"
                 android:layout_marginEnd="18dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|right"
@@ -69,6 +72,7 @@
                 android:id="@+id/write_cl_picture"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:onClick="@{() -> av.getAlbum()}"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
@@ -168,6 +172,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
+                android:text="@={vm.title}"
                 android:hint="글 제목"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -237,6 +242,7 @@
                 android:background="@android:color/transparent"
                 android:hint="₩ 가격 입력 (선택사항)"
                 android:inputType="number"
+                android:text="@={vm.price}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -262,6 +268,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:text="@={vm.overview}"
                 android:background="@android:color/transparent"
                 android:hint="동네에 올릴 게시글 내용을 작성해주세요.(가품 및 판매금지품목은 게시가 제한될 수 있어요.)"
                 android:textSize="16sp"

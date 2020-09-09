@@ -46,6 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="12dp"
+                android:onClick="@{() -> av.getAlbum()}"
                 android:src="@drawable/ic_carrot"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
@@ -56,7 +57,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="14dp"
+                android:layout_margin="10dp"
                 android:backgroundTint="@color/colorDivision"
                 android:src="@drawable/ic_camera_alt_black_24dp"
                 app:layout_constraintBottom_toBottomOf="@id/signup_iv_profile"
@@ -89,18 +90,38 @@
             android:background="@color/colorDivision"
             android:orientation="horizontal" />
 
-        <TextView
-            android:id="@+id/signup_tv_location"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:onClick="@{() -> av.startActivityPlacePicker()}"
             android:layout_weight="15"
-            android:gravity="center_vertical"
-            android:textSize="14sp"
-            android:hint="지역을 선택해 주세요 당근당근"
-            android:text="@={vm.signupLocation}" />
+            android:onClick="@{() -> av.startActivityPlacePicker()}"
+            android:layout_height="0dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="위치가 맞지 않다면 클릭하여 변경해주세요"
+                android:textColor="@color/colorPrimary"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toTopOf="@id/signup_tv_location"
+                app:layout_constraintStart_toStartOf="@id/signup_tv_location"
+                android:layout_marginBottom="4dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/signup_tv_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintVertical_bias="0.65"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:hint="지역을 선택해 주세요 당근당근"
+                android:text="@={vm.signupLocation}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,11 +136,17 @@
             android:layout_weight="29"
             android:layout_height="0dp"></LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivision"
+            android:orientation="horizontal" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:layout_weight="1"
-            android:onClick="@{() -> av.signup()}"
+            android:onClick="@{() -> vm.commitUserObject()}"
             android:text="등록완료" />
 
 

@@ -11,8 +11,20 @@
         android:textSize="16sp"
         android:layout_height="wrap_content" />
     <Button
-        android:id="@+id/test_btn"
+        android:text="one"
+        android:id="@+id/test_btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:text="two"
+        android:id="@+id/test_btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="three"
+        android:id="@+id/test_btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

@@ -83,12 +83,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setPermission() {
         val permission = object: PermissionListener {
-            override fun onPermissionGranted() {
-                Toast.makeText(this@LoginActivity, "권한 허용", Toast.LENGTH_SHORT).show()
-            }
-            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                Toast.makeText(this@LoginActivity, "권한 거부", Toast.LENGTH_SHORT).show()
-            }
+            override fun onPermissionGranted() {}
+            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {}
         }
 
         TedPermission.with(this)

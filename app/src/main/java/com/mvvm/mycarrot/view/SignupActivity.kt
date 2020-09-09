@@ -4,13 +4,17 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.location.LocationServices
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ActivitySignupBinding
@@ -25,7 +29,7 @@ class SignupActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySignupBinding
     lateinit var viewModel: FirebaseViewModel
-
+    var PICK_PROFILE_FROM_ALBUM = 1010
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,14 +50,18 @@ class SignupActivity : AppCompatActivity() {
         viewModel.getLocation().observe(this) { location ->
             binding.signupTvLocation.text = location
         }
+        viewModel.getisSignSuccess().observe(this){ isSuccess ->
+            if(isSuccess) finish()
+        }
 
     }
 
-    // 등록완요 누를시 반영
-    fun signup() {
-        viewModel.signupUserObject()
-        finish()
+    fun getAlbum(){
+        var photoPickerIntent = Intent(Intent.ACTION_PICK)
+        photoPickerIntent.type = "image/*"
+        startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
     }
+
 
     fun startActivityPlacePicker() {
         val intent = PlacePicker.IntentBuilder()
@@ -74,14 +82,23 @@ class SignupActivity : AppCompatActivity() {
 
     // PlacePicker에서 얻어온 LatLang 값으로 location 변경
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == Constants.PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 val addressData = data!!.getParcelableExtra<AddressData>(Constants.ADDRESS_INTENT)
                 viewModel.setLatLong(addressData.latitude, addressData.longitude, application)
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+        }else if (requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK) {
+            viewModel.profileUri = data!!.data
+            setProfileImage(viewModel.profileUri!!)
         }
+    }
+
+    private fun setProfileImage(uri: Uri) {
+        Glide.with(this).load(uri)
+            .apply(RequestOptions().circleCrop())
+            .into(binding.signupIvProfile)
     }
 
 
