@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:onClick="@{() -> av.commit()}"
+                android:onClick="@{() -> vm.commitItemObject()}"
                 android:layout_marginEnd="18dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|right"
@@ -94,10 +94,11 @@
                     app:layout_constraintVertical_bias="0.35" />
 
                 <TextView
+                    android:id="@+id/write_tv_image_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
-                    android:text="0"
+                    android:text="@{Integer.toString(vm.uriImageListSize)}"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="@id/write_temp_two"
                     app:layout_constraintEnd_toStartOf="@id/write_temp_two"
@@ -125,7 +126,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/write_vp_picture"
+                android:id="@+id/write_vp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
@@ -140,14 +141,30 @@
             </androidx.viewpager2.widget.ViewPager2>
 
             <TextView
+                android:id="@+id/write_tv_image_count2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="@{Integer.toString(vm.viewPagerPosition)}"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="@id/write_tv_delete"
+                app:layout_constraintEnd_toEndOf="@id/write_tv_delete"
+                app:layout_constraintBottom_toTopOf="@id/write_tv_delete"
+                android:layout_marginBottom="4dp"
+                />
+
+            <TextView
+                android:id="@+id/write_tv_delete"
+                app:layout_constraintVertical_bias="0.65"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="삭제"
+                android:onClick="@{() ->  vm.removeFromUriList()}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/write_vp_picture"
+                app:layout_constraintBottom_toBottomOf="@id/write_vp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/write_vp_picture"
-                app:layout_constraintTop_toTopOf="@id/write_vp_picture" />
+                app:layout_constraintStart_toEndOf="@id/write_vp"
+                app:layout_constraintTop_toTopOf="@id/write_vp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -277,6 +294,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0" />
+            <Button
+                android:id="@+id/test3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

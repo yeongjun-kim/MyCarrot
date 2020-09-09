@@ -18,12 +18,15 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
     var userId: String? = null
     var userLocation: String? = null
     var imageList: ArrayList<String> = arrayListOf()
-    var uriImageList: ArrayList<Uri> = arrayListOf()
+    var uriImageList: MutableLiveData<ArrayList<Uri>> = MutableLiveData(arrayListOf())
     var title: String? = null
     var categoryList: ArrayList<String> = arrayListOf()
     var overview: String? = null
     var lookup: Long = 0
     var price: String = ""
+    var viewPagerPosition = MutableLiveData(0)
+    var uriImageListSize = MutableLiveData(0)
+
 
     init {
         firebaseRepository = FirebaseRepository.getInstance()
@@ -32,24 +35,34 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
         userLocation = curretUserObject.value!!.location
     }
 
+    fun removeFromUriList() {
+        if (uriImageList.value.isNullOrEmpty()) return
+        uriImageList.value!!.removeAt(viewPagerPosition.value!! - 1)
+        uriImageList.value = uriImageList.value
+        uriImageListSize.value = uriImageList.value!!.size
+    }
+
     fun getisWirteSuccess() = firebaseRepository.getisWriteSucess()
 
     fun addUriToList(uri: Uri) {
-        if (uriImageList.size > 10) return
-
-        uriImageList.add(uri)
+        if (uriImageList.value!!.size >= 10) return
+        uriImageList.value!!.add(uri)
+        uriImageListSize.value = uriImageList.value!!.size
     }
 
     fun commitItemObject() {
         viewModelScope.launch(Dispatchers.IO) {
-            uriImageList.forEachIndexed { index, uri ->
+            uriImageList.value!!.forEachIndexed { index, uri ->
                 imageList.add(firebaseRepository.firebaseStorageInsertItemImage(uri))
             }
-            var itemRef = firebaseRepository.commitItemObject(imageList, title, categoryList, overview, price)
+            var itemRef =
+                firebaseRepository.commitItemObject(imageList, title, categoryList, overview, price)
             // itemRef는 방금 넣은 아이템의 firestore id니까 이거를 user콜렉션의 itemlist에 넣을것
             firebaseRepository.addItemList(itemRef)
         }
     }
+
+    fun getUriList() = uriImageList
 
     fun test() {
         viewModelScope.launch(Dispatchers.IO) {
