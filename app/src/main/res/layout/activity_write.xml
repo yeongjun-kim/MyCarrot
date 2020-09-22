@@ -8,6 +8,7 @@
         <variable
             name="av"
             type="com.mvvm.mycarrot.view.WriteActivity" />
+
         <variable
             name="vm"
             type="com.mvvm.mycarrot.viewModel.WriteViewModel" />
@@ -30,8 +31,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="18dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> av.finish()}"
                 android:gravity="center_vertical|left"
+                android:onClick="@{() -> av.finish()}"
                 android:text="닫기"
                 android:textSize="14sp" />
 
@@ -47,10 +48,10 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:onClick="@{() -> vm.commitItemObject()}"
                 android:layout_marginEnd="18dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|right"
+                android:onClick="@{() -> vm.commitItemObject()}"
                 android:text="완료"
                 android:textSize="14sp" />
 
@@ -72,11 +73,11 @@
                 android:id="@+id/write_cl_picture"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:onClick="@{() -> av.getAlbum()}"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_custom_textview"
+                android:onClick="@{() -> av.getAlbum()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,26 +146,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:text="@{Integer.toString(vm.viewPagerPosition)}"
                 android:textColor="@color/colorPrimary"
-                app:layout_constraintStart_toStartOf="@id/write_tv_delete"
-                app:layout_constraintEnd_toEndOf="@id/write_tv_delete"
                 app:layout_constraintBottom_toTopOf="@id/write_tv_delete"
-                android:layout_marginBottom="4dp"
-                />
+                app:layout_constraintEnd_toEndOf="@id/write_tv_delete"
+                app:layout_constraintStart_toStartOf="@id/write_tv_delete" />
 
             <TextView
                 android:id="@+id/write_tv_delete"
-                app:layout_constraintVertical_bias="0.65"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="삭제"
                 android:onClick="@{() ->  vm.removeFromUriList()}"
+                android:text="삭제"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/write_vp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/write_vp"
-                app:layout_constraintTop_toTopOf="@id/write_vp" />
+                app:layout_constraintTop_toTopOf="@id/write_vp"
+                app:layout_constraintVertical_bias="0.65" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -189,8 +189,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
-                android:text="@={vm.title}"
                 android:hint="글 제목"
+                android:text="@={vm.title}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -218,7 +218,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="카테고리 선택"
+                android:text="@{vm.getCategory()}"
+                android:onClick="@{() -> av.startCategoryActivity()}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -285,21 +286,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="@={vm.overview}"
                 android:background="@android:color/transparent"
                 android:hint="동네에 올릴 게시글 내용을 작성해주세요.(가품 및 판매금지품목은 게시가 제한될 수 있어요.)"
+                android:text="@={vm.overview}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0" />
+
             <Button
                 android:id="@+id/test3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

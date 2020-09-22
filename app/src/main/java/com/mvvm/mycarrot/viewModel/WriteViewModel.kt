@@ -1,9 +1,11 @@
 package com.mvvm.mycarrot.viewModel
 
 import android.app.Application
+import android.graphics.Color
 import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.net.Uri
 import android.util.Log
+import android.widget.TextView
 import androidx.lifecycle.*
 import com.bumptech.glide.Glide.init
 import com.mvvm.mycarrot.model.UserObject
@@ -14,13 +16,13 @@ import kotlinx.coroutines.launch
 class WriteViewModel(application: Application) : AndroidViewModel(application) {
     private val firebaseRepository: FirebaseRepository
     private var curretUserObject: MutableLiveData<UserObject>
+    var category: MutableLiveData<String>
 
     var userId: String? = null
     var userLocation: String? = null
     var imageList: ArrayList<String> = arrayListOf()
     var uriImageList: MutableLiveData<ArrayList<Uri>> = MutableLiveData(arrayListOf())
     var title: String? = null
-    var categoryList: ArrayList<String> = arrayListOf()
     var overview: String? = null
     var lookup: Long = 0
     var price: String = ""
@@ -33,7 +35,18 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
         curretUserObject = firebaseRepository.getCurretUser()
         userId = curretUserObject.value!!.userId
         userLocation = curretUserObject.value!!.location
+        category = firebaseRepository.getcategory()
     }
+
+
+    fun setCategory(selectedCategory: String) {
+        firebaseRepository.setCategory(selectedCategory)
+    }
+
+    fun getTextView(){
+        firebaseRepository.getTextView()
+    }
+
 
     fun removeFromUriList() {
         if (uriImageList.value.isNullOrEmpty()) return
@@ -43,6 +56,8 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getisWirteSuccess() = firebaseRepository.getisWriteSucess()
+
+    fun getcategory() = firebaseRepository.category
 
     fun addUriToList(uri: Uri) {
         if (uriImageList.value!!.size >= 10) return
@@ -56,8 +71,7 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
                 imageList.add(firebaseRepository.firebaseStorageInsertItemImage(uri))
             }
             var itemRef =
-                firebaseRepository.commitItemObject(imageList, title, categoryList, overview, price)
-            // itemRef는 방금 넣은 아이템의 firestore id니까 이거를 user콜렉션의 itemlist에 넣을것
+                firebaseRepository.commitItemObject(imageList, title, overview, price)
             firebaseRepository.addItemList(itemRef)
         }
     }
@@ -65,9 +79,7 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
     fun getUriList() = uriImageList
 
     fun test() {
-        viewModelScope.launch(Dispatchers.IO) {
-            firebaseRepository.test()
-        }
+        Log.d("fhrm", "WriteViewModel -test(),    selectedCategory!!.text: ${getcategory().value}")
     }
 
     class Factory(val application: Application) : ViewModelProvider.Factory {

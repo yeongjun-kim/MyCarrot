@@ -5,6 +5,21 @@
     <string name="title_write">글쓰기</string>
     <string name="title_chat">채팅</string>
     <string name="title_my">나의 당근</string>
+    <string name="category_digital">디지털/가전</string>
+    <string name="category_furniture">가구/인테리어</string>
+    <string name="category_kid">유아동/유아도서</string>
+    <string name="category_life">생활/가공식품</string>
+    <string name="category_sport">스포츠/레저</string>
+    <string name="category_woman">여성잡화</string>
+    <string name="category_woman_cloth">여성의류</string>
+    <string name="category_man">남성패션/잡화</string>
+    <string name="category_game">게임/취미</string>
+    <string name="category_beauty">뷰티/미용</string>
+    <string name="category_pet">반려동물용품</string>
+    <string name="category_book">도서/티켓/음반</string>
+    <string name="category_etc">기타 중고물품</string>
+    <string name="category_buy">삽니다</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

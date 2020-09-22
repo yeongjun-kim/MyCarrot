@@ -6,6 +6,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
 import android.util.Log
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
@@ -37,6 +38,9 @@ class FirebaseRepository private constructor() {
      * lat: 현재 로그인 한 유저의 latitude
      * long: 현재 로그인 한 유저의 longitude
      * profileUri: 현재 로그인 한 유저의 profile image uri (firestore)
+     * category: WriteActivity 에서 선택한 카테고리
+     * categoryTextView: CategoryActivity 에서 선택한 카테고리(TextView)
+     *
      * isSignSuccess: SigninActivity 에서 observe, 계정등록이 완료되면 true
      */
 
@@ -50,6 +54,9 @@ class FirebaseRepository private constructor() {
     var lat = 37.55
     var long = 126.97
     var profileUrl = ""
+    var category:MutableLiveData<String> = MutableLiveData("카테고리 선택")
+    var categoryTextView: TextView?=null
+
     var isSignSuccess:MutableLiveData<Boolean> = MutableLiveData(false)
     var isWriteSuccess:MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -67,6 +74,17 @@ class FirebaseRepository private constructor() {
     init {
         initCurrentUser()
         loginMode.value = 0
+    }
+
+    fun getcategory() = category
+
+    fun getTextView():TextView? {
+        Log.d("fhrm", "FirebaseRepository -getTextView(),    categoryTextView==null: ${categoryTextView==null}")
+        return categoryTextView
+    }
+
+    fun setCategory(selectedCategory: String){
+        category.value = selectedCategory
     }
 
     private fun initCurrentUser() {
@@ -135,14 +153,14 @@ class FirebaseRepository private constructor() {
                 isSignSuccess.value = true
             }.await()
     }
-    suspend fun commitItemObject(imageUrlList:ArrayList<String>, title:String?, categoryList:ArrayList<String>, overview:String?, price:String):String {
+    suspend fun commitItemObject(imageUrlList:ArrayList<String>, title:String?, overview:String?, price:String):String {
         var retRef = ""
         val insertItemObject = ItemObejct(
             curretUserObject.value!!.userId,
             location.value,
             imageUrlList,
             title,
-            arrayListOf("NULL"),
+            category.value,
             overview,
             0,
             price

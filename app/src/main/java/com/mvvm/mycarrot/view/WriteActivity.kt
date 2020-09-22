@@ -39,7 +39,10 @@ class WriteActivity : AppCompatActivity() {
         }
 
         writeViewModel.getisWirteSuccess().observe(this) {
-            if (it) finish()
+            if (it) {
+                writeViewModel.getisWirteSuccess().value = false
+                finish()
+            }
         }
 
 
@@ -51,10 +54,6 @@ class WriteActivity : AppCompatActivity() {
         initVp()
 
         test3.setOnClickListener {
-            Log.d(
-                "fhrm",
-                "WriteActivity -onCreate(),    : ${writeViewModel.uriImageList.value!!.size}"
-            )
         }
 
 
@@ -69,6 +68,10 @@ class WriteActivity : AppCompatActivity() {
                 writeViewModel.viewPagerPosition.value = position + 1
             }
         })
+    }
+
+    fun startCategoryActivity(){
+        startActivity(Intent(this,CategoryActivity::class.java))
     }
 
     fun getAlbum() {

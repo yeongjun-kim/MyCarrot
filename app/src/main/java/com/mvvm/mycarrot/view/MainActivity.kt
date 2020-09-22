@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_write-> {
+                Log.d("fhrm", "MainActivity -(),    write")
                 val intent = Intent(this,WriteActivity::class.java)
                 startActivity(intent)
                 return@OnNavigationItemSelectedListener true

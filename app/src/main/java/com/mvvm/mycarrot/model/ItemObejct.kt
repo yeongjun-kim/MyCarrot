@@ -5,7 +5,7 @@ data class ItemObejct(
     var userLocation: String? = null,
     var imageList: ArrayList<String> = arrayListOf(),
     var title: String? = null,
-    var categoryList: ArrayList<String> = arrayListOf(),
+    var category: String? = null,
     var overview: String? = null,
     var lookup: Long = 0,
     var price: String = "0"
