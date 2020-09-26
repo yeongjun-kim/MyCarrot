@@ -2,16 +2,9 @@ package com.mvvm.mycarrot.viewModel
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.*
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
-import com.mvvm.mycarrot.view.LoginActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -58,7 +51,6 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
     }
 
 
-
     fun setLatLong(inputLat: Double, inputLong: Double, application: Application) {
         firebaseRepository.setLatLong(inputLat, inputLong, application)
     }
@@ -69,15 +61,16 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
         signupNickname = null
         signupProfileUrl = null
         signupLocation = null
-
     }
 
     fun getLocation() = location
 
     fun getisSignSuccess() = firebaseRepository.getisSignSuccess()
 
-    fun test(){
-        Log.d("fhrm", "FirebaseViewModel -test(),    : ${curretUserObject.value}")
+    fun test() {
+        viewModelScope.launch(Dispatchers.IO) {
+            firebaseRepository.test()
+        }
     }
 
 

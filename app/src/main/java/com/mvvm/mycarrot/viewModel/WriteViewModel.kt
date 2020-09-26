@@ -43,10 +43,6 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
         firebaseRepository.setCategory(selectedCategory)
     }
 
-    fun getTextView(){
-        firebaseRepository.getTextView()
-    }
-
 
     fun removeFromUriList() {
         if (uriImageList.value.isNullOrEmpty()) return
@@ -70,8 +66,7 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
             uriImageList.value!!.forEachIndexed { index, uri ->
                 imageList.add(firebaseRepository.firebaseStorageInsertItemImage(uri))
             }
-            var itemRef =
-                firebaseRepository.commitItemObject(imageList, title, overview, price)
+            var itemRef = firebaseRepository.commitItemObject(imageList, title, overview, price)
             firebaseRepository.addItemList(itemRef)
         }
     }

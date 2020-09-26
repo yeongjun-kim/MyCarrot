@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.databinding.DataBindingUtil
@@ -30,6 +31,7 @@ class SignupActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignupBinding
     lateinit var viewModel: FirebaseViewModel
     var PICK_PROFILE_FROM_ALBUM = 1010
+    var customProgressDialog = CustomProgressDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +52,16 @@ class SignupActivity : AppCompatActivity() {
         viewModel.getLocation().observe(this) { location ->
             binding.signupTvLocation.text = location
         }
-        viewModel.getisSignSuccess().observe(this){ isSuccess ->
-            if(isSuccess) finish()
+        viewModel.getisSignSuccess().observe(this) { isSuccess ->
+            if (isSuccess) {
+                customProgressDialog.dismiss()
+                finish()
+            }
         }
 
     }
 
-    fun getAlbum(){
+    fun getAlbum() {
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
         startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
@@ -89,10 +94,19 @@ class SignupActivity : AppCompatActivity() {
                 val addressData = data!!.getParcelableExtra<AddressData>(Constants.ADDRESS_INTENT)
                 viewModel.setLatLong(addressData.latitude, addressData.longitude, application)
             }
-        }else if (requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK) {
             viewModel.profileUri = data!!.data
             setProfileImage(viewModel.profileUri!!)
         }
+    }
+
+    fun commitUserObject() {
+        if(viewModel.profileUri == null || viewModel.signupNickname ==null ) {
+            Toast.makeText(this, "정보를 모두 입력해줍시당",Toast.LENGTH_SHORT).show()
+            return
+        }
+        customProgressDialog.show()
+        viewModel.commitUserObject()
     }
 
     private fun setProfileImage(uri: Uri) {

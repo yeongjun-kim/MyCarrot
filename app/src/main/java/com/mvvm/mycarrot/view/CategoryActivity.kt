@@ -48,31 +48,13 @@ class CategoryActivity : AppCompatActivity() {
                     R.color.colorPrimaryDark
                 )
             )
-            category_kid.text -> category_kid.setTextColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.colorPrimaryDark
-                )
-            )
             category_life.text -> category_life.setTextColor(
                 ContextCompat.getColor(
                     this,
                     R.color.colorPrimaryDark
                 )
             )
-            category_sport.text -> category_sport.setTextColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.colorPrimaryDark
-                )
-            )
             category_woman.text -> category_woman.setTextColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.colorPrimaryDark
-                )
-            )
-            category_woman_cloth.text -> category_woman_cloth.setTextColor(
                 ContextCompat.getColor(
                     this,
                     R.color.colorPrimaryDark
@@ -103,12 +85,6 @@ class CategoryActivity : AppCompatActivity() {
                 )
             )
             category_book.text -> category_book.setTextColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.colorPrimaryDark
-                )
-            )
-            category_etc.text -> category_etc.setTextColor(
                 ContextCompat.getColor(
                     this,
                     R.color.colorPrimaryDark

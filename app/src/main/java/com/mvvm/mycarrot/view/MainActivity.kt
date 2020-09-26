@@ -25,41 +25,46 @@ class MainActivity : AppCompatActivity() {
     var myFragment = MyFragment()
 
     private lateinit var textMessage: TextView
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_fl,homeFragment)
-                    .commit()
-                return@OnNavigationItemSelectedListener true
+    private val onNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .replace(R.id.main_fl, homeFragment)
+                        .commit()
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_search -> {
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .replace(R.id.main_fl, searchFragment)
+                        .commit()
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_write -> {
+                    Log.d("fhrm", "MainActivity -(),    write")
+                    val intent = Intent(this, WriteActivity::class.java)
+                    startActivity(intent)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_chat -> {
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .replace(R.id.main_fl, chatFragment)
+                        .commit()
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_my -> {
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .replace(R.id.main_fl, myFragment)
+                        .commit()
+                    return@OnNavigationItemSelectedListener true
+                }
             }
-            R.id.navigation_search-> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_fl,searchFragment)
-                    .commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_write-> {
-                Log.d("fhrm", "MainActivity -(),    write")
-                val intent = Intent(this,WriteActivity::class.java)
-                startActivity(intent)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_chat-> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_fl,chatFragment)
-                    .commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_my-> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_fl,myFragment)
-                    .commit()
-                return@OnNavigationItemSelectedListener true
-            }
+            false
         }
-        false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,11 +75,14 @@ class MainActivity : AppCompatActivity() {
         initDefulatFragment()
     }
 
+    fun test(){
+
+    }
 
 
     private fun initDefulatFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.main_fl,homeFragment)
+            .add(R.id.main_fl, homeFragment)
             .commit()
     }
 }

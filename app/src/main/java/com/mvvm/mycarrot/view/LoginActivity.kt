@@ -24,19 +24,17 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
         binding.apply {
             activitiy = this@LoginActivity
         }
+
         viewModel = ViewModelProvider(
             this,
             FirebaseViewModel.Factory(application)
         ).get(FirebaseViewModel::class.java)
-
-
-        viewModel.getCurrentUser().observe(this) {
-            Log.d("fhrm", "LoginActivity -onCreate(),    : ")
-        }
 
         viewModel.getLoginMode().observe(this) { loginMode ->
             viewModel.clear()
@@ -44,15 +42,7 @@ class LoginActivity : AppCompatActivity() {
             else if (loginMode == 2) startActivity(Intent(this, MainActivity::class.java))
         }
 
-        binding.test.setOnClickListener {
-            var a= ViewModelProvider(
-                this,
-                FirebaseViewModel.Factory(application)
-            ).get(FirebaseViewModel::class.java)
-        }
-
         setPermission()
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -82,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun setPermission() {
-        val permission = object: PermissionListener {
+        val permission = object : PermissionListener {
             override fun onPermissionGranted() {}
             override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {}
         }
@@ -91,8 +81,10 @@ class LoginActivity : AppCompatActivity() {
             .setPermissionListener(permission)
             .setRationaleMessage("현재 위치를 알기 위해 권한을 허용해주세요 당근당근")
             .setDeniedMessage("거절하면 위치 못써요 당근당근")
-            .setPermissions(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
+            .setPermissions(
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            )
             .check()
     }
 

@@ -94,22 +94,6 @@
                     android:text="가구/인테리어"
                     android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorDivision" />
-
-                <TextView
-                    android:id="@+id/category_kid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|left"
-                    android:onClick="@{() -> av.setCategory(@string/category_kid)}"
-                    android:text="유아동/유아도서"
-                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,22 +112,6 @@
                     android:text="생활/가공식품"
                     android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorDivision" />
-
-                <TextView
-                    android:id="@+id/category_sport"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|left"
-                    android:onClick="@{() -> av.setCategory(@string/category_sport)}"
-                    android:text="스포츠/레저"
-                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -159,25 +127,9 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|left"
                     android:onClick="@{() -> av.setCategory(@string/category_woman)}"
-                    android:text="여성잡화"
+                    android:text="여성패션/잡화"
                     android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorDivision" />
-
-                <TextView
-                    android:id="@+id/category_woman_cloth"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|left"
-                    android:onClick="@{() -> av.setCategory(@string/category_woman_cloth)}"
-                    android:text="여성의류"
-                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -210,7 +162,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|left"
                     android:onClick="@{() -> av.setCategory(@string/category_game)}"
-                    android:text="게임/취미"
+                    android:text="게임/취미/스포츠/레저"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -244,7 +196,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|left"
                     android:onClick="@{() -> av.setCategory(@string/category_pet)}"
-                    android:text="반려동물용품"
+                    android:text="유아/반려동물용품"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -264,22 +216,6 @@
                     android:text="도서/티켓/음반"
                     android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorDivision" />
-
-                <TextView
-                    android:id="@+id/category_etc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|left"
-                    android:onClick="@{() -> av.setCategory(@string/category_etc)}"
-                    android:text="기타 중고물품"
-                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

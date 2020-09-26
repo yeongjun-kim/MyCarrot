@@ -51,7 +51,7 @@
                 android:layout_marginEnd="18dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|right"
-                android:onClick="@{() -> vm.commitItemObject()}"
+                android:onClick="@{() -> av.commitItemObject()}"
                 android:text="완료"
                 android:textSize="14sp" />
 

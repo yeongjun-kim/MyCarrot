@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -22,7 +23,8 @@ class WriteActivity : AppCompatActivity() {
     lateinit var binding: ActivityWriteBinding
     lateinit var writeViewModel: WriteViewModel
     private val PICK_PROFILE_FROM_ALBUM = 10
-    var adapter = WriteVpAdapter(arrayListOf())
+    private var adapter = WriteVpAdapter(arrayListOf())
+    private val customDialog = CustomProgressDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +42,11 @@ class WriteActivity : AppCompatActivity() {
 
         writeViewModel.getisWirteSuccess().observe(this) {
             if (it) {
+                customDialog.dismiss()
                 writeViewModel.getisWirteSuccess().value = false
                 finish()
             }
         }
-
 
         writeViewModel.getUriList().observe(this) {
             Log.d("fhrm", "change")
@@ -53,7 +55,9 @@ class WriteActivity : AppCompatActivity() {
 
         initVp()
 
+
         test3.setOnClickListener {
+            Log.d("fhrm", "WriteActivity -onCreate(),    writeViewModel.category.value: ${writeViewModel.category.value}")
         }
 
 
@@ -70,8 +74,8 @@ class WriteActivity : AppCompatActivity() {
         })
     }
 
-    fun startCategoryActivity(){
-        startActivity(Intent(this,CategoryActivity::class.java))
+    fun startCategoryActivity() {
+        startActivity(Intent(this, CategoryActivity::class.java))
     }
 
     fun getAlbum() {
@@ -80,6 +84,24 @@ class WriteActivity : AppCompatActivity() {
         photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
     }
+
+
+
+    fun commitItemObject(){
+        if(writeViewModel.uriImageListSize.value==0){
+            Toast.makeText(this,"사진을 추가해주세요 !",Toast.LENGTH_SHORT).show()
+        }else if(writeViewModel.title.isNullOrBlank()){
+            Toast.makeText(this,"제목을 입력해주세요 !",Toast.LENGTH_SHORT).show()
+        }else if(writeViewModel.getcategory().value == "카테고리 선택"){
+            Toast.makeText(this,"카테고리를 선택해주세요 !",Toast.LENGTH_SHORT).show()
+        }else if(writeViewModel.overview.isNullOrBlank()){
+            Toast.makeText(this,"내용을 작성해주세요 !",Toast.LENGTH_SHORT).show()
+        }else{
+            customDialog.show()
+            writeViewModel.commitItemObject()
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

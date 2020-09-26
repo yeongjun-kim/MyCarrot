@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.antestdroid.com/apk/res-auto"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="av"
+            type="com.mvvm.mycarrot.view.navigation.SetupTownActivity" />
+
+        <variable
+            name="vm"
+            type="com.mvvm.mycarrot.viewModel.HomeViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.navigation.SetupTownActivity">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7">
+
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="관심 카테고리 설정"
+                android:textSize="16sp"
+                app1:layout_constraintBottom_toBottomOf="parent"
+                app1:layout_constraintEnd_toEndOf="parent"
+                app1:layout_constraintStart_toStartOf="parent"
+                app1:layout_constraintTop_toTopOf="parent"
+                app1:layout_constraintVertical_bias="0.65" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:onClick="@{() -> av.finish()}"
+                android:src="@drawable/ic_close_black_24dp"
+                app1:layout_constraintBottom_toBottomOf="@id/text4"
+                app1:layout_constraintEnd_toStartOf="@id/text4"
+                app1:layout_constraintHorizontal_bias="0.141"
+                app1:layout_constraintStart_toStartOf="parent"
+                app1:layout_constraintTop_toTopOf="@id/text4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivision"
+            android:orientation="horizontal" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/setup_temp1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app1:layout_constraintBottom_toBottomOf="parent"
+                app1:layout_constraintEnd_toEndOf="parent"
+                app1:layout_constraintStart_toStartOf="parent"
+                app1:layout_constraintTop_toTopOf="parent"
+                app1:layout_constraintVertical_bias="0.1">
+
+                <TextView
+                    android:id="@+id/setup_tv_dong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="은천동"
+                    android:textSize="16sp"
+                    app1:layout_constraintBottom_toBottomOf="parent"
+                    app1:layout_constraintStart_toStartOf="parent"
+                    app1:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/setup_tv_dong_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:hint="근처 동네 10개"
+                    RangeText="@{vm.progress}"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app1:layout_constraintBottom_toBottomOf="@id/setup_tv_dong"
+                    app1:layout_constraintStart_toEndOf="@id/setup_tv_dong"
+                    app1:layout_constraintTop_toTopOf="@id/setup_tv_dong" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/setup_temp2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="선택한 범위의 게시글만 볼 수 있어요."
+                app1:layout_constraintEnd_toEndOf="@id/setup_temp1"
+                app1:layout_constraintStart_toStartOf="@id/setup_temp1"
+                app1:layout_constraintTop_toBottomOf="@id/setup_temp1" />
+
+            <SeekBar
+                android:id="@+id/setup_sb_range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:minWidth="11dp"
+                android:minHeight="11dp"
+                android:progress="@={vm.progress}"
+                android:progressDrawable="@drawable/seekbar_style"
+                android:splitTrack="false"
+                android:thumb="@drawable/custom_thumb"
+                app1:layout_constraintEnd_toEndOf="parent"
+                app1:layout_constraintStart_toStartOf="parent"
+                app1:layout_constraintTop_toBottomOf="@id/setup_temp2" />
+
+            <TextView
+                android:id="@+id/setup_temp3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="내 동네"
+                android:textSize="12sp"
+                app1:layout_constraintStart_toStartOf="@id/setup_sb_range"
+                app1:layout_constraintTop_toBottomOf="@id/setup_sb_range" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="근처동네"
+                android:textSize="12sp"
+                app1:layout_constraintEnd_toEndOf="@id/setup_sb_range"
+                app1:layout_constraintTop_toBottomOf="@id/setup_sb_range" />
+
+            <ImageView
+                android:id="@+id/setup_iv_range"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                setImage="@{vm.progress}"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="42dp"
+                app1:layout_constraintVertical_bias="0.14"
+                app1:layout_constraintBottom_toBottomOf="parent"
+                app1:layout_constraintDimensionRatio="1:1"
+                app1:layout_constraintEnd_toEndOf="parent"
+                app1:layout_constraintStart_toStartOf="parent"
+                app1:layout_constraintTop_toBottomOf="@id/setup_temp3" />
+
+
+            <Button
+                android:id="@+id/btn_test3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test"
+                app1:layout_constraintBottom_toBottomOf="parent"
+                app1:layout_constraintEnd_toEndOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+</layout>
