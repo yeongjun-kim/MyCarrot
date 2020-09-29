@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class WriteViewModel(application: Application) : AndroidViewModel(application) {
     private val firebaseRepository: FirebaseRepository
-    private var curretUserObject: MutableLiveData<UserObject>
+    private var currentUserObject: MutableLiveData<UserObject>
     var category: MutableLiveData<String>
 
     var userId: String? = null
@@ -32,9 +32,9 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         firebaseRepository = FirebaseRepository.getInstance()
-        curretUserObject = firebaseRepository.getCurretUser()
-        userId = curretUserObject.value!!.userId
-        userLocation = curretUserObject.value!!.location
+        currentUserObject = firebaseRepository.getCurretUser()
+        userId = currentUserObject.value!!.userId
+        userLocation = currentUserObject.value!!.location
         category = firebaseRepository.getcategory()
     }
 

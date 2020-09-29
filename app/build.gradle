@@ -57,9 +57,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
 
-
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    // Like Button
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
 
     // Room

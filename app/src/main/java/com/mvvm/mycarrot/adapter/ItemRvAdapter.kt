@@ -11,13 +11,18 @@ import com.mvvm.mycarrot.model.ItemObject
 
 class ItemRvAdapter :RecyclerView.Adapter<ItemRvAdapter.CustomViewHolder>(){
 
-    private var itemList = listOf<ItemObject>()
+    interface ClickListener{
+        fun onClick(position:Int)
+    }
+
+    var itemList = listOf<ItemObject>()
+    var listener:ClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         return CustomViewHolder(
             DataBindingUtil.inflate(LayoutInflater.from(parent.context),
                 R.layout.item_rv_item,
-                parent,false)
+                parent,false), listener
         )
     }
 
@@ -34,7 +39,10 @@ class ItemRvAdapter :RecyclerView.Adapter<ItemRvAdapter.CustomViewHolder>(){
         notifyDataSetChanged()
     }
 
-    inner class CustomViewHolder(val binding: ItemRvItemBinding):RecyclerView.ViewHolder(binding.root){
+    inner class CustomViewHolder(val binding: ItemRvItemBinding, val listener: ClickListener?):RecyclerView.ViewHolder(binding.root){
+        init {
+            itemView.setOnClickListener { listener?.onClick(adapterPosition) }
+        }
         fun bind(inputItem:ItemObject){
             binding.apply {
                 itemRvItemTvTitle.isSelected = true // TextView 흐르는 효과

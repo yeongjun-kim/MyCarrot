@@ -54,10 +54,15 @@ class CategoryFragment : Fragment() {
     }
 
     fun onBackPress() {
-
         activity!!.supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             .replace(R.id.main_fl, (activity as MainActivity).homeFragment).commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        homeViewModel.isFromCategoryFragment = true
+
     }
 
     private fun initCheck() {

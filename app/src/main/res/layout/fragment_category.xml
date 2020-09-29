@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="vm"
             type="com.mvvm.mycarrot.viewModel.HomeViewModel" />
+
         <variable
             name="fm"
             type="com.mvvm.mycarrot.view.navigation.CategoryFragment" />
@@ -102,7 +103,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_digital)}"
                 app:layout_constraintBottom_toBottomOf="@id/text_left"
                 app:layout_constraintEnd_toStartOf="@id/text_left"
@@ -113,10 +113,10 @@
                 android:id="@+id/text_left4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="여성패션/잡화"
-                app:layout_constraintTop_toBottomOf="@id/fm_category_cb_digital"
                 android:layout_marginTop="52dp"
+                android:text="여성패션/잡화"
                 app:layout_constraintStart_toStartOf="@id/text_left"
+                app:layout_constraintTop_toBottomOf="@id/fm_category_cb_digital"
                 tools:layout_editor_absoluteY="286dp" />
 
             <CheckBox
@@ -125,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
+
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_woman)}"
 
                 app:layout_constraintBottom_toBottomOf="@id/text_left4"
@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
+
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_game)}"
 
                 app:layout_constraintBottom_toBottomOf="@id/text_left5"
@@ -171,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
+
 
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_pet)}"
                 app:layout_constraintBottom_toBottomOf="@id/text_left6"
@@ -198,7 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
+
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_furniture)}"
 
                 app:layout_constraintBottom_toBottomOf="@id/text_right"
@@ -220,7 +220,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
+
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_life)}"
 
                 app:layout_constraintBottom_toBottomOf="@id/text_right2"
@@ -232,10 +232,10 @@
                 android:id="@+id/text_right4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/fm_category_cb_life"
                 android:layout_marginTop="52dp"
                 android:text="남성패션/잡화"
                 app:layout_constraintStart_toStartOf="@id/text_right"
+                app:layout_constraintTop_toBottomOf="@id/fm_category_cb_life"
                 tools:layout_editor_absoluteY="339dp" />
 
             <CheckBox
@@ -244,7 +244,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
+
 
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_man)}"
                 app:layout_constraintBottom_toBottomOf="@id/text_right4"
@@ -267,7 +267,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
+
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_beauty)}"
 
                 app:layout_constraintBottom_toBottomOf="@id/text_right5"
@@ -290,7 +290,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
+
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_book)}"
 
                 app:layout_constraintBottom_toBottomOf="@id/text_right6"
@@ -313,7 +313,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                 
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_buy)}"
 
                 app:layout_constraintBottom_toBottomOf="@id/text_right7"

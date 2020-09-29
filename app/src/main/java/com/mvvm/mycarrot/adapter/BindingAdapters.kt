@@ -11,6 +11,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.like.LikeButton
 import com.mvvm.mycarrot.R
 import java.text.DecimalFormat
 
@@ -24,7 +25,7 @@ object BindingAdapters {
     }
 
     /**
-     * ImageView
+     * ImageView ( SetupTownActivity 의 이미지 설정 )
      */
     @JvmStatic
     @BindingAdapter("setImage")
@@ -37,6 +38,21 @@ object BindingAdapters {
 
         Glide.with(imageView.context)
             .load(drawable)
+            .thumbnail(0.1f)
+            .into(imageView)
+    }
+
+    /**
+     * ImageView ( 기본 Round imageView 세팅 )
+     */
+    @JvmStatic
+    @BindingAdapter("RepresentationcircleSrc")
+    fun setRepresentationCircleSrc(imageView: ImageView, url: String?) {
+
+        Glide.with(imageView.context)
+            .load(url)
+            .placeholder(R.drawable.ic_user)
+            .circleCrop()
             .thumbnail(0.1f)
             .into(imageView)
     }
@@ -75,8 +91,9 @@ object BindingAdapters {
      */
     @JvmStatic
     @BindingAdapter("DongText")
-    fun setDongText(textView: TextView, location: String) {
-        textView.text = location.split(" ")[1]
+    fun setDongText(textView: TextView, location: String?) {
+        if (!location.isNullOrBlank()) textView.text = location.split(" ")[1]
+
     }
 
     /**
@@ -85,8 +102,30 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("BeforeDay")
     fun setBeforeDay(textView: TextView, itemMilli: Long) {
-        var day = (System.currentTimeMillis() - itemMilli)/86400000
-        textView.text = "${day.toString()}일 전"
+        var day = (System.currentTimeMillis() - itemMilli) / 86400000
+        textView.text = "${day}일 전"
     }
+
+    /**
+     * 조회 TextView (ItemActivity)
+     */
+    @JvmStatic
+    @BindingAdapter("LookUp")
+    fun setLookUp(textView: TextView, lookup: Long) {
+        textView.text = "조회 ${lookup}"
+    }
+
+    /**
+     * 좋아요 누른 상품이라면 isLiked true (ItemActivity)
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["likeList", "itemId"], requireAll = false)
+    fun setLiked(testView: LikeButton, likeList: ArrayList<String>?, itemId: String?) {
+        if(likeList.isNullOrEmpty() || itemId.isNullOrBlank()) return
+        if (likeList!!.contains(itemId)) testView.isLiked = true
+
+        Log.d("fhrm", "BindingAdapters -settest(),    here")
+    }
+
 
 }

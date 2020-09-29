@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class FirebaseViewModel(application: Application) : AndroidViewModel(application) {
 
     var firebaseRepository: FirebaseRepository
-    private var curretUserObject: MutableLiveData<UserObject>
+    private var currentUserObject: MutableLiveData<UserObject>
     private val loginMode: MutableLiveData<Int>
     private var location: MutableLiveData<String>
 
@@ -23,13 +23,13 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
 
     init {
         firebaseRepository = FirebaseRepository.getInstance()
-        curretUserObject = firebaseRepository.getCurretUser()
+        currentUserObject = firebaseRepository.getCurretUser()
         loginMode = firebaseRepository.getloginMode()
         location = firebaseRepository.getlocation()
     }
 
 
-    fun getCurrentUser() = curretUserObject
+    fun getCurrentUser() = currentUserObject
 
     fun firebaseAuthWithGoogle(idToken: String) {
         viewModelScope.launch(Dispatchers.IO) {

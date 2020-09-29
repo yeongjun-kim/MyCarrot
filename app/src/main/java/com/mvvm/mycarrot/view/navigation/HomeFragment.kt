@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide.init
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvAdapter
 import com.mvvm.mycarrot.databinding.FragmentHomeBinding
+import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.sucho.placepicker.Constants
@@ -32,22 +33,17 @@ class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     var itemRvAdapter = ItemRvAdapter()
 
-    init {
-        Log.d("fhrm", "HomeFragment -(),    : here")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        Log.d("fhrm", "HomeFragment -onCreateView(),    : ")
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.d("fhrm", "HomeFragment -onActivityCreated(),    : ")
         homeViewModel = ViewModelProvider(
             activity!!, HomeViewModel.Factory(activity!!.application)
         ).get(HomeViewModel::class.java)
@@ -63,56 +59,27 @@ class HomeFragment : Fragment() {
         })
 
 
+
+
+
         btn_test.setOnClickListener {
         }
 
         initRv()
         initSwipeListener()
+        checkIsFromCategoryFragment()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d("fhrm", "HomeFragment -onAttach(),    : ")
-    }
+    private fun checkIsFromCategoryFragment() {
+        if (homeViewModel.isFromCategoryFragment) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("fhrm", "HomeFragment -onCreate(),    : ")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("fhrm", "HomeFragment -onStart(),    : ")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("fhrm", "HomeFragment -onResume(),    : ")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("fhrm", "HomeFragment -onPause(),    : ")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("fhrm", "HomeFragment -onStop(),    : ")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("fhrm", "HomeFragment -onDestroyView(),    : ")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("fhrm", "HomeFragment -onDestroy(),    : ")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("fhrm", "HomeFragment -onDetach(),    : ")
+            //CategoryFm에서 변화가 생긴것
+            if (homeViewModel.tempCategoryList.sorted() != homeViewModel.categoryList.sorted()) {
+                refreshItem()
+                homeViewModel.tempCategoryList = homeViewModel.categoryList.toMutableList()
+            }
+            homeViewModel.isFromCategoryFragment = false
+        }
     }
 
     private fun initSwipeListener() {
@@ -148,6 +115,12 @@ class HomeFragment : Fragment() {
                 }
             })
         }
+        itemRvAdapter.listener = object: ItemRvAdapter.ClickListener{
+            override fun onClick(position: Int) {
+                startItemActivity(position)
+            }
+
+        }
         homeViewModel.setHomeItems()
     }
 
@@ -155,7 +128,15 @@ class HomeFragment : Fragment() {
         startActivity(Intent(activity, SetupTownActivity::class.java))
     }
 
+    fun startItemActivity(position:Int){
+        var intent =Intent(activity,ItemActivity::class.java)
+        intent.putExtra("itemId",itemRvAdapter.itemList[position].id!!)
+        intent.putExtra("ownerId",itemRvAdapter.itemList[position].userId!!)
+        startActivity(intent)
+    }
+
     fun filterCategory() {
+        homeViewModel.tempCategoryList = homeViewModel.categoryList.toMutableList()
         activity!!.supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             .replace(R.id.main_fl, CategoryFragment())

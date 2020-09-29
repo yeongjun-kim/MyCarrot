@@ -95,7 +95,7 @@ class TestActivity : AppCompatActivity() {
         nextQ!!.get()
             .addOnSuccessListener { result ->
                 result.forEachIndexed { index, item ->
-                    Log.d("fhrm","TestActivity -test1(),    index: ${index}, item: ${item}")
+                    Log.d("fhrm", "TestActivity -test1(),    index: ${index}, item: ${item}")
                 }
 
                 nextQ = firebaseStore.collection("testCollection")
@@ -107,14 +107,12 @@ class TestActivity : AppCompatActivity() {
     }
 
     fun test3() {
-        val first = firebaseStore.collection("testCollection")
-            .whereIn("c1", categoryList)
+        val first = firebaseStore.collection("users")
+            .document("fwIMheZ1vEgT64ITZkyGkF0NE7m1")
 
         first.get()
             .addOnSuccessListener { result ->
-                result.forEachIndexed { index, item ->
-                    Log.d("fhrm", "TestActivity -test3(),    index: ${index}, item:${item.data}")
-                }
+                Log.d("fhrm", "TestActivity -test3(),    result.data: ${result.data}")
             }
     }
 
@@ -137,5 +135,6 @@ class TestActivity : AppCompatActivity() {
                 }
             }
     }
+
 
 }
