@@ -180,14 +180,125 @@
                         app:layout_constraintTop_toTopOf="@id/item_favorite" />
 
                     <TextView
+                        LookUp="@{vm.getselectedItem().lookup}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="조회 0"
-                        LookUp="@{vm.getselectedItem().lookup}"
 
                         app:layout_constraintBottom_toBottomOf="@id/item_temp4"
                         app:layout_constraintStart_toEndOf="@id/item_temp4"
                         app:layout_constraintTop_toTopOf="@id/item_temp4" />
+
+
+                    <LinearLayout
+                        android:id="@+id/item_temp5"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="22dp"
+                        android:background="@color/colorDivision"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/item_favorite" />
+
+                    <TextView
+                        android:id="@+id/item_report"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="22dp"
+                        android:paddingBottom="22dp"
+                        android:text="이 게시글 신고하기"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@id/item_temp5" />
+
+                    <LinearLayout
+                        android:id="@+id/item_temp6"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorDivision"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/item_report" />
+
+                    <TextView
+                        android:id="@+id/item_temp7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="22dp"
+                        android:text="@{vm.getselectedItemOwner().nickname}"
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/item_temp6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="님의 판매 상품"
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/item_temp7"
+                        app:layout_constraintStart_toEndOf="@id/item_temp7"
+                        app:layout_constraintTop_toTopOf="@id/item_temp7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> av.startActivitySeeMore()}"
+                        android:text="더보기"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/item_temp7"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/item_temp7" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/item_rv_ownerItem"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintTop_toBottomOf="@id/item_temp7" />
+
+                    <LinearLayout
+                        android:id="@+id/item_temp8"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/colorDivision"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/item_rv_ownerItem" />
+
+                    <TextView
+                        android:id="@+id/item_tv_mynickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="22dp"
+
+                        android:hint="엉겅"
+                        android:text="@{vm.getCurrentUserObject().nickname}"
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/item_temp8" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="님, 이건 어때요? "
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/item_tv_mynickname"
+                        app:layout_constraintStart_toEndOf="@id/item_tv_mynickname"
+                        app:layout_constraintTop_toTopOf="@id/item_tv_mynickname" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/item_rv_recommenditem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/item_tv_mynickname" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -212,6 +323,8 @@
 
             <com.like.LikeButton
                 android:id="@+id/item_lb"
+                itemId="@{vm.getselectedItem().id}"
+                likeList="@{vm.getCurrentUserObject().likeList}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icon_size="24dp"

@@ -1,16 +1,21 @@
 package com.mvvm.mycarrot.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.like.LikeButton
 import com.like.OnLikeListener
 import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.adapter.OwnerItemRvAdapter
 import com.mvvm.mycarrot.databinding.ActivityItemBinding
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
@@ -21,6 +26,10 @@ class ItemActivity : AppCompatActivity() {
 
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: ActivityItemBinding
+    var ownerItemRvAdapter = OwnerItemRvAdapter()
+    var recommendItemRvAdapter = OwnerItemRvAdapter()
+    var customDialog = CustomProgressDialog(this)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,31 +45,82 @@ class ItemActivity : AppCompatActivity() {
             lifecycleOwner = this@ItemActivity
         }
 
-        homeViewModel.getIsLiked().observe(this, Observer { isLiked ->
-            item_lb.isLiked = isLiked
-        })
 
-        homeViewModel.getselectedItem().observe(this, Observer {
-            homeViewModel.checkIsLiked()
-        })
-
-        homeViewModel.getselectedItemOwner().observe(this, Observer {
-            homeViewModel.checkIsLiked()
-        })
-
-        initItemAndOwner()
         initLikeButtonListener() // LikeButton은 Databinding 이 안되기때문에 clickListener 해야함
+        initRvOwnerItem()
+        initRvRecommendItem()
+
+        homeViewModel.setSelectedItemOwnersItem()
+        homeViewModel.setSelectedItemRecommendItem()
+
+
+        homeViewModel.getselectedItemOwnersItem().observe(this, Observer { itemList ->
+            ownerItemRvAdapter.setList(itemList, 4)
+        })
+
+        homeViewModel.getselectedItemRecommendItem().observe(this, Observer { itemList->
+            recommendItemRvAdapter.setList(itemList,null)
+        })
+
+        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2) {
+                startItemActivity()
+            }
+        })
 
 
         item_test.setOnClickListener {
+            homeViewModel.test()
         }
     }
 
+    private fun initRvRecommendItem() {
+        binding.itemRvRecommenditem.run {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(this@ItemActivity, 2)
+            adapter = recommendItemRvAdapter
+        }
 
+        recommendItemRvAdapter.listener= object : OwnerItemRvAdapter.ClickListener {
+            override fun onClick(position: Int) {
+                beforeStartItemActivity(position)
+            }
+        }
+    }
+
+    private fun initRvOwnerItem() {
+        binding.itemRvOwnerItem.run {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(this@ItemActivity, 2)
+            adapter = ownerItemRvAdapter
+        }
+
+        ownerItemRvAdapter.listener = object : OwnerItemRvAdapter.ClickListener {
+            override fun onClick(position: Int) {
+                beforeStartItemActivity(position)
+            }
+
+        }
+    }
+
+    fun beforeStartItemActivity(position: Int) {
+        customDialog.show()
+        homeViewModel.setselectedItem(ownerItemRvAdapter.itemList[position].id!!)
+        homeViewModel.setselectedItemOwner(ownerItemRvAdapter.itemList[position].userId!!)
+    }
+
+    fun startItemActivity() {
+        customDialog.dismiss()
+        homeViewModel.clearIsStartItemActivity()
+        startActivity(Intent(this, ItemActivity::class.java))
+    }
+
+    fun startActivitySeeMore() {
+        Toast.makeText(this, "더보기", Toast.LENGTH_SHORT).show()
+    }
 
 
     private fun initLikeButtonListener() {
-        homeViewModel.checkIsLiked()
 
         item_lb.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton?) {
@@ -73,22 +133,4 @@ class ItemActivity : AppCompatActivity() {
         })
     }
 
-    fun <T, K, R> LiveData<T>.combineWith(
-        liveData: LiveData<K>,
-        block: (T?, K?) -> R
-    ): LiveData<R> {
-        val result = MediatorLiveData<R>()
-        result.addSource(this) {
-            result.value = block(this.value, liveData.value)
-        }
-        result.addSource(liveData) {
-            result.value = block(this.value, liveData.value)
-        }
-        return result
-    }
-
-    private fun initItemAndOwner() {
-        homeViewModel.selectedItem(intent.getStringExtra("itemId"))
-        homeViewModel.selectedItemOwner(intent.getStringExtra("ownerId"))
-    }
 }

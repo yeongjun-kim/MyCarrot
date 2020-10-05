@@ -23,6 +23,7 @@ import com.mvvm.mycarrot.view.LoginActivity
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.max
 
 class FirebaseRepository private constructor() {
@@ -43,11 +44,11 @@ class FirebaseRepository private constructor() {
      * extraArrange: 현재 lat, lang 기준 플러스마이너스 위경도 범위
      *
      * isSignSuccess: SigninActivity 에서 observe, 계정등록이 완료되면 true
-     * isSetupComplete: HomeFragment 에서 ItemActivity 로 넘어가기 전, selectedItem/selectedItemOwner 값을 모두 세팅 해야 true
+     * isStartItemActivity: HomeFragment 에서 ItemActivity 로 넘어가기 전, selectedItem/selectedItemOwner 값을 모두 세팅 해야 2
+     *
      * homeItemList: HomeFragent 에 보여질 item List
      * homeItemQuery: homeItemList 를 firestore 에서 get 할때 paging에 쓰기위함 (null = 첫페이지, not null = 첫페이지X)
      * selectedItem: HomeFragment 에서 클릭 한 Item (ItemActivity)
-     * selectedItemId: HomeFragment 에서 클릭 한 Item Document Id(ItemActivity)
      * selectedItemOwner: HomeFragment 에서 클릭 한 Item Owner (ItemActivity)
      */
 
@@ -66,13 +67,17 @@ class FirebaseRepository private constructor() {
 
     var isSignSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
     var isWriteSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
-    var isLiked:MutableLiveData<Boolean> = MutableLiveData(false)
+    var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
 
     var homeItemQuery: Query? = null
     var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
     var selectedItem = MutableLiveData(ItemObject())
     var selectedItemOwner = MutableLiveData(UserObject())
+    var selectedItemOwnersItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+
+    var testCount = 0
 
     companion object {
         @Volatile
@@ -90,44 +95,128 @@ class FirebaseRepository private constructor() {
         loginMode.value = 0
     }
 
-    fun getIsLiked() = isLiked
 
-    fun checkIsLiked(){
-        var user = selectedItemOwner.value
-        var item = selectedItem.value
-
-        isLiked.value = item!=null && user !=null && user.likeList.contains(item.id)
+    fun getIsStartItemActivity() = isStartItemActivity
+    fun clearIsStartItemActivity() {
+        isStartItemActivity.value = 0
     }
+
+    fun getselectedItem() = selectedItem
+    fun setSelectedItem(id: String) {
+        incrementLookup(id)
+
+        firebaseStore.collection("items")
+            .document(id)
+            .get()
+            .addOnSuccessListener { result ->
+                selectedItem.value = result.toObject(ItemObject::class.java)
+                isStartItemActivity.value = isStartItemActivity.value!!.plus(1)
+            }
+    }
+
+    fun getselectedItemOwner() = selectedItemOwner
+    fun setSelectedItemOwner(id: String) {
+        firebaseStore.collection("users")
+            .document(id)
+            .get()
+            .addOnSuccessListener { result ->
+                selectedItemOwner.value = result.toObject(UserObject::class.java)
+                isStartItemActivity.value = isStartItemActivity.value!!.plus(1)
+            }
+    }
+
+
+    /*
+    아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로
+    해당 Item과 같은 카테고리에 있는 다른 아이템 목록들을 selectedItemRecommendItem 에 저장한다.
+     */
+    fun getselectedItemRecommendItem() = selectedItemRecommendItem
+    fun setSelectedItemRecommendItem(itemObject: ItemObject = selectedItem.value!!) {
+        selectedItemRecommendItem.value = listOf()
+        var lat = currentUserObject.value!!.geoPoint.latitude
+        var long = currentUserObject.value!!.geoPoint.longitude
+        var minGeoPoint = GeoPoint(lat - extraArrange, long - extraArrange)
+        var maxGeoPoint = GeoPoint(lat + extraArrange, long + extraArrange)
+
+        firebaseStore.collection("items")
+            .whereEqualTo("id",itemObject.id)
+            .get()
+            .addOnSuccessListener {snapshot ->
+                firebaseStore.collection("items")
+                    .whereEqualTo("category",itemObject.category)
+                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                    .orderBy("geoPoint")
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .startAfter(snapshot.documents[0])
+                    .limit(10)
+                    .get()
+                    .addOnSuccessListener {result->
+                        if(result.isEmpty) return@addOnSuccessListener
+
+                        var tempList = mutableListOf<ItemObject>()
+                        result.forEach { item ->
+                            tempList.add(item.toObject(ItemObject::class.java))
+                        }
+
+                        selectedItemRecommendItem.value = tempList.toList()
+                    }
+            }
+
+    }
+
+
+    /*
+    아이템 Click 하여 selectedItemOwner 작업이 끝나면, 불리는 함수로
+    해당 Owner의 다른 아이템 목록들을 selectedItemOwnersItem 에 저장한다.
+     */
+    fun getselectedItemOwnersItem() = selectedItemOwnersItem
+    fun setSelectedItemOwnersItem(itemList: ArrayList<String> = selectedItemOwner.value!!.itemList) {
+        selectedItemOwnersItem.value = listOf()
+
+        itemList.forEach {
+            firebaseStore.collection("items")
+                .document(it)
+                .get()
+                .addOnSuccessListener { result ->
+                    var item = result.toObject(ItemObject::class.java)
+                    if (item!!.id == selectedItem.value!!.id) return@addOnSuccessListener // 현재 클릭한 상품과 같은정보면 저장 X
+
+                    var currentList = selectedItemOwnersItem.value
+                    var conversionList = currentList!!.toMutableList()
+
+                    conversionList.add(item!!)
+                    selectedItemOwnersItem.value = conversionList.toList()
+                }
+        }
+
+    }
+
 
     fun addToLikeList(id: String) {
         var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
         docRef.update("likeList", FieldValue.arrayUnion(id))
-            .addOnSuccessListener {
-                Log.d("fhrm", "FirebaseRepository -addToListList(),    : add Success")
-            }
+
+        updateCurrentUser()
         incrementLikeCount(id)
     }
 
     fun deleteFromLikeList(id: String) {
         var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
         docRef.update("likeList", FieldValue.arrayRemove(id))
-            .addOnSuccessListener {
-                Log.d("fhrm", "FirebaseRepository -addToListList(),    : delete Success")
-            }
+
+        updateCurrentUser()
         decrementLiktCount(id)
     }
 
 
-    fun getselectedItemOwner() = selectedItemOwner
-    fun getselectedItem() = selectedItem
-
-    fun incrementLikeCount(id:String){
+    fun incrementLikeCount(id: String) {
         firebaseStore.collection("items")
             .document(id)
             .update("likeCount", FieldValue.increment(1))
     }
 
-    fun decrementLiktCount(id:String){
+    fun decrementLiktCount(id: String) {
         firebaseStore.collection("items")
             .document(id)
             .update("likeCount", FieldValue.increment(-1))
@@ -137,28 +226,6 @@ class FirebaseRepository private constructor() {
         firebaseStore.collection("items")
             .document(id)
             .update("lookup", FieldValue.increment(1))
-    }
-
-    fun selectedItem(id: String) {
-        incrementLookup(id)
-
-        firebaseStore.collection("items")
-            .document(id)
-            .get()
-            .addOnSuccessListener { result ->
-                selectedItem.value = result.toObject(ItemObject::class.java)
-            }
-    }
-
-    fun selectedItemOwner(id: String) {
-
-        firebaseStore.collection("users")
-            .document(id)
-            .get()
-            .addOnSuccessListener { result ->
-                selectedItemOwner.value = result.toObject(UserObject::class.java)
-            }
-
     }
 
     fun clearHomeItem() {
@@ -237,6 +304,23 @@ class FirebaseRepository private constructor() {
             }
     }
 
+    /*
+    FireBase의 currentUserObject 에 변동사항이 생기면 갱신된 유저로 currentUserObject 업데이트 해줌
+     */
+    private fun updateCurrentUser() {
+        firebaseStore.collection("users")
+            .document(firebaseAuth.currentUser!!.uid)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful && task.result!!.exists()) {
+                    var document = task.result!!
+                    var user = document.toObject<UserObject>(UserObject::class.java)
+                    currentUserObject.value = user
+                    location.value = currentUserObject.value!!.location
+                }
+            }
+    }
+
     fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         firebaseAuth.signInWithCredential(credential)
@@ -262,7 +346,6 @@ class FirebaseRepository private constructor() {
     }
 
     suspend fun firebaseStorageInsertItemImage(uri: Uri): String {
-        Log.d("fhrm", "FirebaseRepository -firebaseStorageInsertItemImage(),    : here")
         var imageUrl = ""
         var imageFileName = "IMAGE_${SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())}.png"
 
@@ -272,7 +355,6 @@ class FirebaseRepository private constructor() {
             return@continueWithTask storageRef.downloadUrl
         }.addOnSuccessListener { uri ->
             imageUrl = uri.toString()
-            Log.d("fhrm", "FirebaseRepository -firebaseStorageInsertItemImage(),    : success")
         }.await()
         return imageUrl
     }
@@ -358,22 +440,17 @@ class FirebaseRepository private constructor() {
             .addOnSuccessListener { isWriteSuccess.value = true }
     }
 
-    /**
-     *
-     *
-     *
-     *
-     * 이거 이용해서 카테고리 할것
-     *
-     * var a =firebaseStore.collection("testCollection")
-     * var b = a.whereIn("c1",listOf("a","b")).whereEqualTo("c2","1").get().addOnSuccessListener {
-     * Log.d("fhrm", "FirebaseRepository -test(),    : ${it.documents}")
-     * }
-     *
-     *
-     */
-    suspend fun test() {
 
+    suspend fun test(): ItemObject {
+        lateinit var t: ItemObject
+        firebaseStore.collection("items")
+            .document("FKOAxjZKCicfz4SU4Slw")
+            .get()
+            .addOnSuccessListener { result ->
+                t = result.toObject(ItemObject::class.java)!!
+            }.await()
+
+        return t
     }
 
 }

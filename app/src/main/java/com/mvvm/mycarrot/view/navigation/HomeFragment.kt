@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide.init
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvAdapter
 import com.mvvm.mycarrot.databinding.FragmentHomeBinding
+import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
@@ -32,6 +33,7 @@ class HomeFragment : Fragment() {
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentHomeBinding
     var itemRvAdapter = ItemRvAdapter()
+    lateinit var customDialog:CustomProgressDialog
 
 
     override fun onCreateView(
@@ -44,6 +46,9 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        customDialog = CustomProgressDialog(activity!!)
+
         homeViewModel = ViewModelProvider(
             activity!!, HomeViewModel.Factory(activity!!.application)
         ).get(HomeViewModel::class.java)
@@ -58,11 +63,16 @@ class HomeFragment : Fragment() {
             itemRvAdapter.setList(itemList)
         })
 
-
+        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
+            if(isStartActivity ==2){
+                startItemActivity()
+            }
+        })
 
 
 
         btn_test.setOnClickListener {
+            homeViewModel.test()
         }
 
         initRv()
@@ -117,23 +127,29 @@ class HomeFragment : Fragment() {
         }
         itemRvAdapter.listener = object: ItemRvAdapter.ClickListener{
             override fun onClick(position: Int) {
-                startItemActivity(position)
+                beforeStartItemActivity(position)
             }
 
         }
         homeViewModel.setHomeItems()
+    }
+    fun beforeStartItemActivity(position:Int){
+        customDialog.show()
+        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!)
+        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!)
+    }
+
+    fun startItemActivity(){
+        customDialog.dismiss()
+        homeViewModel.clearIsStartItemActivity()
+        startActivity(Intent(activity,ItemActivity::class.java))
     }
 
     fun startSetupTownActivity() {
         startActivity(Intent(activity, SetupTownActivity::class.java))
     }
 
-    fun startItemActivity(position:Int){
-        var intent =Intent(activity,ItemActivity::class.java)
-        intent.putExtra("itemId",itemRvAdapter.itemList[position].id!!)
-        intent.putExtra("ownerId",itemRvAdapter.itemList[position].userId!!)
-        startActivity(intent)
-    }
+
 
     fun filterCategory() {
         homeViewModel.tempCategoryList = homeViewModel.categoryList.toMutableList()

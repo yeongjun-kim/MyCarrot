@@ -74,7 +74,6 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
     fun getUriList() = uriImageList
 
     fun test() {
-        Log.d("fhrm", "WriteViewModel -test(),    selectedCategory!!.text: ${getcategory().value}")
     }
 
     class Factory(val application: Application) : ViewModelProvider.Factory {

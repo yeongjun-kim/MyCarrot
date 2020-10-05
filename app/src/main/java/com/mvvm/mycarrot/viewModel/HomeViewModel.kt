@@ -4,13 +4,12 @@ package com.mvvm.mycarrot.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.mvvm.mycarrot.R
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.firestore.Query
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.DisposableHandle
-import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -18,22 +17,28 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
      *
      * isFromCategoryFragment: CategoryFm -> replace -> HomeFm 시 Category값이 변경되었나 확인하기 위함
      * tempCategoryList: CategoryFm -> HomeFm 시 카테고리의 변화가 있나 체크하기 위함(HomeFm에서 값 설정 후 CategoryFm로 넘어감)
+     * selectedItemOwnersItem: HomeFragment 에서 클릭 한 Item Owner 의 다른 상품들 목록 (ItemActivity)
+     * selectedItemRecommendItem: HomeFragment 에서 클릭 한 Item 과 같은 카테고리에 있는 추천 상품들 목록(ItemActivity)
      *
      */
 
     val firebaseRepository: FirebaseRepository
+    private val firebaseStore = FirebaseFirestore.getInstance()
     private var currentUserObject: MutableLiveData<UserObject>
     private var location: MutableLiveData<String>
     var selectedItem = MutableLiveData(ItemObject())
     var selectedItemOwner = MutableLiveData(UserObject())
-    var isLiked:MutableLiveData<Boolean> = MutableLiveData(false)
-
-
+    var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
+    var testCount = 0
 
     var userId: String? = null
     var userLocation: String? = null
     var progress = MutableLiveData(0)
     var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var selectedItemOwnersItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+
+
     var isFromCategoryFragment = false
     var categoryList = mutableListOf(
         "디지털/가전",
@@ -58,33 +63,29 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         homeItemList = firebaseRepository.getHomeItems()
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
-        isLiked = firebaseRepository.getIsLiked()
+        isStartItemActivity = firebaseRepository.getIsStartItemActivity()
+        selectedItemOwnersItem = firebaseRepository.getselectedItemOwnersItem()
+        selectedItemRecommendItem = firebaseRepository.getselectedItemRecommendItem()
+
+        testCount = firebaseRepository.testCount
     }
 
-    fun getIsLiked() = isLiked
-
-    fun checkIsLiked() = firebaseRepository.checkIsLiked()
-
-    fun addToLikeList(id: String) = firebaseRepository.addToLikeList(id)
-
-    fun deleteFromLikeList(id: String) = firebaseRepository.deleteFromLikeList(id)
-
+    fun setSelectedItemRecommendItem() = firebaseRepository.setSelectedItemRecommendItem()
+    fun getselectedItemRecommendItem() = selectedItemRecommendItem
+    fun setSelectedItemOwnersItem() = firebaseRepository.setSelectedItemOwnersItem()
+    fun getselectedItemOwnersItem() = selectedItemOwnersItem
+    fun clearIsStartItemActivity() = firebaseRepository.clearIsStartItemActivity()
+    fun getIsStartItemActivity() = firebaseRepository.getIsStartItemActivity()
     fun getselectedItem() = selectedItem
-
+    fun setselectedItem(id: String) = firebaseRepository.setSelectedItem(id)
     fun getselectedItemOwner() = selectedItemOwner
-
+    fun setselectedItemOwner(id: String) = firebaseRepository.setSelectedItemOwner(id)
+    fun addToLikeList(id: String) = firebaseRepository.addToLikeList(id)
+    fun deleteFromLikeList(id: String) = firebaseRepository.deleteFromLikeList(id)
     fun getCurrentUserObject() = currentUserObject
-
-    fun selectedItem(id: String) = firebaseRepository.selectedItem(id)
-
-    fun selectedItemOwner(id: String) = firebaseRepository.selectedItemOwner(id)
-
     fun clearHomeItem() = firebaseRepository.clearHomeItem()
-
     fun clearHomeItemQuery() = firebaseRepository.clearHomeItemQuery()
-
     fun getHomeItems() = homeItemList
-
     fun setHomeItems() = firebaseRepository.setHomeItems(categoryList)
 
     fun clickCustomCheckBox(clickString: String) {
@@ -101,8 +102,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         else firebaseRepository.extraArrange = 0.04
     }
 
+
     fun test() {
-        Log.d("fhrm", "HomeViewModel -test(),    : click")
+        Log.d("fhrm", "HomeViewModel -test(),    testCount: ${testCount}")
+        firebaseRepository.testCount+=1
     }
 
 

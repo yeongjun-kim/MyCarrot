@@ -76,5 +76,111 @@
     <item
         android:drawable="@drawable/frame_loading_24"
         android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_25"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_26"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_27"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_28"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_29"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_30"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_31"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_32"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_33"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_34"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_35"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_36"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_37"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_38"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_39"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_40"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_41"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_42"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_43"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_44"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_45"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_46"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_47"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_48"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_49"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_50"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_51"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_52"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_53"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_54"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_55"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_56"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_57"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_58"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/frame_loading_59"
+        android:duration="30" />
+
 </animation-list>
 

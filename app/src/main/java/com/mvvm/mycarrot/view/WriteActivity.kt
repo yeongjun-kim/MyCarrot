@@ -49,7 +49,6 @@ class WriteActivity : AppCompatActivity() {
         }
 
         writeViewModel.getUriList().observe(this) {
-            Log.d("fhrm", "change")
             adapter.setList(it)
         }
 
@@ -57,7 +56,6 @@ class WriteActivity : AppCompatActivity() {
 
 
         test3.setOnClickListener {
-            Log.d("fhrm", "WriteActivity -onCreate(),    writeViewModel.category.value: ${writeViewModel.category.value}")
         }
 
 

@@ -120,11 +120,9 @@ object BindingAdapters {
      */
     @JvmStatic
     @BindingAdapter(value = ["likeList", "itemId"], requireAll = false)
-    fun setLiked(testView: LikeButton, likeList: ArrayList<String>?, itemId: String?) {
+    fun setLiked(likeButton: LikeButton, likeList: ArrayList<String>?, itemId: String?) {
         if(likeList.isNullOrEmpty() || itemId.isNullOrBlank()) return
-        if (likeList!!.contains(itemId)) testView.isLiked = true
-
-        Log.d("fhrm", "BindingAdapters -settest(),    here")
+        likeButton.isLiked = likeList!!.contains(itemId)
     }
 
 
