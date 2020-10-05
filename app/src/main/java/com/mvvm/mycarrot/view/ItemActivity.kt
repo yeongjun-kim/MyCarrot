@@ -124,11 +124,11 @@ class ItemActivity : AppCompatActivity() {
 
         item_lb.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton?) {
-                homeViewModel.addToLikeList(homeViewModel.getselectedItem().value!!.id!!)
+                homeViewModel.addToLikeList(homeViewModel.getselectedItem().id!!)
             }
 
             override fun unLiked(likeButton: LikeButton?) {
-                homeViewModel.deleteFromLikeList(homeViewModel.getselectedItem().value!!.id!!)
+                homeViewModel.deleteFromLikeList(homeViewModel.getselectedItem().id!!)
             }
         })
     }

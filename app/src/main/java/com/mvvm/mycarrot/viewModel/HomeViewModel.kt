@@ -26,8 +26,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val firebaseStore = FirebaseFirestore.getInstance()
     private var currentUserObject: MutableLiveData<UserObject>
     private var location: MutableLiveData<String>
-    var selectedItem = MutableLiveData(ItemObject())
-    var selectedItemOwner = MutableLiveData(UserObject())
+
     var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
     var testCount = 0
 
@@ -35,6 +34,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var userLocation: String? = null
     var progress = MutableLiveData(0)
     var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+
+    var selectedItem = ItemObject()
+    var selectedItemOwner = UserObject()
     var selectedItemOwnersItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
@@ -117,5 +119,3 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
 }
-
-

@@ -72,8 +72,8 @@ class FirebaseRepository private constructor() {
     var homeItemQuery: Query? = null
     var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
-    var selectedItem = MutableLiveData(ItemObject())
-    var selectedItemOwner = MutableLiveData(UserObject())
+    var selectedItem = ItemObject()
+    var selectedItemOwner = UserObject()
     var selectedItemOwnersItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
@@ -109,7 +109,7 @@ class FirebaseRepository private constructor() {
             .document(id)
             .get()
             .addOnSuccessListener { result ->
-                selectedItem.value = result.toObject(ItemObject::class.java)
+                selectedItem = result.toObject(ItemObject::class.java)!!
                 isStartItemActivity.value = isStartItemActivity.value!!.plus(1)
             }
     }
@@ -120,7 +120,7 @@ class FirebaseRepository private constructor() {
             .document(id)
             .get()
             .addOnSuccessListener { result ->
-                selectedItemOwner.value = result.toObject(UserObject::class.java)
+                selectedItemOwner = result.toObject(UserObject::class.java)!!
                 isStartItemActivity.value = isStartItemActivity.value!!.plus(1)
             }
     }
@@ -131,7 +131,7 @@ class FirebaseRepository private constructor() {
     해당 Item과 같은 카테고리에 있는 다른 아이템 목록들을 selectedItemRecommendItem 에 저장한다.
      */
     fun getselectedItemRecommendItem() = selectedItemRecommendItem
-    fun setSelectedItemRecommendItem(itemObject: ItemObject = selectedItem.value!!) {
+    fun setSelectedItemRecommendItem(itemObject: ItemObject = selectedItem) {
         selectedItemRecommendItem.value = listOf()
         var lat = currentUserObject.value!!.geoPoint.latitude
         var long = currentUserObject.value!!.geoPoint.longitude
@@ -171,7 +171,7 @@ class FirebaseRepository private constructor() {
     해당 Owner의 다른 아이템 목록들을 selectedItemOwnersItem 에 저장한다.
      */
     fun getselectedItemOwnersItem() = selectedItemOwnersItem
-    fun setSelectedItemOwnersItem(itemList: ArrayList<String> = selectedItemOwner.value!!.itemList) {
+    fun setSelectedItemOwnersItem(itemList: ArrayList<String> = selectedItemOwner.itemList) {
         selectedItemOwnersItem.value = listOf()
 
         itemList.forEach {
@@ -180,7 +180,7 @@ class FirebaseRepository private constructor() {
                 .get()
                 .addOnSuccessListener { result ->
                     var item = result.toObject(ItemObject::class.java)
-                    if (item!!.id == selectedItem.value!!.id) return@addOnSuccessListener // 현재 클릭한 상품과 같은정보면 저장 X
+                    if (item!!.id == selectedItem.id) return@addOnSuccessListener // 현재 클릭한 상품과 같은정보면 저장 X
 
                     var currentList = selectedItemOwnersItem.value
                     var conversionList = currentList!!.toMutableList()
