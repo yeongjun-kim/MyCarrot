@@ -6,17 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.mvvm.mycarrot.R
 import kotlinx.android.synthetic.main.item_vp_write.view.*
 
 /**
- *
- * Image Uri List 이용
- *
+ * 
+ * Image Url List 이용
+ * 
  */
-class WriteVpAdapter(var uriList: ArrayList<Uri>) :
-    RecyclerView.Adapter<WriteVpAdapter.ViewHolder>() {
+class ItemVpAdapter(var urlList: ArrayList<String>) :
+    RecyclerView.Adapter<ItemVpAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -28,15 +27,15 @@ class WriteVpAdapter(var uriList: ArrayList<Uri>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.itemView.context)
-            .load(uriList[position])
+            .load(urlList[position])
             .into(holder.itemView.item_vp_iv)
     }
 
 
-    override fun getItemCount() = uriList.size
+    override fun getItemCount() = urlList.size
 
-    fun setList(inputList: ArrayList<Uri>){
-        uriList = inputList
+    fun setList(inputList: ArrayList<String>){
+        urlList = inputList
         notifyDataSetChanged()
     }
 }

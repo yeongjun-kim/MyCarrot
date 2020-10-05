@@ -12,11 +12,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.like.LikeButton
 import com.like.OnLikeListener
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.GridSpacingItemDecoration
+import com.mvvm.mycarrot.adapter.ItemVpAdapter
 import com.mvvm.mycarrot.adapter.OwnerItemRvAdapter
+import com.mvvm.mycarrot.adapter.WriteVpAdapter
 import com.mvvm.mycarrot.databinding.ActivityItemBinding
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
@@ -30,6 +33,7 @@ class ItemActivity : AppCompatActivity() {
     var ownerItemRvAdapter = OwnerItemRvAdapter()
     var recommendItemRvAdapter = OwnerItemRvAdapter()
     var customDialog = CustomProgressDialog(this)
+    private var vpAdapter = ItemVpAdapter(arrayListOf())
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +54,7 @@ class ItemActivity : AppCompatActivity() {
         initLikeButtonListener() // LikeButton은 Databinding 이 안되기때문에 clickListener 해야함
         initRvOwnerItem()
         initRvRecommendItem()
+        initVp()
 
         homeViewModel.setSelectedItemOwnersItem()
         homeViewModel.setSelectedItemRecommendItem()
@@ -74,6 +79,20 @@ class ItemActivity : AppCompatActivity() {
         item_test.setOnClickListener {
             homeViewModel.test()
         }
+    }
+
+    private fun initVp() {
+        binding.itemVp.adapter = vpAdapter
+        binding.itemVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        vpAdapter.setList(homeViewModel.getselectedItem().imageList)
+        binding.itemVp.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                Log.d("fhrm", "ItemActivity -onPageSelected(),    position: ${position}")
+            }
+        })
+
+        binding.itemCi.setViewPager(binding.itemVp) // ViewPager White Dot Indicator
     }
 
     private fun initRvRecommendItem() {
