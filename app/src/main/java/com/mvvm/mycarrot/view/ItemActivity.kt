@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.like.LikeButton
 import com.like.OnLikeListener
 import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.adapter.GridSpacingItemDecoration
 import com.mvvm.mycarrot.adapter.OwnerItemRvAdapter
 import com.mvvm.mycarrot.databinding.ActivityItemBinding
 import com.mvvm.mycarrot.model.ItemObject
@@ -59,6 +60,7 @@ class ItemActivity : AppCompatActivity() {
         })
 
         homeViewModel.getselectedItemRecommendItem().observe(this, Observer { itemList->
+            Log.d("fhrm", "ItemActivity -onCreate(),    itemList.size: ${itemList.size}")
             recommendItemRvAdapter.setList(itemList,null)
         })
 
@@ -78,12 +80,13 @@ class ItemActivity : AppCompatActivity() {
         binding.itemRvRecommenditem.run {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(this@ItemActivity, 2)
+            addItemDecoration(GridSpacingItemDecoration(2,50,false))
             adapter = recommendItemRvAdapter
         }
 
         recommendItemRvAdapter.listener= object : OwnerItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
-                beforeStartItemActivity(position)
+                beforeStartItemActivity(position,recommendItemRvAdapter)
             }
         }
     }
@@ -92,21 +95,22 @@ class ItemActivity : AppCompatActivity() {
         binding.itemRvOwnerItem.run {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(this@ItemActivity, 2)
+            addItemDecoration(GridSpacingItemDecoration(2,50,false))
             adapter = ownerItemRvAdapter
         }
 
         ownerItemRvAdapter.listener = object : OwnerItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
-                beforeStartItemActivity(position)
+                beforeStartItemActivity(position,ownerItemRvAdapter)
             }
 
         }
     }
 
-    fun beforeStartItemActivity(position: Int) {
+    fun beforeStartItemActivity(position: Int, adapter:OwnerItemRvAdapter) {
         customDialog.show()
-        homeViewModel.setselectedItem(ownerItemRvAdapter.itemList[position].id!!)
-        homeViewModel.setselectedItemOwner(ownerItemRvAdapter.itemList[position].userId!!)
+        homeViewModel.setselectedItem(adapter.itemList[position].id!!)
+        homeViewModel.setselectedItemOwner(adapter.itemList[position].userId!!)
     }
 
     fun startItemActivity() {

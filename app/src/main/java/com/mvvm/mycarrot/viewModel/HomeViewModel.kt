@@ -66,16 +66,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
-        selectedItemOwnersItem = firebaseRepository.getselectedItemOwnersItem()
-        selectedItemRecommendItem = firebaseRepository.getselectedItemRecommendItem()
-
-        testCount = firebaseRepository.testCount
     }
 
-    fun setSelectedItemRecommendItem() = firebaseRepository.setSelectedItemRecommendItem()
-    fun getselectedItemRecommendItem() = selectedItemRecommendItem
-    fun setSelectedItemOwnersItem() = firebaseRepository.setSelectedItemOwnersItem()
-    fun getselectedItemOwnersItem() = selectedItemOwnersItem
+
     fun clearIsStartItemActivity() = firebaseRepository.clearIsStartItemActivity()
     fun getIsStartItemActivity() = firebaseRepository.getIsStartItemActivity()
     fun getselectedItem() = selectedItem
@@ -89,6 +82,89 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun clearHomeItemQuery() = firebaseRepository.clearHomeItemQuery()
     fun getHomeItems() = homeItemList
     fun setHomeItems() = firebaseRepository.setHomeItems(categoryList)
+
+
+
+
+    /*
+아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로
+해당 Item과 같은 카테고리에 있는 다른 아이템 목록들을 selectedItemRecommendItem 에 저장한다.
+ */
+    fun getselectedItemRecommendItem() = selectedItemRecommendItem
+    fun setSelectedItemRecommendItem(itemObject: ItemObject = selectedItem) {
+        var lat = currentUserObject.value!!.geoPoint.latitude
+        var long = currentUserObject.value!!.geoPoint.longitude
+        var minGeoPoint = GeoPoint(lat - firebaseRepository.extraArrange, long - firebaseRepository.extraArrange)
+        var maxGeoPoint = GeoPoint(lat + firebaseRepository.extraArrange, long + firebaseRepository.extraArrange)
+
+        firebaseStore.collection("items")
+            .whereEqualTo("id",itemObject.id)
+            .get()
+            .addOnSuccessListener {snapshot ->
+                firebaseStore.collection("items")
+                    .whereEqualTo("category",itemObject.category)
+                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                    .orderBy("geoPoint")
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .startAfter(snapshot.documents[0])
+                    .limit(10)
+                    .get()
+                    .addOnSuccessListener {result->
+                        if(result.isEmpty) return@addOnSuccessListener
+
+                        var tempList = mutableListOf<ItemObject>()
+                        result.forEach { item ->
+                            tempList.add(item.toObject(ItemObject::class.java))
+                        }
+
+                        selectedItemRecommendItem.value = tempList.toList()
+                    }
+            }
+
+    }
+
+
+    /*
+    아이템 Click 하여 selectedItemOwner 작업이 끝나면, 불리는 함수로
+    해당 Owner의 다른 아이템 목록들을 selectedItemOwnersItem 에 저장한다.
+     */
+    fun getselectedItemOwnersItem() = selectedItemOwnersItem
+    fun setSelectedItemOwnersItem(itemList: ArrayList<String> = selectedItemOwner.itemList) {
+        itemList.forEach {
+            firebaseStore.collection("items")
+                .document(it)
+                .get()
+                .addOnSuccessListener { result ->
+                    var item = result.toObject(ItemObject::class.java)
+                    if (item!!.id == selectedItem.id) return@addOnSuccessListener // 현재 클릭한 상품과 같은정보면 저장 X
+
+                    var currentList = selectedItemOwnersItem.value
+                    var conversionList = currentList!!.toMutableList()
+
+                    conversionList.add(item!!)
+                    selectedItemOwnersItem.value = conversionList.toList()
+                }
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     fun clickCustomCheckBox(clickString: String) {
         // TODO("여기서 전체해제 됐을때 최소한 하나는 선택되어야 한다고 하고 그런 작업 들어가야함")

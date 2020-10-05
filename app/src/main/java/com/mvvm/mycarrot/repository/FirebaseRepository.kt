@@ -126,71 +126,7 @@ class FirebaseRepository private constructor() {
     }
 
 
-    /*
-    아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로
-    해당 Item과 같은 카테고리에 있는 다른 아이템 목록들을 selectedItemRecommendItem 에 저장한다.
-     */
-    fun getselectedItemRecommendItem() = selectedItemRecommendItem
-    fun setSelectedItemRecommendItem(itemObject: ItemObject = selectedItem) {
-        selectedItemRecommendItem.value = listOf()
-        var lat = currentUserObject.value!!.geoPoint.latitude
-        var long = currentUserObject.value!!.geoPoint.longitude
-        var minGeoPoint = GeoPoint(lat - extraArrange, long - extraArrange)
-        var maxGeoPoint = GeoPoint(lat + extraArrange, long + extraArrange)
 
-        firebaseStore.collection("items")
-            .whereEqualTo("id",itemObject.id)
-            .get()
-            .addOnSuccessListener {snapshot ->
-                firebaseStore.collection("items")
-                    .whereEqualTo("category",itemObject.category)
-                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
-                    .orderBy("geoPoint")
-                    .orderBy("timestamp", Query.Direction.DESCENDING)
-                    .startAfter(snapshot.documents[0])
-                    .limit(10)
-                    .get()
-                    .addOnSuccessListener {result->
-                        if(result.isEmpty) return@addOnSuccessListener
-
-                        var tempList = mutableListOf<ItemObject>()
-                        result.forEach { item ->
-                            tempList.add(item.toObject(ItemObject::class.java))
-                        }
-
-                        selectedItemRecommendItem.value = tempList.toList()
-                    }
-            }
-
-    }
-
-
-    /*
-    아이템 Click 하여 selectedItemOwner 작업이 끝나면, 불리는 함수로
-    해당 Owner의 다른 아이템 목록들을 selectedItemOwnersItem 에 저장한다.
-     */
-    fun getselectedItemOwnersItem() = selectedItemOwnersItem
-    fun setSelectedItemOwnersItem(itemList: ArrayList<String> = selectedItemOwner.itemList) {
-        selectedItemOwnersItem.value = listOf()
-
-        itemList.forEach {
-            firebaseStore.collection("items")
-                .document(it)
-                .get()
-                .addOnSuccessListener { result ->
-                    var item = result.toObject(ItemObject::class.java)
-                    if (item!!.id == selectedItem.id) return@addOnSuccessListener // 현재 클릭한 상품과 같은정보면 저장 X
-
-                    var currentList = selectedItemOwnersItem.value
-                    var conversionList = currentList!!.toMutableList()
-
-                    conversionList.add(item!!)
-                    selectedItemOwnersItem.value = conversionList.toList()
-                }
-        }
-
-    }
 
 
     fun addToLikeList(id: String) {
