@@ -1,10 +1,15 @@
 package com.mvvm.mycarrot.view
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -19,10 +24,7 @@ import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.GridSpacingItemDecoration
 import com.mvvm.mycarrot.adapter.ItemVpAdapter
 import com.mvvm.mycarrot.adapter.OwnerItemRvAdapter
-import com.mvvm.mycarrot.adapter.WriteVpAdapter
 import com.mvvm.mycarrot.databinding.ActivityItemBinding
-import com.mvvm.mycarrot.model.ItemObject
-import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.activity_item.*
 
@@ -34,6 +36,7 @@ class ItemActivity : AppCompatActivity() {
     var recommendItemRvAdapter = OwnerItemRvAdapter()
     var customDialog = CustomProgressDialog(this)
     private var vpAdapter = ItemVpAdapter(arrayListOf())
+    var flag = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,23 +53,29 @@ class ItemActivity : AppCompatActivity() {
             lifecycleOwner = this@ItemActivity
         }
 
-
+        initStatusBar()
         initLikeButtonListener() // LikeButton은 Databinding 이 안되기때문에 clickListener 해야함
         initRvOwnerItem()
         initRvRecommendItem()
         initVp()
+        initOtherItemList()
 
-        homeViewModel.setSelectedItemOwnersItem()
-        homeViewModel.setSelectedItemRecommendItem()
+        item_nsv.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            if (scrollY < 900) changeTopLayoutColor("toTransparent")
+            else changeTopLayoutColor("toWhite")
+        }
+
+
+
 
 
         homeViewModel.getselectedItemOwnersItem().observe(this, Observer { itemList ->
             ownerItemRvAdapter.setList(itemList, 4)
         })
 
-        homeViewModel.getselectedItemRecommendItem().observe(this, Observer { itemList->
+        homeViewModel.getselectedItemRecommendItem().observe(this, Observer { itemList ->
             Log.d("fhrm", "ItemActivity -onCreate(),    itemList.size: ${itemList.size}")
-            recommendItemRvAdapter.setList(itemList,null)
+            recommendItemRvAdapter.setList(itemList, null)
         })
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
@@ -77,15 +86,35 @@ class ItemActivity : AppCompatActivity() {
 
 
         item_test.setOnClickListener {
-            homeViewModel.test()
+            startActivity(Intent(this, MainActivity::class.java))
         }
+    }
+
+    private fun changeTopLayoutColor(input: String) {
+        if (input == "toTransparent") {
+            binding.itemClTop.setBackgroundColor(Color.parseColor("#00000000"))
+            binding.itemIvBackpress.setImageResource(R.drawable.ic_arrow_back_white_14dp)
+            binding.itemTemp10.visibility = View.GONE
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        } else {
+            binding.itemClTop.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            binding.itemIvBackpress.setImageResource(R.drawable.ic_arrow_back_black_14dp)
+            binding.itemTemp10.visibility = View.VISIBLE
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+    }
+
+
+    private fun initOtherItemList() {
+        homeViewModel.setSelectedItemOwnersItem()
+        homeViewModel.setSelectedItemRecommendItem()
     }
 
     private fun initVp() {
         binding.itemVp.adapter = vpAdapter
         binding.itemVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         vpAdapter.setList(homeViewModel.getselectedItem().imageList)
-        binding.itemVp.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
+        binding.itemVp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 Log.d("fhrm", "ItemActivity -onPageSelected(),    position: ${position}")
@@ -99,13 +128,13 @@ class ItemActivity : AppCompatActivity() {
         binding.itemRvRecommenditem.run {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(this@ItemActivity, 2)
-            addItemDecoration(GridSpacingItemDecoration(2,50,false))
+            addItemDecoration(GridSpacingItemDecoration(2, 50, false))
             adapter = recommendItemRvAdapter
         }
 
-        recommendItemRvAdapter.listener= object : OwnerItemRvAdapter.ClickListener {
+        recommendItemRvAdapter.listener = object : OwnerItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
-                beforeStartItemActivity(position,recommendItemRvAdapter)
+                beforeStartItemActivity(position, recommendItemRvAdapter)
             }
         }
     }
@@ -114,23 +143,24 @@ class ItemActivity : AppCompatActivity() {
         binding.itemRvOwnerItem.run {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(this@ItemActivity, 2)
-            addItemDecoration(GridSpacingItemDecoration(2,50,false))
+            addItemDecoration(GridSpacingItemDecoration(2, 50, false))
             adapter = ownerItemRvAdapter
         }
 
         ownerItemRvAdapter.listener = object : OwnerItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
-                beforeStartItemActivity(position,ownerItemRvAdapter)
+                beforeStartItemActivity(position, ownerItemRvAdapter)
             }
 
         }
     }
 
-    fun beforeStartItemActivity(position: Int, adapter:OwnerItemRvAdapter) {
+    fun beforeStartItemActivity(position: Int, adapter: OwnerItemRvAdapter) {
         customDialog.show()
         homeViewModel.setselectedItem(adapter.itemList[position].id!!)
         homeViewModel.setselectedItemOwner(adapter.itemList[position].userId!!)
     }
+
 
     fun startItemActivity() {
         customDialog.dismiss()
@@ -139,7 +169,10 @@ class ItemActivity : AppCompatActivity() {
     }
 
     fun startActivitySeeMore() {
-        Toast.makeText(this, "더보기", Toast.LENGTH_SHORT).show()
+        homeViewModel.saveSelectedItemOwnersItem()
+        var intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("fromItemActivity",true)
+        startActivity(intent)
     }
 
 
@@ -154,6 +187,15 @@ class ItemActivity : AppCompatActivity() {
                 homeViewModel.deleteFromLikeList(homeViewModel.getselectedItem().id!!)
             }
         })
+    }
+
+    private fun initStatusBar() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        window.statusBarColor = Color.TRANSPARENT
     }
 
 }

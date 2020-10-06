@@ -1,10 +1,7 @@
 package com.mvvm.mycarrot.view.navigation
 
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide.init
-
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvAdapter
 import com.mvvm.mycarrot.databinding.FragmentHomeBinding
 import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.ItemActivity
-import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
-import com.sucho.placepicker.Constants
-import com.sucho.placepicker.MapType
-import com.sucho.placepicker.PlacePicker
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {

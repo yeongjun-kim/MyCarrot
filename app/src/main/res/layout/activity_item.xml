@@ -16,17 +16,21 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:context=".view.ItemActivity">
+
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/item_nsv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8">
+            app:layout_constraintBottom_toTopOf="@id/item_temp9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/item_cl_1"
@@ -41,14 +45,16 @@
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <me.relex.circleindicator.CircleIndicator3
                     android:id="@+id/item_ci"
                     android:layout_width="match_parent"
+                    android:layout_height="48dp"
                     app:layout_constraintBottom_toBottomOf="@id/item_vp"
-                    app:layout_constraintStart_toStartOf="@id/item_vp"
                     app:layout_constraintEnd_toEndOf="@id/item_vp"
-                    android:layout_height="48dp"/>
+                    app:layout_constraintStart_toStartOf="@id/item_vp" />
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/item_cl_2"
@@ -84,7 +90,7 @@
                         app:layout_constraintTop_toTopOf="@id/item_iv_profile" />
 
                     <TextView
-                        DongText="@{vm.getselectedItem().userLocation}"
+                        android:text="@{vm.getselectedItem().userLocation}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="엉겅동"
@@ -311,19 +317,62 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_cl_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/item_iv_backpress"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:onClick="@{() -> av.onBackPressed()}"
+                android:src="@drawable/ic_arrow_back_white_14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.8"
+                app:layout_constraintHorizontal_bias="0.024"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/item_temp10"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="1dp"
+                android:background="@color/colorDivision"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/item_temp9"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@color/colorDivision"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/item_cl_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_cl_4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.like.LikeButton
                 android:id="@+id/item_lb"
@@ -391,5 +440,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

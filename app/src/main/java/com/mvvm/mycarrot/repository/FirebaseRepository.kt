@@ -50,6 +50,7 @@ class FirebaseRepository private constructor() {
      * homeItemQuery: homeItemList 를 firestore 에서 get 할때 paging에 쓰기위함 (null = 첫페이지, not null = 첫페이지X)
      * selectedItem: HomeFragment 에서 클릭 한 Item (ItemActivity)
      * selectedItemOwner: HomeFragment 에서 클릭 한 Item Owner (ItemActivity)
+     * selectedItemOwnersItem: ItemActivity 에서 [더보기] 클릭시 SeemoreViewModel 에서 가져가 SeeMoreActivity 에서 보여줄 List
      */
 
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -74,8 +75,7 @@ class FirebaseRepository private constructor() {
 
     var selectedItem = ItemObject()
     var selectedItemOwner = UserObject()
-    var selectedItemOwnersItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
-    var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var selectedItemOwnersItem: List<ItemObject> = listOf()
 
     var testCount = 0
 

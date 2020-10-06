@@ -1,9 +1,11 @@
 package com.mvvm.mycarrot.view
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -39,9 +41,13 @@ class LoginActivity : AppCompatActivity() {
         viewModel.getLoginMode().observe(this) { loginMode ->
             viewModel.clear()
             if (loginMode == 1) startActivity(Intent(this, SignupActivity::class.java))
-            else if (loginMode == 2) startActivity(Intent(this, MainActivity::class.java))
+            else if (loginMode == 2) {
+                startActivity(Intent(this, MainActivity::class.java))
+                this@LoginActivity.finish()
+            }
         }
 
+        initStatusBar()
         setPermission()
     }
 
@@ -86,6 +92,10 @@ class LoginActivity : AppCompatActivity() {
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             )
             .check()
+    }
+    private fun initStatusBar() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.statusBarColor = Color.TRANSPARENT
     }
 
     companion object {

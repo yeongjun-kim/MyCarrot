@@ -149,7 +149,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-
+    fun saveSelectedItemOwnersItem(){
+        firebaseRepository.selectedItemOwnersItem = selectedItemOwnersItem.value!!
+    }
 
 
 
