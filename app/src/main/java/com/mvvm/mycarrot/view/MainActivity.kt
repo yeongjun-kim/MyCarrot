@@ -104,10 +104,15 @@ class MainActivity : AppCompatActivity() {
         isFromItemActivity = intent.getBooleanExtra("fromItemActivity", false)
 
 
-        testtest.setOnClickListener { test() }
 
         initDefulatFragment()
         initStatusBar()
+
+
+
+        test_btn1.setOnClickListener {
+            startActivity(Intent(this,TestActivity::class.java))
+        }
     }
 
     private fun initStatusBar() {

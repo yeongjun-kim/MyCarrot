@@ -11,7 +11,7 @@ import com.mvvm.mycarrot.databinding.ItemRvOwneritemHorizontalBinding
 import com.mvvm.mycarrot.model.ItemObject
 import kotlinx.android.synthetic.main.activity_item.view.*
 
-class OwnerItemRvAdapter: RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHolder>() {
+class OwnerItemRvAdapterHorizontal: RecyclerView.Adapter<OwnerItemRvAdapterHorizontal.CustomViewHolder>() {
 
     interface ClickListener{
         fun onClick(position:Int)
@@ -24,7 +24,7 @@ class OwnerItemRvAdapter: RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHold
         return CustomViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_rv_owneritem,
+                R.layout.item_rv_owneritem_horizontal,
                 parent, false), listener
         )
     }
@@ -45,7 +45,7 @@ class OwnerItemRvAdapter: RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHold
     }
 
 
-    inner class CustomViewHolder(val binding:ItemRvOwneritemBinding, val listener:ClickListener?) : RecyclerView.ViewHolder(binding.root) {
+    inner class CustomViewHolder(val binding:ItemRvOwneritemHorizontalBinding, val listener:ClickListener?) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener { listener?.onClick(adapterPosition) }
         }

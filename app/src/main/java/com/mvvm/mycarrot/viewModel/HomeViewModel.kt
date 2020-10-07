@@ -113,15 +113,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     .addOnSuccessListener {result->
                         if(result.isEmpty) return@addOnSuccessListener
 
-                        var tempList = mutableListOf<ItemObject>()
-                        result.forEach { item ->
-                            tempList.add(item.toObject(ItemObject::class.java))
-                        }
-
-                        selectedItemRecommendItem.value = tempList.toList()
+                        selectedItemRecommendItem.value = result.map { it.toObject(ItemObject::class.java) }
                     }
             }
-
     }
 
 

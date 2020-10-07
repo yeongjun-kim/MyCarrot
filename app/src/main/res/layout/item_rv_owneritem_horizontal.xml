@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.mvvm.mycarrot.model.ItemObject" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/item_rv_owneritem_iv"
+            FirstImage="@{item.imageList[0]}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="4:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_rv_ownerItem_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="title"
+            android:text="@{item.title}"
+            android:layout_marginStart="6dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_rv_owneritem_iv" />
+
+        <TextView
+            DecimalFormat="@{item.price}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:hint="5000원"
+            android:textColor="#000"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/item_rv_ownerItem_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/item_rv_ownerItem_tv_title" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

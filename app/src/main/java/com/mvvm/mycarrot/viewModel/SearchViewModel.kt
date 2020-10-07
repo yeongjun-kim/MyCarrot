@@ -1,0 +1,111 @@
+package com.mvvm.mycarrot.viewModel
+
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.firestore.Query
+import com.mvvm.mycarrot.model.ItemObject
+import com.mvvm.mycarrot.model.UserObject
+import com.mvvm.mycarrot.repository.FirebaseRepository
+
+class SearchViewModel(application: Application) : AndroidViewModel(application) {
+
+
+    private val firebaseRepository: FirebaseRepository
+    private val firebaseStore: FirebaseFirestore
+    private var currentUserObject: MutableLiveData<UserObject>
+    private var hotItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var recommendItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+
+
+    init {
+        firebaseRepository = FirebaseRepository.getInstance()
+        firebaseStore = FirebaseFirestore.getInstance()
+        currentUserObject = firebaseRepository.getCurretUser()
+    }
+
+    fun getCurrentUserObject() = currentUserObject
+
+
+    /*
+     같은 범위 내에 모든 document 를 긁어온후, GeoPoint DESC 정렬
+     result 를 lookup(조회) DESC 순으로 정렬
+     result 가 10 이상일시 10개만 subList
+     */
+    fun getHotItemList() = hotItemList
+
+    fun setHotItemList() {
+        var lat = currentUserObject.value!!.geoPoint.latitude
+        var long = currentUserObject.value!!.geoPoint.longitude
+        var minGeoPoint =
+            GeoPoint(lat - firebaseRepository.extraArrange, long - firebaseRepository.extraArrange)
+        var maxGeoPoint =
+            GeoPoint(lat + firebaseRepository.extraArrange, long + firebaseRepository.extraArrange)
+
+        firebaseStore.collection("items")
+            .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+            .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+            .orderBy("geoPoint", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                if (result.isEmpty) return@addOnSuccessListener
+
+                var allReulstList = result.map { it.toObject(ItemObject::class.java) }
+                    .sortedByDescending { it.lookup }
+                if (allReulstList.size > 10) allReulstList = allReulstList.subList(0, 10)
+
+                hotItemList.value = allReulstList
+            }
+    }
+
+
+    /*
+     같은 범위 내에 모든 document 를 긁어온후, GeoPoint ASC 정렬
+     result 가 20 미만일시 그대로 set
+     result 가 20 이상일시 사이즈만큼 난수를 만들고, 랜덤으로 셔플 후 20개만 추출하여 set
+     */
+    fun getRecommendItemList() = recommendItemList
+
+    fun setRecommendItemList() {
+        var lat = currentUserObject.value!!.geoPoint.latitude
+        var long = currentUserObject.value!!.geoPoint.longitude
+        var minGeoPoint =
+            GeoPoint(lat - firebaseRepository.extraArrange, long - firebaseRepository.extraArrange)
+        var maxGeoPoint =
+            GeoPoint(lat + firebaseRepository.extraArrange, long + firebaseRepository.extraArrange)
+
+        firebaseStore.collection("items")
+            .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+            .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+            .orderBy("geoPoint")
+            .get()
+            .addOnSuccessListener { result ->
+                if (result.isEmpty) return@addOnSuccessListener
+
+                var allReulstList = result.map { it.toObject(ItemObject::class.java) }
+                if (allReulstList.size > 20) {
+                    var randomIndex =
+                        (0 until allReulstList.size).shuffled().subList(0, 20) // Make Random Index
+                    allReulstList = randomIndex.map { index -> allReulstList[index] }
+                }
+
+                recommendItemList.value = allReulstList
+            }
+    }
+
+    fun test() {
+        Log.d("fhrm", "SearchViewModel -test(),    hotItemList.value: ${hotItemList.value}")
+    }
+
+
+    class Factory(val application: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return SearchViewModel(application) as T
+        }
+    }
+}
