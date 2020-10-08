@@ -3,10 +3,8 @@ package com.mvvm.mycarrot.view
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -16,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.WriteVpAdapter
 import com.mvvm.mycarrot.databinding.ActivityWriteBinding
-import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.WriteViewModel
 import kotlinx.android.synthetic.main.activity_write.*
 
@@ -77,7 +74,7 @@ class WriteActivity : AppCompatActivity() {
     }
 
     fun startCategoryActivity() {
-        startActivity(Intent(this, CategoryActivity::class.java))
+        startActivity(Intent(this, WriteCategoryActivity::class.java))
     }
 
     fun getAlbum() {

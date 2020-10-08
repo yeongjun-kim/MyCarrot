@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.test.TestActivity
+import com.mvvm.mycarrot.test.TestFragment
 import com.mvvm.mycarrot.view.navigation.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     var chatFragment = ChatFragment()
     var myFragment = MyFragment()
     var seeMoreFragment = SeeMoreFragment()
+    var testFragment = TestFragment()
+
     var isFromItemActivity = false
 
     private lateinit var textMessage: TextView
@@ -28,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     var currentFragment = supportFragmentManager.findFragmentById(R.id.main_fl)
-                    if (isFromItemActivity && currentFragment==seeMoreFragment) destroyBackStackAndStartMainActivity()
+                    if (isFromItemActivity && currentFragment == seeMoreFragment) destroyBackStackAndStartMainActivity()
 
 
                     lateinit var replaceFragment: Fragment
@@ -111,7 +115,7 @@ class MainActivity : AppCompatActivity() {
 
 
         test_btn1.setOnClickListener {
-            startActivity(Intent(this,TestActivity::class.java))
+            test()
         }
     }
 
@@ -121,6 +125,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun test() {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.fade_in,
+                R.anim.fade_out
+            )
+            .replace(R.id.main_fl, testFragment)
+            .commit()
+//        startActivity(Intent(this, TestActivity::class.java))
     }
 
 

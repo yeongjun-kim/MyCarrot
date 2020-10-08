@@ -23,8 +23,10 @@ class HomeFragment : Fragment() {
 
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentHomeBinding
-    var itemRvAdapter = ItemRvAdapter()
     lateinit var customDialog:CustomProgressDialog
+    var itemRvAdapter = ItemRvAdapter()
+    var isFirstCreate = true
+
 
 
     override fun onCreateView(
@@ -63,7 +65,7 @@ class HomeFragment : Fragment() {
 
 
         btn_test.setOnClickListener {
-            homeViewModel.test()
+            refreshItem()
         }
 
         initRv()
@@ -122,7 +124,10 @@ class HomeFragment : Fragment() {
             }
 
         }
-        homeViewModel.setHomeItems()
+        if(isFirstCreate){
+            homeViewModel.setHomeItems()
+            isFirstCreate = false
+        }
     }
     fun beforeStartItemActivity(position:Int){
         customDialog.show()
@@ -146,23 +151,9 @@ class HomeFragment : Fragment() {
         homeViewModel.tempCategoryList = homeViewModel.categoryList.toMutableList()
         activity!!.supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-            .replace(R.id.main_fl, CategoryFragment())
+            .replace(R.id.main_fl, FilterCategoryFragment())
             .commit()
     }
 
 
 }
-
-
-//아이템 겟
-//
-//이 조건으로 firebaseStore get 하는거 코드 만들것
-//
-//
-//query 조건
-//1. lat+extraArrange, long+extraArrange
-//1. wherein category
-//1. orderby timestamp
-//1. 닷limit()
-//1. get은 paging
-

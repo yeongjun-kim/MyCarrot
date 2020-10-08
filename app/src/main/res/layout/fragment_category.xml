@@ -10,14 +10,14 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.navigation.CategoryFragment" />
+            type="com.mvvm.mycarrot.view.navigation.FilterCategoryFragment" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.navigation.CategoryFragment">
+        tools:context=".view.navigation.FilterCategoryFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

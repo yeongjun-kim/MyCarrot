@@ -7,14 +7,14 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.CategoryActivity" />
+            type="com.mvvm.mycarrot.view.WriteCategoryActivity" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.CategoryActivity">
+        tools:context=".view.WriteCategoryActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

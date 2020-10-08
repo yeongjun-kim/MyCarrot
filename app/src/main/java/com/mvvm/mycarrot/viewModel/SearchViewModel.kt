@@ -21,6 +21,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private var currentUserObject: MutableLiveData<UserObject>
     private var hotItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     private var recommendItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var categoryItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var categoryItemQuery: Query? = null
+
 
 
     init {
@@ -40,12 +43,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun getHotItemList() = hotItemList
 
     fun setHotItemList() {
-        var lat = currentUserObject.value!!.geoPoint.latitude
-        var long = currentUserObject.value!!.geoPoint.longitude
-        var minGeoPoint =
-            GeoPoint(lat - firebaseRepository.extraArrange, long - firebaseRepository.extraArrange)
-        var maxGeoPoint =
-            GeoPoint(lat + firebaseRepository.extraArrange, long + firebaseRepository.extraArrange)
+        var minGeoPoint =firebaseRepository.getMinGeoPoint()
+        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
 
         firebaseStore.collection("items")
             .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
@@ -55,11 +54,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             .addOnSuccessListener { result ->
                 if (result.isEmpty) return@addOnSuccessListener
 
-                var allReulstList = result.map { it.toObject(ItemObject::class.java) }
+                var allResultList = result.map { it.toObject(ItemObject::class.java) }
                     .sortedByDescending { it.lookup }
-                if (allReulstList.size > 10) allReulstList = allReulstList.subList(0, 10)
+                if (allResultList.size > 10) allResultList = allResultList.subList(0, 10)
 
-                hotItemList.value = allReulstList
+                hotItemList.value = allResultList
             }
     }
 
@@ -72,12 +71,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun getRecommendItemList() = recommendItemList
 
     fun setRecommendItemList() {
-        var lat = currentUserObject.value!!.geoPoint.latitude
-        var long = currentUserObject.value!!.geoPoint.longitude
-        var minGeoPoint =
-            GeoPoint(lat - firebaseRepository.extraArrange, long - firebaseRepository.extraArrange)
-        var maxGeoPoint =
-            GeoPoint(lat + firebaseRepository.extraArrange, long + firebaseRepository.extraArrange)
+        var minGeoPoint =firebaseRepository.getMinGeoPoint()
+        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
 
         firebaseStore.collection("items")
             .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
@@ -87,16 +82,82 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             .addOnSuccessListener { result ->
                 if (result.isEmpty) return@addOnSuccessListener
 
-                var allReulstList = result.map { it.toObject(ItemObject::class.java) }
-                if (allReulstList.size > 20) {
+                var allResultList = result.map { it.toObject(ItemObject::class.java) }
+                if (allResultList.size > 20) {
                     var randomIndex =
-                        (0 until allReulstList.size).shuffled().subList(0, 20) // Make Random Index
-                    allReulstList = randomIndex.map { index -> allReulstList[index] }
+                        (0 until allResultList.size).shuffled().subList(0, 20) // Make Random Index
+                    allResultList = randomIndex.map { index -> allResultList[index] }
                 }
 
-                recommendItemList.value = allReulstList
+                recommendItemList.value = allResultList
             }
     }
+
+    fun getCategoryItemList() = categoryItemList
+    fun setCategoryItemList(category:String) {
+        var minGeoPoint =firebaseRepository.getMinGeoPoint()
+        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
+
+
+        if (categoryItemQuery == null) { // 처음 불렸을경우
+            categoryItemQuery = firebaseStore.collection("items")
+                .whereEqualTo("category", category)
+                .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+                .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                .orderBy("geoPoint")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit(5)
+        }
+
+        categoryItemQuery!!.get()
+            .addOnSuccessListener { result ->
+                if (result.isEmpty) return@addOnSuccessListener // 끝까지 다 조회했을
+
+                var tempList = mutableListOf<ItemObject>()
+                result.forEach { item ->
+                    tempList.add(item.toObject(ItemObject::class.java))
+                }
+
+                var beforeList = categoryItemList.value!!.toMutableList()
+                beforeList.addAll(tempList)
+                var afterList = beforeList.toList()
+
+                categoryItemList.value = afterList
+
+
+                // paging을 위해 다음 쿼리 미리 만들어놓는 작업
+                categoryItemQuery = firebaseStore.collection("items")
+                    .whereEqualTo("category", category)
+                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                    .orderBy("geoPoint")
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .startAfter(result.documents[result.size() - 1])
+                    .limit(5)
+            }
+
+
+
+        firebaseStore.collection("items")
+            .whereEqualTo("category",category)
+            .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+            .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+            .orderBy("geoPoint", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                if (result.isEmpty) return@addOnSuccessListener
+
+                var allResultList = result.map { it.toObject(ItemObject::class.java) }
+                if (allResultList.size > 20) {
+                    var randomIndex =
+                        (0 until allResultList.size).shuffled().subList(0, 20) // Make Random Index
+                    allResultList = randomIndex.map { index -> allResultList[index] }
+                }
+
+                recommendItemList.value = allResultList
+            }
+    }
+
 
     fun test() {
         Log.d("fhrm", "SearchViewModel -test(),    hotItemList.value: ${hotItemList.value}")

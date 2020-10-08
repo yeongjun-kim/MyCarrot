@@ -26,11 +26,13 @@ class CustomProgressDialog(private val activity: Activity) {
         loadingFrame.post { frameAnimation.start() }
 
 
-
     }
+
     fun dismiss() {
-        if (progressDialog != null && progressDialog.isShowing) {
-            progressDialog.dismiss()
+        if (this::progressDialog.isInitialized) {
+            if (progressDialog != null && progressDialog.isShowing) {
+                progressDialog.dismiss()
+            }
         }
     }
 

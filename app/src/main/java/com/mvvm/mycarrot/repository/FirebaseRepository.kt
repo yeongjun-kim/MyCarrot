@@ -201,6 +201,7 @@ class FirebaseRepository private constructor() {
                 var beforeList = homeItemList.value!!.toMutableList()
                 beforeList.addAll(tempList)
                 var afterList = beforeList.toList()
+
                 homeItemList.value = afterList
 
 
@@ -360,6 +361,26 @@ class FirebaseRepository private constructor() {
 
         if (!mResultList.isNullOrEmpty()) location.value = retVal
     }
+
+    fun getMinGeoPoint(): GeoPoint {
+        var lat = currentUserObject.value!!.geoPoint.latitude
+        var long = currentUserObject.value!!.geoPoint.longitude
+        return GeoPoint(
+            lat - extraArrange,
+            long - extraArrange
+        )
+    }
+
+    fun getMaxGeoPoint(): GeoPoint {
+        var lat = currentUserObject.value!!.geoPoint.latitude
+        var long = currentUserObject.value!!.geoPoint.longitude
+        return GeoPoint(
+            lat + extraArrange,
+            long + extraArrange
+        )
+    }
+
+
 
     fun getCurretUser() = currentUserObject
     fun getloginMode() = loginMode

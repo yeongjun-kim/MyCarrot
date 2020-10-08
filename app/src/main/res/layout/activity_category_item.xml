@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="av"
+            type="com.mvvm.mycarrot.view.navigation.CategoryItemActivity" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.navigation.CategoryItemActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/categoryitem_cl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.07"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/categoryitem_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Category"
+                android:textColor="#000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:onClick="@{() -> av.onBackPressed()}"
+                android:src="@drawable/ic_arrow_back_black_14dp"
+                app:layout_constraintBottom_toBottomOf="@id/categoryitem_tv"
+                app:layout_constraintStart_toStartOf="@id/categoryitem_tv"
+                app:layout_constraintTop_toTopOf="@id/categoryitem_tv" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/categoryitem_temp1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivision"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/categoryitem_cl" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoryitem_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoryitem_temp1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

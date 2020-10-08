@@ -9,7 +9,7 @@ import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.viewModel.WriteViewModel
 import kotlinx.android.synthetic.main.activity_category.*
 
-class CategoryActivity : AppCompatActivity() {
+class WriteCategoryActivity : AppCompatActivity() {
 
     lateinit var binding: com.mvvm.mycarrot.databinding.ActivityCategoryBinding
     lateinit var writeViewModel: WriteViewModel
@@ -23,8 +23,8 @@ class CategoryActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category)
         binding.apply {
-            av = this@CategoryActivity
-            lifecycleOwner = this@CategoryActivity
+            av = this@WriteCategoryActivity
+            lifecycleOwner = this@WriteCategoryActivity
         }
 
         initSelectedCategory()

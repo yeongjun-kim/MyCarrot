@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fm"
+            type="com.mvvm.mycarrot.view.navigation.SearchTradingFragment" />
+
+        <variable
+            name="svm"
+            type="com.mvvm.mycarrot.viewModel.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.navigation.SearchTradingFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fm_search_cl_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/fm_search_temp3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="카테고리"
+                        android:textColor="#000"
+                        android:textSize="18dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.03"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_digital"
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:layout_marginTop="24dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_digital)}"
+                        android:layout_marginBottom="35dp"
+                        android:src="@drawable/image_digital"
+                        app:layout_constraintBottom_toTopOf="@id/fm_search_iv_game"
+                        app:layout_constraintEnd_toStartOf="@id/fm_search_iv_furniture"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_temp3" />
+
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_furniture"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_furniture)}"
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:src="@drawable/image_furniture"
+                        app:layout_constraintEnd_toStartOf="@id/fm_search_iv_pet"
+                        app:layout_constraintStart_toEndOf="@id/fm_search_iv_digital"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_iv_digital" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_pet"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_pet)}"
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:src="@drawable/image_pet"
+                        app:layout_constraintEnd_toStartOf="@id/fm_search_iv_life"
+                        app:layout_constraintStart_toEndOf="@id/fm_search_iv_furniture"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_iv_digital" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_life"
+                        android:layout_width="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_life)}"
+                        android:layout_height="74dp"
+                        android:src="@drawable/image_life"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/fm_search_iv_pet"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_iv_digital" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_game"
+                        android:layout_width="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_game)}"
+                        android:layout_height="74dp"
+                        android:layout_marginBottom="35dp"
+
+                        android:src="@drawable/image_game"
+                        app:layout_constraintBottom_toTopOf="@id/fm_search_iv_book"
+                        app:layout_constraintEnd_toStartOf="@id/fm_search_iv_woman"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_digital" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_woman"
+                        android:layout_width="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_woman)}"
+                        android:layout_height="74dp"
+                        android:src="@drawable/image_woman"
+                        app:layout_constraintEnd_toStartOf="@id/fm_search_iv_man"
+                        app:layout_constraintStart_toEndOf="@id/fm_search_iv_game"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_iv_game" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_man"
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_man)}"
+                        android:src="@drawable/image_man"
+                        app:layout_constraintEnd_toStartOf="@id/fm_search_iv_beauty"
+                        app:layout_constraintStart_toEndOf="@id/fm_search_iv_woman"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_iv_game" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_beauty"
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:src="@drawable/image_beauty"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_beauty)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/fm_search_iv_man"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_iv_game" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_book"
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:layout_marginBottom="35dp"
+                        android:src="@drawable/image_book"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_book)}"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_game"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_game" />
+
+                    <ImageView
+                        android:id="@+id/fm_search_iv_buy"
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:src="@drawable/image_buy"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_woman"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_buy)}"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_iv_book" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="디지털/가전"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_digital"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_digital"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_digital" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="가구/인테리어"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_furniture"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_furniture"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_furniture" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="생활/가공식품"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_life"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_life"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_life" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="여성패션/잡화"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_woman"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_woman"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_woman" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="남성패션/잡화"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_man"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_man"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_man" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="게임/취미/스포츠/레저"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_game"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_game"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_game" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="뷰티/미용"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_beauty"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_beauty"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_beauty" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="유아/반려동물용품"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_pet"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_pet"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_pet" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="도서/티켓/음반"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_book"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_book"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_book" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="삽니다"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@id/fm_search_iv_buy"
+                        app:layout_constraintStart_toStartOf="@id/fm_search_iv_buy"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_iv_buy" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/fm_search_tv_division1"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="#F9F9F9"
+                    app:layout_constraintTop_toBottomOf="@id/fm_search_cl_category" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fm_search_cl_hotitem"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.15"
+                    app:layout_constraintTop_toBottomOf="@id/fm_search_tv_division1">
+
+                    <TextView
+                        android:id="@+id/fm_search_tv_dong"
+                        DongText="@{svm.getCurrentUserObject().location}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:hint="무슨동"
+                        android:textColor="#000"
+                        android:textSize="18dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.03"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 근처 인기매물"
+                        android:textColor="#000"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="@id/fm_search_tv_dong"
+                        app:layout_constraintStart_toEndOf="@id/fm_search_tv_dong"
+                        app:layout_constraintTop_toTopOf="@+id/fm_search_tv_dong" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="더보기"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/fm_search_tv_dong"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.96"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_tv_dong" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/fm_search_rv_hotitem"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHeight_percent="0.70"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_tv_dong" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/fm_search_tv_division2"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="#F9F9F9"
+                    app:layout_constraintTop_toBottomOf="@id/fm_search_cl_hotitem" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fm_search_cl_recommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/fm_search_tv_division2">
+
+                    <TextView
+                        android:id="@+id/fm_search_tv_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:hint="닉네임"
+                        android:text="@{svm.getCurrentUserObject().nickname}"
+                        android:textColor="#000"
+                        android:textSize="18dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.03"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="님, 이건 어때요"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@id/fm_search_tv_nickname"
+                        app:layout_constraintStart_toEndOf="@id/fm_search_tv_nickname"
+                        app:layout_constraintTop_toTopOf="@id/fm_search_tv_nickname" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/fm_search_rv_recommend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/fm_search_tv_nickname" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

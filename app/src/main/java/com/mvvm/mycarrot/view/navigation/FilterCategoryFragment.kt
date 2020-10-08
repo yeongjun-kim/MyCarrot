@@ -1,7 +1,6 @@
 package com.mvvm.mycarrot.view.navigation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import com.mvvm.mycarrot.view.MainActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_category.*
 
-class CategoryFragment : Fragment() {
+class FilterCategoryFragment : Fragment() {
 
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentCategoryBinding
@@ -42,8 +41,8 @@ class CategoryFragment : Fragment() {
 
         binding.apply {
             vm = homeViewModel
-            fm = this@CategoryFragment
-            lifecycleOwner = this@CategoryFragment
+            fm = this@FilterCategoryFragment
+            lifecycleOwner = this@FilterCategoryFragment
         }
 
 
@@ -62,7 +61,6 @@ class CategoryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         homeViewModel.isFromCategoryFragment = true
-
     }
 
     private fun initCheck() {
