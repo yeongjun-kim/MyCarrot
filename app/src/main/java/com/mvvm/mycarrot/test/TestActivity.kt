@@ -14,6 +14,7 @@ import com.mvvm.mycarrot.adapter.HorizonSpacingItemDecoration
 import com.mvvm.mycarrot.adapter.OwnerItemRvAdapterHorizontal
 import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
+import com.mvvm.mycarrot.viewModel.TestViewModel
 import kotlinx.android.synthetic.main.activity_test.*
 
 class TestActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class TestActivity : AppCompatActivity() {
     var uri: Uri? = null
     lateinit var viewModel: FirebaseViewModel
     lateinit var homeViewModel: HomeViewModel
+    lateinit var testViewModel:TestViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,39 +43,21 @@ class TestActivity : AppCompatActivity() {
             HomeViewModel.Factory(application)
         ).get(HomeViewModel::class.java)
 
-        test_btn.setOnClickListener {
+        testViewModel = ViewModelProvider(
+            this,
+            TestViewModel.Factory(application)
+        ).get(TestViewModel::class.java)
 
+
+        test_btn.setOnClickListener {
+            test()
         }
 
         // *************************************************************************** //
-
-
-        var a = ViewPagerAdapter(this)
-        test_vp.adapter = a
-        initTabLayoutViewPager()
-
-
     }
 
-    private fun initTabLayoutViewPager() {
-        TabLayoutMediator(test_tl, test_vp) { tab, position ->
-            val tabLayoutTextArray = arrayOf("Deck", "Info")
-            tab.text = tabLayoutTextArray[position]
-        }.attach()
+    fun test(){
+        testViewModel.test()
     }
-
-
-    private inner class ViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-        override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> fm1()
-                1 -> fm2()
-                else -> fm2()
-            }
-        }
-
-        override fun getItemCount(): Int = 2
-    }
-
 
 }

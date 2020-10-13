@@ -174,10 +174,8 @@ class FirebaseRepository private constructor() {
 
     fun getHomeItems() = homeItemList
     fun setHomeItems(categoryList: MutableList<String>) {
-        var lat = currentUserObject.value!!.geoPoint.latitude
-        var long = currentUserObject.value!!.geoPoint.longitude
-        var minGeoPoint = GeoPoint(lat - extraArrange, long - extraArrange)
-        var maxGeoPoint = GeoPoint(lat + extraArrange, long + extraArrange)
+        var minGeoPoint =getMinGeoPoint()
+        var maxGeoPoint =getMaxGeoPoint()
 
         if (homeItemQuery == null) { // 처음 불렸을경우
             homeItemQuery = firebaseStore.collection("items")
@@ -315,7 +313,7 @@ class FirebaseRepository private constructor() {
 
     suspend fun commitItemObject(
         imageUrlList: ArrayList<String>,
-        title: String?,
+        title: String,
         overview: String?,
         price: String
     ): String {
@@ -325,7 +323,7 @@ class FirebaseRepository private constructor() {
             currentUserObject.value!!.userId,
             currentUserObject.value!!.location,
             imageUrlList,
-            title,
+            title.split(" "),
             category.value,
             overview,
             0,

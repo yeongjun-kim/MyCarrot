@@ -22,8 +22,8 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
     var userLocation: String? = null
     var imageList: ArrayList<String> = arrayListOf()
     var uriImageList: MutableLiveData<ArrayList<Uri>> = MutableLiveData(arrayListOf())
-    var title: String? = null
-    var overview: String? = null
+    var title: String = ""
+    var overview: String = ""
     var lookup: Long = 0
     var price: String = ""
     var viewPagerPosition = MutableLiveData(0)

@@ -125,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="아이템명"
-                        android:text="@{vm.getselectedItem().title}"
+                        Title="@{vm.getselectedItem().title}"
                         android:textColor="#000000"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"

@@ -13,11 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.mycarrot.R
-import com.mvvm.mycarrot.adapter.GridSpacingItemDecoration
-import com.mvvm.mycarrot.adapter.HorizonSpacingItemDecoration
-import com.mvvm.mycarrot.adapter.OwnerItemRvAdapter
-import com.mvvm.mycarrot.adapter.OwnerItemRvAdapterHorizontal
-import com.mvvm.mycarrot.databinding.FragmentSearchBinding
+import com.mvvm.mycarrot.adapter.*
 import com.mvvm.mycarrot.databinding.FragmentSearchTradingBinding
 import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.ItemActivity
@@ -33,6 +29,8 @@ class SearchTradingFragment : Fragment() {
 
     var hotitemRvAdapter = OwnerItemRvAdapterHorizontal()
     var recommendRvAdapter = OwnerItemRvAdapter()
+    var searchItemRvAdapter = ItemRvAdapter()
+
     lateinit var customDialog: CustomProgressDialog
 
 
@@ -40,14 +38,15 @@ class SearchTradingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_trading, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_search_trading, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        customDialog  = CustomProgressDialog(activity!!)
+        customDialog = CustomProgressDialog(activity!!)
 
 
         searchViewModel =
@@ -73,8 +72,12 @@ class SearchTradingFragment : Fragment() {
             recommendRvAdapter.setList(itemList)
         })
 
+        searchViewModel.getKeywordItemList().observe(this, Observer { itemList ->
+            searchItemRvAdapter.setList(itemList)
+        })
+
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
-            if(isStartActivity==2){
+            if (isStartActivity == 2) {
                 startItemActivity()
             }
         })
@@ -85,6 +88,36 @@ class SearchTradingFragment : Fragment() {
         initHotItemList()
         initRecommdItemRv()
         initRecommendItemList()
+        initSearchItemRv()
+
+    }
+
+    private fun initSearchItemRv() {
+        binding.fmSearchRvSearchitem.run {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(activity)
+            adapter = searchItemRvAdapter
+        }
+
+        searchItemRvAdapter.listener = object: ItemRvAdapter.ClickListener{
+            override fun onClick(position: Int) {
+                beforeStartItemActivity(position, "fromHotItem")
+            }
+        }
+    }
+
+    /*
+     SearchFragmnet에서 Keyword 입력 후 Enter 시 검색 결과 Rv Show, "toSearchRv"
+     [취소] 버튼 클릭 시 일반 NestedScrollView Show, "toNestedScrollView"
+     */
+    fun changeLayout(mode: String) {
+        if (mode == "toSearchRv") {
+            binding.fmSearchTradingNsv.visibility = View.GONE
+            binding.fmSearchTradingClSearchitem.visibility = View.VISIBLE
+        } else if (mode == "toNestedScrollView") {
+            binding.fmSearchTradingNsv.visibility = View.VISIBLE
+            binding.fmSearchTradingClSearchitem.visibility = View.GONE
+        }
     }
 
 
@@ -126,14 +159,17 @@ class SearchTradingFragment : Fragment() {
         }
     }
 
-    fun beforeStartItemActivity(position: Int, fromRecycler:String) {
+    fun beforeStartItemActivity(position: Int, fromRecycler: String) {
         customDialog.show()
-        if(fromRecycler == "fromRecommend") {
+        if (fromRecycler == "fromRecommend") {
             homeViewModel.setselectedItem(recommendRvAdapter.itemList[position].id!!)
             homeViewModel.setselectedItemOwner(recommendRvAdapter.itemList[position].userId!!)
-        }else if(fromRecycler == "fromHotItem"){
+        } else if (fromRecycler == "fromHotItem") {
             homeViewModel.setselectedItem(hotitemRvAdapter.itemList[position].id!!)
             homeViewModel.setselectedItemOwner(hotitemRvAdapter.itemList[position].userId!!)
+        }else if (fromRecycler == "fromSearchItem") {
+            homeViewModel.setselectedItem(searchItemRvAdapter.itemList[position].id!!)
+            homeViewModel.setselectedItemOwner(searchItemRvAdapter.itemList[position].userId!!)
         }
     }
 
@@ -143,10 +179,13 @@ class SearchTradingFragment : Fragment() {
         startActivity(Intent(activity, ItemActivity::class.java))
     }
 
-    fun onStartCategoryItemActivity(selectedCategory:String){
-        Log.d("fhrm", "SearchTradingFragment -onStartCategoryItemActivity(),    selectedCategory: ${selectedCategory}")
+    fun onStartCategoryItemActivity(selectedCategory: String) {
+        Log.d(
+            "fhrm",
+            "SearchTradingFragment -onStartCategoryItemActivity(),    selectedCategory: ${selectedCategory}"
+        )
         var intent = Intent(activity, CategoryItemActivity::class.java)
-        intent.putExtra("category",selectedCategory)
+        intent.putExtra("category", selectedCategory)
         startActivity(intent)
     }
 }

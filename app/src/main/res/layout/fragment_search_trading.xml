@@ -19,9 +19,104 @@
         android:layout_height="match_parent"
         tools:context=".view.navigation.SearchTradingFragment">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fm_search_trading_cl_searchitem"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/fm_search_trading_temp3"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="@color/colorDivision"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                 />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fm_search_trading_cl1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="0.075"
+                app:layout_constraintTop_toBottomOf="@id/fm_search_trading_temp3">
+
+                <ImageView
+                    android:id="@+id/fm_search_trading_iv_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_filter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.4"
+                    app:layout_constraintHorizontal_bias="0.03"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="검색 필터"
+                    android:layout_marginStart="7dp"
+                    android:textSize="12sp"
+                    android:textColor="#000"
+                    app:layout_constraintBottom_toBottomOf="@id/fm_search_trading_iv_filter"
+                    app:layout_constraintStart_toEndOf="@id/fm_search_trading_iv_filter"
+                    app:layout_constraintTop_toTopOf="@id/fm_search_trading_iv_filter" />
+
+                <TextView
+                    android:id="@+id/fm_search_trading_temp1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="거래완료 안보기"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.96"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    style="@style/CustomCheckbox"
+                    android:layout_width="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintHeight_percent="0.6"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/fm_search_trading_temp1"
+                    app:layout_constraintEnd_toStartOf="@id/fm_search_trading_temp1"
+                    app:layout_constraintTop_toTopOf="@id/fm_search_trading_temp1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/fm_search_trading_temp2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivision"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/fm_search_trading_cl1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fm_search_rv_searchitem"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fm_search_trading_temp2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/fm_search_trading_nsv"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="match_parent"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -51,8 +146,8 @@
                         android:layout_width="74dp"
                         android:layout_height="74dp"
                         android:layout_marginTop="24dp"
-                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_digital)}"
                         android:layout_marginBottom="35dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_digital)}"
                         android:src="@drawable/image_digital"
                         app:layout_constraintBottom_toTopOf="@id/fm_search_iv_game"
                         app:layout_constraintEnd_toStartOf="@id/fm_search_iv_furniture"
@@ -62,9 +157,9 @@
 
                     <ImageView
                         android:id="@+id/fm_search_iv_furniture"
-                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_furniture)}"
                         android:layout_width="74dp"
                         android:layout_height="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_furniture)}"
                         android:src="@drawable/image_furniture"
                         app:layout_constraintEnd_toStartOf="@id/fm_search_iv_pet"
                         app:layout_constraintStart_toEndOf="@id/fm_search_iv_digital"
@@ -72,9 +167,9 @@
 
                     <ImageView
                         android:id="@+id/fm_search_iv_pet"
-                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_pet)}"
                         android:layout_width="74dp"
                         android:layout_height="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_pet)}"
                         android:src="@drawable/image_pet"
                         app:layout_constraintEnd_toStartOf="@id/fm_search_iv_life"
                         app:layout_constraintStart_toEndOf="@id/fm_search_iv_furniture"
@@ -83,8 +178,8 @@
                     <ImageView
                         android:id="@+id/fm_search_iv_life"
                         android:layout_width="74dp"
-                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_life)}"
                         android:layout_height="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_life)}"
                         android:src="@drawable/image_life"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/fm_search_iv_pet"
@@ -93,9 +188,9 @@
                     <ImageView
                         android:id="@+id/fm_search_iv_game"
                         android:layout_width="74dp"
-                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_game)}"
                         android:layout_height="74dp"
                         android:layout_marginBottom="35dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_game)}"
 
                         android:src="@drawable/image_game"
                         app:layout_constraintBottom_toTopOf="@id/fm_search_iv_book"
@@ -106,8 +201,8 @@
                     <ImageView
                         android:id="@+id/fm_search_iv_woman"
                         android:layout_width="74dp"
-                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_woman)}"
                         android:layout_height="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_woman)}"
                         android:src="@drawable/image_woman"
                         app:layout_constraintEnd_toStartOf="@id/fm_search_iv_man"
                         app:layout_constraintStart_toEndOf="@id/fm_search_iv_game"
@@ -127,8 +222,8 @@
                         android:id="@+id/fm_search_iv_beauty"
                         android:layout_width="74dp"
                         android:layout_height="74dp"
-                        android:src="@drawable/image_beauty"
                         android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_beauty)}"
+                        android:src="@drawable/image_beauty"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/fm_search_iv_man"
                         app:layout_constraintTop_toTopOf="@id/fm_search_iv_game" />
@@ -138,9 +233,9 @@
                         android:layout_width="74dp"
                         android:layout_height="74dp"
                         android:layout_marginBottom="35dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_book)}"
                         android:src="@drawable/image_book"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_book)}"
                         app:layout_constraintStart_toStartOf="@id/fm_search_iv_game"
                         app:layout_constraintTop_toBottomOf="@id/fm_search_iv_game" />
 
@@ -148,9 +243,9 @@
                         android:id="@+id/fm_search_iv_buy"
                         android:layout_width="74dp"
                         android:layout_height="74dp"
+                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_buy)}"
                         android:src="@drawable/image_buy"
                         app:layout_constraintStart_toStartOf="@id/fm_search_iv_woman"
-                        android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_buy)}"
                         app:layout_constraintTop_toTopOf="@id/fm_search_iv_book" />
 
                     <TextView
@@ -267,7 +362,7 @@
                     android:id="@+id/fm_search_cl_hotitem"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:layout_constraintHeight_percent="0.15"
+                    app:layout_constraintHeight_percent="0.20"
                     app:layout_constraintTop_toBottomOf="@id/fm_search_tv_division1">
 
                     <TextView
@@ -309,7 +404,6 @@
                         android:id="@+id/fm_search_rv_hotitem"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginTop="24dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintHeight_percent="0.70"

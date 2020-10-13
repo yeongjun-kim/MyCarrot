@@ -11,9 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/item_rv_owneritem_iv"
@@ -21,25 +19,31 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@id/item_rv_ownerItem_tv_title"
             app:layout_constraintDimensionRatio="4:3"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.55"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/item_rv_ownerItem_tv_title"
+            Title="@{item.title}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
             android:layout_marginTop="5dp"
             android:hint="title"
-            android:text="@{item.title}"
-            android:layout_marginStart="6dp"
             android:textColor="#000"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/item_rv_ownerItem_tv_price"
+            app:layout_constraintEnd_toEndOf="@id/item_rv_owneritem_iv"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/item_rv_owneritem_iv"
             app:layout_constraintTop_toBottomOf="@id/item_rv_owneritem_iv" />
 
         <TextView
+            android:id="@+id/item_rv_ownerItem_tv_price"
             DecimalFormat="@{item.price}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +52,6 @@
             android:textColor="#000"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/item_rv_ownerItem_tv_title"
             app:layout_constraintTop_toBottomOf="@id/item_rv_ownerItem_tv_title" />
 

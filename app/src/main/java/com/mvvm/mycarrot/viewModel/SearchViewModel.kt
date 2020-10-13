@@ -22,14 +22,21 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private var hotItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     private var recommendItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     private var categoryItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var keywordItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     private var categoryItemQuery: Query? = null
+    private var keywordItemQuery: Query? = null
+    private var keyword: String = ""
 
+    var minGeoPoint: GeoPoint
+    var maxGeoPoint: GeoPoint
 
 
     init {
         firebaseRepository = FirebaseRepository.getInstance()
         firebaseStore = FirebaseFirestore.getInstance()
         currentUserObject = firebaseRepository.getCurretUser()
+        minGeoPoint = firebaseRepository.getMinGeoPoint()
+        maxGeoPoint = firebaseRepository.getMaxGeoPoint()
     }
 
     fun getCurrentUserObject() = currentUserObject
@@ -43,9 +50,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun getHotItemList() = hotItemList
 
     fun setHotItemList() {
-        var minGeoPoint =firebaseRepository.getMinGeoPoint()
-        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
-
         firebaseStore.collection("items")
             .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
             .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
@@ -71,9 +75,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun getRecommendItemList() = recommendItemList
 
     fun setRecommendItemList() {
-        var minGeoPoint =firebaseRepository.getMinGeoPoint()
-        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
-
         firebaseStore.collection("items")
             .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
             .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
@@ -94,10 +95,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun getCategoryItemList() = categoryItemList
-    fun setCategoryItemList(category:String) {
-        var minGeoPoint =firebaseRepository.getMinGeoPoint()
-        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
-
+    fun setCategoryItemList(category: String) {
 
         if (categoryItemQuery == null) { // 처음 불렸을경우
             categoryItemQuery = firebaseStore.collection("items")
@@ -139,7 +137,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
 
         firebaseStore.collection("items")
-            .whereEqualTo("category",category)
+            .whereEqualTo("category", category)
             .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
             .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
             .orderBy("geoPoint", Query.Direction.DESCENDING)
@@ -155,6 +153,49 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 }
 
                 recommendItemList.value = allResultList
+            }
+    }
+
+    fun clearKeywordList(){
+        keyword= ""
+        keywordItemList.value =listOf()
+        keywordItemQuery = null
+    }
+    fun setKeyword(inputKeyword: String) {
+        if (keyword != null && keyword != inputKeyword) {// 다른 키워드 검색하면 기존 list clear
+            clearKeywordList()
+        }
+        else if (keyword == inputKeyword) return
+
+        keyword = inputKeyword
+        setKeywordItemList()
+    }
+
+    fun getKeywordItemList() = keywordItemList
+    fun setKeywordItemList() {
+        if (keywordItemQuery == null) { // 처음 불렸을경우
+            keywordItemQuery = firebaseStore.collection("items")
+                .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+                .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                .whereArrayContains("title", keyword)
+                .orderBy("geoPoint")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit(5)
+        }
+
+        keywordItemQuery!!.get()
+            .addOnSuccessListener { result ->
+                if(result.isEmpty) return@addOnSuccessListener
+                keywordItemList.value = result.map { it.toObject(ItemObject::class.java) }
+
+                keywordItemQuery = firebaseStore.collection("items")
+                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                    .whereArrayContains("title", keyword)
+                    .orderBy("geoPoint")
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .startAfter(result.documents[result.size() - 1])
+                    .limit(5)
             }
     }
 

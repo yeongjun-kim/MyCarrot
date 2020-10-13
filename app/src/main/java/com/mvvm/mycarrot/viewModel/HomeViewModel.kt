@@ -92,10 +92,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
  */
     fun getselectedItemRecommendItem() = selectedItemRecommendItem
     fun setSelectedItemRecommendItem(itemObject: ItemObject = selectedItem) {
-        var lat = currentUserObject.value!!.geoPoint.latitude
-        var long = currentUserObject.value!!.geoPoint.longitude
-        var minGeoPoint = GeoPoint(lat - firebaseRepository.extraArrange, long - firebaseRepository.extraArrange)
-        var maxGeoPoint = GeoPoint(lat + firebaseRepository.extraArrange, long + firebaseRepository.extraArrange)
+        var minGeoPoint =firebaseRepository.getMinGeoPoint()
+        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
 
         firebaseStore.collection("items")
             .whereEqualTo("id",itemObject.id)

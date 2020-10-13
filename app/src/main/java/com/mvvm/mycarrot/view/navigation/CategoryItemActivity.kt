@@ -20,6 +20,7 @@ import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.SearchViewModel
+import kotlinx.android.synthetic.main.activity_category_item.*
 
 class CategoryItemActivity : AppCompatActivity() {
 
@@ -32,11 +33,6 @@ class CategoryItemActivity : AppCompatActivity() {
     var customDialog = CustomProgressDialog(this)
 
 
-    init {
-
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_item)
@@ -45,6 +41,11 @@ class CategoryItemActivity : AppCompatActivity() {
 
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category_item)
+
+        binding.apply {
+            lifecycleOwner = this@CategoryItemActivity
+            av = this@CategoryItemActivity
+        }
 
         searchViewModel = ViewModelProvider(
             this,
@@ -65,6 +66,7 @@ class CategoryItemActivity : AppCompatActivity() {
                 startItemActivity()
             }
         })
+
 
 
         initStatusBar()

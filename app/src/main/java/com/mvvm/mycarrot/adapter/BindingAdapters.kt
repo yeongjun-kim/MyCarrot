@@ -24,6 +24,13 @@ object BindingAdapters {
         view.text = "${formattedStringPrice} 원"
     }
 
+
+    @JvmStatic
+    @BindingAdapter("Title")
+    fun setTitle(view: TextView, inputArray: List<String>) {
+        view.text = inputArray.joinToString(" ")
+    }
+
     /**
      * ImageView ( SetupTownActivity 의 이미지 설정 )
      */

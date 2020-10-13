@@ -4,10 +4,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.test.TestActivity
 import com.mvvm.mycarrot.test.TestFragment
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                             R.anim.fade_in,
                             R.anim.fade_out
                         )
+                        .addToBackStack(null) // setCustomAnimations 이용할시, 빠른 화면전화면 에러나는 버그로 인해 추가
                         .replace(R.id.main_fl, replaceFragment)
                         .commit()
                     return@OnNavigationItemSelectedListener true
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                             R.anim.fade_in,
                             R.anim.fade_out
                         )
+                        .addToBackStack(null)
                         .replace(R.id.main_fl, searchFragment)
                         .commit()
                     return@OnNavigationItemSelectedListener true
@@ -69,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                             R.anim.fade_in,
                             R.anim.fade_out
                         )
+                        .addToBackStack(null)
                         .replace(R.id.main_fl, chatFragment)
                         .commit()
                     return@OnNavigationItemSelectedListener true
@@ -79,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                             R.anim.fade_in,
                             R.anim.fade_out
                         )
+                        .addToBackStack(null)
                         .replace(R.id.main_fl, myFragment)
                         .commit()
                     return@OnNavigationItemSelectedListener true
@@ -125,14 +129,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun test() {
-        supportFragmentManager.beginTransaction()
-            .setCustomAnimations(
-                R.anim.fade_in,
-                R.anim.fade_out
-            )
-            .replace(R.id.main_fl, testFragment)
-            .commit()
-//        startActivity(Intent(this, TestActivity::class.java))
+//        supportFragmentManager.beginTransaction()
+//            .setCustomAnimations(
+//                R.anim.fade_in,
+//                R.anim.fade_out
+//            )
+//            .replace(R.id.main_fl, testFragment)
+//            .commit()
+        startActivity(Intent(this, TestActivity::class.java))
     }
 
 

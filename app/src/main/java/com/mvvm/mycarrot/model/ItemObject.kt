@@ -11,7 +11,7 @@ data class ItemObject(
     var userId: String? = null,
     var userLocation: String? = null,
     var imageList: ArrayList<String> = arrayListOf(),
-    var title: String? = null,
+    var title: List<String> = listOf(),
     var category: String? = null,
     var overview: String? = null,
     var lookup: Long = 0,

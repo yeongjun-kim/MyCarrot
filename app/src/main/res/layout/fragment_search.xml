@@ -28,13 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/test_btn3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
@@ -60,10 +53,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/fm_search_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:hint="검색어를 입력하세요."
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -78,6 +74,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
+                android:onClick="@{() -> fm.cancel()}"
                 android:text="취소"
                 android:textColor="#000"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -95,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintHeight_percent="0.058"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fm_search_cl1"
             app:tabIndicatorColor="@color/colorPrimary">
@@ -126,12 +123,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fm_search_tl" />
 
+        <Button
+            android:id="@+id/test_btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="btn3"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fm_search_temp2" />
+
+        <Button
+            android:id="@+id/test_btn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="btn4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/test_btn3" />
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/fm_search_vp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fm_search_temp2"/>
+            app:layout_constraintTop_toBottomOf="@id/fm_search_temp2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
