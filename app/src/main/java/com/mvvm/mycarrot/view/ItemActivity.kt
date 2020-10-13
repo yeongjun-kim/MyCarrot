@@ -69,7 +69,6 @@ class ItemActivity : AppCompatActivity() {
         })
 
         homeViewModel.getselectedItemRecommendItem().observe(this, Observer { itemList ->
-            Log.d("fhrm", "ItemActivity -onCreate(),    itemList.size: ${itemList.size}")
             recommendItemRvAdapter.setList(itemList, null)
         })
 

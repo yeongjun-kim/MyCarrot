@@ -38,6 +38,7 @@ class SearchTradingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_search_trading, container, false)
         return binding.root

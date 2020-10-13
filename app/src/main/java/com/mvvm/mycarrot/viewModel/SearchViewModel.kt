@@ -23,8 +23,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private var recommendItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     private var categoryItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     private var keywordItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var keywordUserList: MutableLiveData<List<UserObject>> = MutableLiveData(listOf())
     private var categoryItemQuery: Query? = null
     private var keywordItemQuery: Query? = null
+    private var keywordUserQuery: Query? = null
     private var keyword: String = ""
 
     var minGeoPoint: GeoPoint
@@ -156,19 +158,23 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             }
     }
 
-    fun clearKeywordList(){
-        keyword= ""
-        keywordItemList.value =listOf()
+    fun clearKeywordList() {
+        keyword = ""
+        keywordItemList.value = listOf()
+        keywordUserList.value = listOf()
         keywordItemQuery = null
+        keywordUserQuery = null
     }
+
     fun setKeyword(inputKeyword: String) {
         if (keyword != null && keyword != inputKeyword) {// 다른 키워드 검색하면 기존 list clear
             clearKeywordList()
-        }
-        else if (keyword == inputKeyword) return
+        } else if (keyword == inputKeyword) return
+
 
         keyword = inputKeyword
         setKeywordItemList()
+        setKeywordUserList()
     }
 
     fun getKeywordItemList() = keywordItemList
@@ -185,7 +191,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
         keywordItemQuery!!.get()
             .addOnSuccessListener { result ->
-                if(result.isEmpty) return@addOnSuccessListener
+                if (result.isEmpty) return@addOnSuccessListener
                 keywordItemList.value = result.map { it.toObject(ItemObject::class.java) }
 
                 keywordItemQuery = firebaseStore.collection("items")
@@ -199,9 +205,34 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             }
     }
 
+    fun getKeywordUserList() = keywordUserList
+    fun setKeywordUserList() {
+        if (keywordUserQuery == null) { // 처음 불렸을경우
+            keywordUserQuery = firebaseStore.collection("users")
+                .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+                .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                .whereEqualTo("nickname", keyword)
+                .orderBy("geoPoint")
+                .limit(5)
+        }
+        keywordUserQuery!!.get()
+            .addOnSuccessListener { result ->
+                if (result.isEmpty) return@addOnSuccessListener
+                keywordUserList.value = result.map { it.toObject(UserObject::class.java) }
+
+                keywordUserQuery = firebaseStore.collection("users")
+                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                    .whereEqualTo("nickname", keyword)
+                    .orderBy("geoPoint")
+                    .startAfter(result.documents[result.size() - 1])
+                    .limit(5)
+            }
+    }
+
 
     fun test() {
-        Log.d("fhrm", "SearchViewModel -test(),    hotItemList.value: ${hotItemList.value}")
+
     }
 
 

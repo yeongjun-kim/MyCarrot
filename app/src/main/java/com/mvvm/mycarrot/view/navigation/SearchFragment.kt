@@ -16,6 +16,7 @@ import com.mvvm.mycarrot.databinding.FragmentSearchBinding
 import com.mvvm.mycarrot.test.fm2
 import com.mvvm.mycarrot.viewModel.SearchViewModel
 import android.content.Context
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 
 
@@ -24,12 +25,18 @@ class SearchFragment : Fragment() {
     lateinit var binding: FragmentSearchBinding
     lateinit var searchViewModel: SearchViewModel
     var searchTradingFragment = SearchTradingFragment()
+    var searchUserFragment = SearchUserFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, com.mvvm.mycarrot.R.layout.fragment_search, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            com.mvvm.mycarrot.R.layout.fragment_search,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -42,7 +49,6 @@ class SearchFragment : Fragment() {
         binding.testBtn4.setOnClickListener {
 
         }
-
 
         searchViewModel =
             ViewModelProvider(activity!!, SearchViewModel.Factory(activity!!.application)).get(
@@ -57,9 +63,10 @@ class SearchFragment : Fragment() {
         initEditTextListener()
     }
 
-    fun cancel(){
+    fun cancel() {
         binding.fmSearchEt.text.clear()
         searchTradingFragment.changeLayout("toNestedScrollView")
+        searchUserFragment.changeLayout("toDefault")
         searchViewModel.clearKeywordList()
     }
 
@@ -71,14 +78,15 @@ class SearchFragment : Fragment() {
                 Toast.makeText(activity, "검색어를 입력해주세용", Toast.LENGTH_SHORT).show()
             } else {
                 searchTradingFragment.changeLayout("toSearchRv")
+                searchUserFragment.changeLayout("toSearchRv")
                 searchViewModel.setKeyword(binding.fmSearchEt.text.toString())
+                searchViewModel.test()
             }
             true
         }
     }
 
     private fun hideSoftKeyboard() {
-
         val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.fmSearchEt.windowToken, 0)
     }
@@ -99,8 +107,8 @@ class SearchFragment : Fragment() {
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> searchTradingFragment
-                1 -> fm2()
-                else -> fm2()
+                1 -> searchUserFragment
+                else -> searchTradingFragment
             }
         }
 
