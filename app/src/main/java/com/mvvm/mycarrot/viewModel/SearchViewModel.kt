@@ -26,7 +26,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private var keywordUserList: MutableLiveData<List<UserObject>> = MutableLiveData(listOf())
     private var categoryItemQuery: Query? = null
     private var keywordItemQuery: Query? = null
-    private var keywordUserQuery: Query? = null
     private var keyword: String = ""
 
     var minGeoPoint: GeoPoint
@@ -163,9 +162,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         keywordItemList.value = listOf()
         keywordUserList.value = listOf()
         keywordItemQuery = null
-        keywordUserQuery = null
     }
 
+    fun getKeyword() = keyword
     fun setKeyword(inputKeyword: String) {
         if (keyword != null && keyword != inputKeyword) {// 다른 키워드 검색하면 기존 list clear
             clearKeywordList()
@@ -207,26 +206,13 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getKeywordUserList() = keywordUserList
     fun setKeywordUserList() {
-        if (keywordUserQuery == null) { // 처음 불렸을경우
-            keywordUserQuery = firebaseStore.collection("users")
-                .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-                .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
-                .whereEqualTo("nickname", keyword)
-                .orderBy("geoPoint")
-                .limit(5)
-        }
-        keywordUserQuery!!.get()
+        firebaseStore.collection("users")
+            .whereGreaterThanOrEqualTo("nickname", keyword)
+            .get()
             .addOnSuccessListener { result ->
                 if (result.isEmpty) return@addOnSuccessListener
                 keywordUserList.value = result.map { it.toObject(UserObject::class.java) }
-
-                keywordUserQuery = firebaseStore.collection("users")
-                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
-                    .whereEqualTo("nickname", keyword)
-                    .orderBy("geoPoint")
-                    .startAfter(result.documents[result.size() - 1])
-                    .limit(5)
+                    .filter { it.geoPoint in minGeoPoint..maxGeoPoint }
             }
     }
 

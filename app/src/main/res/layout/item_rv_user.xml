@@ -15,11 +15,11 @@
 
         <ImageView
             android:id="@+id/item_rv_user_iv_profile"
+            RepresentationcircleSrc="@{user.profileUrl}"
             android:layout_width="40dp"
             android:layout_height="0dp"
             android:layout_marginTop="14dp"
             android:layout_marginBottom="14dp"
-            RepresentationcircleSrc="@{user.profileUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,8 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="nickname"
-            android:textColor="#000"
             android:text="@{user.nickname}"
+            android:textColor="#000"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/item_rv_user_iv_profile"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,8 +45,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{user.location}"
+            android:textColor="#000"
+            UserId="@{user.userId}"
+            android:layout_marginStart="1dp"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/item_rv_user_tv_nickname"
+            app:layout_constraintStart_toEndOf="@id/item_rv_user_tv_nickname"
+            app:layout_constraintTop_toTopOf="@id/item_rv_user_tv_nickname" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:hint="엉겅동"
+            android:text="@{user.location}"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@id/item_rv_user_tv_nickname"
             app:layout_constraintTop_toBottomOf="@id/item_rv_user_tv_nickname" />

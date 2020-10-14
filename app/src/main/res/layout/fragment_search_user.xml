@@ -39,7 +39,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="• 사용자 프로필의 닉네임 옆 #숫자로도 검색할 수 없어요.\n(예: 당근이 #10000)"
+                android:text="• 사용자 프로필의 닉네임 옆 #문자로 검색할 수 있어요.\n(예: 당근이 #6Ib314e)"
                 app:layout_constraintStart_toStartOf="@id/fm_search_user_temp2"
                 app:layout_constraintTop_toBottomOf="@id/fm_search_user_temp2" />
 

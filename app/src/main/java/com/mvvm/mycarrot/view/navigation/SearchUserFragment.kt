@@ -27,14 +27,13 @@ class SearchUserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_user, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-
 
         searchViewModel =
             ViewModelProvider(activity!!, SearchViewModel.Factory(activity!!.application)).get(
@@ -43,13 +42,21 @@ class SearchUserFragment : Fragment() {
 
 
         searchViewModel.getKeywordUserList().observe(this, Observer { itemList ->
-            itemList.forEachIndexed { index, userObject ->
-                Log.d("fhrm", "SearchUserFragment -onActivityCreated(),    index: ${index}, user: ${userObject.nickname}")
-            }
             userRvAdapter.setList(itemList)
         })
 
+        initFirstLayout()
         initUserRv()
+
+    }
+
+    /*
+     SearchTradingFragment 화면에서 검색 후 해당 fragment 로 오면 검색 Rv 가 아닌 default layout 이 show 되기때문에,
+     해당 fragment 가 show 될때 keyword 를 검색 했는지 여부 확인하여 보여질 layout 을 보여줌
+     */
+    private fun initFirstLayout() {
+        if (searchViewModel.getKeyword().isNullOrBlank()) changeLayout("toDefault")
+        else changeLayout("toSearchRv")
 
     }
 
@@ -86,7 +93,7 @@ class SearchUserFragment : Fragment() {
     [취소] 버튼 클릭 시 일반 화면 Show, "toDefault"
     */
     fun changeLayout(mode: String) {
-        if(!this::binding.isInitialized) return
+        if (!this::binding.isInitialized) return
         if (mode == "toSearchRv") {
             binding.fmSearchUserClDefault.visibility = View.GONE
             binding.fmSearchUserClSearch.visibility = View.VISIBLE
@@ -97,7 +104,7 @@ class SearchUserFragment : Fragment() {
     }
 
 
-    fun test(){
+    fun test() {
         Log.d("fhrm", "SearchUserFragment -test(),    here")
     }
 }

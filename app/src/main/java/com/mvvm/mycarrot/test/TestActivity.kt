@@ -12,6 +12,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.HorizonSpacingItemDecoration
 import com.mvvm.mycarrot.adapter.OwnerItemRvAdapterHorizontal
+import com.mvvm.mycarrot.view.navigation.SearchTradingFragment
+import com.mvvm.mycarrot.view.navigation.SearchUserFragment
 import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.TestViewModel
@@ -50,7 +52,9 @@ class TestActivity : AppCompatActivity() {
 
 
         test_btn.setOnClickListener {
-            test()
+            var searchTradingFragment = SearchTradingFragment()
+            var searchUserFragment = SearchUserFragment()
+
         }
 
         // *************************************************************************** //

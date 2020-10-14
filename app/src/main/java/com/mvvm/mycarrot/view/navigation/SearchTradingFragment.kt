@@ -2,7 +2,6 @@ package com.mvvm.mycarrot.view.navigation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,6 @@ class SearchTradingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_search_trading, container, false)
         return binding.root
@@ -46,7 +44,6 @@ class SearchTradingFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         customDialog = CustomProgressDialog(activity!!)
 
 
@@ -85,6 +82,7 @@ class SearchTradingFragment : Fragment() {
 
 
 
+
         initHotItemRv()
         initHotItemList()
         initRecommdItemRv()
@@ -100,7 +98,7 @@ class SearchTradingFragment : Fragment() {
             adapter = searchItemRvAdapter
         }
 
-        searchItemRvAdapter.listener = object: ItemRvAdapter.ClickListener{
+        searchItemRvAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
                 beforeStartItemActivity(position, "fromHotItem")
             }
@@ -162,15 +160,19 @@ class SearchTradingFragment : Fragment() {
 
     fun beforeStartItemActivity(position: Int, fromRecycler: String) {
         customDialog.show()
-        if (fromRecycler == "fromRecommend") {
-            homeViewModel.setselectedItem(recommendRvAdapter.itemList[position].id!!)
-            homeViewModel.setselectedItemOwner(recommendRvAdapter.itemList[position].userId!!)
-        } else if (fromRecycler == "fromHotItem") {
-            homeViewModel.setselectedItem(hotitemRvAdapter.itemList[position].id!!)
-            homeViewModel.setselectedItemOwner(hotitemRvAdapter.itemList[position].userId!!)
-        }else if (fromRecycler == "fromSearchItem") {
-            homeViewModel.setselectedItem(searchItemRvAdapter.itemList[position].id!!)
-            homeViewModel.setselectedItemOwner(searchItemRvAdapter.itemList[position].userId!!)
+        when (fromRecycler) {
+            "fromRecommend" -> {
+                homeViewModel.setselectedItem(recommendRvAdapter.itemList[position].id!!)
+                homeViewModel.setselectedItemOwner(recommendRvAdapter.itemList[position].userId!!)
+            }
+            "fromHotItem" -> {
+                homeViewModel.setselectedItem(hotitemRvAdapter.itemList[position].id!!)
+                homeViewModel.setselectedItemOwner(hotitemRvAdapter.itemList[position].userId!!)
+            }
+            "fromSearchItem" -> {
+                homeViewModel.setselectedItem(searchItemRvAdapter.itemList[position].id!!)
+                homeViewModel.setselectedItemOwner(searchItemRvAdapter.itemList[position].userId!!)
+            }
         }
     }
 
@@ -181,10 +183,6 @@ class SearchTradingFragment : Fragment() {
     }
 
     fun onStartCategoryItemActivity(selectedCategory: String) {
-        Log.d(
-            "fhrm",
-            "SearchTradingFragment -onStartCategoryItemActivity(),    selectedCategory: ${selectedCategory}"
-        )
         var intent = Intent(activity, CategoryItemActivity::class.java)
         intent.putExtra("category", selectedCategory)
         startActivity(intent)

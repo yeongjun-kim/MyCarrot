@@ -1,12 +1,9 @@
 package com.mvvm.mycarrot.adapter
 
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.text.set
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -22,6 +19,12 @@ object BindingAdapters {
         var formatter = DecimalFormat("###,###")
         var formattedStringPrice = formatter.format(inputString.toLong())
         view.text = "${formattedStringPrice} 원"
+    }
+
+    @JvmStatic
+    @BindingAdapter("UserId")
+    fun setUserId(view: TextView, userId: String) {
+        view.text = "#${userId.substring(0,7)}"
     }
 
 

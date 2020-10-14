@@ -18,6 +18,7 @@ import com.mvvm.mycarrot.viewModel.SearchViewModel
 import android.content.Context
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 
 
 class SearchFragment : Fragment() {
@@ -59,6 +60,7 @@ class SearchFragment : Fragment() {
             fm = this@SearchFragment
         }
 
+
         initTabLayoutViewPager()
         initEditTextListener()
     }
@@ -96,7 +98,6 @@ class SearchFragment : Fragment() {
         val vpAdapter = ViewPagerAdapter(activity!!)
         binding.fmSearchVp.adapter = vpAdapter
 
-
         TabLayoutMediator(binding.fmSearchTl, binding.fmSearchVp) { tab, position ->
             val tabLayoutTextArray = arrayOf("중고거래", "사람")
             tab.text = tabLayoutTextArray[position]
@@ -104,6 +105,7 @@ class SearchFragment : Fragment() {
     }
 
     private inner class ViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> searchTradingFragment
