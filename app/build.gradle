@@ -65,6 +65,8 @@ dependencies {
     // Like Button
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
+    // Excel Read/Write
+    implementation 'org.apache.poi:poi:3.9'
 
     // Room
     def room_version = "2.2.5"

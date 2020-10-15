@@ -39,7 +39,7 @@ class TestViewModel(application: Application) : AndroidViewModel(application) {
             .whereArrayContains("title","아이폰")
             .orderBy("geoPoint")
             .orderBy("timestamp", Query.Direction.DESCENDING)
-            .limit(5)
+            .limit(10)
             .get()
             .addOnSuccessListener { result ->
                 var a = result.map { it.toObject(ItemObject::class.java) }

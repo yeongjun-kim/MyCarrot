@@ -184,7 +184,7 @@ class FirebaseRepository private constructor() {
                 .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
                 .orderBy("geoPoint")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(5)
+                .limit(10)
         }
 
         homeItemQuery!!.get()
@@ -211,7 +211,7 @@ class FirebaseRepository private constructor() {
                     .orderBy("geoPoint")
                     .orderBy("timestamp", Query.Direction.DESCENDING)
                     .startAfter(result.documents[result.size() - 1])
-                    .limit(5)
+                    .limit(10)
             }
     }
 

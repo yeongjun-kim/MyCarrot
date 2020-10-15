@@ -105,7 +105,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
                 .orderBy("geoPoint")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(5)
+                .limit(10)
         }
 
         categoryItemQuery!!.get()
@@ -132,7 +132,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                     .orderBy("geoPoint")
                     .orderBy("timestamp", Query.Direction.DESCENDING)
                     .startAfter(result.documents[result.size() - 1])
-                    .limit(5)
+                    .limit(10)
             }
 
 
@@ -185,7 +185,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 .whereArrayContains("title", keyword)
                 .orderBy("geoPoint")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(5)
+                .limit(10)
         }
 
         keywordItemQuery!!.get()
@@ -200,7 +200,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                     .orderBy("geoPoint")
                     .orderBy("timestamp", Query.Direction.DESCENDING)
                     .startAfter(result.documents[result.size() - 1])
-                    .limit(5)
+                    .limit(10)
             }
     }
 

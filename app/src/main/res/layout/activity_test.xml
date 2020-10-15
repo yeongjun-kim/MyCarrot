@@ -6,10 +6,18 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/test_btn"
+        android:id="@+id/dummy_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="commit dummy items"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/dummy_users"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="commit dummy users"
+        app:layout_constraintTop_toBottomOf="@id/dummy_items" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
