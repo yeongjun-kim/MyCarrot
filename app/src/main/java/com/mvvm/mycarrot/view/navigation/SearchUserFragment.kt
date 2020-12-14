@@ -66,8 +66,7 @@ class SearchUserFragment : Fragment() {
 
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer {isStartActivity ->
-            if(isStartActivity == 1){
-                Log.d("fhrm", "SearchUserFragment -onActivityCreated(),    : ")
+            if(isStartActivity == 1 && homeViewModel.getselectedFragment() == "searchUserFm"){
                 startProfileActivity()
             }
 
@@ -103,7 +102,7 @@ class SearchUserFragment : Fragment() {
                     val totalCount = recyclerView.adapter!!.itemCount
 
                     if (lastPosition == totalCount - 1) {
-                        Log.d("fhrm", "SearchUserFragment -onScrolled(),    : HERE? ? ? ?")
+                        Log.d("fhrm", "SearchUserFragment -onScrolled(),    : here")
                         searchViewModel.setKeywordUserList()
                     }
                 }
@@ -135,7 +134,7 @@ class SearchUserFragment : Fragment() {
 
     fun beforeStartProfileActivity(position:Int){
         customDialog.show()
-        homeViewModel.setselectedItemOwner(userRvAdapter.itemList[position].userId!!)
+        homeViewModel.setselectedItemOwner(userRvAdapter.itemList[position].userId!!, "searchUserFm")
     }
 
     fun startProfileActivity(){

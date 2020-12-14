@@ -73,8 +73,7 @@ class ItemActivity : AppCompatActivity() {
         })
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
-            if (isStartActivity == 2) {
-                Log.d("fhrm", "ItemActivity -onCreate(),    : ")
+            if (isStartActivity == 2 && homeViewModel.getselectedFragment() == "itemAv") {
                 startItemActivity()
             }
         })
@@ -112,7 +111,6 @@ class ItemActivity : AppCompatActivity() {
         binding.itemVp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                Log.d("fhrm", "ItemActivity -onPageSelected(),    position: ${position}")
             }
         })
 
@@ -152,8 +150,8 @@ class ItemActivity : AppCompatActivity() {
 
     fun beforeStartItemActivity(position: Int, adapter: OwnerItemRvAdapter) {
         customDialog.show()
-        homeViewModel.setselectedItem(adapter.itemList[position].id!!)
-        homeViewModel.setselectedItemOwner(adapter.itemList[position].userId!!)
+        homeViewModel.setselectedItem(adapter.itemList[position].id!!,"itemAv")
+        homeViewModel.setselectedItemOwner(adapter.itemList[position].userId!!,"itemAv")
     }
 
 

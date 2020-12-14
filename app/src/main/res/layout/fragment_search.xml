@@ -124,7 +124,6 @@
             app:layout_constraintTop_toBottomOf="@id/fm_search_tl" />
 
 
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/fm_search_vp"
             android:layout_width="match_parent"

@@ -62,8 +62,7 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2){
-                Log.d("fhrm", "HomeFragment -onActivityCreated(),    : ")
+            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "homeFm"){
                 startItemActivity()
             }
         })
@@ -137,8 +136,8 @@ class HomeFragment : Fragment() {
     }
     fun beforeStartItemActivity(position:Int){
         customDialog.show()
-        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!)
-        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!)
+        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "homeFm")
+        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!, "homeFm")
     }
 
     fun startItemActivity(){

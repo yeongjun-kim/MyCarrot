@@ -62,8 +62,7 @@ class CategoryItemActivity : AppCompatActivity() {
         })
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2){
-                Log.d("fhrm", "CategoryItemActivity -onCreate(),    : ")
+            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "categoryItemAv"){
                 startItemActivity()
             }
         })
@@ -110,8 +109,8 @@ class CategoryItemActivity : AppCompatActivity() {
 
     fun beforeStartItemActivity(position: Int) {
         customDialog.show()
-        homeViewModel.setselectedItem(categoryItemAdapter.itemList[position].id!!)
-        homeViewModel.setselectedItemOwner(categoryItemAdapter.itemList[position].userId!!)
+        homeViewModel.setselectedItem(categoryItemAdapter.itemList[position].id!!,"categoryItemAv")
+        homeViewModel.setselectedItemOwner(categoryItemAdapter.itemList[position].userId!!,"categoryItemAv")
     }
 
     fun startItemActivity() {

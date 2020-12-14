@@ -36,7 +36,6 @@ class ProfileActivity : AppCompatActivity() {
 
         initStatusBar()
 
-        Log.d("fhrm", "ProfileActivity -onCreate(),    : ${homeViewModel.getselectedItemOwner()}")
     }
 
 

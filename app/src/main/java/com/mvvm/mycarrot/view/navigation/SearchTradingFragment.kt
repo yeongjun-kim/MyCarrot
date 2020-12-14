@@ -73,13 +73,11 @@ class SearchTradingFragment : Fragment() {
         })
 
         searchViewModel.getKeywordItemList().observe(this, Observer { itemList ->
-            Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    : keyword")
             searchItemRvAdapter.setList(itemList)
         })
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
-            if (isStartActivity == 2) {
-                Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    : tradingfragment")
+            if (isStartActivity == 2 && homeViewModel.getselectedFragment() == "searchTradingFm") {
                 startItemActivity()
             }
         })
@@ -104,7 +102,6 @@ class SearchTradingFragment : Fragment() {
 
         searchItemRvAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
-                Log.d("fhrm", "SearchTradingFragment -onClick(),    : here")
                 beforeStartItemActivity(position, "fromSearchItem")
             }
         }
@@ -167,16 +164,16 @@ class SearchTradingFragment : Fragment() {
         customDialog.show()
         when (fromRecycler) {
             "fromRecommend" -> {
-                homeViewModel.setselectedItem(recommendRvAdapter.itemList[position].id!!)
-                homeViewModel.setselectedItemOwner(recommendRvAdapter.itemList[position].userId!!)
+                homeViewModel.setselectedItem(recommendRvAdapter.itemList[position].id!!,"searchTradingFm")
+                homeViewModel.setselectedItemOwner(recommendRvAdapter.itemList[position].userId!!,"searchTradingFm")
             }
             "fromHotItem" -> {
-                homeViewModel.setselectedItem(hotitemRvAdapter.itemList[position].id!!)
-                homeViewModel.setselectedItemOwner(hotitemRvAdapter.itemList[position].userId!!)
+                homeViewModel.setselectedItem(hotitemRvAdapter.itemList[position].id!!,"searchTradingFm")
+                homeViewModel.setselectedItemOwner(hotitemRvAdapter.itemList[position].userId!!,"searchTradingFm")
             }
             "fromSearchItem" -> {
-                homeViewModel.setselectedItem(searchItemRvAdapter.itemList[position].id!!)
-                homeViewModel.setselectedItemOwner(searchItemRvAdapter.itemList[position].userId!!)
+                homeViewModel.setselectedItem(searchItemRvAdapter.itemList[position].id!!,"searchTradingFm")
+                homeViewModel.setselectedItemOwner(searchItemRvAdapter.itemList[position].userId!!,"searchTradingFm")
             }
         }
     }

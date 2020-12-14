@@ -51,6 +51,7 @@ class FirebaseRepository private constructor() {
      * selectedItem: HomeFragment 에서 클릭 한 Item (ItemActivity)
      * selectedItemOwner: HomeFragment 에서 클릭 한 Item Owner (ItemActivity)
      * selectedItemOwnersItem: ItemActivity 에서 [더보기] 클릭시 SeemoreViewModel 에서 가져가 SeeMoreActivity 에서 보여줄 List
+     * selectedFragment: 어느 Activity/Fragment 에서 아이템 클릭하였는지 (homeFm, itemAv, searchFm 등등.. / observe할때 isActvity==2 에서 겹쳐가지고)
      */
 
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -76,6 +77,8 @@ class FirebaseRepository private constructor() {
     var selectedItem = ItemObject()
     var selectedItemOwner = UserObject()
     var selectedItemOwnersItem: List<ItemObject> = listOf()
+    var selectedFragment = ""
+
 
     var testCount = 0
 
@@ -101,10 +104,16 @@ class FirebaseRepository private constructor() {
         isStartItemActivity.value = 0
     }
 
+    fun getselectedFragment() = selectedFragment
+    fun setelectedFragment(fragment:String){
+        selectedFragment = fragment
+    }
+
     fun getselectedItem() = selectedItem
-    fun setSelectedItem(id: String) {
+    fun setSelectedItem(id: String, fm:String) {
         incrementLookup(id)
 
+        setelectedFragment(fm)
         firebaseStore.collection("items")
             .document(id)
             .get()
@@ -115,7 +124,9 @@ class FirebaseRepository private constructor() {
     }
 
     fun getselectedItemOwner() = selectedItemOwner
-    fun setSelectedItemOwner(id: String) {
+    fun setSelectedItemOwner(id: String, fm:String) {
+
+        setelectedFragment(fm)
         firebaseStore.collection("users")
             .document(id)
             .get()

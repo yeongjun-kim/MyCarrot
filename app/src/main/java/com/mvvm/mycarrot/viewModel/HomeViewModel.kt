@@ -79,10 +79,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun clearIsStartItemActivity() = firebaseRepository.clearIsStartItemActivity()
     fun getIsStartItemActivity() = firebaseRepository.getIsStartItemActivity()
+    fun getselectedFragment() = firebaseRepository.getselectedFragment()
     fun getselectedItem() = selectedItem
-    fun setselectedItem(id: String) = firebaseRepository.setSelectedItem(id)
+    fun setselectedItem(id: String, fm:String) = firebaseRepository.setSelectedItem(id,fm)
     fun getselectedItemOwner() = selectedItemOwner
-    fun setselectedItemOwner(id: String) = firebaseRepository.setSelectedItemOwner(id)
+    fun setselectedItemOwner(id: String, fm:String) = firebaseRepository.setSelectedItemOwner(id,fm)
     fun addToLikeList(id: String) = firebaseRepository.addToLikeList(id)
     fun deleteFromLikeList(id: String) = firebaseRepository.deleteFromLikeList(id)
     fun getCurrentUserObject() = currentUserObject

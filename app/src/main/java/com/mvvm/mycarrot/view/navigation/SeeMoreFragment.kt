@@ -53,8 +53,7 @@ class SeeMoreFragment : Fragment() {
         ).get(HomeViewModel::class.java)
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2){
-                Log.d("fhrm", "SeeMoreFragment -onActivityCreated(),    : ")
+            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seeMoreFm"){
                 startItemActivity()
             }
         })
@@ -106,8 +105,8 @@ class SeeMoreFragment : Fragment() {
 
     fun beforeStartItemActivity(position:Int){
         customDialog.show()
-        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!)
-        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!)
+        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "seeMoreFm")
+        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!,"seeMoreFm")
     }
 
 }
