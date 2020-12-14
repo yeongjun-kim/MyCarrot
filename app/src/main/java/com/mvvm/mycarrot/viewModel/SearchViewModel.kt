@@ -49,7 +49,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
      result 가 10 이상일시 10개만 subList
      */
     fun getHotItemList() = hotItemList
-
     fun setHotItemList() {
         firebaseStore.collection("items")
             .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)

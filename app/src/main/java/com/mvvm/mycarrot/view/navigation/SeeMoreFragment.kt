@@ -54,6 +54,7 @@ class SeeMoreFragment : Fragment() {
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
             if(isStartActivity ==2){
+                Log.d("fhrm", "SeeMoreFragment -onActivityCreated(),    : ")
                 startItemActivity()
             }
         })

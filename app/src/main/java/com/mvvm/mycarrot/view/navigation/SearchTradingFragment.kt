@@ -2,6 +2,7 @@ package com.mvvm.mycarrot.view.navigation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,7 @@ class SearchTradingFragment : Fragment() {
 
         binding.apply {
             fm = this@SearchTradingFragment
+            lifecycleOwner = this@SearchTradingFragment
             svm = searchViewModel
         }
 
@@ -71,11 +73,13 @@ class SearchTradingFragment : Fragment() {
         })
 
         searchViewModel.getKeywordItemList().observe(this, Observer { itemList ->
+            Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    : keyword")
             searchItemRvAdapter.setList(itemList)
         })
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
             if (isStartActivity == 2) {
+                Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    : tradingfragment")
                 startItemActivity()
             }
         })
@@ -100,7 +104,8 @@ class SearchTradingFragment : Fragment() {
 
         searchItemRvAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
-                beforeStartItemActivity(position, "fromHotItem")
+                Log.d("fhrm", "SearchTradingFragment -onClick(),    : here")
+                beforeStartItemActivity(position, "fromSearchItem")
             }
         }
     }

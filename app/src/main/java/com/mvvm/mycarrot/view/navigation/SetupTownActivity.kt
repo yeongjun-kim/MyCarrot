@@ -38,6 +38,7 @@ class SetupTownActivity : AppCompatActivity() {
 
         homeViewModel.progress.observe(this, Observer {progress ->
             homeViewModel.setExtraArrange(progress)
+            homeViewModel.setHomeItems()
         })
 
         btn_test3.setOnClickListener {

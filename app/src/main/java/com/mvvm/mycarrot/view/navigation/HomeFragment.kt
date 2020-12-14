@@ -2,11 +2,12 @@ package com.mvvm.mycarrot.view.navigation
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,8 +25,12 @@ class HomeFragment : Fragment() {
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentHomeBinding
     lateinit var customDialog:CustomProgressDialog
+
+    val SETUP_TOWN_ACTIVITY = 1234
     var itemRvAdapter = ItemRvAdapter()
     var isFirstCreate = true
+
+    var beforeExtraArrange = 0.0
 
 
 
@@ -58,6 +63,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
             if(isStartActivity ==2){
+                Log.d("fhrm", "HomeFragment -onActivityCreated(),    : ")
                 startItemActivity()
             }
         })
@@ -142,10 +148,17 @@ class HomeFragment : Fragment() {
     }
 
     fun startSetupTownActivity() {
-        startActivity(Intent(activity, SetupTownActivity::class.java))
+        beforeExtraArrange = homeViewModel.getExtraArrange()
+        startActivityForResult(Intent(activity, SetupTownActivity::class.java),SETUP_TOWN_ACTIVITY)
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SETUP_TOWN_ACTIVITY) {
+            // extraArrange 가 변경됐다면 itemList update
+            if(beforeExtraArrange != homeViewModel.getExtraArrange()) refreshItem()
+        }
+    }
 
     fun filterCategory() {
         homeViewModel.tempCategoryList = homeViewModel.categoryList.toMutableList()

@@ -1,5 +1,6 @@
 package com.mvvm.mycarrot.view.navigation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,12 +15,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.UserRvAdapter
 import com.mvvm.mycarrot.databinding.FragmentSearchUserBinding
+import com.mvvm.mycarrot.view.CustomProgressDialog
+import com.mvvm.mycarrot.view.ProfileActivity
+import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.SearchViewModel
 
 class SearchUserFragment : Fragment() {
 
     lateinit var binding: FragmentSearchUserBinding
     lateinit var searchViewModel: SearchViewModel
+    lateinit var homeViewModel: HomeViewModel // Item Click 에 대한 로직이 있어서 Click에 사용 (selectedItem)
+    lateinit var customDialog: CustomProgressDialog
+
     var userRvAdapter = UserRvAdapter()
 
 
@@ -35,15 +42,37 @@ class SearchUserFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        customDialog = CustomProgressDialog(activity!!)
+
+        binding.apply {
+            lifecycleOwner = this@SearchUserFragment
+        }
+
+
         searchViewModel =
             ViewModelProvider(activity!!, SearchViewModel.Factory(activity!!.application)).get(
                 SearchViewModel::class.java
+            )
+
+        homeViewModel =
+            ViewModelProvider(this, HomeViewModel.Factory(activity!!.application)).get(
+                HomeViewModel::class.java
             )
 
 
         searchViewModel.getKeywordUserList().observe(this, Observer { itemList ->
             userRvAdapter.setList(itemList)
         })
+
+
+        homeViewModel.getIsStartItemActivity().observe(this, Observer {isStartActivity ->
+            if(isStartActivity == 1){
+                Log.d("fhrm", "SearchUserFragment -onActivityCreated(),    : ")
+                startProfileActivity()
+            }
+
+        })
+
 
         initFirstLayout()
         initUserRv()
@@ -74,6 +103,7 @@ class SearchUserFragment : Fragment() {
                     val totalCount = recyclerView.adapter!!.itemCount
 
                     if (lastPosition == totalCount - 1) {
+                        Log.d("fhrm", "SearchUserFragment -onScrolled(),    : HERE? ? ? ?")
                         searchViewModel.setKeywordUserList()
                     }
                 }
@@ -82,7 +112,7 @@ class SearchUserFragment : Fragment() {
 
         userRvAdapter.listener = object : UserRvAdapter.ClickListener {
             override fun onClick(position: Int) {
-                Log.d("fhrm", "SearchUserFragment -onClick(),    click position: ${position}")
+                beforeStartProfileActivity(position)
             }
 
         }
@@ -103,8 +133,15 @@ class SearchUserFragment : Fragment() {
         }
     }
 
-
-    fun test() {
-        Log.d("fhrm", "SearchUserFragment -test(),    here")
+    fun beforeStartProfileActivity(position:Int){
+        customDialog.show()
+        homeViewModel.setselectedItemOwner(userRvAdapter.itemList[position].userId!!)
     }
+
+    fun startProfileActivity(){
+        customDialog.dismiss()
+        homeViewModel.clearIsStartItemActivity()
+        startActivity(Intent(activity, ProfileActivity::class.java))
+    }
+
 }

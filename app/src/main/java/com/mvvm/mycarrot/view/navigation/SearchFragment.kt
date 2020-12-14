@@ -45,12 +45,6 @@ class SearchFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        binding.testBtn3.setOnClickListener {
-        }
-        binding.testBtn4.setOnClickListener {
-
-        }
-
         searchViewModel =
             ViewModelProvider(activity!!, SearchViewModel.Factory(activity!!.application)).get(
                 SearchViewModel::class.java
@@ -58,6 +52,7 @@ class SearchFragment : Fragment() {
 
         binding.apply {
             fm = this@SearchFragment
+            lifecycleOwner = this@SearchFragment
         }
 
 

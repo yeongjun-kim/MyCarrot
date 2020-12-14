@@ -74,6 +74,7 @@ class ItemActivity : AppCompatActivity() {
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
             if (isStartActivity == 2) {
+                Log.d("fhrm", "ItemActivity -onCreate(),    : ")
                 startItemActivity()
             }
         })
@@ -167,6 +168,10 @@ class ItemActivity : AppCompatActivity() {
         var intent = Intent(this, MainActivity::class.java)
         intent.putExtra("fromItemActivity",true)
         startActivity(intent)
+    }
+
+    fun startActivityProfile(){
+        startActivity(Intent(this, ProfileActivity::class.java))
     }
 
 

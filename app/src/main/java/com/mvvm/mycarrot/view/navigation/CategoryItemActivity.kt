@@ -63,6 +63,7 @@ class CategoryItemActivity : AppCompatActivity() {
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
             if(isStartActivity ==2){
+                Log.d("fhrm", "CategoryItemActivity -onCreate(),    : ")
                 startItemActivity()
             }
         })

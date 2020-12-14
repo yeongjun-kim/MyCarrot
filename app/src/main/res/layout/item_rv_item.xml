@@ -19,7 +19,6 @@
             FirstImage="@{item.imageList[0]}"
             android:layout_width="100dp"
             android:layout_height="0dp"
-            android:background="@drawable/bg_custom_textview"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"

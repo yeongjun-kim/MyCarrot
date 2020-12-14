@@ -66,6 +66,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
+        initDefaultProgress()
+    }
+
+    private fun initDefaultProgress() {
+        if(firebaseRepository.extraArrange == 0.01) progress.value = 0
+        else if(firebaseRepository.extraArrange == 0.02) progress.value = 33
+        else if(firebaseRepository.extraArrange == 0.03) progress.value = 66
+        else progress.value = 100
     }
 
 
@@ -82,7 +90,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun clearHomeItemQuery() = firebaseRepository.clearHomeItemQuery()
     fun getHomeItems() = homeItemList
     fun setHomeItems() = firebaseRepository.setHomeItems(categoryList)
-
 
 
 
@@ -148,18 +155,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     fun clickCustomCheckBox(clickString: String) {
         // TODO("여기서 전체해제 됐을때 최소한 하나는 선택되어야 한다고 하고 그런 작업 들어가야함")
         if (categoryList.contains(clickString)) categoryList.remove(clickString)
@@ -167,11 +162,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getLocation() = location
+    fun getExtraArrange() = firebaseRepository.extraArrange
     fun setExtraArrange(progress: Int) {
         if (progress in 0..32) firebaseRepository.extraArrange = 0.01
         else if (progress in 33..65) firebaseRepository.extraArrange = 0.02
         else if (progress in 66..99) firebaseRepository.extraArrange = 0.03
         else firebaseRepository.extraArrange = 0.04
+
+
     }
 
 

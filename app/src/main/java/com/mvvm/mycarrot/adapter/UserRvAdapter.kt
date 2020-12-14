@@ -10,6 +10,7 @@ import com.mvvm.mycarrot.databinding.ItemRvItemBinding
 import com.mvvm.mycarrot.databinding.ItemRvUserBinding
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
+import com.mvvm.mycarrot.utils.onThrottleClick
 
 class UserRvAdapter :RecyclerView.Adapter<UserRvAdapter.CustomViewHolder>(){
 
@@ -43,7 +44,7 @@ class UserRvAdapter :RecyclerView.Adapter<UserRvAdapter.CustomViewHolder>(){
 
     inner class CustomViewHolder(val binding: ItemRvUserBinding, val listener: ClickListener?):RecyclerView.ViewHolder(binding.root){
         init {
-            itemView.setOnClickListener { listener?.onClick(adapterPosition) }
+            itemView.onThrottleClick { listener?.onClick(adapterPosition) }
         }
         fun bind(inputUser:UserObject){
             binding.apply {

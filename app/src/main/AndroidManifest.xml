@@ -20,6 +20,8 @@
         <activity
             android:name=".view.ItemActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".view.ProfileActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.navigation.SetupTownActivity"
             android:screenOrientation="portrait" />
