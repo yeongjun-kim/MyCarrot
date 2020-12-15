@@ -6,5 +6,9 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray">#26D7DEE2</color>
     <color name="colorDivision">#e0e0e0</color>
+    <color name="colorBlack">#000</color>
+    <color name="white">#FFF</color>
+    <color name="colorLittleGray">#F8F8F8</color>
+
 
 </resources>

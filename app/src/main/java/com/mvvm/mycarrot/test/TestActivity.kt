@@ -1,23 +1,32 @@
 package com.mvvm.mycarrot.test
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.database.collection.LLRBNode
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.TestViewModel
+import com.skydoves.balloon.*
 import kotlinx.android.synthetic.main.activity_test.*
+import kotlinx.android.synthetic.main.activity_test.view.*
 import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.poifs.filesystem.POIFSFileSystem
 import java.io.InputStream
 import java.math.BigDecimal
+import java.text.SimpleDateFormat
 
 class TestActivity : AppCompatActivity() {
 
@@ -60,7 +69,19 @@ class TestActivity : AppCompatActivity() {
             excelToUserList()
         }
 
+
         // *************************************************************************** //
+
+
+        test_sb.max = 100
+        test_sb.progressTintList = ColorStateList.valueOf(Color.parseColor("#000000"))
+        test_sb.progress = 50
+
+
+    }
+
+    fun test() {
+
     }
 
 
@@ -210,7 +231,7 @@ class TestActivity : AppCompatActivity() {
                             c5_userid = myCell.toString()
                         } else if (colno === 5) {
                             c6_profileUrl = myCell.toString()
-                        }else {
+                        } else {
                             if (myCell.toString() == "endItemList") isItemList = false
                             else if (isItemList) c7_itemList.add(myCell.toString())
                             else if (!isItemList) c8_likeList.add(myCell.toString())
@@ -222,8 +243,12 @@ class TestActivity : AppCompatActivity() {
                             c5_userid,
                             c4_nickname,
                             c6_profileUrl,
+                            36.5,
                             c3_location,
-                            GeoPoint(c1_lat.toDouble(),c2_long.toDouble()),
+                            (1..100).random(),
+                            (1600000000000..System.currentTimeMillis()).random(),
+                            (1600000000000..System.currentTimeMillis()).random(),
+                            GeoPoint(c1_lat.toDouble(), c2_long.toDouble()),
                             c7_itemList,
                             c8_likeList
                         )
@@ -241,6 +266,7 @@ class TestActivity : AppCompatActivity() {
 
     private fun itemCommitToFirestore() {
         val qry = FirebaseFirestore.getInstance().collection("items")
+
 
         itemList.forEachIndexed { index, item ->
             qry.document(item.id)
@@ -270,8 +296,6 @@ class TestActivity : AppCompatActivity() {
     }
 
 
-
-
 }
 
 data class firestoreItem(
@@ -293,7 +317,11 @@ data class firestoreUser(
     var userId: String? = null,
     var nickname: String? = null,
     var profileUrl: String? = null,
+    var temperature:Double? = null,
     var location: String? = null,
+    var locationCertification: Int? = null,
+    var joined: Long? = null,
+    var lastLoginTime: Long? = null,
     var geoPoint: GeoPoint = GeoPoint(37.55, 126.97), // Default 관악구
     var itemList: ArrayList<String> = arrayListOf(),
     var likeList: ArrayList<String> = arrayListOf()

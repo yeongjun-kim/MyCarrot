@@ -28,27 +28,27 @@ class TestViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun test() {
-        var minGeoPoint =firebaseRepository.getMinGeoPoint()
-        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
-
-
-        firebaseStore.collection("items")
-            .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-            .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
-            .whereArrayContains("title","아이폰")
-            .orderBy("geoPoint")
-            .orderBy("timestamp", Query.Direction.DESCENDING)
-            .limit(10)
-            .get()
-            .addOnSuccessListener { result ->
-                var a = result.map { it.toObject(ItemObject::class.java) }
-                a.forEachIndexed { index, item ->
-                    Log.d("fhrm", "TestViewModel -test(),    index: ${index}, item: ${item.title}")
-                }
-            }
-
-    }
+//    fun test() {
+//        var minGeoPoint =firebaseRepository.getminGeoPoint()
+//        var maxGeoPoint =firebaseRepository.getmaxGeoPoint()
+//
+//
+//        firebaseStore.collection("items")
+//            .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
+//            .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+//            .whereArrayContains("title","아이폰")
+//            .orderBy("geoPoint")
+//            .orderBy("timestamp", Query.Direction.DESCENDING)
+//            .limit(10)
+//            .get()
+//            .addOnSuccessListener { result ->
+//                var a = result.map { it.toObject(ItemObject::class.java) }
+//                a.forEachIndexed { index, item ->
+//                    Log.d("fhrm", "TestViewModel -test(),    index: ${index}, item: ${item.title}")
+//                }
+//            }
+//
+//    }
 
 
     class Factory(val application: Application) : ViewModelProvider.Factory {

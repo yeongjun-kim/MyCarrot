@@ -77,6 +77,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
+
+    fun refreshLastLoginTime() = firebaseRepository.refreshLastLoginTime()
     fun clearIsStartItemActivity() = firebaseRepository.clearIsStartItemActivity()
     fun getIsStartItemActivity() = firebaseRepository.getIsStartItemActivity()
     fun getselectedFragment() = firebaseRepository.getselectedFragment()

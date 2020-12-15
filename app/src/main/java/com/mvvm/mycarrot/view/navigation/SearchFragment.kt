@@ -58,6 +58,8 @@ class SearchFragment : Fragment() {
 
         initTabLayoutViewPager()
         initEditTextListener()
+
+
     }
 
     fun cancel() {

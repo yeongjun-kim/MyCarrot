@@ -99,6 +99,18 @@ class FirebaseRepository private constructor() {
     }
 
 
+
+    /*
+    로그인 성공시 마지막 로그인 시간 Update
+     */
+    fun refreshLastLoginTime(){
+        var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
+        docRef.update("lastLoginTime", System.currentTimeMillis())
+        Log.d("fhrm", "FirebaseRepository -refreshLastLoginTime(),    : here")
+
+        updateCurrentUser()
+    }
+
     fun getIsStartItemActivity() = isStartItemActivity
     fun clearIsStartItemActivity() {
         isStartItemActivity.value = 0
@@ -310,7 +322,11 @@ class FirebaseRepository private constructor() {
             firebaseAuth.currentUser!!.uid,
             nickname,
             profileUrl,
+            36.5,
             location.value,
+            0,
+            System.currentTimeMillis(),
+            System.currentTimeMillis(),
             GeoPoint(lat, long)
         )
 

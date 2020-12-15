@@ -28,16 +28,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private var keywordItemQuery: Query? = null
     private var keyword: String = ""
 
-    var minGeoPoint: GeoPoint
-    var maxGeoPoint: GeoPoint
-
-
     init {
         firebaseRepository = FirebaseRepository.getInstance()
         firebaseStore = FirebaseFirestore.getInstance()
         currentUserObject = firebaseRepository.getCurretUser()
-        minGeoPoint = firebaseRepository.getMinGeoPoint()
-        maxGeoPoint = firebaseRepository.getMaxGeoPoint()
     }
 
     fun getCurrentUserObject() = currentUserObject
@@ -51,8 +45,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun getHotItemList() = hotItemList
     fun setHotItemList() {
         firebaseStore.collection("items")
-            .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-            .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+            .whereGreaterThanOrEqualTo("geoPoint", firebaseRepository.getMinGeoPoint())
+            .whereLessThanOrEqualTo("geoPoint", firebaseRepository.getMaxGeoPoint())
             .orderBy("geoPoint", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
@@ -76,8 +70,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     fun setRecommendItemList() {
         firebaseStore.collection("items")
-            .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-            .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+            .whereGreaterThanOrEqualTo("geoPoint", firebaseRepository.getMinGeoPoint())
+            .whereLessThanOrEqualTo("geoPoint", firebaseRepository.getMaxGeoPoint())
             .orderBy("geoPoint")
             .get()
             .addOnSuccessListener { result ->
@@ -100,8 +94,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         if (categoryItemQuery == null) { // 처음 불렸을경우
             categoryItemQuery = firebaseStore.collection("items")
                 .whereEqualTo("category", category)
-                .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-                .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                .whereGreaterThanOrEqualTo("geoPoint", firebaseRepository.getMinGeoPoint())
+                .whereLessThanOrEqualTo("geoPoint", firebaseRepository.getMaxGeoPoint())
                 .orderBy("geoPoint")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(10)
@@ -126,8 +120,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 // paging을 위해 다음 쿼리 미리 만들어놓는 작업
                 categoryItemQuery = firebaseStore.collection("items")
                     .whereEqualTo("category", category)
-                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                    .whereGreaterThanOrEqualTo("geoPoint", firebaseRepository.getMinGeoPoint())
+                    .whereLessThanOrEqualTo("geoPoint", firebaseRepository.getMaxGeoPoint())
                     .orderBy("geoPoint")
                     .orderBy("timestamp", Query.Direction.DESCENDING)
                     .startAfter(result.documents[result.size() - 1])
@@ -138,8 +132,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
         firebaseStore.collection("items")
             .whereEqualTo("category", category)
-            .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-            .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+            .whereGreaterThanOrEqualTo("geoPoint", firebaseRepository.getMinGeoPoint())
+            .whereLessThanOrEqualTo("geoPoint", firebaseRepository.getMaxGeoPoint())
             .orderBy("geoPoint", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
@@ -179,8 +173,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun setKeywordItemList() {
         if (keywordItemQuery == null) { // 처음 불렸을경우
             keywordItemQuery = firebaseStore.collection("items")
-                .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-                .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                .whereGreaterThanOrEqualTo("geoPoint", firebaseRepository.getMinGeoPoint())
+                .whereLessThanOrEqualTo("geoPoint", firebaseRepository.getMaxGeoPoint())
                 .whereArrayContains("title", keyword)
                 .orderBy("geoPoint")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -193,8 +187,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 keywordItemList.value = result.map { it.toObject(ItemObject::class.java) }
 
                 keywordItemQuery = firebaseStore.collection("items")
-                    .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
-                    .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
+                    .whereGreaterThanOrEqualTo("geoPoint", firebaseRepository.getMinGeoPoint())
+                    .whereLessThanOrEqualTo("geoPoint", firebaseRepository.getMaxGeoPoint())
                     .whereArrayContains("title", keyword)
                     .orderBy("geoPoint")
                     .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -211,7 +205,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             .addOnSuccessListener { result ->
                 if (result.isEmpty) return@addOnSuccessListener
                 keywordUserList.value = result.map { it.toObject(UserObject::class.java) }
-                    .filter { it.geoPoint in minGeoPoint..maxGeoPoint }
+                    .filter { it.geoPoint in firebaseRepository.getMinGeoPoint()..firebaseRepository.getMaxGeoPoint() }
             }
     }
 

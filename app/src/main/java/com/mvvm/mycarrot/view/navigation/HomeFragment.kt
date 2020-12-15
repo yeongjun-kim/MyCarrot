@@ -75,7 +75,12 @@ class HomeFragment : Fragment() {
 
         initRv()
         initSwipeListener()
+        refreshLastLoginTime()
         checkIsFromCategoryFragment()
+    }
+
+    private fun refreshLastLoginTime() {
+        homeViewModel.refreshLastLoginTime()
     }
 
     private fun checkIsFromCategoryFragment() {

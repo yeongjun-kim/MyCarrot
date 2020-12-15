@@ -65,8 +65,8 @@ class SearchUserFragment : Fragment() {
         })
 
 
-        homeViewModel.getIsStartItemActivity().observe(this, Observer {isStartActivity ->
-            if(isStartActivity == 1 && homeViewModel.getselectedFragment() == "searchUserFm"){
+        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 1 && homeViewModel.getselectedFragment() == "searchUserFm") {
                 startProfileActivity()
             }
 
@@ -93,20 +93,6 @@ class SearchUserFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = userRvAdapter
-
-            addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val lastPosition =
-                        (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                    val totalCount = recyclerView.adapter!!.itemCount
-
-                    if (lastPosition == totalCount - 1) {
-                        Log.d("fhrm", "SearchUserFragment -onScrolled(),    : here")
-                        searchViewModel.setKeywordUserList()
-                    }
-                }
-            })
         }
 
         userRvAdapter.listener = object : UserRvAdapter.ClickListener {
@@ -132,12 +118,15 @@ class SearchUserFragment : Fragment() {
         }
     }
 
-    fun beforeStartProfileActivity(position:Int){
+    fun beforeStartProfileActivity(position: Int) {
         customDialog.show()
-        homeViewModel.setselectedItemOwner(userRvAdapter.itemList[position].userId!!, "searchUserFm")
+        homeViewModel.setselectedItemOwner(
+            userRvAdapter.itemList[position].userId!!,
+            "searchUserFm"
+        )
     }
 
-    fun startProfileActivity(){
+    fun startProfileActivity() {
         customDialog.dismiss()
         homeViewModel.clearIsStartItemActivity()
         startActivity(Intent(activity, ProfileActivity::class.java))
