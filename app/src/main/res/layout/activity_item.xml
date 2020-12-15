@@ -26,7 +26,7 @@
             android:id="@+id/item_nsv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/item_temp9"
+            app:layout_constraintBottom_toTopOf="@id/item_cl_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -90,10 +90,10 @@
                         android:layout_marginTop="10dp"
                         android:progressDrawable="@drawable/seekbar_style"
                         android:thumb="@android:color/transparent"
-                        app:layout_constraintStart_toEndOf="@id/item_iv_profile"
-                        app:layout_constraintHorizontal_bias="0.94"
                         app:layout_constraintBottom_toBottomOf="@id/item_iv_temperature"
-                        app:layout_constraintEnd_toEndOf="@id/item_iv_temperature" />
+                        app:layout_constraintEnd_toEndOf="@id/item_iv_temperature"
+                        app:layout_constraintHorizontal_bias="0.94"
+                        app:layout_constraintStart_toEndOf="@id/item_iv_profile" />
 
                     <TextView
                         TempeartureText="@{vm.getselectedItemOwner().temperature}"
@@ -137,7 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="엉겅동"
-                        android:text="@{vm.getselectedItem().userLocation}"
+                        DongText="@{vm.getselectedItem().userLocation}"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@id/item_tv_nickname"
                         app:layout_constraintTop_toBottomOf="@id/item_tv_nickname" />
@@ -397,17 +397,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/item_temp9"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/colorDivision"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/item_cl_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_cl_4"
@@ -418,13 +407,20 @@
             app:layout_constraintHeight_percent="0.1"
             app:layout_constraintStart_toStartOf="parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivision"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.like.LikeButton
                 android:id="@+id/item_lb"
                 itemId="@{vm.getselectedItem().id}"
                 likeList="@{vm.getCurrentUserObject().likeList}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon_size="24dp"
+                app:icon_size="20dp"
                 app:icon_type="heart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -446,9 +442,8 @@
                 DecimalFormat="@{vm.getselectedItem().price}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="1 원"
                 android:textColor="#000000"
-                android:textSize="18sp"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.06"
                 app:layout_constraintStart_toEndOf="@id/item_temp1"
@@ -458,7 +453,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="가격제안 불가"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/item_temp1"
                 app:layout_constraintStart_toStartOf="@id/item_tv_price"
                 app:layout_constraintTop_toBottomOf="@id/item_tv_price" />
@@ -466,16 +461,17 @@
             <Button
                 android:id="@+id/item_test"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:background="@drawable/bg_custom_button_orange"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="채팅으로 거래하기"
                 android:textColor="#ffffff"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.5"
                 app:layout_constraintHorizontal_bias="0.9"
                 app:layout_constraintStart_toEndOf="@id/item_tv_price"
                 app:layout_constraintTop_toTopOf="parent" />

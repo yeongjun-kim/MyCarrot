@@ -31,11 +31,19 @@
         app:menu="@menu/bottom_nav_menu" />
 
     <Button
-        android:visibility="visible"
+        android:id="@+id/test_btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chat"
+        app:layout_constraintBottom_toTopOf="@id/test_btn1"
+        app:layout_constraintEnd_toEndOf="@id/test_btn1" />
+
+    <Button
         android:id="@+id/test_btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TESTACTIVITY"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -1,5 +1,6 @@
 package com.mvvm.mycarrot.view
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -38,6 +39,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
 
+        initOtherItemList()
         initStatusBar()
         initBallon()
 
@@ -45,6 +47,16 @@ class ProfileActivity : AppCompatActivity() {
 
     fun openBallon(){
         profile_iv_information.showAlignBottom(balloon,100,10)
+    }
+
+    fun startActivitySeeMore() {
+        Log.d("fhrm", "ProfileActivity -startActivitySeeMore(),    : ${homeViewModel.selectedItemOwnersItem.value!!.size}")
+        homeViewModel.saveSelectedItemOwnersItem()
+        startActivity(Intent(this, SeeMoreActivity::class.java))
+    }
+
+    private fun initOtherItemList() {
+        homeViewModel.setSelectedItemOwnersItem()
     }
 
     private fun initBallon() {

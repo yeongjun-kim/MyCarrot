@@ -120,10 +120,7 @@ class SearchUserFragment : Fragment() {
 
     fun beforeStartProfileActivity(position: Int) {
         customDialog.show()
-        homeViewModel.setselectedItemOwner(
-            userRvAdapter.itemList[position].userId!!,
-            "searchUserFm"
-        )
+        homeViewModel.setselectedItemOwner(userRvAdapter.itemList[position].userId!!,"searchUserFm")
     }
 
     fun startProfileActivity() {

@@ -45,6 +45,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
+    // RealTime Database
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation 'com.google.firebase:firebase-database-ktx'
+
     // PlacePicker
     implementation 'com.sucho:placepicker:1.1.2'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

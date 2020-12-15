@@ -163,9 +163,7 @@ class ItemActivity : AppCompatActivity() {
 
     fun startActivitySeeMore() {
         homeViewModel.saveSelectedItemOwnersItem()
-        var intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("fromItemActivity",true)
-        startActivity(intent)
+        startActivity(Intent(this, SeeMoreActivity::class.java))
     }
 
     fun startActivityProfile(){

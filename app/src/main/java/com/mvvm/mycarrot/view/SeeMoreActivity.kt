@@ -1,68 +1,51 @@
-package com.mvvm.mycarrot.view.navigation
+package com.mvvm.mycarrot.view
 
 import android.content.Intent
+import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TableLayout
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvAdapter
-import com.mvvm.mycarrot.databinding.FragmentSeemoreBinding
-import com.mvvm.mycarrot.view.CustomProgressDialog
-import com.mvvm.mycarrot.view.ItemActivity
+import com.mvvm.mycarrot.databinding.ActivitySeeMoreBinding
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.SeeMoreViewModel
 
-class SeeMoreFragment : Fragment() {
+class SeeMoreActivity : AppCompatActivity() {
 
-    lateinit var binding: FragmentSeemoreBinding
+    lateinit var binding:ActivitySeeMoreBinding
     lateinit var seeMoreViewModel: SeeMoreViewModel
     lateinit var homeViewModel: HomeViewModel
     lateinit var customDialog: CustomProgressDialog
     var itemRvAdapter = ItemRvAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_seemore, container, false)
-        return binding.root
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        customDialog = CustomProgressDialog(activity!!)
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_see_more)
+        customDialog = CustomProgressDialog(this)
         seeMoreViewModel = ViewModelProvider(
-            activity!!, SeeMoreViewModel.Factory(activity!!.application)
+            this, SeeMoreViewModel.Factory(this.application)
         ).get(SeeMoreViewModel::class.java)
 
         homeViewModel = ViewModelProvider(
-            activity!!, HomeViewModel.Factory(activity!!.application)
+            this, HomeViewModel.Factory(this.application)
         ).get(HomeViewModel::class.java)
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seeMoreFm"){
+            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seeMoreAv"){
                 startItemActivity()
             }
         })
 
-        initRv()
-
-
-
-        binding.fmSeemoreTl.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.seemoreTl.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -75,17 +58,21 @@ class SeeMoreFragment : Fragment() {
 
         })
 
+        initRv()
+        initStatusBar()
+
 
         binding.testBtn2.setOnClickListener {
         }
+
     }
 
     private fun initRv() {
         itemRvAdapter.setList(seeMoreViewModel.itemList)
 
-        binding.fmSeemoreRv.run {
+        binding.seemoreRv.run {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(this@SeeMoreActivity)
             adapter = itemRvAdapter
         }
 
@@ -100,13 +87,18 @@ class SeeMoreFragment : Fragment() {
     fun startItemActivity(){
         customDialog.dismiss()
         homeViewModel.clearIsStartItemActivity()
-        startActivity(Intent(activity, ItemActivity::class.java))
+        startActivity(Intent(this, ItemActivity::class.java))
     }
 
     fun beforeStartItemActivity(position:Int){
         customDialog.show()
-        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "seeMoreFm")
-        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!,"seeMoreFm")
+        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "seeMoreAv")
+        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!,"seeMoreAv")
+    }
+
+    private fun initStatusBar() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.statusBarColor = Color.TRANSPARENT
     }
 
 }
