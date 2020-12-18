@@ -36,33 +36,76 @@ class ChatLogViewModel(application: Application) : AndroidViewModel(application)
 
 
     fun sendMessage(latestMessageDTO : LatestMessageDTO) {
-        if (message.value == null) return
+        if (message.value.isNullOrBlank()) return
 
         val myId = currentUserObject.value!!.userId!!
         val yourId = latestMessageDTO.yourUid
-        val yourProfileUrl = latestMessageDTO.yourProfileUrl
+        val opponentProfileUrl = currentUserObject.value!!.profileUrl!!
         val itemId = latestMessageDTO.itemUid
         val timestamp = System.currentTimeMillis()
         val message = message.value!!
         val messageType = "String"
 
-        val myReference = ref.child("user-messages/${myId}/${yourId}/${itemId}").push()
-        val yourReference = ref.child("user-messages/${myId}/${yourId}/${itemId}").push()
+        val myReference = ref.child("/user-messages/${myId}/${yourId}/${itemId}").push()
+        val yourReference = ref.child("/user-messages/${yourId}/${myId}/${itemId}").push()
 
         val messageDTO =
-            MessageDTO(myId, yourId, yourProfileUrl, timestamp, myReference.key!!, message, messageType)
+            MessageDTO(myId, yourId, opponentProfileUrl, timestamp, myReference.key!!, message, messageType)
 
         myReference.setValue(messageDTO)
         yourReference.setValue(messageDTO)
 
-        refreshLatestMessage()
+        refreshLatestMessage(latestMessageDTO)
     }
 
     /*
     전송 버튼 누르면, latestMessage 갱신
      */
-    fun refreshLatestMessage(){
+    fun refreshLatestMessage(inputDTO:LatestMessageDTO){
 
+        val myId = currentUserObject.value!!.userId!!
+        val yourId = inputDTO.yourUid
+        val itemId = inputDTO.itemUid
+
+        val saveToMeLatestDTO = LatestMessageDTO(
+            inputDTO.myUid,
+            inputDTO.yourUid,
+            inputDTO.itemUid,
+            inputDTO.opponentNickname,
+            inputDTO.opponentProfileUrl,
+            inputDTO.opponentLocation,
+            inputDTO.opponentTemperature,
+            inputDTO.itemName,
+            inputDTO.itemPrice,
+            inputDTO.itemImageUrl,
+            System.currentTimeMillis(),
+            message.value!!,
+            "String"
+        )
+
+        val saveToYouLatestDTO = LatestMessageDTO(
+            inputDTO.yourUid,
+            currentUserObject.value!!.userId!!,
+            inputDTO.itemUid,
+            currentUserObject.value!!.nickname!!,
+            currentUserObject.value!!.profileUrl!!,
+            currentUserObject.value!!.location!!,
+            currentUserObject.value!!.temperature!!,
+            inputDTO.itemName,
+            inputDTO.itemPrice,
+            inputDTO.itemImageUrl,
+            System.currentTimeMillis(),
+            message.value!!,
+            "String"
+        )
+
+        val myReference = ref.child("/latest-messages/${myId}/${yourId}/${itemId}")
+        val yourReference = ref.child("/latest-messages/${yourId}/${myId}/${itemId}")
+
+        myReference.setValue(saveToMeLatestDTO)
+        yourReference.setValue(saveToYouLatestDTO)
+
+        message.value = null
     }
 
     class Factory(val application: Application) : ViewModelProvider.Factory {

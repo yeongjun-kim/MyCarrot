@@ -7,7 +7,7 @@ import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.item_chat_to.view.*
 
 
-class ChatLogTo(val dto: MessageDTO) : Item<GroupieViewHolder>() {
+class ChatLogToGroupie(val dto: MessageDTO) : Item<GroupieViewHolder>() {
     override fun getLayout() = R.layout.item_chat_to
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {

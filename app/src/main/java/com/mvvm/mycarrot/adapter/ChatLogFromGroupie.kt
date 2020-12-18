@@ -7,14 +7,14 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.item_chat_from.view.*
 
-class ChatLogFrom(val dto: MessageDTO) : Item<GroupieViewHolder>() {
+class ChatLogFromGroupie(val dto: MessageDTO) : Item<GroupieViewHolder>() {
     override fun getLayout() = R.layout.item_chat_from
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.chat_from_tv_message.text = dto.message
 
         Glide.with(viewHolder.itemView.chat_from_iv_profile.context)
-            .load(dto.yourProfileUrl)
+            .load(dto.opponentProfileUrl)
             .placeholder(R.drawable.ic_user)
             .circleCrop()
             .thumbnail(0.1f)

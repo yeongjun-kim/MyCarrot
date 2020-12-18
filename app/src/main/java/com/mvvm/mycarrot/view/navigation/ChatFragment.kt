@@ -1,69 +1,94 @@
 package com.mvvm.mycarrot.view.navigation
 
-import android.content.Context
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-
 import com.mvvm.mycarrot.R
-import com.mvvm.mycarrot.viewModel.HomeViewModel
+import com.mvvm.mycarrot.adapter.LatestGroupie
+import com.mvvm.mycarrot.databinding.FragmentChatBinding
+import com.mvvm.mycarrot.model.LatestMessageDTO
+import com.mvvm.mycarrot.view.ChatLogActivity
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Item
+import kotlinx.android.synthetic.main.item_rv_latestmessage.view.*
 
 class ChatFragment : Fragment() {
 
-    lateinit var a: ChildEventListener
-    var db = Firebase.database
-    var rf = db.getReference("TEST")
+    lateinit var binding: FragmentChatBinding
+    private val mAdapter = GroupAdapter<GroupieViewHolder>()
 
     init {
-        var count = 0
-
-        a = rf.addChildEventListener(object : ChildEventListener {
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-            }
-
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                var a = snapshot.value as String
-                Log.d("fhrm", "ChatFragment -onChildAdded(),    a: ${count++}")
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-            }
-        })
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("fhrm", "ChatFragment -onCreate(),    : here")
+        initLatestEventListener()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rf.removeEventListener(a)
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_chat,
+            container,
+            false
+        )
+        return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
-    fun initDatabaseListener(){
-        val db = Firebase.database
-        val ref = db.getReference("/latestMessage/")
+
+
+        binding.chatRv.adapter = mAdapter
+
+    }
+
+    fun initLatestEventListener(){
+        val curUid = FirebaseAuth.getInstance().uid!!
+
+        Firebase.database.reference.child("/latest-messages/${curUid}")
+            .addChildEventListener(object:ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    snapshot.children.forEach {
+
+                        var item = it.getValue(LatestMessageDTO::class.java)
+                        mAdapter.add(LatestGroupie(item!!, object:LatestGroupie.ClickListener{
+                            override fun onClick(item:LatestMessageDTO) {
+                                val intent = Intent(activity, ChatLogActivity::class.java)
+                                intent.putExtra("LatestMessageDTO",item)
+                                startActivity(intent)
+
+                            }
+                        }))
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                }
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    // TODO("여기부터 하면됨")
+                    Log.d("fhrm", "ChatFragment -onChildChanged(),    : here")
+                }
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                }
+            })
     }
 
 }
+
+

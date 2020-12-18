@@ -4,26 +4,28 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.mvvm.mycarrot.R
-import com.mvvm.mycarrot.adapter.ChatLogFrom
-import com.mvvm.mycarrot.adapter.ChatLogTo
+import com.mvvm.mycarrot.adapter.ChatLogFromGroupie
+import com.mvvm.mycarrot.adapter.ChatLogToGroupie
 import com.mvvm.mycarrot.databinding.ActivityChatLogBinding
 import com.mvvm.mycarrot.model.LatestMessageDTO
+import com.mvvm.mycarrot.model.MessageDTO
 import com.mvvm.mycarrot.viewModel.ChatLogViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.activity_chat_log.*
 
 class ChatLogActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityChatLogBinding
     lateinit var homeViewModel: HomeViewModel
-    lateinit var chatLogViewModel:ChatLogViewModel
+    lateinit var chatLogViewModel: ChatLogViewModel
     lateinit var latestMessageDTO: LatestMessageDTO
     private val mAdapter = GroupAdapter<GroupieViewHolder>()
 
@@ -53,6 +55,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         initStatusBar()
         initRv()
+        initChatListener()
 
 
         binding.chatlogIvAdd.setOnClickListener {
@@ -61,20 +64,42 @@ class ChatLogActivity : AppCompatActivity() {
         }
 
 
+    }
 
+    private fun initChatListener() {
+        val myId = homeViewModel.getCurrentUserObject().value!!.userId!!
+        val targetId = latestMessageDTO.yourUid
+        val itemId = latestMessageDTO.itemUid
+
+        chatLogViewModel.getRef().child("/user-messages/${myId}/${targetId}/${itemId}")
+            .addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    if (snapshot.value == null) return
+
+                    var message = snapshot.getValue(MessageDTO::class.java)!!
+                    if (message.myUid == homeViewModel.getCurrentUserObject().value!!.userId!!) mAdapter.add(ChatLogToGroupie(message))
+                    else mAdapter.add(ChatLogFromGroupie(message))
+                    binding.chatlogRv.scrollToPosition(mAdapter.itemCount - 1)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                }
+            })
     }
 
 
-    fun sendMessage(){
+    fun sendMessage() {
         chatLogViewModel.sendMessage(latestMessageDTO)
     }
-
-
-
-
-
-
-
 
 
     private fun initRv() {
@@ -123,5 +148,3 @@ class ChatLogActivity : AppCompatActivity() {
         window.statusBarColor = Color.TRANSPARENT
     }
 }
-
-class Test(var a :String, var b :String)

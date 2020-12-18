@@ -3,7 +3,7 @@ package com.mvvm.mycarrot.model
 class MessageDTO(
     val myUid: String,
     val yourUid: String,
-    val yourProfileUrl:String,
+    val opponentProfileUrl:String,
     val timestamp: Long,
     val messageId: String,
     val message: String,
