@@ -1,22 +1,21 @@
 package com.mvvm.mycarrot.view
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.test.TestActivity
 import com.mvvm.mycarrot.test.TestChatActivity
 import com.mvvm.mycarrot.test.TestFragment
-import com.mvvm.mycarrot.view.navigation.*
+import com.mvvm.mycarrot.view.navigation.ChatFragment
+import com.mvvm.mycarrot.view.navigation.HomeFragment
+import com.mvvm.mycarrot.view.navigation.MyFragment
+import com.mvvm.mycarrot.view.navigation.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -28,14 +27,10 @@ class MainActivity : AppCompatActivity() {
     var myFragment = MyFragment()
     var testFragment = TestFragment()
 
-    var isFromItemActivity = false
-
-    private lateinit var textMessage: TextView
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    var currentFragment = supportFragmentManager.findFragmentById(R.id.main_fl)
 
                     supportFragmentManager.beginTransaction()
                         .setCustomAnimations(

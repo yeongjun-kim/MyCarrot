@@ -33,6 +33,10 @@ class HomeFragment : Fragment() {
     var beforeExtraArrange = 0.0
 
 
+    /*
+
+    TODO(" notifyDataSetChanged() 이거 notifiyiteminserted로 바꾸는거 고려해야함. 리프레쉬 할때 버벅거리는거때문에")
+     */
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

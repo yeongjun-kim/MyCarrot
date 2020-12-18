@@ -170,6 +170,10 @@ class ItemActivity : AppCompatActivity() {
         startActivity(Intent(this, ProfileActivity::class.java))
     }
 
+    fun startActivityChatLog(){
+        startActivity(Intent(this, ChatLogActivity::class.java))
+    }
+
 
     private fun initLikeButtonListener() {
 

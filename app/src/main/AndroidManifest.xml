@@ -16,8 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".test.TestChatActivity">
-        </activity>
+        <activity android:name=".view.ChatLogActivity"></activity>
+        <activity android:name=".test.TestChatActivity"></activity>
         <activity android:name=".view.SeeMoreActivity" />
         <activity android:name=".view.navigation.CategoryItemActivity" />
         <activity

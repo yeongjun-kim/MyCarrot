@@ -469,6 +469,7 @@
                 android:textColor="#ffffff"
                 android:textSize="13sp"
                 android:textStyle="bold"
+                android:onClick="@{() -> av.startActivityChatLog()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.5"

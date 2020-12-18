@@ -14,18 +14,4 @@ data class UserObject(
     var geoPoint: GeoPoint = GeoPoint(37.55, 126.97), // Default 관악구
     var itemList: ArrayList<String> = arrayListOf(),
     var likeList: ArrayList<String> = arrayListOf()
-) {
-    constructor() : this(
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        GeoPoint(37.55, 126.97),
-        arrayListOf(),
-        arrayListOf()
-    )
-}
+)

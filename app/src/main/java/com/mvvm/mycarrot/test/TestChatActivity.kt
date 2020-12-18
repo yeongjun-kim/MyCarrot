@@ -11,6 +11,7 @@ import com.google.firebase.ktx.Firebase
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.model.UserObject
 import kotlinx.android.synthetic.main.activity_test_chat.*
+import java.lang.Exception
 
 class TestChatActivity : AppCompatActivity() {
 
@@ -20,37 +21,40 @@ class TestChatActivity : AppCompatActivity() {
 
 
         val database = Firebase.database
-        val ref = database.getReference("TEST")
+        var ref = database.getReference()
 
-
-        ref.child("YJ").addChildEventListener(object: ChildEventListener{
-            override fun onCancelled(error: DatabaseError) {
-            }
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-            }
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-            }
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                var a = snapshot.getValue(UserObject::class.java)
-                Log.d("fhrm", "TestChatActivity -onChildAdded(),    a: ${a}")
-            }
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-            }
-        })
 
         test1.setOnClickListener {
-            ref.setValue("one")
+            repeat(2) { i->
+                repeat(2){j ->
+                    var a = ref.child("/myId/yourId${i}/item${j}")
+                    a.setValue("item${j}")
+                }
+            }
         }
         test2.setOnClickListener {
-            var a = UserObject("userId", "nickname", "profileUrl", 36.5, "location",
-                0,0L,0L)
-
-            ref.child("YJ/t").setValue(a)
+            var count =0
+            ref.child("/myId/").addChildEventListener(object:ChildEventListener{
+                override fun onCancelled(error: DatabaseError) {
+                }
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                }
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                }
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    snapshot.children.forEach {
+                        var a = it.value as String
+                        Log.d("fhrm", "TestChatActivity -onChildAdded(),    ${it.key}: ${a}")
+                    }
+                }
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                }
+            })
         }
         test3.setOnClickListener {
-            ref.child("YJ").setValue(null)
         }
         test4.setOnClickListener { }
         test5.setOnClickListener { }
     }
 }
+

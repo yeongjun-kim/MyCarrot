@@ -153,10 +153,9 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("FirstImage")
     fun setFirstImage(imageView: ImageView, url: String) {
-
         Glide.with(imageView.context)
             .load(url)
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(14)))
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(28)))
             .thumbnail(0.1f)
             .into(imageView)
     }

@@ -106,7 +106,6 @@ class FirebaseRepository private constructor() {
     fun refreshLastLoginTime(){
         var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
         docRef.update("lastLoginTime", System.currentTimeMillis())
-        Log.d("fhrm", "FirebaseRepository -refreshLastLoginTime(),    : here")
 
         updateCurrentUser()
     }

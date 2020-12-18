@@ -17,18 +17,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="commit dummy users" />
-
     <Button
-        android:id="@+id/dummy_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test" />
-
-    <SeekBar
-        android:id="@+id/test_sb"
+        android:id="@+id/aaa"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:progressDrawable="@drawable/seekbar_style"
-        android:thumb="@android:color/transparent" />
+        android:layout_height="30dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/testrv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
 
 </LinearLayout>
