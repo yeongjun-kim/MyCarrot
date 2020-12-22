@@ -16,9 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.ChatLogActivity"
-            android:windowSoftInputMode="adjustResize"
-            />
+        <activity
+            android:name=".view.ChatLogActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".test.TestChatActivity"></activity>
         <activity android:name=".view.SeeMoreActivity" />
         <activity android:name=".view.navigation.CategoryItemActivity" />
@@ -49,13 +49,14 @@
         <activity
             android:name=".test.TestActivity"
             android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name=".view.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 

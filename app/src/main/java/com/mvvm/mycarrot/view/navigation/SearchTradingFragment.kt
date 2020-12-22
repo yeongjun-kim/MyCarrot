@@ -84,13 +84,6 @@ class SearchTradingFragment : Fragment() {
             }
         })
 
-        abcd.setOnClickListener {
-            Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    size: ${searchItemRvAdapter.itemList.size}")
-            searchItemRvAdapter.itemList.forEachIndexed { index, itemObject ->
-                Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    index: ${index}, name: ${itemObject.title.joinToString("")}")
-            }
-        }
-
 
         initHotItemRv()
         initHotItemList()
