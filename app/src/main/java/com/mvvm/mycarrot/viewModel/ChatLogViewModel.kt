@@ -43,7 +43,7 @@ class ChatLogViewModel(application: Application) : AndroidViewModel(application)
         val opponentProfileUrl = currentUserObject.value!!.profileUrl!!
         val itemId = latestMessageDTO.itemUid
         val timestamp = System.currentTimeMillis()
-        val message = message.value!!
+        val message = message.value!!.trimStart().trim()
         val messageType = "String"
 
         val myReference = ref.child("/user-messages/${myId}/${yourId}/${itemId}").push()

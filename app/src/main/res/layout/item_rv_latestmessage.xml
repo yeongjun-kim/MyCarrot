@@ -48,7 +48,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:hint="dong"
                 android:textSize="13sp"
                 app:layout_constraintStart_toEndOf="@id/item_latestmessage_tv_nickname"
                 app:layout_constraintTop_toTopOf="@id/item_latestmessage_tv_nickname" />
@@ -63,6 +62,7 @@
                 app:layout_constraintTop_toTopOf="@id/item_latestmessage_tv_dong" />
 
             <TextView
+                android:id="@+id/item_latestmessage_tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="6:47 오후"
@@ -76,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
                 android:textColor="#000"
+                android:maxLines="1"
                 app:layout_constraintBottom_toBottomOf="@id/item_latestmessage_iv_profile"
                 app:layout_constraintEnd_toStartOf="@id/item_latestmessage_iv_itemurl"
                 app:layout_constraintStart_toStartOf="@id/item_latestmessage_tv_nickname"

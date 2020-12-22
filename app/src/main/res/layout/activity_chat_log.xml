@@ -28,7 +28,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chatlog_cl1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="55dp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             app:layout_constraintHeight_percent="0.07"
@@ -84,7 +84,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chatlog_cl2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:onClick="@{() -> av.startItemActivity()}"
             android:padding="12dp"
             app:layout_constraintTop_toBottomOf="@id/chatlog_ll1">
@@ -132,71 +132,83 @@
             app:layout_constraintTop_toBottomOf="@id/chatlog_cl2" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chatlog_rv"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/chatlog_ll3"
-            app:layout_constraintTop_toBottomOf="@id/chatlog_ll2" />
-
-        <LinearLayout
-            android:id="@+id/chatlog_ll3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorDivision"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/chatlog_cl3" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chatlog_ll2">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/chatlog_cl3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorLittleGray"
-            android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <ImageView
-                android:id="@+id/chatlog_iv_add"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_add_gray_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chatlog_rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/chatlog_ll3"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/bg_custom_edittext_round_gray"
-                android:hint="메시지를 입력하세요"
-                android:inputType="textMultiLine|textNoSuggestions"
-                android:paddingStart="10dp"
-                android:maxLines="3"
-                android:paddingTop="8dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="8dp"
-                android:text="@={chatLogvm.message}"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/chatlog_iv_send"
-                app:layout_constraintStart_toEndOf="@id/chatlog_iv_add"
-                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:id="@+id/chatlog_ll3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivision"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/chatlog_cl3" />
 
-            <ImageView
-                android:id="@+id/chatlog_iv_send"
-                android:layout_width="36dp"
-                android:layout_height="28dp"
-                android:onClick="@{() -> av.sendMessage()}"
-                android:src="@drawable/ic_send"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/chatlog_cl3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLittleGray"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/chatlog_iv_add"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_add_gray_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/bg_custom_edittext_round_gray"
+                    android:hint="메시지를 입력하세요"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:maxLines="3"
+                    android:paddingStart="10dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="8dp"
+                    android:text="@={chatLogvm.message}"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/chatlog_iv_send"
+                    app:layout_constraintStart_toEndOf="@id/chatlog_iv_add"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/chatlog_iv_send"
+                    android:layout_width="36dp"
+                    android:layout_height="28dp"
+                    android:onClick="@{() -> av.sendMessage()}"
+                    android:src="@drawable/ic_send"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

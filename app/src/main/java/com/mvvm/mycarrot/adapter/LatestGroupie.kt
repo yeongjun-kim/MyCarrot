@@ -1,30 +1,37 @@
 package com.mvvm.mycarrot.adapter
 
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.item_rv_latestmessage.view.*
+import java.text.SimpleDateFormat
 
-class LatestGroupie(val dto: LatestMessageDTO, val listener: ClickListener) :
+class LatestGroupie(val dto: LatestMessageDTO, val listener: ClickListener?) :
     Item<GroupieViewHolder>() {
 
     interface ClickListener {
         fun onClick(item: LatestMessageDTO)
     }
 
+
+
     override fun getLayout() = R.layout.item_rv_latestmessage
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
 
         viewHolder.itemView.setOnClickListener {
-            listener.onClick(dto)
+            listener?.onClick(dto)
+            Log.d("fhrm", "LatestGroupie -bind(),    position: ${viewHolder.adapterPosition}")
         }
 
         viewHolder.itemView.item_latestmessage_tv_nickname.text = dto.opponentNickname
         viewHolder.itemView.item_latestmessage_tv_message.text = dto.message
         viewHolder.itemView.item_latestmessage_tv_dong.text = dto.opponentLocation.split(" ")[1]
+        viewHolder.itemView.item_latestmessage_tv_time.text = SimpleDateFormat("MM월 dd일").format(dto.timestamp)
+
 
         Glide.with(viewHolder.itemView.item_latestmessage_iv_profile.context)
             .load(dto.opponentProfileUrl)
@@ -41,3 +48,4 @@ class LatestGroupie(val dto: LatestMessageDTO, val listener: ClickListener) :
             .into(viewHolder.itemView.item_latestmessage_iv_itemurl)
     }
 }
+

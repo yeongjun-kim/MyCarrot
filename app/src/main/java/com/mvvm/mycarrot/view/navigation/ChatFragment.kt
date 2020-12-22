@@ -20,15 +20,18 @@ import com.mvvm.mycarrot.adapter.LatestGroupie
 import com.mvvm.mycarrot.databinding.FragmentChatBinding
 import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.mvvm.mycarrot.view.ChatLogActivity
+import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
+import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.item_rv_latestmessage.view.*
 
 class ChatFragment : Fragment() {
 
     lateinit var binding: FragmentChatBinding
     private val mAdapter = GroupAdapter<GroupieViewHolder>()
+    val latestMessagesMap = HashMap<String, LatestMessageDTO>()
 
     init {
         initLatestEventListener()
@@ -52,40 +55,48 @@ class ChatFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-
         binding.chatRv.adapter = mAdapter
 
     }
 
-    fun initLatestEventListener(){
+    private fun refreshRecyclerViewMessages() {
+        mAdapter.clear()
+        latestMessagesMap.values.sortedByDescending { it.timestamp }.forEach {
+            mAdapter.add(LatestGroupie(it, object:LatestGroupie.ClickListener{
+                override fun onClick(item:LatestMessageDTO) {
+                    val intent = Intent(activity, ChatLogActivity::class.java)
+                    intent.putExtra("LatestMessageDTO",item)
+                    startActivity(intent)
+
+                }
+            }))
+        }
+    }
+
+    fun initLatestEventListener() {
         val curUid = FirebaseAuth.getInstance().uid!!
 
         Firebase.database.reference.child("/latest-messages/${curUid}")
-            .addChildEventListener(object:ChildEventListener{
+            .addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+
                     snapshot.children.forEach {
-
-                        var item = it.getValue(LatestMessageDTO::class.java)
-                        mAdapter.add(LatestGroupie(item!!, object:LatestGroupie.ClickListener{
-                            override fun onClick(item:LatestMessageDTO) {
-                                val intent = Intent(activity, ChatLogActivity::class.java)
-                                intent.putExtra("LatestMessageDTO",item)
-                                startActivity(intent)
-
-                            }
-                        }))
+                        val message = it.getValue(LatestMessageDTO::class.java)?:return
+                        latestMessagesMap[it.key!!] = message
+                        refreshRecyclerViewMessages()
                     }
                 }
-                override fun onCancelled(error: DatabaseError) {
-                }
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                }
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    // TODO("여기부터 하면됨")
-                    Log.d("fhrm", "ChatFragment -onChildChanged(),    : here")
+                    snapshot.children.forEach {
+                        val message = it.getValue(LatestMessageDTO::class.java)?:return
+                        latestMessagesMap[it.key!!] = message
+                        refreshRecyclerViewMessages()
+                    }
                 }
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                }
+
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onChildRemoved(snapshot: DataSnapshot) {}
             })
     }
 
