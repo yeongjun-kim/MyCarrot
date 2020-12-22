@@ -24,7 +24,6 @@ class LatestGroupie(val dto: LatestMessageDTO, val listener: ClickListener?) :
 
         viewHolder.itemView.setOnClickListener {
             listener?.onClick(dto)
-            Log.d("fhrm", "LatestGroupie -bind(),    position: ${viewHolder.adapterPosition}")
         }
 
         viewHolder.itemView.item_latestmessage_tv_nickname.text = dto.opponentNickname

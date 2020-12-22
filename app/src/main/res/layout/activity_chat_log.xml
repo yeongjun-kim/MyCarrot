@@ -50,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:text="@{latestMessage.opponentNickname}"
+                android:onClick="@{() -> av.startActivityProfile()}"
                 android:textColor="#000"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"

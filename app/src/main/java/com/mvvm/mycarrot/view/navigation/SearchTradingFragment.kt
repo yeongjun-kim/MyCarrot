@@ -19,6 +19,7 @@ import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.SearchViewModel
+import kotlinx.android.synthetic.main.fragment_search_trading.*
 
 
 class SearchTradingFragment : Fragment() {
@@ -73,6 +74,7 @@ class SearchTradingFragment : Fragment() {
         })
 
         searchViewModel.getKeywordItemList().observe(this, Observer { itemList ->
+            Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    : here")
             searchItemRvAdapter.setList(itemList)
         })
 
@@ -82,7 +84,12 @@ class SearchTradingFragment : Fragment() {
             }
         })
 
-
+        abcd.setOnClickListener {
+            Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    size: ${searchItemRvAdapter.itemList.size}")
+            searchItemRvAdapter.itemList.forEachIndexed { index, itemObject ->
+                Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    index: ${index}, name: ${itemObject.title.joinToString("")}")
+            }
+        }
 
 
         initHotItemRv()
@@ -102,6 +109,7 @@ class SearchTradingFragment : Fragment() {
 
         searchItemRvAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
+                Log.d("fhrm", "SearchTradingFragment -onClick(),    : click")
                 beforeStartItemActivity(position, "fromSearchItem")
             }
         }

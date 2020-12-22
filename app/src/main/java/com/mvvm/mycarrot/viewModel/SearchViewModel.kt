@@ -199,8 +199,17 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getKeywordUserList() = keywordUserList
     fun setKeywordUserList() {
+
+        var end = keyword[keyword.length-1]
+        val newEnding = ++end
+
+        var newString = keyword
+        newString.dropLast(1)
+        newString += newEnding
+
         firebaseStore.collection("users")
             .whereGreaterThanOrEqualTo("nickname", keyword)
+            .whereLessThanOrEqualTo("nickname",newString)
             .get()
             .addOnSuccessListener { result ->
                 if (result.isEmpty) return@addOnSuccessListener

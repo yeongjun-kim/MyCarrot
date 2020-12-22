@@ -101,15 +101,7 @@ class MainActivity : AppCompatActivity() {
         test_btn1.setOnClickListener {
             test()
         }
-        test_btn3.setOnClickListener {
-            chat()
-        }
     }
-
-    fun chat(){
-        startActivity(Intent(this, TestChatActivity::class.java))
-    }
-
 
     private fun initStatusBar() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -117,13 +109,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun test() {
-//        supportFragmentManager.beginTransaction()
-//            .setCustomAnimations(
-//                R.anim.fade_in,
-//                R.anim.fade_out
-//            )
-//            .replace(R.id.main_fl, testFragment)
-//            .commit()
         startActivity(Intent(this, TestActivity::class.java))
     }
 

@@ -38,7 +38,6 @@ class ProfileActivity : AppCompatActivity() {
             vm = homeViewModel
         }
 
-
         initOtherItemList()
         initStatusBar()
         initBallon()
@@ -50,7 +49,6 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     fun startActivitySeeMore() {
-        Log.d("fhrm", "ProfileActivity -startActivitySeeMore(),    : ${homeViewModel.selectedItemOwnersItem.value!!.size}")
         homeViewModel.saveSelectedItemOwnersItem()
         startActivity(Intent(this, SeeMoreActivity::class.java))
     }

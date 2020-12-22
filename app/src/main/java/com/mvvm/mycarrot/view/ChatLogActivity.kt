@@ -4,8 +4,10 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -52,18 +54,9 @@ class ChatLogActivity : AppCompatActivity() {
             chatLogvm = chatLogViewModel
         }
 
-
         initStatusBar()
         initRv()
         initChatListener()
-
-
-        binding.chatlogIvAdd.setOnClickListener {
-        }
-        binding.chatlogIvSend.setOnClickListener {
-        }
-
-
     }
 
     private fun initChatListener() {
@@ -106,6 +99,9 @@ class ChatLogActivity : AppCompatActivity() {
         binding.chatlogRv.adapter = mAdapter
     }
 
+    fun startActivityProfile(){
+        startActivity(Intent(this, ProfileActivity::class.java))
+    }
 
     fun startItemActivity() {
         homeViewModel.clearIsStartItemActivity()
@@ -140,6 +136,12 @@ class ChatLogActivity : AppCompatActivity() {
         }
 
         return latest
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        homeViewModel.clearIsStartItemActivity()
     }
 
 

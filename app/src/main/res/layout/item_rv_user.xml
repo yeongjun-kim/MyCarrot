@@ -34,19 +34,18 @@
             android:text="@{user.nickname}"
             android:textColor="#000"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_user_iv_profile"
+            app:layout_constraintBottom_toTopOf="@id/item_rv_user_tv_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toEndOf="@id/item_rv_user_iv_profile"
-            app:layout_constraintTop_toTopOf="@id/item_rv_user_iv_profile"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintTop_toTopOf="@id/item_rv_user_iv_profile" />
 
         <TextView
+            UserId="@{user.userId}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            UserId="@{user.userId}"
             android:layout_marginStart="4dp"
+            android:textColor="#000"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/item_rv_user_tv_nickname"
             app:layout_constraintStart_toEndOf="@id/item_rv_user_tv_nickname"
@@ -54,10 +53,12 @@
 
 
         <TextView
+            android:id="@+id/item_rv_user_tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{user.location}"
             android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/item_rv_user_iv_profile"
             app:layout_constraintStart_toStartOf="@id/item_rv_user_tv_nickname"
             app:layout_constraintTop_toBottomOf="@id/item_rv_user_tv_nickname" />
 
