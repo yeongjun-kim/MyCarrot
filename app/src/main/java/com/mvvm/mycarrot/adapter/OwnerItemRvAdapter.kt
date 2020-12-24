@@ -9,6 +9,7 @@ import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ItemRvOwneritemBinding
 import com.mvvm.mycarrot.databinding.ItemRvOwneritemHorizontalBinding
 import com.mvvm.mycarrot.model.ItemObject
+import com.mvvm.mycarrot.utils.onThrottleClick
 import kotlinx.android.synthetic.main.activity_item.view.*
 
 class OwnerItemRvAdapter: RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHolder>() {
@@ -47,7 +48,7 @@ class OwnerItemRvAdapter: RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHold
 
     inner class CustomViewHolder(val binding:ItemRvOwneritemBinding, val listener:ClickListener?) : RecyclerView.ViewHolder(binding.root) {
         init {
-            itemView.setOnClickListener { listener?.onClick(adapterPosition) }
+            itemView.onThrottleClick { listener?.onClick(adapterPosition) }
         }
 
         fun bind(inputItem:ItemObject){

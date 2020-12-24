@@ -15,11 +15,12 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/test_btn2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/test6"
+            android:layout_height="wrap_content" />
+
 
 
         <TextView
@@ -38,6 +39,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:onClick="@{() -> av.onBackPressed()}"
             android:src="@drawable/ic_arrow_back_black_14dp"
             app:layout_constraintBottom_toBottomOf="@id/seemore_temp1"
             app:layout_constraintEnd_toStartOf="@id/seemore_temp1"

@@ -20,6 +20,13 @@
         android:layout_height="match_parent"
         tools:context=".view.ProfileActivity">
 
+        <Button
+            android:id="@+id/abc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/profile_cl"
             android:layout_width="match_parent"
@@ -342,8 +349,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="71dp"
                     android:layout_marginStart="14dp"
-                    android:onClick="@{() -> av.startActivitySeeMore()}"
                     android:layout_marginEnd="14dp"
+                    android:onClick="@{() -> av.startActivitySeeMore()}"
                     app:layout_constraintTop_toBottomOf="@id/profile_cl3">
 
                     <TextView

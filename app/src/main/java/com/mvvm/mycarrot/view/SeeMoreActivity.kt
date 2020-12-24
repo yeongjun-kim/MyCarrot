@@ -16,6 +16,7 @@ import com.mvvm.mycarrot.adapter.ItemRvAdapter
 import com.mvvm.mycarrot.databinding.ActivitySeeMoreBinding
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.SeeMoreViewModel
+import kotlinx.android.synthetic.main.activity_see_more.*
 
 class SeeMoreActivity : AppCompatActivity() {
 
@@ -30,6 +31,10 @@ class SeeMoreActivity : AppCompatActivity() {
 
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_see_more)
+        binding.apply {
+            lifecycleOwner = this@SeeMoreActivity
+            av = this@SeeMoreActivity
+        }
         customDialog = CustomProgressDialog(this)
         seeMoreViewModel = ViewModelProvider(
             this, SeeMoreViewModel.Factory(this.application)
@@ -40,6 +45,7 @@ class SeeMoreActivity : AppCompatActivity() {
         ).get(HomeViewModel::class.java)
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
+            Log.d("fhrm", "SeeMoreActivity -onCreate(),    isStartActivity: ${isStartActivity}")
             if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seeMoreAv"){
                 startItemActivity()
             }
@@ -61,8 +67,11 @@ class SeeMoreActivity : AppCompatActivity() {
         initRv()
         initStatusBar()
 
+        Log.d("fhrm", "SeeMoreActivity -onCreate(),    : ${homeViewModel.getselectedItemOwnersItem().value!!.size}")
 
-        binding.testBtn2.setOnClickListener {
+        test6.setOnClickListener {
+            Log.d("fhrm", "SeeMoreActivity -onCreate(),    nickname: ${homeViewModel.getselectedItemOwner().nickname}")
+            Log.d("fhrm", "SeeMoreActivity -onCreate(),    size: ${homeViewModel.getselectedItemOwner().itemList.size}")
         }
 
     }
@@ -84,6 +93,7 @@ class SeeMoreActivity : AppCompatActivity() {
 
     }
 
+
     fun startItemActivity(){
         customDialog.dismiss()
         homeViewModel.clearIsStartItemActivity()
@@ -92,6 +102,7 @@ class SeeMoreActivity : AppCompatActivity() {
 
     fun beforeStartItemActivity(position:Int){
         customDialog.show()
+        homeViewModel.clearIsStartItemActivity()
         homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "seeMoreAv")
         homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!,"seeMoreAv")
     }

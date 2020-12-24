@@ -4,6 +4,7 @@ import android.util.Log
 import com.bumptech.glide.Glide
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.model.LatestMessageDTO
+import com.mvvm.mycarrot.utils.onThrottleClick
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.item_rv_latestmessage.view.*
@@ -22,7 +23,7 @@ class LatestGroupie(val dto: LatestMessageDTO, val listener: ClickListener?) :
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
 
-        viewHolder.itemView.setOnClickListener {
+        viewHolder.itemView.onThrottleClick {
             listener?.onClick(dto)
         }
 

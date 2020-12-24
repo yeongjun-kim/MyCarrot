@@ -114,11 +114,11 @@ class SearchTradingFragment : Fragment() {
      */
     fun changeLayout(mode: String) {
         if (mode == "toSearchRv") {
-            binding.fmSearchTradingNsv.visibility = View.GONE
+            binding.fmSearchTradingNsv.visibility = View.INVISIBLE
             binding.fmSearchTradingClSearchitem.visibility = View.VISIBLE
         } else if (mode == "toNestedScrollView") {
             binding.fmSearchTradingNsv.visibility = View.VISIBLE
-            binding.fmSearchTradingClSearchitem.visibility = View.GONE
+            binding.fmSearchTradingClSearchitem.visibility = View.INVISIBLE
         }
     }
 

@@ -20,6 +20,7 @@ import com.mvvm.mycarrot.adapter.GridSpacingItemDecoration
 import com.mvvm.mycarrot.adapter.ItemVpAdapter
 import com.mvvm.mycarrot.adapter.OwnerItemRvAdapter
 import com.mvvm.mycarrot.databinding.ActivityItemBinding
+import com.mvvm.mycarrot.utils.onThrottleClick
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.activity_item.*
 
@@ -77,11 +78,6 @@ class ItemActivity : AppCompatActivity() {
                 startItemActivity()
             }
         })
-
-
-        item_test.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
     }
 
     private fun changeTopLayoutColor(input: String) {

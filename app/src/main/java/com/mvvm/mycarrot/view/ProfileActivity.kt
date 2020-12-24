@@ -42,6 +42,11 @@ class ProfileActivity : AppCompatActivity() {
         initStatusBar()
         initBallon()
 
+        abc.setOnClickListener {
+            Log.d("fhrm", "ProfileActivity -onCreate(),    : ${homeViewModel.getselectedItemOwner().nickname}")
+            Log.d("fhrm", "ProfileActivity -onCreate(),    size: ${homeViewModel.getselectedItemOwner().itemList.size}")
+        }
+
     }
 
     fun openBallon(){

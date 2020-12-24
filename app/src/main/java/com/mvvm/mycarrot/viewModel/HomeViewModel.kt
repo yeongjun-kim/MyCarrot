@@ -139,7 +139,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 .get()
                 .addOnSuccessListener { result ->
                     var item = result.toObject(ItemObject::class.java)
-                    if (item!!.id == selectedItem.id) return@addOnSuccessListener // 현재 클릭한 상품과 같은정보면 저장 X
+//                    if (item!!.id == selectedItem.id) return@addOnSuccessListener // 현재 클릭한 상품과 같은정보면 저장 X
 
                     var currentList = selectedItemOwnersItem.value
                     var conversionList = currentList!!.toMutableList()
