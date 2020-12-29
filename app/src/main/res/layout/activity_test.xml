@@ -25,10 +25,7 @@
         android:id="@+id/aa2"
         android:layout_width="match_parent"
         android:layout_height="30dp" />
-    <FrameLayout
-        android:id="@+id/test_fl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+
 
 
 </LinearLayout>

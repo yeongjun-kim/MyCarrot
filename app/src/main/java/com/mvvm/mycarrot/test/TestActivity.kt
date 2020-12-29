@@ -5,19 +5,32 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.fcm.Api
+import com.mvvm.mycarrot.fcm.ApiClient
+import com.mvvm.mycarrot.fcm.NotificationBody
+import com.mvvm.mycarrot.fcm.NotificationData
 import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.TestViewModel
 import kotlinx.android.synthetic.main.activity_test.*
+import okhttp3.ResponseBody
 import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.poifs.filesystem.POIFSFileSystem
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.InputStream
 import java.math.BigDecimal
+
 
 class TestActivity : AppCompatActivity() {
 
@@ -32,6 +45,8 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
+
+
 
 
         //********************************** DEFAULT **********************************//
@@ -63,20 +78,40 @@ class TestActivity : AppCompatActivity() {
 
         // *************************************************************************** //
 
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            Log.d("fhrm", "TestActivity -onCreate(),    token: ${it.token}")
+        }
+
 
 
         aa1.setOnClickListener {
-
+            FirebaseMessaging.getInstance().token.addOnSuccessListener {token->
+                Firebase.database.reference.child("/user-token/${homeViewModel.getCurrentUserObject().value!!.userId}").setValue(token)
+            }
         }
         aa2.setOnClickListener {
-
+            sendNotificationToUser("cuxdd8aETn6dnhZpyskn9p:APA91bH_M3533KXVt1WxeBKPlvfmFOaSNS7V3Vhb9TEluMEys2yO0tIEQJ1Fkn2fjeNc60xRDciqUENXW1FiKh8PGV")
+            sendNotificationToUser("dqX7pBqQSqCANNJvo8AR3A:APA91bFamBiYuLqHMODqvVIHyFzP4AkIzFOjL4mHn6cnuP2BWio6v5SRO_pt8IW2Kr0QxphsszfBMO6bPDBelwFJ14SYYyd")
         }
-
-        test_fl
-
 
     }
 
+    fun sendNotificationToUser(token:String){
+
+        var model = NotificationBody(token, NotificationData("this is title", "this is body"))
+        val apiService = ApiClient.client!!.create(Api::class.java)
+        val responseBodyCall = apiService.sendNotification(model)
+
+        responseBodyCall.enqueue(object : Callback<ResponseBody?>{
+            override fun onResponse(call: Call<ResponseBody?>?,response: Response<ResponseBody?>?) {
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>?,t: Throwable?) {
+            }
+        })
+
+
+    }
 
     private fun excelToItemList() {
         try {

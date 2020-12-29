@@ -14,7 +14,10 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.*
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import com.mvvm.mycarrot.model.ItemObject
@@ -24,6 +27,7 @@ import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.timerTask
 import kotlin.math.max
 
 class FirebaseRepository private constructor() {
@@ -99,11 +103,10 @@ class FirebaseRepository private constructor() {
     }
 
 
-
     /*
     로그인 성공시 마지막 로그인 시간 Update
      */
-    fun refreshLastLoginTime(){
+    fun refreshLastLoginTime() {
         var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
         docRef.update("lastLoginTime", System.currentTimeMillis())
 
@@ -116,12 +119,12 @@ class FirebaseRepository private constructor() {
     }
 
     fun getselectedFragment() = selectedFragment
-    fun setelectedFragment(fragment:String){
+    fun setelectedFragment(fragment: String) {
         selectedFragment = fragment
     }
 
     fun getselectedItem() = selectedItem
-    fun setSelectedItem(id: String, fm:String) {
+    fun setSelectedItem(id: String, fm: String) {
         incrementLookup(id)
 
         setelectedFragment(fm)
@@ -135,7 +138,7 @@ class FirebaseRepository private constructor() {
     }
 
     fun getselectedItemOwner() = selectedItemOwner
-    fun setSelectedItemOwner(id: String, fm:String) {
+    fun setSelectedItemOwner(id: String, fm: String) {
 
         setelectedFragment(fm)
         firebaseStore.collection("users")
@@ -146,9 +149,6 @@ class FirebaseRepository private constructor() {
                 isStartItemActivity.value = isStartItemActivity.value!!.plus(1)
             }
     }
-
-
-
 
 
     fun addToLikeList(id: String) {
@@ -196,8 +196,8 @@ class FirebaseRepository private constructor() {
 
     fun getHomeItems() = homeItemList
     fun setHomeItems(categoryList: MutableList<String>) {
-        var minGeoPoint =getMinGeoPoint()
-        var maxGeoPoint =getMaxGeoPoint()
+        var minGeoPoint = getMinGeoPoint()
+        var maxGeoPoint = getMaxGeoPoint()
 
         if (homeItemQuery == null) { // 처음 불렸을경우
             homeItemQuery = firebaseStore.collection("items")
@@ -244,6 +244,13 @@ class FirebaseRepository private constructor() {
         category.value = selectedCategory
     }
 
+    private fun initFCMtoken() {
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            Firebase.database.reference.child("/user-token/${currentUserObject.value!!.userId}")
+                .setValue(token)
+        }
+    }
+
     private fun initCurrentUser() {
         if (firebaseAuth.currentUser == null) return // 앱 삭제하고 재설치
 
@@ -257,6 +264,7 @@ class FirebaseRepository private constructor() {
                     currentUserObject.value = user
                     location.value = currentUserObject.value!!.location
                     loginMode.value = 2
+                    initFCMtoken()
                 }
             }
     }
@@ -333,6 +341,7 @@ class FirebaseRepository private constructor() {
             .addOnSuccessListener {
                 currentUserObject.value = insertUserObject
                 loginMode.value = 2
+                initFCMtoken()
                 isSignSuccess.value = true
             }.await()
     }
@@ -403,7 +412,6 @@ class FirebaseRepository private constructor() {
             long + extraArrange
         )
     }
-
 
 
     fun getCurretUser() = currentUserObject

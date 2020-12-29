@@ -2,7 +2,6 @@ package com.mvvm.mycarrot.view.navigation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -176,6 +175,8 @@ class HomeFragment : Fragment() {
             .replace(R.id.main_fl, FilterCategoryFragment())
             .commit()
     }
+
+
 
 
 }

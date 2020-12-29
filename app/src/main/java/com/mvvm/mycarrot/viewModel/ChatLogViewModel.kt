@@ -6,14 +6,21 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.mvvm.mycarrot.fcm.Api
+import com.mvvm.mycarrot.fcm.ApiClient
+import com.mvvm.mycarrot.fcm.NotificationBody
+import com.mvvm.mycarrot.fcm.NotificationData
 import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.mvvm.mycarrot.model.MessageDTO
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ChatLogViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -55,7 +62,37 @@ class ChatLogViewModel(application: Application) : AndroidViewModel(application)
         myReference.setValue(messageDTO)
         yourReference.setValue(messageDTO)
 
+        sendNotificationToUser(yourId, message)
         refreshLatestMessage(latestMessageDTO)
+
+    }
+
+    /*
+    전송 버튼 누르면, 상대방 token에 Notification 쏘기
+     */
+    fun sendNotificationToUser(targetUid:String, msg:String){
+
+        ref.child("/user-token/${targetUid}").addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val token = snapshot.value.toString()
+
+                var model = NotificationBody(token, NotificationData("채팅알림", "${currentUserObject.value!!.nickname}: $msg"))
+                val apiService = ApiClient.client!!.create(Api::class.java)
+                val responseBodyCall = apiService.sendNotification(model)
+
+                responseBodyCall.enqueue(object : Callback<ResponseBody?> {
+                    override fun onResponse(call: Call<ResponseBody?>?, response: Response<ResponseBody?>?) {
+                        Log.d("fhrm", "성공, token: ${token}")
+                    }
+                    override fun onFailure(call: Call<ResponseBody?>?, t: Throwable?) {
+                        Log.d("fhrm", "실패")
+                    }
+                })
+
+            }
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
     }
 
     /*
