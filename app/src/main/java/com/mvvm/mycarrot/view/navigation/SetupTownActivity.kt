@@ -19,7 +19,6 @@ class SetupTownActivity : AppCompatActivity() {
 
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: ActivitySetupTownBinding
-    var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +40,5 @@ class SetupTownActivity : AppCompatActivity() {
             homeViewModel.setHomeItems()
         })
 
-        btn_test3.setOnClickListener {
-        }
     }
 }

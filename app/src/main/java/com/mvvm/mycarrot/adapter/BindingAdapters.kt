@@ -138,7 +138,6 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("RepresentationcircleSrc")
     fun setRepresentationCircleSrc(imageView: ImageView, url: String?) {
-
         Glide.with(imageView.context)
             .load(url)
             .placeholder(R.drawable.ic_user)
@@ -183,6 +182,17 @@ object BindingAdapters {
     fun setDongText(textView: TextView, location: String?) {
         if (!location.isNullOrBlank()) textView.text = location.split(" ")[1]
 
+    }
+
+    /**
+     * OO동 #ABCD1234 나오게 하는 TextView (MyFragment)
+     */
+    @JvmStatic
+    @BindingAdapter("DongUid")
+    fun setDongUid(textView: TextView, userObject: UserObject) {
+        val dong = userObject.location!!.split(" ")[1]
+        val uid = userObject.userId!!.substring(0,9)
+        textView.text = "${dong} #${uid}"
     }
 
     /**

@@ -150,7 +150,6 @@ class FirebaseRepository private constructor() {
             }
     }
 
-
     fun addToLikeList(id: String) {
         var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
         docRef.update("likeList", FieldValue.arrayUnion(id))

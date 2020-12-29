@@ -134,10 +134,10 @@
                         app:layout_constraintTop_toTopOf="@id/item_iv_profile" />
 
                     <TextView
+                        DongText="@{vm.getselectedItem().userLocation}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="엉겅동"
-                        DongText="@{vm.getselectedItem().userLocation}"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@id/item_tv_nickname"
                         app:layout_constraintTop_toBottomOf="@id/item_tv_nickname" />
@@ -414,17 +414,32 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.like.LikeButton
-                android:id="@+id/item_lb"
-                itemId="@{vm.getselectedItem().id}"
-                likeList="@{vm.getCurrentUserObject().likeList}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon_size="20dp"
-                app:icon_type="heart"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_cl_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.like.LikeButton
+                    android:id="@+id/item_lb"
+                    itemId="@{vm.getselectedItem().id}"
+                    likeList="@{vm.getCurrentUserObject().likeList}"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintHeight_percent="0.3"
+                    app:icon_size="20dp"
+                    app:icon_type="heart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/item_temp1"
@@ -434,7 +449,7 @@
                 android:layout_marginBottom="12dp"
                 android:background="@color/colorDivision"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/item_lb"
+                app:layout_constraintStart_toEndOf="@id/item_cl_5"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -463,13 +478,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_custom_button_orange"
+                android:onClick="@{() -> av.startActivityChatLog()}"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="채팅으로 거래하기"
                 android:textColor="#ffffff"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                android:onClick="@{() -> av.startActivityChatLog()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.5"
