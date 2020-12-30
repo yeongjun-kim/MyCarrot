@@ -7,7 +7,7 @@ class LatestMessageDTO(
     val yourUid: String,
     val itemUid: String,
     val opponentNickname: String,
-    val opponentProfileUrl: String,
+    var opponentProfileUrl: String,
     val opponentLocation: String,
     val opponentTemperature: Double,
     val itemName: String,

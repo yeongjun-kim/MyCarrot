@@ -9,9 +9,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ActivityEditProfileBinding
+import com.mvvm.mycarrot.viewModel.EditProfileViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.sucho.placepicker.AddressData
 import com.sucho.placepicker.Constants
@@ -21,7 +24,7 @@ import com.sucho.placepicker.PlacePicker
 class EditProfileActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityEditProfileBinding
-    lateinit var homeViewModel: HomeViewModel
+    lateinit var editProfileViewModel: EditProfileViewModel
     lateinit var customDialog: CustomProgressDialog
     var PICK_PROFILE_FROM_ALBUM = 1010
     lateinit var uri: Uri
@@ -32,19 +35,33 @@ class EditProfileActivity : AppCompatActivity() {
 
         customDialog = CustomProgressDialog(this)
 
-        homeViewModel = ViewModelProvider(
+        editProfileViewModel = ViewModelProvider(
             this,
-            HomeViewModel.Factory(application)
-        ).get(HomeViewModel::class.java)
+            EditProfileViewModel.Factory(application)
+        ).get(EditProfileViewModel::class.java)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile)
         binding.apply {
-            vm = homeViewModel
+            vm = editProfileViewModel
             av = this@EditProfileActivity
             lifecycleOwner = this@EditProfileActivity
         }
 
-        initStatusBar()
+        editProfileViewModel.isCommitFinish.observe(this, Observer { isFinish ->
+            if(isFinish){
+                customDialog.dismiss()
+                editProfileViewModel.isCommitFinish.value = false
+                finish()
+            }
+        })
 
+        initStatusBar()
+        initEt()
+
+    }
+
+    private fun initEt() {
+        binding.editProfileEtNickname.setText(editProfileViewModel.getCurrentUserObject().value!!.nickname)
     }
 
 
@@ -56,44 +73,26 @@ class EditProfileActivity : AppCompatActivity() {
 
     fun clickFinishBtn(){
         customDialog.show()
-        this::uri.isInitialized
+        editProfileViewModel.commitChangeInfo()
     }
-
-    /******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     *
-     *
-     *  EditProfileActivity 처음부터 다시 구조 짜서 할것.
-     *  EditProfileViewModel 만들어야할것같음.
-     *  profile이랑 nickname 때문에.
-     *  닉네임 다 지우면 완료 버튼 비활성화도 하기.
-     *
-     *
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-     ******************************************************************
-
-     */
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK) {
-            uri = data!!.data!!
+            editProfileViewModel.newImageUri = data!!.data!!
+            changeImageView(data!!.data!!)
         }
+    }
+
+    private fun changeImageView(data: Uri) {
+        Glide.with(this)
+            .load(data)
+            .placeholder(R.drawable.ic_user)
+            .circleCrop()
+            .thumbnail(0.1f)
+            .into(binding.editProfileIvProfile)
     }
 
 

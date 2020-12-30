@@ -271,7 +271,49 @@ class FirebaseRepository private constructor() {
     /*
     FireBase의 currentUserObject 에 변동사항이 생기면 갱신된 유저로 currentUserObject 업데이트 해줌
      */
-    private fun updateCurrentUser() {
+//    private fun updateCurrentUser() {
+//        firebaseStore.collection("users")
+//            .document(firebaseAuth.currentUser!!.uid)
+//            .get()
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful && task.result!!.exists()) {
+//                    var document = task.result!!
+//                    var user = document.toObject<UserObject>(UserObject::class.java)
+//                    currentUserObject.value = user
+//                    location.value = currentUserObject.value!!.location
+//                }
+//            }
+//    }
+
+    /*
+    Firestore의 field update.
+    isUriAlsoChange = true 일 시, EditProfile에서 Profile Image 또한 변경이 생겼을때.
+     */
+    fun updateFirestore(
+        collection: String,
+        document: String,
+        field: String,
+        value: String,
+        isUriAlsoChange: Boolean = false
+    ) =
+        if (isUriAlsoChange) {
+            firebaseStore.collection(collection)
+                .document(document)
+                .update(
+                    mapOf(
+                        field to value,
+                        "profileUrl" to profileUrl
+                    )
+                )
+                .addOnSuccessListener { }
+        } else {
+            firebaseStore.collection(collection)
+                .document(document)
+                .update(field, value)
+                .addOnSuccessListener { }
+        }
+
+    fun updateCurrentUser() =
         firebaseStore.collection("users")
             .document(firebaseAuth.currentUser!!.uid)
             .get()
@@ -283,7 +325,6 @@ class FirebaseRepository private constructor() {
                     location.value = currentUserObject.value!!.location
                 }
             }
-    }
 
     fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)

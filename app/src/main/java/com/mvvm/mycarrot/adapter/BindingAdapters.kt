@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
@@ -14,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.like.LikeButton
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.model.UserObject
+import com.mvvm.mycarrot.viewModel.EditProfileViewModel
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
@@ -182,6 +184,22 @@ object BindingAdapters {
     fun setDongText(textView: TextView, location: String?) {
         if (!location.isNullOrBlank()) textView.text = location.split(" ")[1]
 
+    }
+
+    /**
+     * NickName 입력이 정상적이면 완료버튼 Clickable, Color Black
+     * NickName 입력이 공백이라면 완료버튼 Not Clickable, Color Gray
+     */
+    @JvmStatic
+    @BindingAdapter("IsChangOk")
+    fun setIsChangOk(textView: TextView, str:String) {
+        if(str.isNullOrBlank()){
+            textView.isClickable = false
+            textView.setTextColor(Color.parseColor("#E6E6E6"))
+        }else{
+            textView.isClickable = true
+            textView.setTextColor(Color.parseColor("#000000"))
+        }
     }
 
     /**
