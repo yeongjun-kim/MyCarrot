@@ -1,16 +1,19 @@
 package com.mvvm.mycarrot.view.navigation
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.LocationServices
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvAdapter
 import com.mvvm.mycarrot.databinding.FragmentHomeBinding
@@ -81,6 +84,8 @@ class HomeFragment : Fragment() {
         refreshLastLoginTime()
         checkIsFromCategoryFragment()
     }
+
+
 
     private fun refreshLastLoginTime() {
         homeViewModel.refreshLastLoginTime()

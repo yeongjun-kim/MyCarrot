@@ -1,6 +1,7 @@
 package com.mvvm.mycarrot.view
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +9,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.test.TestActivity
@@ -17,6 +21,7 @@ import com.mvvm.mycarrot.view.navigation.ChatFragment
 import com.mvvm.mycarrot.view.navigation.HomeFragment
 import com.mvvm.mycarrot.view.navigation.MyFragment
 import com.mvvm.mycarrot.view.navigation.SearchFragment
+import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -27,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     var chatFragment = ChatFragment()
     var myFragment = MyFragment()
     var testFragment = TestFragment()
+    lateinit var viewModel: FirebaseViewModel
 
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -92,10 +98,14 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(com.mvvm.mycarrot.R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-
+        viewModel = ViewModelProvider(
+            this,
+            FirebaseViewModel.Factory(application)
+        ).get(FirebaseViewModel::class.java)
 
         initDefulatFragment()
         initStatusBar()
+        initCurrentLocation()
 
 
 
@@ -103,6 +113,31 @@ class MainActivity : AppCompatActivity() {
             test()
         }
     }
+
+    /*
+    유저의 현재위치를 저장
+    */
+    private fun initCurrentLocation() {
+        // 권한 승인 안했을시 그냥 return
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+
+        var fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location ->
+                if (location != null) {
+                    viewModel.setCurrentLatLong(location.latitude, location.longitude, application)
+                }
+            }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -139,7 +174,6 @@ class MainActivity : AppCompatActivity() {
 
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
-
 
 
 }

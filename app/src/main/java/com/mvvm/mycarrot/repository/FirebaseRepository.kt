@@ -20,6 +20,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
+import com.google.type.LatLng
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.view.LoginActivity
@@ -40,7 +41,8 @@ class FirebaseRepository private constructor() {
      *  2: startActivity MainActivity ( FirebaseAuth , Firestore(users) 에 둘다 존재하는 상황 )
      *
      * currentUserObject: 현재 로그인 한 유저에 대한 UserObject
-     * location: 현재 로그인 한 유저의 위치
+     * location: 현재 로그인 한 유저의 가입 시 위치
+     * location: 현재 로그인 한 유저의 현재 위치
      * lat: 현재 로그인 한 유저의 latitude
      * long: 현재 로그인 한 유저의 longitude
      * profileUri: 현재 로그인 한 유저의 profile image uri (firestore)
@@ -49,6 +51,7 @@ class FirebaseRepository private constructor() {
      *
      * isSignSuccess: SigninActivity 에서 observe, 계정등록이 완료되면 true
      * isStartItemActivity: HomeFragment 에서 ItemActivity 로 넘어가기 전, selectedItem/selectedItemOwner 값을 모두 세팅 해야 2
+     * isCertificationFinish: NeighborhoodCertificationActivity 에서 동네인증 완료하기 버튼 클릭시 Firestore의 locationCertification 값 증가 후 완료를 알림
      *
      * homeItemList: HomeFragent 에 보여질 item List
      * homeItemQuery: homeItemList 를 firestore 에서 get 할때 paging에 쓰기위함 (null = 첫페이지, not null = 첫페이지X)
@@ -65,8 +68,11 @@ class FirebaseRepository private constructor() {
     var currentUserObject: MutableLiveData<UserObject> = MutableLiveData()
     var loginMode: MutableLiveData<Int> = MutableLiveData(0)
     var location: MutableLiveData<String> = MutableLiveData("관악구 은천동")
+    var currentLocation: MutableLiveData<String> = MutableLiveData("관악구 은천동")
     var lat = 37.55
     var long = 126.97
+    var currentLat = 37.55
+    var currentLong = 126.97
     var profileUrl = ""
     var category: MutableLiveData<String> = MutableLiveData("카테고리 선택")
     var extraArrange: Double = 0.01
@@ -74,6 +80,7 @@ class FirebaseRepository private constructor() {
     var isSignSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
     var isWriteSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
     var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
+    var isCertificationFinish: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var homeItemQuery: Query? = null
     var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
@@ -102,6 +109,20 @@ class FirebaseRepository private constructor() {
         loginMode.value = 0
     }
 
+    fun getIsCertificationFinish() =isCertificationFinish
+    fun clearIsCertificationFinish(){
+        isCertificationFinish.postValue(false)
+    }
+
+    fun doCertification(){
+        var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
+        docRef.update("locationCertification", currentUserObject.value!!.locationCertification+1)
+            .addOnSuccessListener {
+                isCertificationFinish.postValue(true)
+            }
+    }
+
+    fun getCurrentLatLng() = Pair(currentLat,currentLong)
 
     /*
     로그인 성공시 마지막 로그인 시간 Update
@@ -420,6 +441,9 @@ class FirebaseRepository private constructor() {
         return retRef
     }
 
+    /*
+    SignUp으로 새로운 계정 생성시, GeoPoint Set
+     */
     fun setLatLong(inputLat: Double, inputLong: Double, application: Application) {
         lat = inputLat
         long = inputLong
@@ -433,6 +457,24 @@ class FirebaseRepository private constructor() {
         var retVal = temp[2] + " " + temp[3]
 
         if (!mResultList.isNullOrEmpty()) location.value = retVal
+    }
+
+    /*
+    이미 있는 계정으로 로그인시, 접속 계정의 현위치를 저장
+     */
+    fun setCurrentLatLong(inputLat: Double, inputLong: Double, application: Application) {
+        currentLat = inputLat
+        currentLong = inputLong
+
+        // LatLong to Address
+        var mGeocoder = Geocoder(application, Locale.KOREAN)
+        var mResultList: List<Address>?
+        mResultList = mGeocoder.getFromLocation(currentLat, currentLong, 1)
+
+        var temp = mResultList[0].getAddressLine(0).split(' ')
+        var retVal = temp[2] + " " + temp[3]
+
+        if (!mResultList.isNullOrEmpty()) currentLocation.value = retVal
     }
 
     fun getMinGeoPoint(): GeoPoint {
@@ -457,6 +499,7 @@ class FirebaseRepository private constructor() {
     fun getCurretUser() = currentUserObject
     fun getloginMode() = loginMode
     fun getlocation() = location
+    fun getCurrentlocation() = currentLocation
     fun getFirebaseAuth() = firebaseAuth
     fun getFirebaseStore() = firebaseStore
     fun getFirebaseStorage() = firebaseStorage

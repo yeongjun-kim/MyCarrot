@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.EditProfileActivity"></activity>
+        <activity android:name=".view.NeighborhoodCertificationActivity"></activity>
+        <activity android:name=".view.EditProfileActivity" />
 
         <service
             android:name=".service.MyFirebaseMessagingService"
@@ -61,7 +62,7 @@
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
             android:name=".test.TestActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.LoginActivity"
             android:screenOrientation="portrait">

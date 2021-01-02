@@ -11,15 +11,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentMyBinding
 import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.EditProfileActivity
+import com.mvvm.mycarrot.view.NeighborhoodCertificationActivity
 import com.mvvm.mycarrot.view.ProfileActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 
-class MyFragment : Fragment() {
+class MyFragment : Fragment(){
 
 
     lateinit var binding: FragmentMyBinding
@@ -59,7 +62,9 @@ class MyFragment : Fragment() {
 
         })
 
+
     }
+
 
     fun beforeStartProfileActivity() {
         customDialog.show()
@@ -67,6 +72,9 @@ class MyFragment : Fragment() {
     }
 
 
+    fun startNeighborhoodCertificationActivity(){
+        startActivity(Intent(activity, NeighborhoodCertificationActivity::class.java))
+    }
 
     fun startProfileActivity() {
         customDialog.dismiss()
@@ -81,4 +89,6 @@ class MyFragment : Fragment() {
     fun startEditProfileActivity(){
         startActivity(Intent(activity, EditProfileActivity::class.java))
     }
+
+
 }

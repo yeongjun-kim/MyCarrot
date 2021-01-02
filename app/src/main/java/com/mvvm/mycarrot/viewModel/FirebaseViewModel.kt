@@ -55,6 +55,10 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
         firebaseRepository.setLatLong(inputLat, inputLong, application)
     }
 
+    fun setCurrentLatLong(inputLat: Double, inputLong: Double, application: Application) {
+        firebaseRepository.setCurrentLatLong(inputLat, inputLong, application)
+    }
+
     fun getLoginMode() = loginMode
 
     fun clear() {

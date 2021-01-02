@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.Query
+import com.google.type.LatLng
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
@@ -26,6 +27,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val firebaseStore = FirebaseFirestore.getInstance()
     private var currentUserObject: MutableLiveData<UserObject>
     private var location: MutableLiveData<String>
+    private var currentLocation: MutableLiveData<String>
 
     var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
     var testCount = 0
@@ -62,6 +64,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         userId = currentUserObject.value!!.userId
         userLocation = currentUserObject.value!!.location
         location = firebaseRepository.getlocation()
+        currentLocation = firebaseRepository.getCurrentlocation()
         homeItemList = firebaseRepository.getHomeItems()
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
@@ -93,13 +96,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun clearHomeItemQuery() = firebaseRepository.clearHomeItemQuery()
     fun getHomeItems() = homeItemList
     fun setHomeItems() = firebaseRepository.setHomeItems(categoryList)
+    fun getCurrentLatLng() = firebaseRepository.getCurrentLatLng()
+    fun getIsCertificationFinish() = firebaseRepository.getIsCertificationFinish()
+    fun clearIsCertificationFinish() = firebaseRepository.clearIsCertificationFinish()
 
 
+    fun doCertification() = firebaseRepository.doCertification()
 
     /*
-아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로
-해당 Item과 같은 카테고리에 있는 다른 아이템 목록들을 selectedItemRecommendItem 에 저장한다.
- */
+    아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로
+    해당 Item과 같은 카테고리에 있는 다른 아이템 목록들을 selectedItemRecommendItem 에 저장한다.
+    .*/
     fun getselectedItemRecommendItem() = selectedItemRecommendItem
     fun setSelectedItemRecommendItem(itemObject: ItemObject = selectedItem) {
         var minGeoPoint =firebaseRepository.getMinGeoPoint()
@@ -139,7 +146,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 .get()
                 .addOnSuccessListener { result ->
                     var item = result.toObject(ItemObject::class.java)
-//                    if (item!!.id == selectedItem.id) return@addOnSuccessListener // 현재 클릭한 상품과 같은정보면 저장 X
 
                     var currentList = selectedItemOwnersItem.value
                     var conversionList = currentList!!.toMutableList()
@@ -150,6 +156,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     }
+
+
 
     fun saveSelectedItemOwnersItem(){
         firebaseRepository.selectedItemOwnersItem = selectedItemOwnersItem.value!!
@@ -165,6 +173,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getLocation() = location
+    fun getCurrentLocation() = currentLocation
     fun getExtraArrange() = firebaseRepository.extraArrange
     fun setExtraArrange(progress: Int) {
         if (progress in 0..32) firebaseRepository.extraArrange = 0.01

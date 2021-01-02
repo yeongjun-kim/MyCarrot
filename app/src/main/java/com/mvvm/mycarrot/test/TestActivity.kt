@@ -5,6 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -25,6 +31,9 @@ import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.TestViewModel
+import com.sucho.placepicker.Constants
+import com.sucho.placepicker.MapType
+import com.sucho.placepicker.PlacePicker
 import kotlinx.android.synthetic.main.activity_test.*
 import okhttp3.ResponseBody
 import org.apache.poi.hssf.usermodel.HSSFCell
@@ -38,7 +47,7 @@ import java.io.InputStream
 import java.math.BigDecimal
 
 
-class TestActivity : AppCompatActivity() {
+class TestActivity : AppCompatActivity(), OnMapReadyCallback {
 
     var uri: Uri? = null
     lateinit var viewModel: FirebaseViewModel
@@ -82,18 +91,42 @@ class TestActivity : AppCompatActivity() {
 
         // *************************************************************************** //
 
-        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
-            Log.d("fhrm", "TestActivity -onCreate(),    token: ${it.token}")
-        }
+        val mapFragment = testfm as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
 
 
         aa1.setOnClickListener {
+            startActivityPlacePicker()
         }
         aa2.setOnClickListener {
         }
 
 
+    }
+
+    override fun onMapReady(googleMap: GoogleMap?) {
+        val markerOptions = MarkerOptions()
+        markerOptions.position(LatLng(37.56,126.97))
+        googleMap!!.addMarker(markerOptions)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.56,126.97),16f))
+    }
+
+    fun startActivityPlacePicker() {
+        val intent = PlacePicker.IntentBuilder()
+            .setLatLong(
+                viewModel.firebaseRepository.lat,
+                viewModel.firebaseRepository.long
+            )
+            .showLatLong(true)
+            .setMapZoom(14.0f)
+            .setAddressRequired(true)
+            .hideMarkerShadow(true)
+            .setMarkerImageImageColor(R.color.colorPrimary)
+            .setMapType(MapType.NORMAL)
+            .onlyCoordinates(true)
+            .build(this)
+        startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST)
     }
 
 

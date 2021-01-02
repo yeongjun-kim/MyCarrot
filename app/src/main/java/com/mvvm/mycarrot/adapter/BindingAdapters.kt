@@ -5,9 +5,11 @@ import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -16,6 +18,7 @@ import com.like.LikeButton
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.viewModel.EditProfileViewModel
+import com.mvvm.mycarrot.viewModel.HomeViewModel
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
@@ -26,6 +29,45 @@ object BindingAdapters {
         var formatter = DecimalFormat("###,###")
         var formattedStringPrice = formatter.format(inputString.toLong())
         view.text = "${formattedStringPrice} 원"
+    }
+
+
+    /*
+    현재 기기의 위치와, 등록시 위치의 차이 보여줌 (NeightborhoodCertificationActivity)
+     */
+    @JvmStatic
+    @BindingAdapter("CertificationText")
+    fun setCertificationText(view: TextView, vm: HomeViewModel) {
+        var currentDong= vm.getCurrentLocation().value!!.split(" ")[1]
+        var userDong= vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
+        var text = ""
+
+        if(currentDong == userDong){
+            text = "현재 위치가 내 동네로 설정한 '${userDong}' 내에 있어요."
+        }else{
+            text = "현재 내 동네로 설정되어 있는 '${userDong}' 에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요."
+        }
+
+        view.text = text
+    }
+
+    /*
+    현재 기기의 위치와, 등록시 위치가 다르면 background, Clickable 변경 (NeightborhoodCertificationActivity)
+     */
+    @JvmStatic
+    @BindingAdapter("IsCertificationOk")
+    fun setIsCertificationOk(btn: Button, vm: HomeViewModel) {
+        var currentDong= vm.getCurrentLocation().value!!.split(" ")[1]
+        var userDong= vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
+
+        if(currentDong == userDong){
+            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_orange)
+            btn.isEnabled= true
+        }else{
+            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_gray)
+            btn.isEnabled = false
+        }
+
     }
 
     @JvmStatic
