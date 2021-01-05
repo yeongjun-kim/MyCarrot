@@ -146,8 +146,9 @@
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:background="@drawable/bg_custom_textview"
-                        android:text="모아보기"
+                        android:onClick="@{() -> av.likeUser()}"
                         android:textSize="12sp"
+                        LikeUserBtn = "@{vm}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/profile_empty1"
                         app:layout_constraintTop_toTopOf="@id/profile_btn_manner" />

@@ -265,6 +265,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/my_cl5"
                     android:layout_width="match_parent"
+                    android:onClick="@{() -> fm.startCollectActivity()}"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/my_cl4">
 

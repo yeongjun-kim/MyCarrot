@@ -41,6 +41,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var selectedItemOwner = UserObject()
     var selectedItemOwnersItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+
 
 
     var isFromCategoryFragment = false
@@ -68,6 +70,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         homeItemList = firebaseRepository.getHomeItems()
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
+        collectItemList = firebaseRepository.getcollectItemList()
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
         initDefaultProgress()
     }
@@ -89,8 +92,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun setselectedItem(id: String, fm:String) = firebaseRepository.setSelectedItem(id,fm)
     fun getselectedItemOwner() = selectedItemOwner
     fun setselectedItemOwner(id: String, fm:String) = firebaseRepository.setSelectedItemOwner(id,fm)
+
     fun addToLikeList(id: String) = firebaseRepository.addToLikeList(id)
     fun deleteFromLikeList(id: String) = firebaseRepository.deleteFromLikeList(id)
+
+    fun addToLikeUserList(id: String) = firebaseRepository.addToLikeUserList(id)
+    fun deleteFromLikeUserList(id: String) = firebaseRepository.deleteFromLikeUserList(id)
+
+
     fun getCurrentUserObject() = currentUserObject
     fun clearHomeItem() = firebaseRepository.clearHomeItem()
     fun clearHomeItemQuery() = firebaseRepository.clearHomeItemQuery()
@@ -102,6 +111,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun doCertification() = firebaseRepository.doCertification()
+
+
+    fun getcollectItemList() = collectItemList
+    fun setcollectItemList() {
+        firebaseRepository.setcollectItemList()
+    }
 
     /*
     아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로

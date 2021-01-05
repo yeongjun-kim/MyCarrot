@@ -294,6 +294,7 @@ class TestActivity : AppCompatActivity(), OnMapReadyCallback {
                             (1600000000000..System.currentTimeMillis()).random(),
                             (1600000000000..System.currentTimeMillis()).random(),
                             GeoPoint(c1_lat.toDouble(), c2_long.toDouble()),
+                            arrayListOf(),
                             c7_itemList,
                             c8_likeList
                         )
@@ -368,6 +369,7 @@ data class firestoreUser(
     var joined: Long? = null,
     var lastLoginTime: Long? = null,
     var geoPoint: GeoPoint = GeoPoint(37.55, 126.97), // Default 관악구
+    var likeUserList:ArrayList<String> = arrayListOf(),
     var itemList: ArrayList<String> = arrayListOf(),
     var likeList: ArrayList<String> = arrayListOf()
 )

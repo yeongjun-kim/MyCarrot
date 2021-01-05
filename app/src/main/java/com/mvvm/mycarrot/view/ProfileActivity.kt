@@ -14,6 +14,7 @@ import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ActivityProfileBinding
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.skydoves.balloon.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
@@ -42,6 +43,34 @@ class ProfileActivity : AppCompatActivity() {
         initStatusBar()
         initBallon()
 
+
+    }
+
+    fun likeUser(){
+        val targetUid =homeViewModel.getselectedItemOwner().userId
+
+        if(homeViewModel.getCurrentUserObject().value!!.likeUserList.contains(targetUid)) {
+            homeViewModel.deleteFromLikeUserList(targetUid!!)
+            changeButtonToContain("not contain")
+        }else{
+            homeViewModel.addToLikeUserList(targetUid!!)
+            changeButtonToContain("contain")
+        }
+
+    }
+
+    fun changeButtonToContain(mode:String){
+        val btn = binding.profileBtnSum
+
+        if(mode == "contain"){
+            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview_orange)
+            btn.text = "모아보는중"
+            btn.setTextColor(Color.parseColor("#ffffff"))
+        }else if(mode == "not contain"){
+            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview)
+            btn.text = "모아보기"
+            btn.setTextColor(Color.parseColor("#000000"))
+        }
     }
 
     fun openBallon(){
@@ -56,6 +85,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun initOtherItemList() {
         homeViewModel.setSelectedItemOwnersItem()
     }
+
 
     private fun initBallon() {
         balloon = Balloon.Builder(this)

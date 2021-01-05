@@ -16,10 +16,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentMyBinding
-import com.mvvm.mycarrot.view.CustomProgressDialog
-import com.mvvm.mycarrot.view.EditProfileActivity
-import com.mvvm.mycarrot.view.NeighborhoodCertificationActivity
-import com.mvvm.mycarrot.view.ProfileActivity
+import com.mvvm.mycarrot.view.*
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 
 class MyFragment : Fragment(){
@@ -59,9 +56,7 @@ class MyFragment : Fragment(){
             if (isStartActivity == 1 && homeViewModel.getselectedFragment() == "myFm") {
                 startProfileActivity()
             }
-
         })
-
 
     }
 
@@ -74,6 +69,10 @@ class MyFragment : Fragment(){
 
     fun startNeighborhoodCertificationActivity(){
         startActivity(Intent(activity, NeighborhoodCertificationActivity::class.java))
+    }
+
+    fun startCollectActivity(){
+        startActivity(Intent(activity, CollectActivity::class.java))
     }
 
     fun startProfileActivity() {

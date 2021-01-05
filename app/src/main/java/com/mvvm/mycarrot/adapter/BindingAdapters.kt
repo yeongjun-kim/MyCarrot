@@ -33,6 +33,26 @@ object BindingAdapters {
 
 
     /*
+    프로필 확인하는 유저가 모아보기에 추가되어있는 유저인지에 대해 Button Background 변경 (ProfileActivity)
+     */
+    @JvmStatic
+    @BindingAdapter("LikeUserBtn")
+    fun setLikeUserBtn(btn: Button, vm: HomeViewModel) {
+        val targetUid =vm.getselectedItemOwner().userId
+        if(vm.getCurrentUserObject().value!!.likeUserList.contains(targetUid)) {
+            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview_orange)
+            btn.text = "모아보는중"
+            btn.setTextColor(Color.parseColor("#ffffff"))
+        }
+        else{
+            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview)
+            btn.text = "모아보기"
+            btn.setTextColor(Color.parseColor("#000000"))
+        }
+    }
+
+
+    /*
     현재 기기의 위치와, 등록시 위치의 차이 보여줌 (NeightborhoodCertificationActivity)
      */
     @JvmStatic

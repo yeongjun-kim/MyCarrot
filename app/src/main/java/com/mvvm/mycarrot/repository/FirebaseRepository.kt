@@ -55,6 +55,8 @@ class FirebaseRepository private constructor() {
      *
      * homeItemList: HomeFragent 에 보여질 item List
      * homeItemQuery: homeItemList 를 firestore 에서 get 할때 paging에 쓰기위함 (null = 첫페이지, not null = 첫페이지X)
+     * collectItemList: CoolectActivity 에 보여질 item List
+     *
      * selectedItem: HomeFragment 에서 클릭 한 Item (ItemActivity)
      * selectedItemOwner: HomeFragment 에서 클릭 한 Item Owner (ItemActivity)
      * selectedItemOwnersItem: ItemActivity 에서 [더보기] 클릭시 SeemoreViewModel 에서 가져가 SeeMoreActivity 에서 보여줄 List
@@ -84,6 +86,7 @@ class FirebaseRepository private constructor() {
 
     var homeItemQuery: Query? = null
     var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
     var selectedItem = ItemObject()
     var selectedItemOwner = UserObject()
@@ -187,6 +190,20 @@ class FirebaseRepository private constructor() {
         decrementLiktCount(id)
     }
 
+    fun addToLikeUserList(id: String) {
+        var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
+        docRef.update("likeUserList", FieldValue.arrayUnion(id))
+
+        updateCurrentUser()
+    }
+
+    fun deleteFromLikeUserList(id: String) {
+        var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
+        docRef.update("likeUserList", FieldValue.arrayRemove(id))
+
+        updateCurrentUser()
+    }
+
 
     fun incrementLikeCount(id: String) {
         firebaseStore.collection("items")
@@ -205,6 +222,35 @@ class FirebaseRepository private constructor() {
             .document(id)
             .update("lookup", FieldValue.increment(1))
     }
+
+    fun clearCollectItemList(){
+        collectItemList.value = listOf()
+    }
+
+    fun getcollectItemList() = collectItemList
+    fun setcollectItemList() {
+        clearCollectItemList()
+
+        currentUserObject.value!!.likeUserList.forEach {targetUid ->
+
+            FirebaseFirestore.getInstance().collection("users").document(targetUid)
+                .get()
+                .addOnSuccessListener { result ->
+                    var user = result.toObject(UserObject::class.java)!!
+                    user.itemList.forEach {itemId ->
+                        FirebaseFirestore.getInstance().collection("items").document(itemId)
+                            .get()
+                            .addOnSuccessListener {
+                                var item = it.toObject(ItemObject::class.java)!!
+                                var temp = collectItemList.value!!.toMutableList()
+                                temp.add(item)
+                                collectItemList.value = temp.toList()
+                            }
+                    }
+                }
+        }
+    }
+
 
     fun clearHomeItem() {
         homeItemList.value = listOf()

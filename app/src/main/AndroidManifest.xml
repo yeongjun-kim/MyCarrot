@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.NeighborhoodCertificationActivity"></activity>
+        <activity android:name=".view.CollectActivity"></activity>
+        <activity android:name=".view.NeighborhoodCertificationActivity" />
         <activity android:name=".view.EditProfileActivity" />
 
         <service
