@@ -487,6 +487,7 @@ class FirebaseRepository private constructor() {
             currentUserObject.value!!.userId,
             currentUserObject.value!!.nickname,
             currentUserObject.value!!.location,
+            "sell",
             imageUrlList,
             title.split(" "),
             category.value,

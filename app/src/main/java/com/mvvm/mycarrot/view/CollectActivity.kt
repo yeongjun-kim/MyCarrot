@@ -20,12 +20,12 @@ import com.mvvm.mycarrot.adapter.GridSpacingItemDecoration
 import com.mvvm.mycarrot.databinding.ActivityCollectBinding
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
-import com.mvvm.mycarrot.viewModel.HomeViewModel
+import com.mvvm.mycarrot.viewModel.MyViewModel
 
 class CollectActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityCollectBinding
-    lateinit var homeViewModel: HomeViewModel
+    lateinit var myViewModel: MyViewModel
     lateinit var customDialog:CustomProgressDialog
     private var collectRvAdapter = CollectRvAdapter()
 
@@ -35,9 +35,9 @@ class CollectActivity : AppCompatActivity() {
         customDialog = CustomProgressDialog(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_collect)
 
-        homeViewModel = ViewModelProvider(
-            this, HomeViewModel.Factory(application)
-        ).get(HomeViewModel::class.java)
+        myViewModel = ViewModelProvider(
+            this, MyViewModel.Factory(application)
+        ).get(MyViewModel::class.java)
 
         binding.apply {
             lifecycleOwner = this@CollectActivity
@@ -46,12 +46,12 @@ class CollectActivity : AppCompatActivity() {
 
         initStatusBar()
 
-        homeViewModel.getcollectItemList().observe(this, Observer { inputList ->
+        myViewModel.getcollectItemList().observe(this, Observer { inputList ->
             collectRvAdapter.setList(inputList)
         })
 
-        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "collectAv"){
+        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
+            if(isStartActivity ==2 && myViewModel.getselectedFragment() == "collectAv"){
                 startItemActivity()
             }
         })
@@ -79,18 +79,18 @@ class CollectActivity : AppCompatActivity() {
 
     fun beforeStartItemActivity(position:Int){
         customDialog.show()
-        homeViewModel.setselectedItem(collectRvAdapter.itemList[position].id!!, "collectAv")
-        homeViewModel.setselectedItemOwner(collectRvAdapter.itemList[position].userId!!, "collectAv")
+        myViewModel.setselectedItem(collectRvAdapter.itemList[position].id!!, "collectAv")
+        myViewModel.setselectedItemOwner(collectRvAdapter.itemList[position].userId!!, "collectAv")
     }
 
     fun startItemActivity(){
         customDialog.dismiss()
-        homeViewModel.clearIsStartItemActivity()
+        myViewModel.clearIsStartItemActivity()
         startActivity(Intent(this,ItemActivity::class.java))
     }
 
     fun initCollectItemList(){
-        homeViewModel.setcollectItemList()
+        myViewModel.setcollectItemList()
     }
     private fun initStatusBar() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR

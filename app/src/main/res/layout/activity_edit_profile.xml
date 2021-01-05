@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.EditProfileViewModel" />
+            type="com.mvvm.mycarrot.viewModel.MyViewModel" />
 
         <variable
             name="av"

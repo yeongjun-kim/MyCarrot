@@ -17,13 +17,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentMyBinding
 import com.mvvm.mycarrot.view.*
-import com.mvvm.mycarrot.viewModel.HomeViewModel
+import com.mvvm.mycarrot.viewModel.MyViewModel
 
 class MyFragment : Fragment(){
 
 
     lateinit var binding: FragmentMyBinding
-    lateinit var homeViewModel: HomeViewModel
+    lateinit var myViewModel: MyViewModel
     lateinit var customDialog: CustomProgressDialog
 
     override fun onCreateView(
@@ -40,20 +40,20 @@ class MyFragment : Fragment(){
 
         customDialog = CustomProgressDialog(activity!!)
 
-        homeViewModel =
-            ViewModelProvider(activity!!, HomeViewModel.Factory(activity!!.application)).get(
-                HomeViewModel::class.java
+        myViewModel =
+            ViewModelProvider(activity!!, MyViewModel.Factory(activity!!.application)).get(
+                MyViewModel::class.java
             )
 
         binding.apply {
             lifecycleOwner = this@MyFragment
             fm = this@MyFragment
-            vm = homeViewModel
+            vm = myViewModel
         }
 
 
-        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
-            if (isStartActivity == 1 && homeViewModel.getselectedFragment() == "myFm") {
+        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 1 && myViewModel.getselectedFragment() == "myFm") {
                 startProfileActivity()
             }
         })
@@ -63,7 +63,7 @@ class MyFragment : Fragment(){
 
     fun beforeStartProfileActivity() {
         customDialog.show()
-        homeViewModel.setselectedItemOwner(homeViewModel.getCurrentUserObject().value!!.userId!!,"myFm")
+        myViewModel.setselectedItemOwner(myViewModel.getCurrentUserObject().value!!.userId!!,"myFm")
     }
 
 
@@ -77,7 +77,7 @@ class MyFragment : Fragment(){
 
     fun startProfileActivity() {
         customDialog.dismiss()
-        homeViewModel.clearIsStartItemActivity()
+        myViewModel.clearIsStartItemActivity()
         startActivity(Intent(activity, ProfileActivity::class.java))
     }
 
@@ -87,6 +87,10 @@ class MyFragment : Fragment(){
 
     fun startEditProfileActivity(){
         startActivity(Intent(activity, EditProfileActivity::class.java))
+    }
+
+    fun startSellListActivity(){
+        startActivity(Intent(activity, SellListActivity::class.java))
     }
 
     fun startLikeListActivity(){

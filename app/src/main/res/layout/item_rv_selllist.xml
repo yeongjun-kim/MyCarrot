@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.mvvm.mycarrot.model.ItemObject" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#abc"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_rv_selllist_cl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/item_rv_selllist_iv"
+                FirstImage="@{item.imageList[0]}"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item_rv_selllist_tv_title"
+                Title="@{item.title}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/item_rv_selllist_iv"
+                app:layout_constraintTop_toTopOf="@id/item_rv_selllist_iv" />
+
+            <TextView
+                android:id="@+id/item_rv_selllist_tv_location"
+                DongText="@{item.userLocation}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/item_rv_selllist_tv_title"
+                app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_tv_title" />
+
+            <TextView
+                android:id="@+id/item_rv_selllist_temp1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" • "
+                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_tv_location"
+                app:layout_constraintStart_toEndOf="@id/item_rv_selllist_tv_location"
+                app:layout_constraintTop_toTopOf="@id/item_rv_selllist_tv_location" />
+
+            <TextView
+                android:id="@+id/item_rv_selllist_tv_time"
+                BeforeDay="@{item.timestamp}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_temp1"
+                app:layout_constraintStart_toEndOf="@id/item_rv_selllist_temp1"
+                app:layout_constraintTop_toTopOf="@+id/item_rv_selllist_temp1" />
+
+            <TextView
+                DecimalFormat="@{item.price}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/item_rv_selllist_tv_location"
+                app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_tv_location" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_favorite_border_favorite_20dp"
+                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_tv_chat"
+                app:layout_constraintEnd_toStartOf="@id/item_rv_selllist_tv_favorite" />
+
+            <TextView
+                android:id="@+id/item_rv_selllist_tv_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_iv"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/item_rv_selllist_tv_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="@{Long.toString(item.likeCount)}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_tv_chat"
+                app:layout_constraintEnd_toStartOf="@id/item_rv_selllist_temp2" />
+
+
+            <ImageView
+                android:id="@+id/item_rv_selllist_temp2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_chat"
+                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_tv_chat"
+                app:layout_constraintEnd_toStartOf="@id/item_rv_selllist_tv_chat"
+                app:layout_constraintTop_toTopOf="@id/item_rv_selllist_tv_chat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorDivision"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_iv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_cl1">
+
+            <TextView
+                android:id="@+id/item_rv_selllist_tv_reservation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="예약중으로 변경"
+                android:textColor="#000" />
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDivision"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/item_rv_selllist_tv_soldout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="거래완료로 변경"
+                android:textColor="#000" />
+
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

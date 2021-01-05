@@ -4,11 +4,12 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -16,8 +17,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.like.LikeButton
 import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
-import com.mvvm.mycarrot.viewModel.EditProfileViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -31,6 +32,54 @@ object BindingAdapters {
         view.text = "${formattedStringPrice} 원"
     }
 
+    /*
+    Title 앞에 아이템의 상태를 나타냄 (activity_item)
+     */
+    @JvmStatic
+    @BindingAdapter("TvStatus")
+    fun setTvStatus(tv: TextView, status: String) {
+        if (status == "soldout") {
+            tv.text = "거래완료  "
+            tv.setTextColor(ContextCompat.getColor(tv.context, R.color.colorDarkGray))
+        }else if(status == "reservation"){
+            tv.text = "예약중  "
+            tv.setTextColor(ContextCompat.getColor(tv.context, R.color.colorGreen))
+        }else{
+            tv.text=""
+            tv.setBackgroundColor(Color.TRANSPARENT)
+        }
+    }
+
+    /*
+    아이템 상태에 따라, 이미 판매 완료 됐다면 해당 뷰를 반투명하게 만듦 (item_rv_item)
+     */
+    @JvmStatic
+    @BindingAdapter("IsSoldout")
+    fun setIsSoldout(cl: ConstraintLayout, status: String) {
+        if (status == "soldout") cl.alpha = 0.4f
+    }
+
+    /*
+    아이템 상태에 따라, 가격 옆에 거래완료/예약중 표시해주는것 (item_rv_item)
+     */
+    @JvmStatic
+    @BindingAdapter("Status")
+    fun setStatus(tv: TextView, status: String) {
+        if (status == "sell") {
+            tv.text = ""
+            tv.setBackgroundColor(Color.TRANSPARENT)
+        } else if (status == "soldout") {
+            tv.background =
+                ContextCompat.getDrawable(tv.context, R.drawable.bg_custom_round_dark_gray)
+            tv.setTextColor(Color.parseColor("#ffffff"))
+            tv.text = "거래완료"
+        } else if (status == "reservation") {
+            tv.background = ContextCompat.getDrawable(tv.context, R.drawable.bg_custom_round_green)
+            tv.setTextColor(Color.parseColor("#ffffff"))
+            tv.text = "예약중"
+        }
+    }
+
 
     /*
     프로필 확인하는 유저가 모아보기에 추가되어있는 유저인지에 대해 Button Background 변경 (ProfileActivity)
@@ -38,14 +87,14 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("LikeUserBtn")
     fun setLikeUserBtn(btn: Button, vm: HomeViewModel) {
-        val targetUid =vm.getselectedItemOwner().userId
-        if(vm.getCurrentUserObject().value!!.likeUserList.contains(targetUid)) {
-            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview_orange)
+        val targetUid = vm.getselectedItemOwner().userId
+        if (vm.getCurrentUserObject().value!!.likeUserList.contains(targetUid)) {
+            btn.background =
+                ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview_orange)
             btn.text = "모아보는중"
             btn.setTextColor(Color.parseColor("#ffffff"))
-        }
-        else{
-            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview)
+        } else {
+            btn.background = ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview)
             btn.text = "모아보기"
             btn.setTextColor(Color.parseColor("#000000"))
         }
@@ -58,13 +107,13 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("CertificationText")
     fun setCertificationText(view: TextView, vm: HomeViewModel) {
-        var currentDong= vm.getCurrentLocation().value!!.split(" ")[1]
-        var userDong= vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
+        var currentDong = vm.getCurrentLocation().value!!.split(" ")[1]
+        var userDong = vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
         var text = ""
 
-        if(currentDong == userDong){
+        if (currentDong == userDong) {
             text = "현재 위치가 내 동네로 설정한 '${userDong}' 내에 있어요."
-        }else{
+        } else {
             text = "현재 내 동네로 설정되어 있는 '${userDong}' 에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요."
         }
 
@@ -77,14 +126,16 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("IsCertificationOk")
     fun setIsCertificationOk(btn: Button, vm: HomeViewModel) {
-        var currentDong= vm.getCurrentLocation().value!!.split(" ")[1]
-        var userDong= vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
+        var currentDong = vm.getCurrentLocation().value!!.split(" ")[1]
+        var userDong = vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
 
-        if(currentDong == userDong){
-            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_orange)
-            btn.isEnabled= true
-        }else{
-            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_gray)
+        if (currentDong == userDong) {
+            btn.background =
+                ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_orange)
+            btn.isEnabled = true
+        } else {
+            btn.background =
+                ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_gray)
             btn.isEnabled = false
         }
 
@@ -254,11 +305,11 @@ object BindingAdapters {
      */
     @JvmStatic
     @BindingAdapter("IsChangOk")
-    fun setIsChangOk(textView: TextView, str:String) {
-        if(str.isNullOrBlank()){
+    fun setIsChangOk(textView: TextView, str: String) {
+        if (str.isNullOrBlank()) {
             textView.isClickable = false
             textView.setTextColor(Color.parseColor("#E6E6E6"))
-        }else{
+        } else {
             textView.isClickable = true
             textView.setTextColor(Color.parseColor("#000000"))
         }
@@ -271,7 +322,7 @@ object BindingAdapters {
     @BindingAdapter("DongUid")
     fun setDongUid(textView: TextView, userObject: UserObject) {
         val dong = userObject.location!!.split(" ")[1]
-        val uid = userObject.userId!!.substring(0,9)
+        val uid = userObject.userId!!.substring(0, 9)
         textView.text = "${dong} #${uid}"
     }
 

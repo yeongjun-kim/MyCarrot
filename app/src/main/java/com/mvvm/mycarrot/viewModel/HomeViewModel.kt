@@ -41,8 +41,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var selectedItemOwner = UserObject()
     var selectedItemOwnersItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
-    var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
-    var likeItemList:MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
 
 
@@ -71,8 +69,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         homeItemList = firebaseRepository.getHomeItems()
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
-        collectItemList = firebaseRepository.getcollectItemList()
-        likeItemList = firebaseRepository.getlikeItemList()
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
         initDefaultProgress()
     }
@@ -115,15 +111,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun doCertification() = firebaseRepository.doCertification()
 
 
-    fun getlikeItemList() = likeItemList
-    fun setlikeItemList() {
-        firebaseRepository.setlikeItemList()
-    }
 
-    fun getcollectItemList() = collectItemList
-    fun setcollectItemList() {
-        firebaseRepository.setcollectItemList()
-    }
 
     /*
     아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로
@@ -205,13 +193,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
     }
-
-
-    fun test() {
-        Log.d("fhrm", "HomeViewModel -test(),    testCount: ${testCount}")
-        firebaseRepository.testCount+=1
-    }
-
 
     class Factory(val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

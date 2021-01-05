@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        IsSoldout="@{item.status}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"
@@ -31,8 +32,8 @@
             Title="@{item.title}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
             android:ellipsize="marquee"
             android:hint="title"
             android:singleLine="true"
@@ -44,10 +45,10 @@
 
         <TextView
             android:id="@+id/item_rv_item_tv_location"
+            DongText="@{item.userLocation}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            DongText="@{item.userLocation}"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/item_rv_item_tv_title"
             app:layout_constraintTop_toBottomOf="@id/item_rv_item_tv_title" />
@@ -73,15 +74,30 @@
             app:layout_constraintTop_toTopOf="@+id/item_rv_item_temp1" />
 
         <TextView
-            DecimalFormat="@{item.price}"
+            android:id="@+id/item_rv_tv_status"
+            Status="@{item.status}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="10원"
-            android:textColor="#000000"
-            android:textSize="14sp"
+            android:paddingStart="4dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="2dp"
+            android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@id/item_rv_item_tv_location"
             app:layout_constraintTop_toBottomOf="@id/item_rv_item_tv_location" />
+
+        <TextView
+            DecimalFormat="@{item.price}"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/item_rv_tv_status"
+            app:layout_constraintStart_toEndOf="@id/item_rv_tv_status"
+            app:layout_constraintTop_toTopOf="@id/item_rv_tv_status" />
 
         <ImageView
             android:layout_width="20dp"

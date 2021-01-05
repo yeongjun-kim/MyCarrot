@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ActivityEditProfileBinding
-import com.mvvm.mycarrot.viewModel.EditProfileViewModel
+import com.mvvm.mycarrot.viewModel.MyViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.sucho.placepicker.AddressData
 import com.sucho.placepicker.Constants
@@ -24,7 +24,7 @@ import com.sucho.placepicker.PlacePicker
 class EditProfileActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityEditProfileBinding
-    lateinit var editProfileViewModel: EditProfileViewModel
+    lateinit var myViewModel: MyViewModel
     lateinit var customDialog: CustomProgressDialog
     var PICK_PROFILE_FROM_ALBUM = 1010
     lateinit var uri: Uri
@@ -35,22 +35,22 @@ class EditProfileActivity : AppCompatActivity() {
 
         customDialog = CustomProgressDialog(this)
 
-        editProfileViewModel = ViewModelProvider(
+        myViewModel = ViewModelProvider(
             this,
-            EditProfileViewModel.Factory(application)
-        ).get(EditProfileViewModel::class.java)
+            MyViewModel.Factory(application)
+        ).get(MyViewModel::class.java)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile)
         binding.apply {
-            vm = editProfileViewModel
+            vm = myViewModel
             av = this@EditProfileActivity
             lifecycleOwner = this@EditProfileActivity
         }
 
-        editProfileViewModel.isCommitFinish.observe(this, Observer { isFinish ->
+        myViewModel.isCommitFinish.observe(this, Observer { isFinish ->
             if(isFinish){
                 customDialog.dismiss()
-                editProfileViewModel.isCommitFinish.value = false
+                myViewModel.isCommitFinish.value = false
                 finish()
             }
         })
@@ -61,7 +61,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun initEt() {
-        binding.editProfileEtNickname.setText(editProfileViewModel.getCurrentUserObject().value!!.nickname)
+        binding.editProfileEtNickname.setText(myViewModel.getCurrentUserObject().value!!.nickname)
     }
 
 
@@ -73,7 +73,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     fun clickFinishBtn(){
         customDialog.show()
-        editProfileViewModel.commitChangeInfo()
+        myViewModel.commitChangeInfo()
     }
 
 
@@ -81,7 +81,7 @@ class EditProfileActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK) {
-            editProfileViewModel.newImageUri = data!!.data!!
+            myViewModel.newImageUri = data!!.data!!
             changeImageView(data!!.data!!)
         }
     }
