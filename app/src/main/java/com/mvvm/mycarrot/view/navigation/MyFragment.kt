@@ -89,5 +89,9 @@ class MyFragment : Fragment(){
         startActivity(Intent(activity, EditProfileActivity::class.java))
     }
 
+    fun startLikeListActivity(){
+        startActivity(Intent(activity, LikeListActivity::class.java))
+    }
+
 
 }

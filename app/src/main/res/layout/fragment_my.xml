@@ -160,6 +160,7 @@
                         android:id="@+id/my_iv_like"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:onClick="@{() -> fm.startLikeListActivity()}"
                         android:src="@drawable/ic_like_list"
                         app:layout_constraintBottom_toBottomOf="@id/my_iv_sell"
                         app:layout_constraintEnd_toEndOf="parent"

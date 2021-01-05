@@ -1,5 +1,6 @@
 package com.mvvm.mycarrot.view
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,11 +26,13 @@ class CollectActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityCollectBinding
     lateinit var homeViewModel: HomeViewModel
-    var collectRvAdapter = CollectRvAdapter()
+    lateinit var customDialog:CustomProgressDialog
+    private var collectRvAdapter = CollectRvAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        customDialog = CustomProgressDialog(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_collect)
 
         homeViewModel = ViewModelProvider(
@@ -45,6 +48,12 @@ class CollectActivity : AppCompatActivity() {
 
         homeViewModel.getcollectItemList().observe(this, Observer { inputList ->
             collectRvAdapter.setList(inputList)
+        })
+
+        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
+            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "collectAv"){
+                startItemActivity()
+            }
         })
 
 
@@ -63,8 +72,21 @@ class CollectActivity : AppCompatActivity() {
 
         collectRvAdapter.listener = object:CollectRvAdapter.ClickListener{
             override fun onClick(position: Int) {
+                beforeStartItemActivity(position)
             }
         }
+    }
+
+    fun beforeStartItemActivity(position:Int){
+        customDialog.show()
+        homeViewModel.setselectedItem(collectRvAdapter.itemList[position].id!!, "collectAv")
+        homeViewModel.setselectedItemOwner(collectRvAdapter.itemList[position].userId!!, "collectAv")
+    }
+
+    fun startItemActivity(){
+        customDialog.dismiss()
+        homeViewModel.clearIsStartItemActivity()
+        startActivity(Intent(this,ItemActivity::class.java))
     }
 
     fun initCollectItemList(){

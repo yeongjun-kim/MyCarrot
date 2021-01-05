@@ -42,6 +42,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var selectedItemOwnersItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var likeItemList:MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
 
 
@@ -71,6 +72,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
         collectItemList = firebaseRepository.getcollectItemList()
+        likeItemList = firebaseRepository.getlikeItemList()
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
         initDefaultProgress()
     }
@@ -112,6 +114,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun doCertification() = firebaseRepository.doCertification()
 
+
+    fun getlikeItemList() = likeItemList
+    fun setlikeItemList() {
+        firebaseRepository.setlikeItemList()
+    }
 
     fun getcollectItemList() = collectItemList
     fun setcollectItemList() {

@@ -147,6 +147,7 @@ class HomeFragment : Fragment() {
             isFirstCreate = false
         }
     }
+
     fun beforeStartItemActivity(position:Int){
         customDialog.show()
         homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "homeFm")

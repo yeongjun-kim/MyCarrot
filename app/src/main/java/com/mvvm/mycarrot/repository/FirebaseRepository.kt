@@ -87,6 +87,7 @@ class FirebaseRepository private constructor() {
     var homeItemQuery: Query? = null
     var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var likeItemList:MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
     var selectedItem = ItemObject()
     var selectedItemOwner = UserObject()
@@ -225,6 +226,27 @@ class FirebaseRepository private constructor() {
 
     fun clearCollectItemList(){
         collectItemList.value = listOf()
+    }
+
+    fun clearlikeItemList(){
+        likeItemList.value = listOf()
+    }
+
+    fun getlikeItemList() = likeItemList
+    fun setlikeItemList() {
+        clearlikeItemList()
+
+        currentUserObject.value!!.likeList.forEach {itemId ->
+
+            FirebaseFirestore.getInstance().collection("items").document(itemId)
+                .get()
+                .addOnSuccessListener { result ->
+                    var item = result.toObject(ItemObject::class.java)!!
+                    var temp = likeItemList.value!!.toMutableList()
+                    temp.add(item)
+                    likeItemList.value = temp.toList()
+                }
+        }
     }
 
     fun getcollectItemList() = collectItemList

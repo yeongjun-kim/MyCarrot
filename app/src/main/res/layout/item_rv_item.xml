@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#fff"
         android:orientation="horizontal">
 
         <ImageView
@@ -46,8 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="구 동"
-            android:text="@{item.userLocation}"
+            DongText="@{item.userLocation}"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/item_rv_item_tv_title"
             app:layout_constraintTop_toBottomOf="@id/item_rv_item_tv_title" />
