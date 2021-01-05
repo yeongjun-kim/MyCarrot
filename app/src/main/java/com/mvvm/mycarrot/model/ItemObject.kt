@@ -9,6 +9,7 @@ import java.io.Serializable
 data class ItemObject(
     var id:String? = null,
     var userId: String? = null,
+    var userNickname:String?=null,
     var userLocation: String? = null,
     var imageList: ArrayList<String> = arrayListOf(),
     var title: List<String> = listOf(),

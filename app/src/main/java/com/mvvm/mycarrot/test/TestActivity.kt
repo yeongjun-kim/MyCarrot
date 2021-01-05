@@ -208,6 +208,7 @@ class TestActivity : AppCompatActivity(), OnMapReadyCallback {
                         firestoreItem(
                             c1_itemid,
                             c9_userid,
+                            "당근이${c9_userid.split("_")[1]}",
                             c10_userlocation,
                             c14_url,
                             c8_title.split(" "),
@@ -347,6 +348,7 @@ class TestActivity : AppCompatActivity(), OnMapReadyCallback {
 data class firestoreItem(
     var id: String = "",
     var userId: String = "",
+    var userNickname: String = "",
     var userLocation: String = "",
     var imageList: ArrayList<String> = arrayListOf(),
     var title: List<String> = listOf(),

@@ -463,6 +463,7 @@ class FirebaseRepository private constructor() {
         val insertItemObject = ItemObject(
             retRef, // 아래 코드에서, 생성된 retRef로 set 하여 변경
             currentUserObject.value!!.userId,
+            currentUserObject.value!!.nickname,
             currentUserObject.value!!.location,
             imageUrlList,
             title.split(" "),

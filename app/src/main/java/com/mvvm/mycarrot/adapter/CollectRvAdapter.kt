@@ -37,8 +37,6 @@ class CollectRvAdapter :RecyclerView.Adapter<CollectRvAdapter.CustomViewHolder>(
     }
 
     fun setList(inputList:List<ItemObject>){
-        inputList.forEach { Log.d("fhrm", "CollectRvAdapter -setList(),    : ${it.title}")}
-        Log.d("fhrm", "CollectRvAdapter -setList(),    : ")
         itemList = inputList
         notifyDataSetChanged()
     }
