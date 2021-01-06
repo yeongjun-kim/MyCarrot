@@ -1,8 +1,10 @@
 package com.mvvm.mycarrot.view.navigation
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -40,5 +42,12 @@ class SetupTownActivity : AppCompatActivity() {
             homeViewModel.setHomeItems()
         })
 
+        initStatusBar()
+
+    }
+
+    private fun initStatusBar() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.statusBarColor = Color.TRANSPARENT
     }
 }

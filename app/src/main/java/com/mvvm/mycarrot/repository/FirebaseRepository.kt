@@ -1,17 +1,11 @@
 package com.mvvm.mycarrot.repository
 
 import android.app.Application
-import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
-import android.util.Log
-import android.widget.TextView
-import androidx.core.net.toUri
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.ktx.database
@@ -20,16 +14,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import com.google.type.LatLng
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
-import com.mvvm.mycarrot.view.LoginActivity
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.concurrent.timerTask
-import kotlin.math.max
 
 class FirebaseRepository private constructor() {
 
@@ -61,6 +50,8 @@ class FirebaseRepository private constructor() {
      * selectedItemOwner: HomeFragment 에서 클릭 한 Item Owner (ItemActivity)
      * selectedItemOwnersItem: ItemActivity 에서 [더보기] 클릭시 SeemoreViewModel 에서 가져가 SeeMoreActivity 에서 보여줄 List
      * selectedFragment: 어느 Activity/Fragment 에서 아이템 클릭하였는지 (homeFm, itemAv, searchFm 등등.. / observe할때 isActvity==2 에서 겹쳐가지고)
+     *
+     * myItemList: SellListActivity 에서 쓰일 나의 판매내역
      */
 
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -87,15 +78,15 @@ class FirebaseRepository private constructor() {
     var homeItemQuery: Query? = null
     var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
-    var likeItemList:MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var likeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
     var selectedItem = ItemObject()
     var selectedItemOwner = UserObject()
     var selectedItemOwnersItem: List<ItemObject> = listOf()
     var selectedFragment = ""
 
+    var myItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
-    var testCount = 0
 
     companion object {
         @Volatile
@@ -113,20 +104,53 @@ class FirebaseRepository private constructor() {
         loginMode.value = 0
     }
 
-    fun getIsCertificationFinish() =isCertificationFinish
-    fun clearIsCertificationFinish(){
+
+    fun changeItemStatus(itemId: String, status: String) {
+        var idx = myItemList.value!!.indexOfFirst { it.id == itemId }
+        myItemList.value!![idx].status = status
+        myItemList.value = myItemList.value
+
+        var ref = firebaseStore.collection("items").document(itemId)
+        ref.update("status", status)
+
+    }
+
+
+    fun clearMyItemList() {
+        myItemList.value = listOf()
+    }
+
+    fun getmyItemList() = myItemList
+    fun setmyItemList() {
+        clearMyItemList()
+        currentUserObject.value!!.itemList.forEach { itmeId ->
+            firebaseStore.collection("items")
+                .document(itmeId)
+                .get()
+                .addOnSuccessListener { result ->
+                    var item = result.toObject(ItemObject::class.java)!!
+                    var tempList = myItemList.value!!.toMutableList()
+                    tempList.add(item)
+                    myItemList.postValue(tempList)
+                }
+        }
+    }
+
+
+    fun getIsCertificationFinish() = isCertificationFinish
+    fun clearIsCertificationFinish() {
         isCertificationFinish.postValue(false)
     }
 
-    fun doCertification(){
+    fun doCertification() {
         var docRef = firebaseStore.collection("users").document(currentUserObject.value!!.userId!!)
-        docRef.update("locationCertification", currentUserObject.value!!.locationCertification+1)
+        docRef.update("locationCertification", currentUserObject.value!!.locationCertification + 1)
             .addOnSuccessListener {
                 isCertificationFinish.postValue(true)
             }
     }
 
-    fun getCurrentLatLng() = Pair(currentLat,currentLong)
+    fun getCurrentLatLng() = Pair(currentLat, currentLong)
 
     /*
     로그인 성공시 마지막 로그인 시간 Update
@@ -224,11 +248,11 @@ class FirebaseRepository private constructor() {
             .update("lookup", FieldValue.increment(1))
     }
 
-    fun clearCollectItemList(){
+    fun clearCollectItemList() {
         collectItemList.value = listOf()
     }
 
-    fun clearlikeItemList(){
+    fun clearlikeItemList() {
         likeItemList.value = listOf()
     }
 
@@ -236,7 +260,7 @@ class FirebaseRepository private constructor() {
     fun setlikeItemList() {
         clearlikeItemList()
 
-        currentUserObject.value!!.likeList.forEach {itemId ->
+        currentUserObject.value!!.likeList.forEach { itemId ->
 
             FirebaseFirestore.getInstance().collection("items").document(itemId)
                 .get()
@@ -253,13 +277,13 @@ class FirebaseRepository private constructor() {
     fun setcollectItemList() {
         clearCollectItemList()
 
-        currentUserObject.value!!.likeUserList.forEach {targetUid ->
+        currentUserObject.value!!.likeUserList.forEach { targetUid ->
 
             FirebaseFirestore.getInstance().collection("users").document(targetUid)
                 .get()
                 .addOnSuccessListener { result ->
                     var user = result.toObject(UserObject::class.java)!!
-                    user.itemList.forEach {itemId ->
+                    user.itemList.forEach { itemId ->
                         FirebaseFirestore.getInstance().collection("items").document(itemId)
                             .get()
                             .addOnSuccessListener {

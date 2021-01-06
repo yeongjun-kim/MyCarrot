@@ -5,12 +5,14 @@ import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginStart
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -41,12 +43,29 @@ object BindingAdapters {
         if (status == "soldout") {
             tv.text = "거래완료  "
             tv.setTextColor(ContextCompat.getColor(tv.context, R.color.colorDarkGray))
-        }else if(status == "reservation"){
+        } else if (status == "reservation") {
             tv.text = "예약중  "
             tv.setTextColor(ContextCompat.getColor(tv.context, R.color.colorGreen))
-        }else{
-            tv.text=""
+        } else {
+            tv.text = ""
             tv.setBackgroundColor(Color.TRANSPARENT)
+        }
+    }
+
+    /*
+    아이템 상태에 따라, 가격 TextView의 마진 추가 및 제
+     */
+    @JvmStatic
+    @BindingAdapter("StatusMarginStart")
+    fun setStatusMarginStart(tv: TextView, status: String) {
+
+        val param = tv.layoutParams as ViewGroup.MarginLayoutParams
+        if (status == "sell") {
+            param.marginStart = 0
+            tv.layoutParams = param
+        } else {
+            param.marginStart = 12
+            tv.layoutParams = param
         }
     }
 
@@ -65,18 +84,20 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("Status")
     fun setStatus(tv: TextView, status: String) {
+
         if (status == "sell") {
-            tv.text = ""
-            tv.setBackgroundColor(Color.TRANSPARENT)
+            tv.visibility = View.GONE
         } else if (status == "soldout") {
             tv.background =
                 ContextCompat.getDrawable(tv.context, R.drawable.bg_custom_round_dark_gray)
             tv.setTextColor(Color.parseColor("#ffffff"))
             tv.text = "거래완료"
+            tv.visibility = View.VISIBLE
         } else if (status == "reservation") {
             tv.background = ContextCompat.getDrawable(tv.context, R.drawable.bg_custom_round_green)
             tv.setTextColor(Color.parseColor("#ffffff"))
             tv.text = "예약중"
+            tv.visibility = View.VISIBLE
         }
     }
 

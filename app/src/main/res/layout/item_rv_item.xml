@@ -89,15 +89,15 @@
 
         <TextView
             DecimalFormat="@{item.price}"
+            StatusMarginStart="@{item.status}"
             android:layout_width="wrap_content"
-            android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
+            android:layout_marginTop="7dp"
             android:textColor="#000"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_tv_status"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/item_rv_tv_status"
-            app:layout_constraintTop_toTopOf="@id/item_rv_tv_status" />
+            app:layout_constraintTop_toBottomOf="@id/item_rv_item_tv_location" />
 
         <ImageView
             android:layout_width="20dp"

@@ -2,14 +2,24 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.SellListForSaleFragment">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sell_list_forsale_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/sell_list_forsale_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="판매중인 게시글이 없어요."
+            android:textSize="18sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

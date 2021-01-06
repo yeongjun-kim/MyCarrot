@@ -210,7 +210,7 @@ class TestActivity : AppCompatActivity(), OnMapReadyCallback {
                             c9_userid,
                             "당근이${c9_userid.split("_")[1]}",
                             c10_userlocation,
-                            listOf("sell","sell","sell","sell","sell","sell","sell","sell","soldout","reservation").random(),
+                            listOf("sell","sell","sell","soldout","reservation").random(),
                             c14_url,
                             c8_title.split(" "),
                             c13_category,

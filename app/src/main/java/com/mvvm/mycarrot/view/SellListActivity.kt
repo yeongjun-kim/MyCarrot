@@ -1,18 +1,23 @@
 package com.mvvm.mycarrot.view
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ActivitySellListBinding
+import com.mvvm.mycarrot.viewModel.MyViewModel
 
 class SellListActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySellListBinding
+    lateinit var myViewModel: MyViewModel
     var sellListForSaleFragment = SellListForSaleFragment()
     var sellListSoldOutFragment = SellListSoldOutFragment()
 
@@ -20,7 +25,18 @@ class SellListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sell_list)
+        myViewModel = ViewModelProvider(this, MyViewModel.Factory(application)).get(MyViewModel::class.java)
+        binding.apply {
+            lifecycleOwner = this@SellListActivity
+            av = this@SellListActivity
+
+        }
+
+
+
         initTabLayoutViewPager()
+        initStatusBar()
+        myViewModel.setmyItemList()
     }
 
 
@@ -47,19 +63,9 @@ class SellListActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int = 2
     }
+
+    private fun initStatusBar() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.statusBarColor = Color.TRANSPARENT
+    }
 }
-
-/**
-
- SellListActivity의 TabLayout(forsaleFragment, soldoutFragment) 구현부터 시작하면됨.
-
-
-
-
-
-
-
-
-
-
- **/

@@ -2,6 +2,7 @@ package com.mvvm.mycarrot.viewModel
 
 import android.app.Application
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mvvm.mycarrot.model.ItemObject
@@ -14,7 +15,6 @@ import kotlinx.coroutines.tasks.await
 class MyViewModel(application:Application) :AndroidViewModel(application){
 
     val firebaseRepository: FirebaseRepository
-    private val firebaseStore = FirebaseFirestore.getInstance()
     private var currentUserObject: MutableLiveData<UserObject>
     var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
 
@@ -24,6 +24,7 @@ class MyViewModel(application:Application) :AndroidViewModel(application){
 
     var likeItemList:MutableLiveData<List<ItemObject>> = MutableLiveData(listOf()) // likelist
     var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var myItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
 
 
@@ -33,10 +34,20 @@ class MyViewModel(application:Application) :AndroidViewModel(application){
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
         likeItemList = firebaseRepository.getlikeItemList()
         collectItemList = firebaseRepository.getcollectItemList()
-
+        myItemList = firebaseRepository.getmyItemList()
         newNickname.value = currentUserObject.value!!.nickname!!
-
     }
+
+    fun changeItemStatus(itemId:String, status:String){
+        firebaseRepository.changeItemStatus(itemId, status)
+    }
+
+
+    fun getmyItemList() = myItemList
+    fun setmyItemList(){
+        firebaseRepository.setmyItemList()
+    }
+
     fun getcollectItemList() = collectItemList
     fun setcollectItemList() {
         firebaseRepository.setcollectItemList()

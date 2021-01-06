@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +12,17 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sell_list_soldout_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/sell_list_soldout_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="거래완료 게시글이 없어요."
+            android:textSize="18sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
