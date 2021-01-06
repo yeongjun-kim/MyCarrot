@@ -69,6 +69,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         homeItemList = firebaseRepository.getHomeItems()
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
+        selectedItemOwnersItem.value = firebaseRepository.selectedItemOwnersItem
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
         initDefaultProgress()
     }
@@ -150,6 +151,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun getselectedItemOwnersItem() = selectedItemOwnersItem
     fun setSelectedItemOwnersItem(itemList: ArrayList<String> = selectedItemOwner.itemList) {
+        selectedItemOwnersItem.value = listOf()
         itemList.forEach {
             firebaseStore.collection("items")
                 .document(it)
