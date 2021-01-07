@@ -246,8 +246,8 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("Title")
-    fun setTitle(view: TextView, inputArray: List<String>) {
-        view.text = inputArray.joinToString(" ")
+    fun setTitle(view: TextView, inputArray: List<String>?) {
+        view.text = inputArray?.joinToString(" ")
     }
 
     /**
@@ -287,7 +287,7 @@ object BindingAdapters {
      */
     @JvmStatic
     @BindingAdapter("FirstImage")
-    fun setFirstImage(imageView: ImageView, url: String) {
+    fun setFirstImage(imageView: ImageView, url: String?) {
         Glide.with(imageView.context)
             .load(url)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(28)))

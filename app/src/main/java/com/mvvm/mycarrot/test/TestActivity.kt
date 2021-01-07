@@ -1,5 +1,6 @@
 package com.mvvm.mycarrot.test
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -47,7 +48,7 @@ import java.io.InputStream
 import java.math.BigDecimal
 
 
-class TestActivity : AppCompatActivity(), OnMapReadyCallback {
+class TestActivity : AppCompatActivity() {
 
     var uri: Uri? = null
     lateinit var viewModel: FirebaseViewModel
@@ -63,7 +64,6 @@ class TestActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         //********************************** DEFAULT **********************************//
-
 
         viewModel = ViewModelProvider(
             this,
@@ -88,45 +88,17 @@ class TestActivity : AppCompatActivity(), OnMapReadyCallback {
             excelToUserList()
         }
 
-
         // *************************************************************************** //
-
-        val mapFragment = testfm as SupportMapFragment
-        mapFragment.getMapAsync(this)
 
 
 
         aa1.setOnClickListener {
-            startActivityPlacePicker()
+            startActivity(Intent(this, act::class.java))
         }
         aa2.setOnClickListener {
         }
 
 
-    }
-
-    override fun onMapReady(googleMap: GoogleMap?) {
-        val markerOptions = MarkerOptions()
-        markerOptions.position(LatLng(37.56,126.97))
-        googleMap!!.addMarker(markerOptions)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.56,126.97),16f))
-    }
-
-    fun startActivityPlacePicker() {
-        val intent = PlacePicker.IntentBuilder()
-            .setLatLong(
-                viewModel.firebaseRepository.lat,
-                viewModel.firebaseRepository.long
-            )
-            .showLatLong(true)
-            .setMapZoom(14.0f)
-            .setAddressRequired(true)
-            .hideMarkerShadow(true)
-            .setMarkerImageImageColor(R.color.colorPrimary)
-            .setMapType(MapType.NORMAL)
-            .onlyCoordinates(true)
-            .build(this)
-        startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST)
     }
 
 

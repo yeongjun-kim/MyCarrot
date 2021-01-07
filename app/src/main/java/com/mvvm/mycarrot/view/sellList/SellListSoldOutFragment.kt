@@ -1,4 +1,4 @@
-package com.mvvm.mycarrot.view
+package com.mvvm.mycarrot.view.sellList
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,15 +12,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvAdapter
-import com.mvvm.mycarrot.adapter.ItemRvSellListAdapter
 import com.mvvm.mycarrot.databinding.FragmentSellListSoldOutBinding
+import com.mvvm.mycarrot.view.CustomProgressDialog
+import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.viewModel.MyViewModel
 
 class SellListSoldOutFragment : Fragment() {
 
     lateinit var binding: FragmentSellListSoldOutBinding
     lateinit var myViewModel: MyViewModel
-    lateinit var customDialog:CustomProgressDialog
+    lateinit var customDialog: CustomProgressDialog
     var itemRvSoldoutListAdapter = ItemRvAdapter()
 
     override fun onCreateView(
@@ -84,7 +85,7 @@ class SellListSoldOutFragment : Fragment() {
     fun startItemActivity(){
         customDialog.dismiss()
         myViewModel.clearIsStartItemActivity()
-        startActivity(Intent(activity,ItemActivity::class.java))
+        startActivity(Intent(activity, ItemActivity::class.java))
     }
 
 }

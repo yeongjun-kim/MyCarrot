@@ -7,13 +7,13 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.SellListActivity" />
+            type="com.mvvm.mycarrot.view.sellList.SellListActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.SellListActivity">
+        tools:context=".view.sellList.SellListActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sell_list_cl1"

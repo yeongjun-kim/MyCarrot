@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.SellListForSaleFragment">
+        tools:context=".view.sellList.SellListForSaleFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sell_list_forsale_rv"

@@ -7,7 +7,7 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.SeeMoreActivity" />
+            type="com.mvvm.mycarrot.view.seeMore.SeeMoreActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

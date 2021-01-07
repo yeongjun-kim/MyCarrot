@@ -1,4 +1,4 @@
-package com.mvvm.mycarrot.view
+package com.mvvm.mycarrot.view.sellList
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +18,10 @@ class SellListActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySellListBinding
     lateinit var myViewModel: MyViewModel
-    var sellListForSaleFragment = SellListForSaleFragment()
-    var sellListSoldOutFragment = SellListSoldOutFragment()
+    var sellListForSaleFragment =
+        SellListForSaleFragment()
+    var sellListSoldOutFragment =
+        SellListSoldOutFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

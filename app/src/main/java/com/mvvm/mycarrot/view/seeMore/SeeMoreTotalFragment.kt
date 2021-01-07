@@ -1,8 +1,7 @@
-package com.mvvm.mycarrot.view
+package com.mvvm.mycarrot.view.seeMore
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +12,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvAdapter
-import com.mvvm.mycarrot.databinding.FragmentSeeMoreForSaleBinding
+import com.mvvm.mycarrot.databinding.FragmentSeeMoreTotalBinding
+import com.mvvm.mycarrot.view.CustomProgressDialog
+import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 
-class SeeMoreForSaleFragment : Fragment() {
+class SeeMoreTotalFragment : Fragment() {
 
     lateinit var homeViewModel: HomeViewModel
-    lateinit var binding: FragmentSeeMoreForSaleBinding
-    lateinit var customDialog:CustomProgressDialog
+    lateinit var binding: FragmentSeeMoreTotalBinding
+    lateinit var customDialog: CustomProgressDialog
     val itemRvAdapter = ItemRvAdapter()
 
 
@@ -29,7 +30,7 @@ class SeeMoreForSaleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_see_more_for_sale, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_see_more_total, container, false)
         return binding.root
     }
 
@@ -43,11 +44,11 @@ class SeeMoreForSaleFragment : Fragment() {
         ).get(HomeViewModel::class.java)
 
         binding.apply {
-            lifecycleOwner = this@SeeMoreForSaleFragment
+            lifecycleOwner = this@SeeMoreTotalFragment
         }
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seemoreForSaleFm"){
+            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seemoreTotalFm"){
                 startItemActivity()
             }
         })
@@ -59,13 +60,12 @@ class SeeMoreForSaleFragment : Fragment() {
     }
 
     private fun initItemList() {
-        var list = homeViewModel.getselectedItemOwnersItem().value!!.filter { it.status!="soldout" }
-        Log.d("fhrm", "SeeMoreForSaleFragment -initItemList(),    list.size: ${list.size}")
+        var list = homeViewModel.getselectedItemOwnersItem().value!!
         itemRvAdapter.setList(list)
     }
 
     private fun initRv() {
-        binding.seemoreForsaleRv.run{
+        binding.seemoreTotalRv.run{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = itemRvAdapter
@@ -75,19 +75,17 @@ class SeeMoreForSaleFragment : Fragment() {
             override fun onClick(position: Int) {
                 beforeStartItemActivity(position)
             }
-
         }
     }
 
     fun beforeStartItemActivity(position: Int) {
         customDialog.show()
-        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!,"seemoreForSaleFm")
-        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!,"seemoreForSaleFm")
+        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!,"seemoreTotalFm")
+        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!,"seemoreTotalFm")
     }
     fun startItemActivity() {
         customDialog.dismiss()
         homeViewModel.clearIsStartItemActivity()
         startActivity(Intent(activity, ItemActivity::class.java))
     }
-
 }

@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.SellListActivity"></activity>
+        <activity android:name=".view.buyComplete.BuyCompleteActivity"></activity>
+        <activity android:name=".view.sellList.SellListActivity" />
         <activity android:name=".view.LikeListActivity" />
         <activity android:name=".view.CollectActivity" />
         <activity android:name=".view.NeighborhoodCertificationActivity" />
@@ -37,7 +38,8 @@
             android:name=".view.ChatLogActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".test.TestChatActivity" />
-        <activity android:name=".view.SeeMoreActivity" />
+        <activity android:name=".test.act" />
+        <activity android:name=".view.seeMore.SeeMoreActivity" />
         <activity android:name=".view.navigation.CategoryItemActivity" />
         <activity
             android:name=".view.ItemActivity"

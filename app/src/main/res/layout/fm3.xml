@@ -8,23 +8,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2a0"
+        android:background="#abc"
         android:gravity="center"
-        android:text="fm2"
+        android:text="fm3"
         android:textSize="48sp" />
 
     <Button
-        android:id="@+id/test_fm2_backpress"
+        android:id="@+id/test_fm3_backpress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="backpress"
-        app:layout_constraintBottom_toTopOf="@id/test_fm2_btn" />
+        app:layout_constraintBottom_toTopOf="@id/test_fm3_btn" />
 
     <Button
-        android:id="@+id/test_fm2_btn"
+        android:id="@+id/test_fm3_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="btn"
+        android:text="finish"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 

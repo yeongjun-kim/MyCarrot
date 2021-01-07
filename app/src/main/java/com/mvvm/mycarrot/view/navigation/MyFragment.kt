@@ -1,8 +1,6 @@
 package com.mvvm.mycarrot.view.navigation
 
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,12 +9,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentMyBinding
 import com.mvvm.mycarrot.view.*
+import com.mvvm.mycarrot.view.sellList.SellListActivity
 import com.mvvm.mycarrot.viewModel.MyViewModel
 
 class MyFragment : Fragment(){

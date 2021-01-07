@@ -4,10 +4,14 @@ import android.app.Application
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
@@ -52,6 +56,9 @@ class FirebaseRepository private constructor() {
      * selectedFragment: 어느 Activity/Fragment 에서 아이템 클릭하였는지 (homeFm, itemAv, searchFm 등등.. / observe할때 isActvity==2 에서 겹쳐가지고)
      *
      * myItemList: SellListActivity 에서 쓰일 나의 판매내역
+     *
+     * buyCompleteItem: 구매완료 누르는 아이템 세팅 (BuyCompleteActivity)
+     * buyCompleteChatList: buyCompleteItem에 대해 Chat 나눴던 User List (BuyCompleteActivity)
      */
 
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -87,6 +94,9 @@ class FirebaseRepository private constructor() {
 
     var myItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
+    var buyCompleteItem = MutableLiveData<ItemObject>()
+    var buyCompleteChatList = MutableLiveData<UserObject>()
+
 
     companion object {
         @Volatile
@@ -102,6 +112,51 @@ class FirebaseRepository private constructor() {
     init {
         initCurrentUser()
         loginMode.value = 0
+    }
+
+    fun getbuyCompleteChatList() =buyCompleteChatList
+    fun setbuyCompleteChatList(itemId:String){
+        Firebase.database.reference.child("/user-messages/${currentUserObject.value!!.userId}")
+            .addChildEventListener(object:ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    snapshot.children.forEach {result ->
+                        if(result.key == itemId){
+                            var chatUserUid  = snapshot.key!!
+                            var a =firebaseStore.collection("users").document(chatUserUid)
+                                .get()
+                                .addOnSuccessListener {
+                                    var a = it.toObject(UserObject::class.java)!!
+                                    Log.d("fhrm","FirebaseRepository -onChildAdded(),    a.nickname: ${a.nickname}")
+
+                                }
+                            /************************************************
+                             ************************************************
+                             ************************************************
+                             *
+                             * 여기부터 채팅상대 불러오기부터 하면 됨.
+                             *
+                             ************************************************
+                             ************************************************
+                             ************************************************
+                             */
+
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onChildRemoved(snapshot: DataSnapshot) {}
+            })
+    }
+
+    fun getbuyCompleteItem() = buyCompleteItem
+    fun setbuyCompleteItem(itemId:String){
+        firebaseStore.collection("items").document(itemId)
+            .get()
+            .addOnSuccessListener {result ->
+                buyCompleteItem.value = result.toObject(ItemObject::class.java)
+            }
     }
 
 

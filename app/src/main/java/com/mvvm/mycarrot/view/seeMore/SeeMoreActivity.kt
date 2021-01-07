@@ -1,4 +1,4 @@
-package com.mvvm.mycarrot.view
+package com.mvvm.mycarrot.view.seeMore
 
 import android.graphics.Color
 import android.os.Bundle
@@ -19,9 +19,12 @@ class SeeMoreActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySeeMoreBinding
     lateinit var homeViewModel: HomeViewModel
-    val seeMoreTotalFragment = SeeMoreTotalFragment()
-    val seeMoreForSaleFragment = SeeMoreForSaleFragment()
-    val seeMoreSoldOutFragment = SeeMoreSoldOutFragment()
+    val seeMoreTotalFragment =
+        SeeMoreTotalFragment()
+    val seeMoreForSaleFragment =
+        SeeMoreForSaleFragment()
+    val seeMoreSoldOutFragment =
+        SeeMoreSoldOutFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

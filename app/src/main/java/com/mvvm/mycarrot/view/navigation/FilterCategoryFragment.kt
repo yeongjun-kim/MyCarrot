@@ -54,7 +54,7 @@ class FilterCategoryFragment : Fragment() {
 
     fun onBackPress() {
         activity!!.supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+            .setCustomAnimations(android.R.animator.fade_in,android.R.animator.fade_out)
             .addToBackStack(null)
             .replace(R.id.main_fl, (activity as MainActivity).homeFragment).commit()
     }

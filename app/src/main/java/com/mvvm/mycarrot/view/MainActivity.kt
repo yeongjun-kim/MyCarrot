@@ -15,7 +15,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.test.TestActivity
-import com.mvvm.mycarrot.test.TestChatActivity
 import com.mvvm.mycarrot.test.TestFragment
 import com.mvvm.mycarrot.view.navigation.ChatFragment
 import com.mvvm.mycarrot.view.navigation.HomeFragment
@@ -31,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     var searchFragment = SearchFragment()
     var chatFragment = ChatFragment()
     var myFragment = MyFragment()
-    var testFragment = TestFragment()
     lateinit var viewModel: FirebaseViewModel
 
     private val onNavigationItemSelectedListener =
@@ -40,10 +38,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home -> {
 
                     supportFragmentManager.beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.fade_in,
-                            R.anim.fade_out
-                        )
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                         .addToBackStack(null) // setCustomAnimations 이용할시, 빠른 화면전화면 에러나는 버그로 인해 추가
                         .replace(R.id.main_fl, homeFragment)
                         .commit()
@@ -51,10 +46,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_search -> {
                     supportFragmentManager.beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.fade_in,
-                            R.anim.fade_out
-                        )
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                         .addToBackStack(null)
                         .replace(R.id.main_fl, searchFragment)
                         .commit()
@@ -67,10 +59,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_chat -> {
                     supportFragmentManager.beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.fade_in,
-                            R.anim.fade_out
-                        )
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                         .addToBackStack(null)
                         .replace(R.id.main_fl, chatFragment)
                         .commit()
@@ -78,10 +67,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_my -> {
                     supportFragmentManager.beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.fade_in,
-                            R.anim.fade_out
-                        )
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                         .addToBackStack(null)
                         .replace(R.id.main_fl, myFragment)
                         .commit()

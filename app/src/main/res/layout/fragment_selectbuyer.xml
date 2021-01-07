@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fm"
+            type="com.mvvm.mycarrot.view.buyComplete.SelectBuyerFragment" />
+
+        <variable
+            name="vm"
+            type="com.mvvm.mycarrot.viewModel.BuyCompleteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectBuyer_cl1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.07"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/selectBuyer_tv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="구매자 선택"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7" />
+
+            <ImageView
+                android:id="@+id/selectBuyer_iv_backpress"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_arrow_back_black_14dp"
+                app:layout_constraintBottom_toBottomOf="@id/selectBuyer_tv_profile"
+                app:layout_constraintStart_toStartOf="@id/selectBuyer_tv_profile"
+                app:layout_constraintTop_toTopOf="@id/selectBuyer_tv_profile" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/selectBuyer_iv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="18dp"
+            android:paddingBottom="20dp"
+            android:src="@drawable/ic_checkbox_checked_big"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selectBuyer_cl1" />
+
+        <TextView
+            android:id="@+id/selectBuyer_tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="거래가 완료되었어요"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/selectBuyer_iv" />
+
+        <TextView
+            android:id="@+id/selectBuyer_tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="20dp"
+            android:text="구매자를 선택해주세요."
+            android:textColor="#000"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/selectBuyer_tv1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectBuyer_cl2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorLittleGray"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/selectBuyer_tv2">
+
+            <ImageView
+                android:id="@+id/selectBuyer_iv_item"
+                FirstImage="@{vm.getbuyCompleteItem.imageList[0]}"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/selectBuyer_tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="거래한 물건"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/selectBuyer_iv_item"
+                app:layout_constraintTop_toTopOf="@id/selectBuyer_iv_item" />
+
+            <TextView
+                Title="@{vm.getbuyCompleteItem.title}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:gravity="left"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/selectBuyer_iv_item"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/selectBuyer_tv3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintBottom_toTopOf="@id/selectBuyer_cl3"
+            app:layout_constraintTop_toBottomOf="@id/selectBuyer_cl2" />
+
+        <LinearLayout
+            android:id="@+id/selectBuyer_ll1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivision"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/selectBuyer_cl3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectBuyer_cl3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_custom_textview"
+                android:text="지금 안할래요"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

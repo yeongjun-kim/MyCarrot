@@ -3,18 +3,16 @@ package com.mvvm.mycarrot.view
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ActivityProfileBinding
+import com.mvvm.mycarrot.view.seeMore.SeeMoreActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.skydoves.balloon.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {

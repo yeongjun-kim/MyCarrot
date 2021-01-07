@@ -1,8 +1,7 @@
-package com.mvvm.mycarrot.view
+package com.mvvm.mycarrot.view.sellList
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvSellListAdapter
 import com.mvvm.mycarrot.databinding.FragmentSellListForSaleBinding
+import com.mvvm.mycarrot.model.ItemObject
+import com.mvvm.mycarrot.view.CustomProgressDialog
+import com.mvvm.mycarrot.view.ItemActivity
+import com.mvvm.mycarrot.view.buyComplete.BuyCompleteActivity
 import com.mvvm.mycarrot.viewModel.MyViewModel
 
 class SellListForSaleFragment : Fragment() {
 
     lateinit var binding: FragmentSellListForSaleBinding
     lateinit var myViewModel: MyViewModel
-    lateinit var customDialog:CustomProgressDialog
+    lateinit var customDialog: CustomProgressDialog
 
     var itemRvSellListAdapter = ItemRvSellListAdapter()
 
@@ -91,6 +94,7 @@ class SellListForSaleFragment : Fragment() {
             override fun onSoldoutClick(position: Int) {
                 val itemId =itemRvSellListAdapter.itemList[position].id!!
                 myViewModel.changeItemStatus(itemId, "soldout")
+                startBuycompleteActivity(itemId)
             }
         }
     }
@@ -98,6 +102,12 @@ class SellListForSaleFragment : Fragment() {
     fun startItemActivity(){
         customDialog.dismiss()
         myViewModel.clearIsStartItemActivity()
-        startActivity(Intent(activity,ItemActivity::class.java))
+        startActivity(Intent(activity, ItemActivity::class.java))
+    }
+
+    fun startBuycompleteActivity(itemId:String){
+        var intent =Intent(activity, BuyCompleteActivity::class.java)
+        intent.putExtra("itemId",itemId)
+        startActivity(intent)
     }
 }

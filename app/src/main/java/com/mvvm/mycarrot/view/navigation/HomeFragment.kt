@@ -176,7 +176,7 @@ class HomeFragment : Fragment() {
     fun filterCategory() {
         homeViewModel.tempCategoryList = homeViewModel.categoryList.toMutableList()
         activity!!.supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+            .setCustomAnimations(android.R.animator.fade_in,android.R.animator.fade_out)
             .addToBackStack(null)
             .replace(R.id.main_fl, FilterCategoryFragment())
             .commit()
