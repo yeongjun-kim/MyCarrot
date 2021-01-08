@@ -6,10 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mvvm.mycarrot.model.ItemObject
+import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
 
-class BuyCompleteViewModel(application:Application) :AndroidViewModel(application){
+class BuyCompleteViewModel(application: Application) : AndroidViewModel(application) {
 
 
     /**
@@ -20,28 +21,32 @@ class BuyCompleteViewModel(application:Application) :AndroidViewModel(applicatio
 
     private val firebaseRepository: FirebaseRepository
     private var currentUserObject: MutableLiveData<UserObject>
-    private var buyCompleteItem = MutableLiveData<ItemObject>()
-    private var buyCompleteChatList = MutableLiveData<UserObject>()
 
+    private var buyCompleteItem: MutableLiveData<ItemObject>
+    private var buyCompleteChatList: MutableLiveData<List<LatestMessageDTO>>
+    private var selectedBuyer: MutableLiveData<UserObject>
 
 
     init {
         firebaseRepository = FirebaseRepository.getInstance()
         currentUserObject = firebaseRepository.getCurretUser()
-        buyCompleteItem =firebaseRepository.getbuyCompleteItem()
+        buyCompleteItem = firebaseRepository.getbuyCompleteItem()
         buyCompleteChatList = firebaseRepository.getbuyCompleteChatList()
+        selectedBuyer = firebaseRepository.getselectedBuyer()
     }
 
     fun getCurrentUserObject() = currentUserObject
 
 
-    fun getbuyCompleteChatList() =buyCompleteChatList
-    fun setbuyCompleteChatList(itemId:String)=firebaseRepository.setbuyCompleteChatList(itemId)
+    fun getselectedBuyer() = selectedBuyer
+    fun setselectedBuyer(userId: String) = firebaseRepository.setselectedBuyer(userId)
+
+    fun getbuyCompleteChatList() = buyCompleteChatList
+    fun setbuyCompleteChatList(itemId: String) = firebaseRepository.setbuyCompleteChatList(itemId)
 
 
     fun getbuyCompleteItem() = buyCompleteItem
-    fun setbuyCompleteItem(itemId:String) =firebaseRepository.setbuyCompleteItem(itemId)
-
+    fun setbuyCompleteItem(itemId: String) = firebaseRepository.setbuyCompleteItem(itemId)
 
 
     class Factory(val application: Application) : ViewModelProvider.Factory {

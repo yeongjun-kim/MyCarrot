@@ -35,6 +35,25 @@ object BindingAdapters {
     }
 
     /*
+    마지막 대화 지난 N주 (SelectBuyerFragment)
+     */
+    @JvmStatic
+    @BindingAdapter("ReviewText")
+    fun setReviewText(tv: TextView, nickname:String?) {
+        tv.text = "${nickname}님과의 거래가 어땠나요?"
+    }
+
+    /*
+    마지막 대화 지난 N주 (SelectBuyerFragment)
+     */
+    @JvmStatic
+    @BindingAdapter("LatestMessageTime")
+    fun setLatestMessageTime(tv: TextView, timestamp:Long) {
+        val n = (System.currentTimeMillis() - timestamp)/604800000
+        tv.text = "마지막 대화 지난 ${n}주"
+    }
+
+    /*
     Title 앞에 아이템의 상태를 나타냄 (activity_item)
      */
     @JvmStatic

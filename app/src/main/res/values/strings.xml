@@ -16,6 +16,18 @@
     <string name="category_book">도서/티켓/음반</string>
     <string name="category_buy">삽니다</string>
 
+    <string name="positive_1">제가 있는 곳까지 와서 거래했어요.</string>
+    <string name="positive_2">친절하고 매너가 좋아요.</string>
+    <string name="positive_3">시간 약속을 잘 지켜요.</string>
+    <string name="positive_4">응답이 빨라요.</string>
+
+    <string name="negative_1">무리하게 가격을 깎아요.</string>
+    <string name="negative_2">시간약속을 안 지켜요.</string>
+    <string name="negative_3">무조건 택배거래만 하려고 해요.</string>
+    <string name="negative_4">채팅 메시지를 보내도 답이 없어요.</string>
+
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
