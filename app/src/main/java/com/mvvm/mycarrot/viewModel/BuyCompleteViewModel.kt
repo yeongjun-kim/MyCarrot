@@ -1,14 +1,13 @@
 package com.mvvm.mycarrot.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BuyCompleteViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -26,6 +25,11 @@ class BuyCompleteViewModel(application: Application) : AndroidViewModel(applicat
     private var buyCompleteChatList: MutableLiveData<List<LatestMessageDTO>>
     private var selectedBuyer: MutableLiveData<UserObject>
 
+    private var positiveReviewList = MutableLiveData<List<String>>(listOf())
+    private var negativeReviewList = MutableLiveData<List<String>>(listOf())
+
+    private var isCommitFinish = MutableLiveData(false)
+
 
     init {
         firebaseRepository = FirebaseRepository.getInstance()
@@ -33,9 +37,38 @@ class BuyCompleteViewModel(application: Application) : AndroidViewModel(applicat
         buyCompleteItem = firebaseRepository.getbuyCompleteItem()
         buyCompleteChatList = firebaseRepository.getbuyCompleteChatList()
         selectedBuyer = firebaseRepository.getselectedBuyer()
+        positiveReviewList = firebaseRepository.getpositiveReviewList()
+        negativeReviewList = firebaseRepository.getnegativeReviewList()
     }
 
     fun getCurrentUserObject() = currentUserObject
+
+
+    fun getisCommitFinish() = isCommitFinish
+    fun commitReviewToServer(){
+        viewModelScope.launch(Dispatchers.IO) {
+            isCommitFinish.postValue(false)
+            firebaseRepository.commitReviewToServer()
+            isCommitFinish.postValue(true)
+        }
+    }
+
+    fun getnegativeReviewList() = negativeReviewList
+    fun setnegativeReviewList(str:String){
+        firebaseRepository.setnegativeReviewList(str)
+    }
+    fun clearnegativeReviewList(){
+        firebaseRepository.clearnegativeReviewList()
+    }
+
+
+    fun getpositiveReviewList() = positiveReviewList
+    fun setpositiveReviewList(str:String){
+        firebaseRepository.setpositiveReviewList(str)
+    }
+    fun clearpositiveReviewList(){
+        firebaseRepository.clearpositiveReviewList()
+    }
 
 
     fun getselectedBuyer() = selectedBuyer

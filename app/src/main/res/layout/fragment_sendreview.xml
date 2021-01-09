@@ -46,6 +46,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="8dp"
+                android:onClick="@{() -> fm.onBackPress()}"
                 android:src="@drawable/ic_arrow_back_black_14dp"
                 app:layout_constraintBottom_toBottomOf="@id/sendReview_tv_profile"
                 app:layout_constraintStart_toStartOf="@id/sendReview_tv_profile"
@@ -133,6 +134,7 @@
 
 
             <RadioButton
+                android:id="@+id/sendReview_rb_negative"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

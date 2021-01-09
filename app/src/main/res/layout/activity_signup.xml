@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="15"
                 android:background="@android:color/transparent"
+                android:singleLine="true"
                 android:hint="닉네임"
                 android:text="@={vm.signupNickname}" />
         </com.google.android.material.textfield.TextInputLayout>

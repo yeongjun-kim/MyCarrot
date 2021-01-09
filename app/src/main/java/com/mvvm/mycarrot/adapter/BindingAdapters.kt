@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -35,11 +36,29 @@ object BindingAdapters {
     }
 
     /*
+    OOO님과 OO를 거래했어요. (SendReviewFinishFragment)
+     */
+    @JvmStatic
+    @BindingAdapter("ReviewTextThree")
+    fun setReviewTextThree(tv: TextView, nickname: String?) {
+        tv.text = "${nickname}님에게 따뜻한 후기를 보냈어요."
+    }
+
+    /*
+    OOO 님에게 따뜻한 후기를 보냈어요. (SendReviewFinishFragment)
+    */
+    @JvmStatic
+    @BindingAdapter("ReviewTextTwo")
+    fun setReviewTextTwo(tv: TextView, nickname: String?) {
+        tv.text = "${nickname}님에게 따뜻한 후기를 보냈어요."
+    }
+
+    /*
     마지막 대화 지난 N주 (SelectBuyerFragment)
      */
     @JvmStatic
     @BindingAdapter("ReviewText")
-    fun setReviewText(tv: TextView, nickname:String?) {
+    fun setReviewText(tv: TextView, nickname: String?) {
         tv.text = "${nickname}님과의 거래가 어땠나요?"
     }
 
@@ -48,8 +67,8 @@ object BindingAdapters {
      */
     @JvmStatic
     @BindingAdapter("LatestMessageTime")
-    fun setLatestMessageTime(tv: TextView, timestamp:Long) {
-        val n = (System.currentTimeMillis() - timestamp)/604800000
+    fun setLatestMessageTime(tv: TextView, timestamp: Long) {
+        val n = (System.currentTimeMillis() - timestamp) / 604800000
         tv.text = "마지막 대화 지난 ${n}주"
     }
 

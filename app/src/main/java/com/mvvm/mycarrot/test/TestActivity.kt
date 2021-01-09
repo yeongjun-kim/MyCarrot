@@ -91,7 +91,6 @@ class TestActivity : AppCompatActivity() {
         // *************************************************************************** //
 
 
-
         aa1.setOnClickListener {
             startActivity(Intent(this, act::class.java))
         }
@@ -182,7 +181,7 @@ class TestActivity : AppCompatActivity() {
                             c9_userid,
                             "당근이${c9_userid.split("_")[1]}",
                             c10_userlocation,
-                            listOf("sell","sell","sell","soldout","reservation").random(),
+                            listOf("sell", "sell", "sell", "soldout", "reservation").random(),
                             c14_url,
                             c8_title.split(" "),
                             c13_category,
@@ -268,6 +267,16 @@ class TestActivity : AppCompatActivity() {
                             (1600000000000..System.currentTimeMillis()).random(),
                             (1600000000000..System.currentTimeMillis()).random(),
                             GeoPoint(c1_lat.toDouble(), c2_long.toDouble()),
+                            (0..20).random(),
+                            (0..20).random(),
+                            (0..20).random(),
+                            (0..20).random(),
+                            (0..20).random(),
+                            (0..20).random(),
+                            (0..20).random(),
+                            (0..20).random(),
+//                            makeRandomPostivieReview(),
+//                            makeRandomNegativeReview(),
                             arrayListOf(),
                             c7_itemList,
                             c8_likeList
@@ -282,6 +291,46 @@ class TestActivity : AppCompatActivity() {
         }
 
     }
+
+//    fun makeRandomPostivieReview(): ArrayList<String> {
+//        var retVal = mutableListOf<String>()
+//        var list = listOf(
+//            getString(R.string.positive_1),
+//            getString(R.string.positive_2),
+//            getString(R.string.positive_3),
+//            getString(R.string.positive_4)
+//        )
+//
+//        repeat(30){
+//            var num = (0..4).random()
+//            if(num!=4) retVal.add(list[num])
+//        }
+//
+//
+//        var a =ArrayList<String>()
+//        a.addAll(retVal)
+//        return a
+//    }
+//
+//    fun makeRandomNegativeReview(): ArrayList<String> {
+//        var retVal = mutableListOf<String>()
+//        var list = listOf(
+//            getString(R.string.negative_1),
+//            getString(R.string.negative_2),
+//            getString(R.string.negative_3),
+//            getString(R.string.negative_4)
+//        )
+//
+//        repeat(30){
+//            var num = (0..4).random()
+//            if(num!=4) retVal.add(list[num])
+//        }
+//
+//
+//        var a =ArrayList<String>()
+//        a.addAll(retVal)
+//        return a
+//    }
 
 
     private fun itemCommitToFirestore() {
@@ -323,7 +372,7 @@ data class firestoreItem(
     var userId: String = "",
     var userNickname: String = "",
     var userLocation: String = "",
-    var status:String="",
+    var status: String = "",
     var imageList: ArrayList<String> = arrayListOf(),
     var title: List<String> = listOf(),
     var category: String = "",
@@ -345,7 +394,17 @@ data class firestoreUser(
     var joined: Long? = null,
     var lastLoginTime: Long? = null,
     var geoPoint: GeoPoint = GeoPoint(37.55, 126.97), // Default 관악구
-    var likeUserList:ArrayList<String> = arrayListOf(),
+    var positive_1:Int =0,
+    var positive_2:Int =0,
+    var positive_3:Int =0,
+    var positive_4:Int =0,
+    var negative_1:Int =0,
+    var negative_2:Int =0,
+    var negative_3:Int =0,
+    var negative_4:Int =0,
+//    var positiveReview: ArrayList<String> = arrayListOf(),
+//    var negativeReview: ArrayList<String> = arrayListOf(),
+    var likeUserList: ArrayList<String> = arrayListOf(),
     var itemList: ArrayList<String> = arrayListOf(),
     var likeList: ArrayList<String> = arrayListOf()
 )

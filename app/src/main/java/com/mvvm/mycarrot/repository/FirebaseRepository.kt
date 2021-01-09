@@ -5,6 +5,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
 import android.util.Log
+import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -61,6 +62,8 @@ class FirebaseRepository private constructor() {
      * buyCompleteItem: 구매완료 누르는 아이템 세팅 (BuyCompleteActivity)
      * buyCompleteChatList: buyCompleteItem에 대해 Chat 나눴던 User List (BuyCompleteActivity)
      * selectedBuyer: buyCompleteChatList에서 선택된 User (SendReviewFragment)
+     * positiveReviewList: CheckBox를 통해 긍정평가 클릭하면 해당 내용 저장 (SendReviewFragment)
+     * negativeReviewList: CheckBox를 통해 부평가 클릭하면 해당 내용 저장 (SendReviewFragment)
      */
 
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -99,7 +102,8 @@ class FirebaseRepository private constructor() {
     var buyCompleteItem = MutableLiveData<ItemObject>()
     var buyCompleteChatList = MutableLiveData<List<LatestMessageDTO>>()
     var selectedBuyer = MutableLiveData<UserObject>()
-
+    val positiveReviewList = MutableLiveData<List<String>>(listOf())
+    val negativeReviewList = MutableLiveData<List<String>>(listOf())
 
     companion object {
         @Volatile
@@ -117,6 +121,63 @@ class FirebaseRepository private constructor() {
         loginMode.value = 0
     }
 
+
+    /*
+    선택한 리뷰를 해당 유저에 commit
+     */
+    suspend fun commitReviewToServer() {
+        var docRef = firebaseStore.collection("users").document(selectedBuyer.value!!.userId!!)
+
+        positiveReviewList.value?.forEach {
+            if(it=="제가 있는 곳까지 와서 거래했어요.")docRef.update("positive_1", FieldValue.increment(1)).await()
+            else if(it=="친절하고 매너가 좋아요.")docRef.update("positive_2", FieldValue.increment(1)).await()
+            else if(it=="시간 약속을 잘 지켜요.")docRef.update("positive_3", FieldValue.increment(1)).await()
+            else if(it=="응답이 빨라요.")docRef.update("positive_4", FieldValue.increment(1)).await()
+        }
+
+        negativeReviewList.value?.forEach {
+            if(it=="무리하게 가격을 깎아요.")docRef.update("negative_1", FieldValue.increment(1)).await()
+            else if(it=="시간약속을 안 지켜요.")docRef.update("negative_2", FieldValue.increment(1)).await()
+            else if(it=="무조건 택배거래만 하려고 해요.")docRef.update("negative_3", FieldValue.increment(1)).await()
+            else if(it=="채팅 메시지를 보내도 답이 없어요.")docRef.update("negative_4", FieldValue.increment(1)).await()
+        }
+
+    }
+
+    fun getnegativeReviewList() = negativeReviewList
+    fun setnegativeReviewList(str: String) {
+        var tempList = negativeReviewList.value!!.toMutableList()
+
+        if (negativeReviewList.value!!.contains(str)) {
+            tempList.remove(str)
+            negativeReviewList.value = tempList.toList()
+        } else {
+            tempList.add(str)
+            negativeReviewList.value = tempList.toList()
+        }
+    }
+
+    fun clearnegativeReviewList() {
+        negativeReviewList.value = listOf()
+    }
+
+
+    fun getpositiveReviewList() = positiveReviewList
+    fun setpositiveReviewList(str: String) {
+        var tempList = positiveReviewList.value!!.toMutableList()
+
+        if (positiveReviewList.value!!.contains(str)) {
+            tempList.remove(str)
+            positiveReviewList.value = tempList.toList()
+        } else {
+            tempList.add(str)
+            positiveReviewList.value = tempList.toList()
+        }
+    }
+
+    fun clearpositiveReviewList() {
+        positiveReviewList.value = listOf()
+    }
 
     /*
     구매자 목록(buyCompleteChatList) 에서 선택된 userId를 통해 UserObject 가져오기.

@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.viewModel.BuyCompleteViewModel
+import kotlinx.android.synthetic.main.activity_buy_complete.*
 
 class BuyCompleteActivity : AppCompatActivity() {
 
@@ -55,7 +56,18 @@ class BuyCompleteActivity : AppCompatActivity() {
                 android.R.animator.fade_out
             )
             .add(R.id.buyComplete_fl, selectBuyerFragment)
-            .addToBackStack(null)
+            .addToBackStack("selectBuyerFragment")
             .commit()
+    }
+
+
+
+    override fun onBackPressed() {
+        if(supportFragmentManager.fragments.size==2) {
+            finish()
+        }
+        else {
+            super.onBackPressed()
+        }
     }
 }
