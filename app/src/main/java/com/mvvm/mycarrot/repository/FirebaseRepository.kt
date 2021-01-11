@@ -129,18 +129,49 @@ class FirebaseRepository private constructor() {
         var docRef = firebaseStore.collection("users").document(selectedBuyer.value!!.userId!!)
 
         positiveReviewList.value?.forEach {
-            if(it=="제가 있는 곳까지 와서 거래했어요.")docRef.update("positive_1", FieldValue.increment(1)).await()
-            else if(it=="친절하고 매너가 좋아요.")docRef.update("positive_2", FieldValue.increment(1)).await()
-            else if(it=="시간 약속을 잘 지켜요.")docRef.update("positive_3", FieldValue.increment(1)).await()
-            else if(it=="응답이 빨라요.")docRef.update("positive_4", FieldValue.increment(1)).await()
+            if (it == "제가 있는 곳까지 와서 거래했어요.") docRef.update(
+                "positive_1",
+                FieldValue.increment(1)
+            ).await()
+            else if (it == "친절하고 매너가 좋아요.") docRef.update(
+                "positive_2",
+                FieldValue.increment(1)
+            ).await()
+            else if (it == "시간 약속을 잘 지켜요.") docRef.update(
+                "positive_3",
+                FieldValue.increment(1)
+            ).await()
+            else if (it == "응답이 빨라요.") docRef.update("positive_4", FieldValue.increment(1)).await()
         }
 
         negativeReviewList.value?.forEach {
-            if(it=="무리하게 가격을 깎아요.")docRef.update("negative_1", FieldValue.increment(1)).await()
-            else if(it=="시간약속을 안 지켜요.")docRef.update("negative_2", FieldValue.increment(1)).await()
-            else if(it=="무조건 택배거래만 하려고 해요.")docRef.update("negative_3", FieldValue.increment(1)).await()
-            else if(it=="채팅 메시지를 보내도 답이 없어요.")docRef.update("negative_4", FieldValue.increment(1)).await()
+            if (it == "무리하게 가격을 깎아요.") docRef.update("negative_1", FieldValue.increment(1)).await()
+            else if (it == "시간약속을 안 지켜요.") docRef.update(
+                "negative_2",
+                FieldValue.increment(1)
+            ).await()
+            else if (it == "무조건 택배거래만 하려고 해요.") docRef.update(
+                "negative_3",
+                FieldValue.increment(1)
+            ).await()
+            else if (it == "채팅 메시지를 보내도 답이 없어요.") docRef.update(
+                "negative_4",
+                FieldValue.increment(1)
+            ).await()
         }
+
+        // 리뷰작업 후 온도 변경
+        docRef
+            .get()
+            .addOnSuccessListener {
+                var user = it.toObject(UserObject::class.java)!!
+                val positive = user.positive_1 + user.positive_2 + user.positive_3 + user.positive_4
+                val negative = user.negative_1 + user.negative_2 + user.negative_3 + user.negative_4
+
+                var newTemperature = 36.5 + String.format("%.1f",(positive.toDouble()-negative.toDouble())/50).toDouble()
+                docRef.update("temperature",newTemperature)
+            }
+            .await()
 
     }
 

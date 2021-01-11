@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.buyComplete.BuyCompleteActivity"></activity>
+        <activity android:name=".view.MannerDetailActivity"></activity>
+        <activity android:name=".view.buyComplete.BuyCompleteActivity" />
         <activity android:name=".view.sellList.SellListActivity" />
         <activity android:name=".view.LikeListActivity" />
         <activity android:name=".view.CollectActivity" />

@@ -267,16 +267,14 @@ class TestActivity : AppCompatActivity() {
                             (1600000000000..System.currentTimeMillis()).random(),
                             (1600000000000..System.currentTimeMillis()).random(),
                             GeoPoint(c1_lat.toDouble(), c2_long.toDouble()),
-                            (0..20).random(),
-                            (0..20).random(),
-                            (0..20).random(),
-                            (0..20).random(),
-                            (0..20).random(),
-                            (0..20).random(),
-                            (0..20).random(),
-                            (0..20).random(),
-//                            makeRandomPostivieReview(),
-//                            makeRandomNegativeReview(),
+                            (0..200).random(),
+                            (0..200).random(),
+                            (0..200).random(),
+                            (0..200).random(),
+                            (0..200).random(),
+                            (0..200).random(),
+                            (0..200).random(),
+                            (0..200).random(),
                             arrayListOf(),
                             c7_itemList,
                             c8_likeList
@@ -352,7 +350,16 @@ class TestActivity : AppCompatActivity() {
     private fun userCommitToFirestore() {
         val qry = FirebaseFirestore.getInstance().collection("users")
 
+        userList.forEach {
+            var positive = it.positive_1 + it.positive_2 + it.positive_3 + it.positive_4
+            var negative = it.negative_1 + it.negative_2 + it.negative_3 + it.negative_4
+
+            var newTemperature = 36.5 + String.format("%.1f",(positive.toDouble()-negative.toDouble())/50).toDouble()
+            it.temperature =newTemperature
+        }
+
         userList.forEachIndexed { index, item ->
+
             qry.document(item.userId!!)
                 .set(item)
                 .addOnSuccessListener { documentReference ->
@@ -402,8 +409,6 @@ data class firestoreUser(
     var negative_2:Int =0,
     var negative_3:Int =0,
     var negative_4:Int =0,
-//    var positiveReview: ArrayList<String> = arrayListOf(),
-//    var negativeReview: ArrayList<String> = arrayListOf(),
     var likeUserList: ArrayList<String> = arrayListOf(),
     var itemList: ArrayList<String> = arrayListOf(),
     var likeList: ArrayList<String> = arrayListOf()

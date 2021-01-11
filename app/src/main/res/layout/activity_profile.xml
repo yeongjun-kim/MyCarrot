@@ -20,13 +20,6 @@
         android:layout_height="match_parent"
         tools:context=".view.ProfileActivity">
 
-        <Button
-            android:id="@+id/abc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/profile_cl"
             android:layout_width="match_parent"
@@ -143,12 +136,12 @@
 
                     <Button
                         android:id="@+id/profile_btn_sum"
+                        LikeUserBtn="@{vm}"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:background="@drawable/bg_custom_textview"
                         android:onClick="@{() -> av.likeUser()}"
                         android:textSize="12sp"
-                        LikeUserBtn = "@{vm}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/profile_empty1"
                         app:layout_constraintTop_toTopOf="@id/profile_btn_manner" />
@@ -348,16 +341,19 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/profile_cl4"
                     android:layout_width="match_parent"
-                    android:layout_height="71dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
                     android:layout_marginEnd="14dp"
                     android:onClick="@{() -> av.startActivitySeeMore()}"
+                    android:paddingTop="28dp"
+                    android:paddingBottom="28dp"
                     app:layout_constraintTop_toBottomOf="@id/profile_cl3">
 
                     <TextView
                         ProfileItemList="@{vm.getselectedItemOwner()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -377,12 +373,65 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
-                    android:id="@+id/profile_ll_temp1"
+                    android:id="@+id/profile_ll1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorDivision"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@id/profile_cl4" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/profile_cl5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:onClick="@{() -> av.startActivityMannerDetail()}"
+                    android:paddingTop="28dp"
+                    android:paddingBottom="28dp"
+                    app:layout_constraintTop_toBottomOf="@id/profile_cl4">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="받은 매너 평가"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="❯"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/profile_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/profile_cl5" />
+
+                <LinearLayout
+                    android:id="@+id/profile_ll3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorDivision"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/profile_rv" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

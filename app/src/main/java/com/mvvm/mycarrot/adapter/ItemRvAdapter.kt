@@ -21,10 +21,7 @@ class ItemRvAdapter :RecyclerView.Adapter<ItemRvAdapter.CustomViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         return CustomViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-                R.layout.item_rv_item,
-                parent,false), listener
-        )
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context),R.layout.item_rv_item,parent,false), listener)
     }
 
     override fun getItemCount() = itemList.size

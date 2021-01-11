@@ -3,12 +3,15 @@ package com.mvvm.mycarrot.view
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.adapter.ItemRvMannerAdapter
 import com.mvvm.mycarrot.databinding.ActivityProfileBinding
 import com.mvvm.mycarrot.view.seeMore.SeeMoreActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
@@ -19,7 +22,7 @@ class ProfileActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityProfileBinding
     lateinit var homeViewModel: HomeViewModel
-    lateinit var balloon:Balloon
+    lateinit var balloon: Balloon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,42 +40,71 @@ class ProfileActivity : AppCompatActivity() {
             vm = homeViewModel
         }
 
+
+
+
+
+
         initOtherItemList()
         initStatusBar()
         initBallon()
+        initRv()
 
 
     }
 
-    fun likeUser(){
-        val targetUid =homeViewModel.getselectedItemOwner().userId
+    private fun initRv() {
+        var mannerList = listOf(
+            Pair(homeViewModel.getselectedItemOwner().positive_1, getString(R.string.positive_1)),
+            Pair(homeViewModel.getselectedItemOwner().positive_2, getString(R.string.positive_2)),
+            Pair(homeViewModel.getselectedItemOwner().positive_3, getString(R.string.positive_3)),
+            Pair(homeViewModel.getselectedItemOwner().positive_4, getString(R.string.positive_4))
+        )
 
-        if(homeViewModel.getCurrentUserObject().value!!.likeUserList.contains(targetUid)) {
+        var mAdapter = ItemRvMannerAdapter(mannerList.filter { it.first!=0 })
+
+        binding.profileRv.run {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = mAdapter
+        }
+    }
+
+    fun likeUser() {
+        val targetUid = homeViewModel.getselectedItemOwner().userId
+
+        if (homeViewModel.getCurrentUserObject().value!!.likeUserList.contains(targetUid)) {
             homeViewModel.deleteFromLikeUserList(targetUid!!)
             changeButtonToContain("not contain")
-        }else{
+        } else {
             homeViewModel.addToLikeUserList(targetUid!!)
             changeButtonToContain("contain")
         }
 
     }
 
-    fun changeButtonToContain(mode:String){
+    fun changeButtonToContain(mode: String) {
         val btn = binding.profileBtnSum
 
-        if(mode == "contain"){
-            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview_orange)
+        if (mode == "contain") {
+            btn.background =
+                ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview_orange)
             btn.text = "모아보는중"
             btn.setTextColor(Color.parseColor("#ffffff"))
-        }else if(mode == "not contain"){
-            btn.background =ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview)
+        } else if (mode == "not contain") {
+            btn.background = ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_textview)
             btn.text = "모아보기"
             btn.setTextColor(Color.parseColor("#000000"))
         }
     }
 
-    fun openBallon(){
-        profile_iv_information.showAlignBottom(balloon,100,10)
+    fun openBallon() {
+        profile_iv_information.showAlignBottom(balloon, 100, 10)
+    }
+
+    fun startActivityMannerDetail() {
+        startActivity(Intent(this, MannerDetailActivity
+        ::class.java))
     }
 
     fun startActivitySeeMore() {
@@ -93,10 +125,12 @@ class ProfileActivity : AppCompatActivity() {
             .setHeight(130)
             .setWidth(200)
             .setCornerRadius(8f)
-            .setText("매너온도는 당근마켓 사용자로부터\n" +
-                    "받은 칭찬, 후기, 비매너 평가,\n" +
-                    "운영자 징계 등을 종합해서 만든\n" +
-                    "매너 지표입니당.")
+            .setText(
+                "매너온도는 당근마켓 사용자로부터\n" +
+                        "받은 칭찬, 후기, 비매너 평가,\n" +
+                        "운영자 징계 등을 종합해서 만든\n" +
+                        "매너 지표입니당."
+            )
             .setTextColor(ContextCompat.getColor(this, R.color.white))
             .setBackgroundColorResource(R.color.colorPrimary)
             .setBalloonAnimation(BalloonAnimation.FADE)

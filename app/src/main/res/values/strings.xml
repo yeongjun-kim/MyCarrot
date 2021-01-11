@@ -26,7 +26,15 @@
     <string name="negative_3">무조건 택배거래만 하려고 해요.</string>
     <string name="negative_4">채팅 메시지를 보내도 답이 없어요.</string>
 
-
+    <string name="manner_note">- 받은 비매너 내역은 나에게만 보입니다.\n
+    - 매너 온도가 올라가는 경우 (가산점 높은 순)\n
+    1. 거래 상대에게 받은 긍정 거래 후기\n
+    2. 거래 상대에게 받은 매너 칭찬\n
+    3. 대화 상대에게 받은 매너 칭찬\n
+    - 매너 온도가 내려가는 경우 (감산점 높은 순)\n
+    1. 이용정지 징계\n
+    2. 거래 상대의 비매너 평가\n
+    3. 대화 상대의 비매너 평가</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
