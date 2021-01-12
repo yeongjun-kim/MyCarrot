@@ -20,8 +20,7 @@ data class UserObject(
     var negative_2:Int =0,
     var negative_3:Int =0,
     var negative_4:Int =0,
-//    var positiveReview: ArrayList<String> = arrayListOf(),
-//    var negativeReview: ArrayList<String> = arrayListOf(),
+    var buyList: ArrayList<String> = arrayListOf(),
     var likeUserList: ArrayList<String> = arrayListOf(),
     var itemList: ArrayList<String> = arrayListOf(),
     var likeList: ArrayList<String> = arrayListOf()

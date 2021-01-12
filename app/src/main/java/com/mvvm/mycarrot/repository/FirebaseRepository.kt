@@ -57,6 +57,7 @@ class FirebaseRepository private constructor() {
      * selectedItemOwnersItem: ItemActivity 에서 [더보기] 클릭시 SeemoreViewModel 에서 가져가 SeeMoreActivity 에서 보여줄 List
      * selectedFragment: 어느 Activity/Fragment 에서 아이템 클릭하였는지 (homeFm, itemAv, searchFm 등등.. / observe할때 isActvity==2 에서 겹쳐가지고)
      *
+     * buyItemList: BuyItemActivity 에서 쓰일 내가 구매한 아이템내역
      * myItemList: SellListActivity 에서 쓰일 나의 판매내역
      *
      * buyCompleteItem: 구매완료 누르는 아이템 세팅 (BuyCompleteActivity)
@@ -97,6 +98,7 @@ class FirebaseRepository private constructor() {
     var selectedItemOwnersItem: List<ItemObject> = listOf()
     var selectedFragment = ""
 
+    var buyItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var myItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
     var buyCompleteItem = MutableLiveData<ItemObject>()
@@ -121,6 +123,14 @@ class FirebaseRepository private constructor() {
         loginMode.value = 0
     }
 
+
+    /*
+    구매 확정된 아이템 ID를 구매자의 buyList에 추가
+     */
+    suspend fun commitItemIdToBuyer() {
+        var docRef = firebaseStore.collection("users").document(selectedBuyer.value!!.userId!!)
+        docRef.update("buyList", FieldValue.arrayUnion(buyCompleteItem.value!!.id)).await()
+    }
 
     /*
     선택한 리뷰를 해당 유저에 commit
@@ -168,8 +178,11 @@ class FirebaseRepository private constructor() {
                 val positive = user.positive_1 + user.positive_2 + user.positive_3 + user.positive_4
                 val negative = user.negative_1 + user.negative_2 + user.negative_3 + user.negative_4
 
-                var newTemperature = 36.5 + String.format("%.1f",(positive.toDouble()-negative.toDouble())/50).toDouble()
-                docRef.update("temperature",newTemperature)
+                var newTemperature = 36.5 + String.format(
+                    "%.1f",
+                    (positive.toDouble() - negative.toDouble()) / 50
+                ).toDouble()
+                docRef.update("temperature", newTemperature)
             }
             .await()
 
@@ -274,6 +287,26 @@ class FirebaseRepository private constructor() {
 
     }
 
+
+    fun clearBuyItemList() {
+        buyItemList.value = listOf()
+    }
+
+    fun getbuyItemList() = buyItemList
+    fun setbuyItemList() {
+        clearBuyItemList()
+        currentUserObject.value!!.buyList.forEach { itmeId ->
+            firebaseStore.collection("items")
+                .document(itmeId)
+                .get()
+                .addOnSuccessListener { result ->
+                    var item = result.toObject(ItemObject::class.java)!!
+                    var tempList = buyItemList.value!!.toMutableList()
+                    tempList.add(item)
+                    buyItemList.postValue(tempList)
+                }
+        }
+    }
 
     fun clearMyItemList() {
         myItemList.value = listOf()

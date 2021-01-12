@@ -70,8 +70,8 @@
                         android:id="@+id/my_iv_profile"
                         RepresentationcircleSrc="@{vm.getCurrentUserObject().profileUrl}"
                         android:layout_width="80dp"
-                        android:onClick="@{() -> fm.startEditProfileActivity()}"
                         android:layout_height="80dp"
+                        android:onClick="@{() -> fm.startEditProfileActivity()}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,10 +99,10 @@
 
                     <TextView
                         android:id="@+id/my_tv_location"
+                        DongUid="@{vm.getCurrentUserObject()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
-                        DongUid = "@{vm.getCurrentUserObject()}"
                         app:layout_constraintBottom_toBottomOf="@id/my_iv_profile"
                         app:layout_constraintStart_toStartOf="@id/my_tv_nickname"
                         app:layout_constraintTop_toBottomOf="@id/my_tv_nickname" />
@@ -110,10 +110,10 @@
                     <Button
                         android:id="@+id/my_btn_profile"
                         android:layout_width="match_parent"
-                        android:onClick="@{() -> fm.beforeStartProfileActivity()}"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22dp"
                         android:background="@drawable/bg_custom_textview"
+                        android:onClick="@{() -> fm.beforeStartProfileActivity()}"
                         android:text="프로필 보기"
                         android:textColor="#000"
                         app:layout_constraintTop_toBottomOf="@id/my_iv_profile" />
@@ -123,8 +123,8 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginTop="22dp"
-                        android:src="@drawable/ic_sell_history"
                         android:onClick="@{() -> fm.startSellListActivity()}"
+                        android:src="@drawable/ic_sell_history"
                         app:layout_constraintEnd_toStartOf="@id/my_iv_buy"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/my_btn_profile" />
@@ -143,6 +143,7 @@
                         android:id="@+id/my_iv_buy"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:onClick="@{() -> fm.startBuyListActivity()}"
                         android:src="@drawable/ic_buy_history"
                         app:layout_constraintBottom_toBottomOf="@id/my_iv_sell"
                         app:layout_constraintEnd_toStartOf="@id/my_iv_like"
@@ -202,9 +203,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/my_cl3"
-                    android:onClick="@{() -> fm.startSetupTownActivity()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> fm.startSetupTownActivity()}"
                     app:layout_constraintTop_toBottomOf="@id/my_tv1">
 
                     <ImageView
@@ -234,9 +235,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/my_cl4"
-                    android:onClick="@{() -> fm.startNeighborhoodCertificationActivity()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> fm.startNeighborhoodCertificationActivity()}"
                     app:layout_constraintTop_toBottomOf="@id/my_cl3">
 
                     <ImageView
@@ -267,8 +268,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/my_cl5"
                     android:layout_width="match_parent"
-                    android:onClick="@{() -> fm.startCollectActivity()}"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> fm.startCollectActivity()}"
                     app:layout_constraintTop_toBottomOf="@id/my_cl4">
 
                     <ImageView

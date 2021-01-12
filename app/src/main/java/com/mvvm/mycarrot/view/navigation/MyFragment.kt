@@ -94,5 +94,9 @@ class MyFragment : Fragment(){
         startActivity(Intent(activity, LikeListActivity::class.java))
     }
 
+    fun startBuyListActivity(){
+        startActivity(Intent(activity, BuyListActivity::class.java))
+    }
+
 
 }

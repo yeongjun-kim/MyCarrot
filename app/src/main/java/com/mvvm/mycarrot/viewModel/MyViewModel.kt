@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class MyViewModel(application:Application) :AndroidViewModel(application){
+class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     val firebaseRepository: FirebaseRepository
     private var currentUserObject: MutableLiveData<UserObject>
@@ -22,10 +22,10 @@ class MyViewModel(application:Application) :AndroidViewModel(application){
     var newNickname = MutableLiveData<String>()//editprofile
     var isCommitFinish = MutableLiveData(false)//editprofile
 
-    var likeItemList:MutableLiveData<List<ItemObject>> = MutableLiveData(listOf()) // likelist
+    var likeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf()) // likelist
     var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    var buyItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
     var myItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
-
 
 
     init {
@@ -34,17 +34,24 @@ class MyViewModel(application:Application) :AndroidViewModel(application){
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
         likeItemList = firebaseRepository.getlikeItemList()
         collectItemList = firebaseRepository.getcollectItemList()
+        buyItemList = firebaseRepository.getbuyItemList()
         myItemList = firebaseRepository.getmyItemList()
         newNickname.value = currentUserObject.value!!.nickname!!
     }
 
-    fun changeItemStatus(itemId:String, status:String){
+    fun changeItemStatus(itemId: String, status: String) {
         firebaseRepository.changeItemStatus(itemId, status)
     }
 
 
+    fun getbuyItemList() = buyItemList
+    fun setbuyItemList() {
+        firebaseRepository.setbuyItemList()
+    }
+
+
     fun getmyItemList() = myItemList
-    fun setmyItemList(){
+    fun setmyItemList() {
         firebaseRepository.setmyItemList()
     }
 
@@ -61,10 +68,11 @@ class MyViewModel(application:Application) :AndroidViewModel(application){
     fun getIsStartItemActivity() = firebaseRepository.getIsStartItemActivity()
 
     fun getselectedFragment() = firebaseRepository.getselectedFragment()
-    fun setselectedItem(id: String, fm:String) = firebaseRepository.setSelectedItem(id,fm)
-    fun setselectedItemOwner(id: String, fm:String) = firebaseRepository.setSelectedItemOwner(id,fm)
-    fun clearIsStartItemActivity() = firebaseRepository.clearIsStartItemActivity()
+    fun setselectedItem(id: String, fm: String) = firebaseRepository.setSelectedItem(id, fm)
+    fun setselectedItemOwner(id: String, fm: String) =
+        firebaseRepository.setSelectedItemOwner(id, fm)
 
+    fun clearIsStartItemActivity() = firebaseRepository.clearIsStartItemActivity()
 
 
     fun getCurrentUserObject() = currentUserObject

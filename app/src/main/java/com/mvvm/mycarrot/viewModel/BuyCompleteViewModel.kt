@@ -49,6 +49,7 @@ class BuyCompleteViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch(Dispatchers.IO) {
             isCommitFinish.postValue(false)
             firebaseRepository.commitReviewToServer()
+            firebaseRepository.commitItemIdToBuyer()
             isCommitFinish.postValue(true)
         }
     }
