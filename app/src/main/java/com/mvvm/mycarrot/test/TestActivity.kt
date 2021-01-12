@@ -290,45 +290,6 @@ class TestActivity : AppCompatActivity() {
 
     }
 
-//    fun makeRandomPostivieReview(): ArrayList<String> {
-//        var retVal = mutableListOf<String>()
-//        var list = listOf(
-//            getString(R.string.positive_1),
-//            getString(R.string.positive_2),
-//            getString(R.string.positive_3),
-//            getString(R.string.positive_4)
-//        )
-//
-//        repeat(30){
-//            var num = (0..4).random()
-//            if(num!=4) retVal.add(list[num])
-//        }
-//
-//
-//        var a =ArrayList<String>()
-//        a.addAll(retVal)
-//        return a
-//    }
-//
-//    fun makeRandomNegativeReview(): ArrayList<String> {
-//        var retVal = mutableListOf<String>()
-//        var list = listOf(
-//            getString(R.string.negative_1),
-//            getString(R.string.negative_2),
-//            getString(R.string.negative_3),
-//            getString(R.string.negative_4)
-//        )
-//
-//        repeat(30){
-//            var num = (0..4).random()
-//            if(num!=4) retVal.add(list[num])
-//        }
-//
-//
-//        var a =ArrayList<String>()
-//        a.addAll(retVal)
-//        return a
-//    }
 
 
     private fun itemCommitToFirestore() {
