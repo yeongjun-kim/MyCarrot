@@ -573,22 +573,6 @@ class FirebaseRepository private constructor() {
             }
     }
 
-    /*
-    FireBase의 currentUserObject 에 변동사항이 생기면 갱신된 유저로 currentUserObject 업데이트 해줌
-     */
-//    private fun updateCurrentUser() {
-//        firebaseStore.collection("users")
-//            .document(firebaseAuth.currentUser!!.uid)
-//            .get()
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful && task.result!!.exists()) {
-//                    var document = task.result!!
-//                    var user = document.toObject<UserObject>(UserObject::class.java)
-//                    currentUserObject.value = user
-//                    location.value = currentUserObject.value!!.location
-//                }
-//            }
-//    }
 
     /*
     Firestore의 field update.
@@ -618,6 +602,9 @@ class FirebaseRepository private constructor() {
                 .addOnSuccessListener { }
         }
 
+    /*
+    FireBase의 currentUserObject 에 변동사항이 생기면 갱신된 유저로 currentUserObject 업데이트 해줌
+     */
     fun updateCurrentUser() =
         firebaseStore.collection("users")
             .document(firebaseAuth.currentUser!!.uid)

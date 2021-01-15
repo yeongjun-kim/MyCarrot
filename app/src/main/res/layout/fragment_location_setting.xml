@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fm"
+            type="com.mvvm.mycarrot.view.login.LocationSettingFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/locationSetting_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingStart="32dp"
+            android:singleLine="true"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:src="@drawable/ic_search_gray_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/locationSetting_et"
+            app:layout_constraintStart_toStartOf="@id/locationSetting_et"
+            app:layout_constraintTop_toTopOf="@id/locationSetting_et" />
+
+        <Button
+            android:id="@+id/locationSetting_btn"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_custom_button_orange_moreround"
+            android:text="현재 위치로 찾기"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/locationSetting_et" />
+
+        <TextView
+            android:id="@+id/locationSetting_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:text="검색결과"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/locationSetting_btn" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/locationSetting_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/locationSetting_tv" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

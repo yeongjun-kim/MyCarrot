@@ -18,7 +18,6 @@ class TestRoomActivity : AppCompatActivity() {
 
     lateinit var vm: LocationViewModel
     var a = mutableListOf<Location>()
-    var startIdx = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

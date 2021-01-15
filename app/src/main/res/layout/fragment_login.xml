@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="fm"
+            type="com.mvvm.mycarrot.view.login.LoginFragment" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FAFAFA"
+        tools:context=".view.login.LoginActivity">
+
+        <ImageView
+            android:id="@+id/login_iv1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/image_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_custom_button_orange"
+            android:text="구글 로그인 하고 시작하기"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:onClick="@{() -> fm.setPermission()}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_iv1"
+            app:layout_constraintVertical_bias="0.2" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
