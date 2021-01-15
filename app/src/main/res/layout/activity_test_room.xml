@@ -8,9 +8,21 @@
 
 
     <Button
-        android:id="@+id/roomBtn"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/roomBtn1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/roomBtn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/roomBtn1" />
+
+    <EditText
+        android:id="@+id/roomEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/roomBtn2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,10 +9,12 @@ import kotlinx.coroutines.launch
 class LocationViewModel(application: Application) : AndroidViewModel(application) {
     private var locationRepository: LocationRepository
     private var locationList: LiveData<MutableList<Location>>
+    private var searchList= MutableLiveData<List<Location>>()
 
     init {
         locationRepository = LocationRepository(application)
         locationList = locationRepository.getAll()
+        searchList = locationRepository.getLikeQuery()
     }
 
     fun getAll() = locationList
@@ -22,6 +24,15 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
             locationRepository.insert(location)
         }
     }
+
+    fun setLikeQuery(search:String?){
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d("fhrm", "LocationViewModel -setLikeQuery(),    : ${search}")
+            locationRepository.setLikeQuery(search)
+        }
+    }
+
+    fun getLikeQuery() = searchList
 
     class Factory(val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
