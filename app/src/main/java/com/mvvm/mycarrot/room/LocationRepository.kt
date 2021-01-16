@@ -12,26 +12,26 @@ class LocationRepository(application: Application) {
     private var searchList= MutableLiveData<List<Location>>()
 
     init {
-//        locationDatabase = AppDatabase.getInstance(application)
         locationDatabase = DatabaseCopier.getAppDataBase(application)!!
         locationDao = locationDatabase.locationDao()
         locationList = locationDao.getAll()
-//        searchList.value = locationDao.getLikeQuery(null)
         searchList.postValue(listOf())
     }
 
     fun getAll() = locationList
 
     fun setLikeQuery(search:String?){
+        searchList.postValue(listOf())
         var a = locationDao.getLikeQuery(search)
-        Log.d("fhrm", "LocationRepository -setLikeQuery(),    a.size: ${a.size}")
+        searchList.postValue(a)
+    }
+
+    fun setLocationQuery(lat:Double, long:Double){
+        searchList.postValue(listOf())
+        var a = locationDao.getLocationQuery(lat-0.05, lat+0.05, long-0.05, long+0.05)
         searchList.postValue(a)
     }
 
     fun getLikeQuery() = searchList
 
-
-    fun insert(location: Location) {
-        locationDao.insert(location)
-    }
 }

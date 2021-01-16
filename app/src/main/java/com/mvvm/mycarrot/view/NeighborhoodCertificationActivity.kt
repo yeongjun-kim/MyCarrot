@@ -58,8 +58,8 @@ class NeighborhoodCertificationActivity : AppCompatActivity(), OnMapReadyCallbac
     override fun onMapReady(googleMap: GoogleMap?) {
 
         val currentLatLng = LatLng(
-            homeViewModel.getCurrentLatLng().first,
-            homeViewModel.getCurrentLatLng().second
+            homeViewModel.getCurrentLatLong().first,
+            homeViewModel.getCurrentLatLong().second
         )
 
         val markerOptions = MarkerOptions()

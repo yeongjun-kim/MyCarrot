@@ -1,5 +1,6 @@
 package com.mvvm.mycarrot.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -146,6 +147,19 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
     }
+
+
+    // 이거 추가할것
+//    @SuppressLint("MissingPermission")
+//    private fun initCurrentLatLong() {
+//        var fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
+//        fusedLocationClient.lastLocation
+//            .addOnSuccessListener { location ->
+//                if (location != null) {
+//                    locationViewModel.setCurrentLatLong(location.latitude, location.longitude, activity!!.application)
+//                }
+//            }
+//    }
 
 
     private var doubleBackToExitPressedOnce = false

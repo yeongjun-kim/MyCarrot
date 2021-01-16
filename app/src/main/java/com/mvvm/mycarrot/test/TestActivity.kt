@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -51,9 +55,6 @@ import java.math.BigDecimal
 class TestActivity : AppCompatActivity() {
 
     var uri: Uri? = null
-    lateinit var viewModel: FirebaseViewModel
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var testViewModel: TestViewModel
     var itemList: MutableList<firestoreItem> = mutableListOf()            //MutableList 생성
     var userList: MutableList<firestoreUser> = mutableListOf()            //MutableList 생성
 
@@ -64,21 +65,6 @@ class TestActivity : AppCompatActivity() {
 
 
         //********************************** DEFAULT **********************************//
-
-        viewModel = ViewModelProvider(
-            this,
-            FirebaseViewModel.Factory(application)
-        ).get(FirebaseViewModel::class.java)
-
-        homeViewModel = ViewModelProvider(
-            this,
-            HomeViewModel.Factory(application)
-        ).get(HomeViewModel::class.java)
-
-        testViewModel = ViewModelProvider(
-            this,
-            TestViewModel.Factory(application)
-        ).get(TestViewModel::class.java)
 
 
         dummy_items.setOnClickListener {
@@ -96,8 +82,6 @@ class TestActivity : AppCompatActivity() {
         }
         aa2.setOnClickListener {
         }
-
-
     }
 
 
@@ -291,7 +275,6 @@ class TestActivity : AppCompatActivity() {
     }
 
 
-
     private fun itemCommitToFirestore() {
         val qry = FirebaseFirestore.getInstance().collection("items")
 
@@ -315,8 +298,11 @@ class TestActivity : AppCompatActivity() {
             var positive = it.positive_1 + it.positive_2 + it.positive_3 + it.positive_4
             var negative = it.negative_1 + it.negative_2 + it.negative_3 + it.negative_4
 
-            var newTemperature = 36.5 + String.format("%.1f",(positive.toDouble()-negative.toDouble())/50).toDouble()
-            it.temperature =newTemperature
+            var newTemperature = 36.5 + String.format(
+                "%.1f",
+                (positive.toDouble() - negative.toDouble()) / 50
+            ).toDouble()
+            it.temperature = newTemperature
         }
 
         userList.forEachIndexed { index, item ->
@@ -362,14 +348,14 @@ data class firestoreUser(
     var joined: Long? = null,
     var lastLoginTime: Long? = null,
     var geoPoint: GeoPoint = GeoPoint(37.55, 126.97), // Default 관악구
-    var positive_1:Int =0,
-    var positive_2:Int =0,
-    var positive_3:Int =0,
-    var positive_4:Int =0,
-    var negative_1:Int =0,
-    var negative_2:Int =0,
-    var negative_3:Int =0,
-    var negative_4:Int =0,
+    var positive_1: Int = 0,
+    var positive_2: Int = 0,
+    var positive_3: Int = 0,
+    var positive_4: Int = 0,
+    var negative_1: Int = 0,
+    var negative_2: Int = 0,
+    var negative_3: Int = 0,
+    var negative_4: Int = 0,
     var likeUserList: ArrayList<String> = arrayListOf(),
     var itemList: ArrayList<String> = arrayListOf(),
     var likeList: ArrayList<String> = arrayListOf()

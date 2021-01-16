@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,17 +19,23 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentLoginBinding
+import com.mvvm.mycarrot.room.DatabaseCopier
+import com.mvvm.mycarrot.room.LocationViewModel
 import com.mvvm.mycarrot.view.LoginActivity
 import com.mvvm.mycarrot.view.MainActivity
 import com.mvvm.mycarrot.view.SignupActivity
 import com.mvvm.mycarrot.viewModel.FirebaseViewModel
+import com.mvvm.mycarrot.viewModel.LoginViewModel
+import kotlinx.coroutines.*
 
 class LoginFragment : Fragment() {
 
 
     val GOOGLE_SIGNIN_CODE = 9001
     lateinit var binding: FragmentLoginBinding
-    lateinit var viewModel: FirebaseViewModel
+    lateinit var locationViewModel: LocationViewModel
+    lateinit var loginViewModel:LoginViewModel
+    lateinit var job: Job
 
 
     override fun onCreateView(
@@ -44,26 +51,63 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+        initViewModel()
+        initBinding()
+        initLocationDB()
+        initObserver()
+
+
+
+    }
+
+    private fun initObserver() {
+        loginViewModel.getisExistAccount().observe(this, Observer { isExistAccount ->
+            if(isExistAccount==1){ // 새로 가입해야함
+                startLocationSettingFragment()
+            }else if(isExistAccount==2){ // 이미 가입한 계정 존재
+                startMainActivity()
+            }
+        })
+    }
+
+    private fun startMainActivity() {
+        startActivity(Intent(activity!!, MainActivity::class.java))
+        activity!!.finish()
+    }
+
+    private fun initBinding() {
         binding.apply {
             lifecycleOwner = this@LoginFragment
             fm = this@LoginFragment
         }
+    }
 
-        viewModel = ViewModelProvider(
-            this,
-            FirebaseViewModel.Factory(activity!!.application)
-        ).get(FirebaseViewModel::class.java)
+    private fun initViewModel() {
+        locationViewModel = ViewModelProvider(
+            activity!!,
+            LocationViewModel.Factory(activity!!.application)
+        ).get(LocationViewModel::class.java)
 
-        viewModel.getLoginMode().observe(this) { loginMode ->
-            viewModel.clear()
-            if (loginMode == 1) {
-                Log.d("fhrm", "LoginFragment -onActivityCreated(),    : mode1")
-                startLocationSettingFragment()
-            } else if (loginMode == 2) {
-                startActivity(Intent(activity, MainActivity::class.java))
-                activity!!.finish()
-            }
+        loginViewModel= ViewModelProvider(
+            activity!!,
+            LoginViewModel.Factory(activity!!.application)
+        ).get(LoginViewModel::class.java)
+    }
+
+    private fun initLocationDB() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            DatabaseCopier.copyAttachedDatabase(context = activity!!.applicationContext)
         }
+
+        runBlocking {
+            job.join()
+        }
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,7 +117,7 @@ class LoginFragment : Fragment() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                viewModel.firebaseAuthWithGoogle(account.idToken!!)
+                loginViewModel.firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 Log.w("fhrm", "Google sign in failed", e)
             }

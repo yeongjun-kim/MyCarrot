@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fm"
+            type="com.mvvm.mycarrot.view.login.SetProfileFragment" />
+
+        <variable
+            name="loginVm"
+            type="com.mvvm.mycarrot.viewModel.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/setProfile_cl2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.30"
+            app:layout_constraintWidth_percent="0.5">
+
+            <ImageView
+                android:id="@+id/setProfile_iv_profile"
+                RepresentationcircleSrc="@{null}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="@{() -> fm.getAlbum()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/colorDivision"
+                android:src="@drawable/ic_camera_alt_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/setProfile_iv_profile"
+                app:layout_constraintEnd_toEndOf="@id/setProfile_iv_profile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/setProfile_tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="닉네임"
+            android:textColor="@color/colorOrange"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/setProfile_cl2"
+            app:layout_constraintTop_toBottomOf="@id/setProfile_cl2" />
+
+        <EditText
+            android:id="@+id/setProfile_et_nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:hint="닉네임을 입력해주세요."
+            android:singleLine="true"
+            android:text="@={loginVm.nickname}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/setProfile_cl2"
+            app:layout_constraintStart_toStartOf="@id/setProfile_cl2"
+            app:layout_constraintTop_toBottomOf="@id/setProfile_tv_nickname" />
+
+        <LinearLayout
+            android:id="@+id/setProfile_ll1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/colorOrange"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/setProfile_et_nickname"
+            app:layout_constraintStart_toStartOf="@id/setProfile_et_nickname"
+            app:layout_constraintTop_toBottomOf="@id/setProfile_et_nickname" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_custom_button_orange"
+            android:text="등록완료"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:onClick="@{() -> fm.commitUser()}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/setProfile_ll1"
+            app:layout_constraintStart_toStartOf="@id/setProfile_ll1"
+            app:layout_constraintTop_toBottomOf="@id/setProfile_ll1"
+            app:layout_constraintVertical_bias="0.25" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

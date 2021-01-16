@@ -19,14 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+
         <activity android:name=".view.login.LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".room.TestRoomActivity"/>
+
+
+        <activity android:name=".room.TestRoomActivity" />
         <activity android:name=".view.BuyListActivity" />
         <activity android:name=".view.MannerDetailActivity" />
         <activity android:name=".view.buyComplete.BuyCompleteActivity" />
@@ -77,7 +80,15 @@
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
             android:name=".test.TestActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+
+        </activity>
+
         <activity
             android:name=".view.LoginActivity"
             android:screenOrientation="portrait">

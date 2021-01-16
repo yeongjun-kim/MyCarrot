@@ -1,11 +1,8 @@
 package com.mvvm.mycarrot.repository
 
-import android.app.Application
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
-import android.util.Log
-import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -36,14 +33,11 @@ class FirebaseRepository private constructor() {
      *  2: startActivity MainActivity ( FirebaseAuth , Firestore(users) 에 둘다 존재하는 상황 )
      *
      * currentUserObject: 현재 로그인 한 유저에 대한 UserObject
-     * location: 현재 로그인 한 유저의 가입 시 위치
-     * location: 현재 로그인 한 유저의 현재 위치
-     * lat: 현재 로그인 한 유저의 latitude
-     * long: 현재 로그인 한 유저의 longitude
      * profileUri: 현재 로그인 한 유저의 profile image uri (firestore)
      * category: WriteActivity 에서 선택한 카테고리
      * extraArrange: 현재 lat, lang 기준 플러스마이너스 위경도 범위
      *
+     * isExistAccount: LoginFragment 에서 Observe, 이미 Firestore에 등록한 정보가 있다면2, 아니면 1
      * isSignSuccess: SigninActivity 에서 observe, 계정등록이 완료되면 true
      * isStartItemActivity: HomeFragment 에서 ItemActivity 로 넘어가기 전, selectedItem/selectedItemOwner 값을 모두 세팅 해야 2
      * isCertificationFinish: NeighborhoodCertificationActivity 에서 동네인증 완료하기 버튼 클릭시 Firestore의 locationCertification 값 증가 후 완료를 알림
@@ -71,18 +65,18 @@ class FirebaseRepository private constructor() {
     private val firebaseStore = FirebaseFirestore.getInstance()
     private val firebaseStorage = FirebaseStorage.getInstance()
 
+
     var currentUserObject: MutableLiveData<UserObject> = MutableLiveData()
     var loginMode: MutableLiveData<Int> = MutableLiveData(0)
-    var location: MutableLiveData<String> = MutableLiveData("관악구 은천동")
-    var currentLocation: MutableLiveData<String> = MutableLiveData("관악구 은천동")
-    var lat = 37.55
-    var long = 126.97
     var currentLat = 37.55
     var currentLong = 126.97
+    var currentLocation = "관악구 은천동"
+
     var profileUrl = ""
     var category: MutableLiveData<String> = MutableLiveData("카테고리 선택")
     var extraArrange: Double = 0.01
 
+    var isExistAccount = MutableLiveData(0)
     var isSignSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
     var isWriteSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
     var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
@@ -120,9 +114,101 @@ class FirebaseRepository private constructor() {
 
     init {
         initCurrentUser()
-        loginMode.value = 0
     }
 
+
+    /******************************************************************************************************************
+     ******************************************************************************************************************
+     ******************************************************************************************************************
+     ******************************************************************************************************************/
+
+    private fun initCurrentUser() {
+        // 앱 삭제하고 재설치
+        if (firebaseAuth.currentUser == null) {
+            loginMode.postValue(1)
+            return
+        }
+
+        firebaseStore.collection("users")
+            .document(firebaseAuth.currentUser!!.uid)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful && task.result!!.exists()) {
+                    var document = task.result!!
+                    var user = document.toObject<UserObject>(UserObject::class.java)
+                    currentUserObject.value = user
+                    loginMode.value = 2
+                    initFCMtoken()
+                }else{
+                    loginMode.postValue(1)
+                }
+            }
+    }
+
+    fun getisExistAccount() = isExistAccount
+    fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        firebaseAuth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    firebaseStore.collection("users")
+                        .document(firebaseAuth.currentUser!!.uid)
+                        .get()
+                        .addOnCompleteListener { task ->
+                            // 이미 회원가입을 했던 유저라면
+                            if (task.isSuccessful && task.result!!.exists()) {
+                                var document = task.result!!
+                                var user = document.toObject<UserObject>(UserObject::class.java)
+                                currentUserObject.value = user
+                                isExistAccount.postValue(2)
+                                initFCMtoken()
+                            } else {
+                                isExistAccount.postValue(1)
+                            }
+                        }
+
+                }
+            }
+    }
+
+    suspend fun firebaseStorageInsertProfile(uri: Uri) {
+        var storageRef =
+            firebaseStorage.reference.child("userProfileImages").child(firebaseAuth.uid!!)
+        storageRef.putFile(uri).continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
+            return@continueWithTask storageRef.downloadUrl
+        }.addOnSuccessListener { uri ->
+            profileUrl = uri.toString()
+        }.await()
+    }
+
+    suspend fun commitUserObject(nickname: String? = "닉네임 없음") {
+//        val insertUserObject = UserObject(
+//            firebaseAuth.currentUser!!.uid,
+//            nickname,
+//            profileUrl,
+//            36.5,
+//            location.value,
+//            0,
+//            System.currentTimeMillis(),
+//            System.currentTimeMillis(),
+//            GeoPoint(lat, long)
+//        )
+
+//        firebaseStore.collection("users").document(insertUserObject.userId!!).set(insertUserObject)
+//            .addOnSuccessListener {
+//                currentUserObject.value = insertUserObject
+//                loginMode.value = 2
+//                initFCMtoken()
+//                isSignSuccess.value = true
+//            }.await()
+    }
+
+
+
+    /******************************************************************************************************************
+     ******************************************************************************************************************
+     ******************************************************************************************************************
+     ******************************************************************************************************************/
 
     /*
     구매 확정된 아이템 ID를 구매자의 buyList에 추가
@@ -342,8 +428,25 @@ class FirebaseRepository private constructor() {
             }
     }
 
-    fun getCurrentLatLng() = Pair(currentLat, currentLong)
+    fun getCurrentLatLong() = Pair(currentLat, currentLong)
+    fun setCurrentLatLong(lat:Double, long:Double){
+        currentLat = lat
+        currentLong = long
+        setCurrentLocation()
+    }
 
+    fun setCurrentLocation(){
+        // LatLong to Address
+//        var mGeocoder = Geocoder(application, Locale.KOREAN)
+//        var mResultList: List<Address>?
+//        mResultList = mGeocoder.getFromLocation(currentLat, currentLong, 1)
+//
+//        var temp = mResultList[0].getAddressLine(0).split(' ')
+//        var retVal = temp[2] + " " + temp[3]
+//
+//        if (!mResultList.isNullOrEmpty()) currentLocation = retVal
+    }
+    fun getcurrentLocation() = currentLocation
     /*
     로그인 성공시 마지막 로그인 시간 Update
      */
@@ -555,24 +658,6 @@ class FirebaseRepository private constructor() {
         }
     }
 
-    private fun initCurrentUser() {
-        if (firebaseAuth.currentUser == null) return // 앱 삭제하고 재설치
-
-        firebaseStore.collection("users")
-            .document(firebaseAuth.currentUser!!.uid)
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful && task.result!!.exists()) {
-                    var document = task.result!!
-                    var user = document.toObject<UserObject>(UserObject::class.java)
-                    currentUserObject.value = user
-                    location.value = currentUserObject.value!!.location
-                    loginMode.value = 2
-                    initFCMtoken()
-                }
-            }
-    }
-
 
     /*
     Firestore의 field update.
@@ -614,33 +699,9 @@ class FirebaseRepository private constructor() {
                     var document = task.result!!
                     var user = document.toObject<UserObject>(UserObject::class.java)
                     currentUserObject.value = user
-                    location.value = currentUserObject.value!!.location
                 }
             }
 
-    fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // 이미 회원가입 완료 후, back button -> loginActivity -> google login 버튼 클릭시 loginMode =2
-                    if (currentUserObject.value?.userId == firebaseAuth.currentUser!!.uid) loginMode.value =
-                        2
-                    else loginMode.value = 1
-                }
-            }
-    }
-
-
-    suspend fun firebaseStorageInsertProfile(uri: Uri) {
-        var storageRef =
-            firebaseStorage.reference.child("userProfileImages").child(firebaseAuth.uid!!)
-        storageRef.putFile(uri).continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
-            return@continueWithTask storageRef.downloadUrl
-        }.addOnSuccessListener { uri ->
-            profileUrl = uri.toString()
-        }.await()
-    }
 
     suspend fun firebaseStorageInsertItemImage(uri: Uri): String {
         var imageUrl = ""
@@ -656,27 +717,6 @@ class FirebaseRepository private constructor() {
         return imageUrl
     }
 
-    suspend fun commitUserObject(nickname: String? = "닉네임 없음") {
-        val insertUserObject = UserObject(
-            firebaseAuth.currentUser!!.uid,
-            nickname,
-            profileUrl,
-            36.5,
-            location.value,
-            0,
-            System.currentTimeMillis(),
-            System.currentTimeMillis(),
-            GeoPoint(lat, long)
-        )
-
-        firebaseStore.collection("users").document(insertUserObject.userId!!).set(insertUserObject)
-            .addOnSuccessListener {
-                currentUserObject.value = insertUserObject
-                loginMode.value = 2
-                initFCMtoken()
-                isSignSuccess.value = true
-            }.await()
-    }
 
     suspend fun commitItemObject(
         imageUrlList: ArrayList<String>,
@@ -714,41 +754,6 @@ class FirebaseRepository private constructor() {
         return retRef
     }
 
-    /*
-    SignUp으로 새로운 계정 생성시, GeoPoint Set
-     */
-    fun setLatLong(inputLat: Double, inputLong: Double, application: Application) {
-        lat = inputLat
-        long = inputLong
-
-        // LatLong to Address
-        var mGeocoder = Geocoder(application, Locale.KOREAN)
-        var mResultList: List<Address>?
-        mResultList = mGeocoder.getFromLocation(lat, long, 1)
-
-        var temp = mResultList[0].getAddressLine(0).split(' ')
-        var retVal = temp[2] + " " + temp[3]
-
-        if (!mResultList.isNullOrEmpty()) location.value = retVal
-    }
-
-    /*
-    이미 있는 계정으로 로그인시, 접속 계정의 현위치를 저장
-     */
-    fun setCurrentLatLong(inputLat: Double, inputLong: Double, application: Application) {
-        currentLat = inputLat
-        currentLong = inputLong
-
-        // LatLong to Address
-        var mGeocoder = Geocoder(application, Locale.KOREAN)
-        var mResultList: List<Address>?
-        mResultList = mGeocoder.getFromLocation(currentLat, currentLong, 1)
-
-        var temp = mResultList[0].getAddressLine(0).split(' ')
-        var retVal = temp[2] + " " + temp[3]
-
-        if (!mResultList.isNullOrEmpty()) currentLocation.value = retVal
-    }
 
     fun getMinGeoPoint(): GeoPoint {
         var lat = currentUserObject.value!!.geoPoint.latitude
@@ -771,8 +776,6 @@ class FirebaseRepository private constructor() {
 
     fun getCurretUser() = currentUserObject
     fun getloginMode() = loginMode
-    fun getlocation() = location
-    fun getCurrentlocation() = currentLocation
     fun getFirebaseAuth() = firebaseAuth
     fun getFirebaseStore() = firebaseStore
     fun getFirebaseStorage() = firebaseStorage

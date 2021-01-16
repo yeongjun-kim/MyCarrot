@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.room.Location
 import com.mvvm.mycarrot.utils.onThrottleClick
 import kotlinx.android.synthetic.main.item_rv_location.view.*
 import kotlinx.android.synthetic.main.item_rv_review.view.*
@@ -15,7 +16,7 @@ class ItemRvLocationAdatper : RecyclerView.Adapter<ItemRvLocationAdatper.CustomV
         fun onClick(position:Int)
     }
 
-    var locationList = listOf<String>()
+    var locationList = listOf<Location>()
     var listener:ClickListener? = null
 
     override fun getItemCount() = locationList.size
@@ -27,14 +28,15 @@ class ItemRvLocationAdatper : RecyclerView.Adapter<ItemRvLocationAdatper.CustomV
 
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.itemView.itemRvLocation_tv.text = locationList[position]
+        holder.itemView.itemRvLocation_tv.text = locationList[position].str
         holder.itemView.onThrottleClick {
             listener?.onClick(position)
         }
     }
 
-    fun setList(inputList: List<String>) {
+    fun setList(inputList: List<Location>) {
         locationList = inputList
+        notifyDataSetChanged()
     }
 
 

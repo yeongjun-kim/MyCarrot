@@ -13,15 +13,15 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginStart
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.like.LikeButton
 import com.mvvm.mycarrot.R
-import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import java.text.DecimalFormat
@@ -167,7 +167,8 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("CertificationText")
     fun setCertificationText(view: TextView, vm: HomeViewModel) {
-        var currentDong = vm.getCurrentLocation().value!!.split(" ")[1]
+
+        var currentDong = vm.getcurrentLocation().split(" ")[1]
         var userDong = vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
         var text = ""
 
@@ -186,7 +187,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("IsCertificationOk")
     fun setIsCertificationOk(btn: Button, vm: HomeViewModel) {
-        var currentDong = vm.getCurrentLocation().value!!.split(" ")[1]
+        var currentDong = vm.getcurrentLocation().split(" ")[1]
         var userDong = vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
 
         if (currentDong == userDong) {
@@ -313,12 +314,21 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("RepresentationcircleSrc")
     fun setRepresentationCircleSrc(imageView: ImageView, url: String?) {
-        Glide.with(imageView.context)
-            .load(url)
-            .placeholder(R.drawable.ic_user)
-            .circleCrop()
-            .thumbnail(0.1f)
-            .into(imageView)
+        if (url.isNullOrBlank()) {
+            Glide.with(imageView.context)
+                .load(R.drawable.ic_user)
+                .circleCrop()
+                .thumbnail(0.1f)
+                .into(imageView)
+
+        } else {
+            Glide.with(imageView.context)
+                .load(url)
+                .placeholder(R.drawable.ic_user)
+                .circleCrop()
+                .thumbnail(0.1f)
+                .into(imageView)
+        }
     }
 
     /**

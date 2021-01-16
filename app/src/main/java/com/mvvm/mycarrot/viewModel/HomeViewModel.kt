@@ -26,11 +26,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val firebaseRepository: FirebaseRepository
     private val firebaseStore = FirebaseFirestore.getInstance()
     private var currentUserObject: MutableLiveData<UserObject>
-    private var location: MutableLiveData<String>
-    private var currentLocation: MutableLiveData<String>
+    var currentLocation: String = ""
 
     var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
-    var testCount = 0
 
     var userId: String? = null
     var userLocation: String? = null
@@ -64,8 +62,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         currentUserObject = firebaseRepository.getCurretUser()
         userId = currentUserObject.value!!.userId
         userLocation = currentUserObject.value!!.location
-        location = firebaseRepository.getlocation()
-        currentLocation = firebaseRepository.getCurrentlocation()
+        currentLocation = firebaseRepository.getcurrentLocation()
         homeItemList = firebaseRepository.getHomeItems()
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
@@ -104,7 +101,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun clearHomeItemQuery() = firebaseRepository.clearHomeItemQuery()
     fun getHomeItems() = homeItemList
     fun setHomeItems() = firebaseRepository.setHomeItems(categoryList)
-    fun getCurrentLatLng() = firebaseRepository.getCurrentLatLng()
+    fun getCurrentLatLong() = firebaseRepository.getCurrentLatLong()
     fun getIsCertificationFinish() = firebaseRepository.getIsCertificationFinish()
     fun clearIsCertificationFinish() = firebaseRepository.clearIsCertificationFinish()
 
@@ -184,8 +181,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         else categoryList.add(clickString)
     }
 
-    fun getLocation() = location
-    fun getCurrentLocation() = currentLocation
+    fun getcurrentLocation() =currentLocation
     fun getExtraArrange() = firebaseRepository.extraArrange
     fun setExtraArrange(progress: Int) {
         if (progress in 0..32) firebaseRepository.extraArrange = 0.01

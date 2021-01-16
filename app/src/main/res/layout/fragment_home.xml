@@ -30,7 +30,7 @@
 
             <TextView
                 android:id="@+id/fm_home_tv_dong"
-                DongText="@{homeVm.getLocation()}"
+                DongText="@{homeVm.getCurrentUserObject().location}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> fm.startSetupTownActivity()}"

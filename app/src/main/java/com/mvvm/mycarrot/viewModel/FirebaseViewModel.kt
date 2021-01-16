@@ -13,7 +13,7 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
     var firebaseRepository: FirebaseRepository
     private var currentUserObject: MutableLiveData<UserObject>
     private val loginMode: MutableLiveData<Int>
-    private var location: MutableLiveData<String>
+//    private var location: MutableLiveData<String>
 
     var signupNickname: String? = null
     var signupProfileUrl: String? = null
@@ -25,7 +25,7 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
         firebaseRepository = FirebaseRepository.getInstance()
         currentUserObject = firebaseRepository.getCurretUser()
         loginMode = firebaseRepository.getloginMode()
-        location = firebaseRepository.getlocation()
+//        location = firebaseRepository.getlocation()
     }
 
 
@@ -52,11 +52,11 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
 
 
     fun setLatLong(inputLat: Double, inputLong: Double, application: Application) {
-        firebaseRepository.setLatLong(inputLat, inputLong, application)
+//        firebaseRepository.setLatLong(inputLat, inputLong, application)
     }
 
     fun setCurrentLatLong(inputLat: Double, inputLong: Double, application: Application) {
-        firebaseRepository.setCurrentLatLong(inputLat, inputLong, application)
+//        firebaseRepository.setCurrentLatLong(inputLat, inputLong, application)
     }
 
     fun getLoginMode() = loginMode
@@ -67,15 +67,13 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
         signupLocation = null
     }
 
-    fun getLocation() = location
+    fun getLocation() {
+//        location
+    }
 
     fun getisSignSuccess() = firebaseRepository.getisSignSuccess()
 
-    fun test() {
-        viewModelScope.launch(Dispatchers.IO) {
-            firebaseRepository.test()
-        }
-    }
+
 
 
     class Factory(val application: Application) : ViewModelProvider.Factory {

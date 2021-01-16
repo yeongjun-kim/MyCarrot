@@ -52,10 +52,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                IsChangOk="@{vm.newNickname}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> av.clickFinishBtn()}"
-                IsChangOk="@{vm.newNickname}"
                 android:text="완료"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -87,14 +87,14 @@
 
             <ImageView
                 android:id="@+id/edit_profile_iv_profile"
-                android:onClick="@{() -> av.getAlbum()}"
                 RepresentationcircleSrc="@{vm.getCurrentUserObject().profileUrl}"
                 android:layout_width="0dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="0dp"
+                android:onClick="@{() -> av.getAlbum()}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_height="0dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -122,12 +122,12 @@
             android:id="@+id/edit_profile_et_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:textSize="16sp"
-            android:text="@={vm.newNickname}"
-            android:singleLine="true"
-            android:hint="닉네임을 입력해주세요."
             android:layout_marginTop="8dp"
+            android:background="@null"
+            android:hint="닉네임을 입력해주세요."
+            android:singleLine="true"
+            android:text="@={vm.newNickname}"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/edit_profile_cl2"
             app:layout_constraintStart_toStartOf="@id/edit_profile_cl2"
             app:layout_constraintTop_toBottomOf="@id/edit_profile_tv_nickname" />

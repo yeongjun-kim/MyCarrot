@@ -55,7 +55,7 @@ class TestRoomActivity : AppCompatActivity() {
         roomBtn2.setOnClickListener {
 
             var q = roomEt.text.toString()
-            vm.setLikeQuery(q)
+//            vm.setLikeQuery(q)
 
         }
 

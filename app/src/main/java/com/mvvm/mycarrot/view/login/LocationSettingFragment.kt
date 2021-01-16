@@ -1,11 +1,15 @@
 package com.mvvm.mycarrot.view.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,7 +27,6 @@ class LocationSettingFragment : Fragment() {
 
 
     lateinit var binding: FragmentLocationSettingBinding
-    lateinit var viewModel: FirebaseViewModel
     lateinit var locationViewModel: LocationViewModel
     private var mAdapter = ItemRvLocationAdatper()
 
@@ -41,42 +44,93 @@ class LocationSettingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.apply {
-            fm = this@LocationSettingFragment
-            lifecycleOwner = this@LocationSettingFragment
+
+        initViewModel()
+        initBinding()
+        initObserver()
+
+        initListener()
+        initCurrentLatLong()
+        initRv()
+
+
+
+
+
+
+    }
+
+    private fun initListener() {
+        binding.locationSettingEt.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if(actionId.and(EditorInfo.IME_MASK_ACTION)!=0){
+                locationViewModel.setLikeQuery()
+                keyboardHide()
+            }
+            true
         }
+    }
 
-        viewModel = ViewModelProvider(
-            this,
-            FirebaseViewModel.Factory(activity!!.application)
-        ).get(FirebaseViewModel::class.java)
+    private fun keyboardHide() {
+        val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.locationSettingEt.windowToken, 0)
+    }
 
+
+    fun clickCancel(){
+        locationViewModel.searchString.postValue("")
+        mAdapter.setList(listOf())
+    }
+
+    private fun initObserver() {
+        locationViewModel.getLikeQuery().observe(this, Observer {
+            mAdapter.setList(it)
+        })
+
+    }
+
+    private fun initViewModel() {
         locationViewModel = ViewModelProvider(
             this,
             LocationViewModel.Factory(activity!!.application)
         ).get(LocationViewModel::class.java)
+    }
 
-        locationViewModel.getLikeQuery().observe(this, Observer {
-            it.forEach { Log.d("fhrm", "TestRoomActivity -onCreate(),    : ${it.str}") }
-        })
+    private fun initBinding() {
+        binding.apply {
+            fm = this@LocationSettingFragment
+            lifecycleOwner = this@LocationSettingFragment
+            locationvm = locationViewModel
+        }
+    }
 
+    fun clickCurrentLocation(){
 
-        initCurrentLatLang()
-        initRv()
+        locationViewModel.setLocationQuery()
     }
 
     @SuppressLint("MissingPermission")
-    private fun initCurrentLatLang() {
+    private fun initCurrentLatLong() {
         var fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location ->
-                if(location!=null){
+                if (location != null) {
+                    locationViewModel.setCurrentLatLong(location.latitude, location.longitude)
 
                 }
-//                if (location != null) {
-//                    viewModel.setLatLong(location.latitude, location.longitude, activity!!.application)
-//                }
             }
+    }
+
+    fun startSetProfileFragment() {
+        fragmentManager!!.beginTransaction()
+            .setCustomAnimations(
+                android.R.animator.fade_in,
+                android.R.animator.fade_out,
+                android.R.animator.fade_in,
+                android.R.animator.fade_out
+            )
+            .add(R.id.login_fl, SetProfileFragment())
+            .addToBackStack("setProfileFragment")
+            .commit()
     }
 
     private fun initRv() {
@@ -88,7 +142,8 @@ class LocationSettingFragment : Fragment() {
 
         mAdapter.listener = object:ItemRvLocationAdatper.ClickListener{
             override fun onClick(position: Int) {
-                Log.d("fhrm", "LocationSettingFragment -onClick(),    : click")
+                locationViewModel.setSelectedLocation(mAdapter.locationList[position])
+                startSetProfileFragment()
             }
 
         }
