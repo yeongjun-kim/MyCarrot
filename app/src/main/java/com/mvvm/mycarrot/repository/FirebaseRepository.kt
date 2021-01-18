@@ -1,8 +1,7 @@
 package com.mvvm.mycarrot.repository
 
-import android.location.Address
-import android.location.Geocoder
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +18,7 @@ import com.google.firebase.storage.UploadTask
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.mvvm.mycarrot.model.UserObject
+import com.mvvm.mycarrot.room.Location
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
@@ -70,7 +70,6 @@ class FirebaseRepository private constructor() {
     var loginMode: MutableLiveData<Int> = MutableLiveData(0)
     var currentLat = 37.55
     var currentLong = 126.97
-    var currentLocation = "관악구 은천동"
 
     var profileUrl = ""
     var category: MutableLiveData<String> = MutableLiveData("카테고리 선택")
@@ -139,7 +138,7 @@ class FirebaseRepository private constructor() {
                     currentUserObject.value = user
                     loginMode.value = 2
                     initFCMtoken()
-                }else{
+                } else {
                     loginMode.postValue(1)
                 }
             }
@@ -181,28 +180,27 @@ class FirebaseRepository private constructor() {
         }.await()
     }
 
-    suspend fun commitUserObject(nickname: String? = "닉네임 없음") {
-//        val insertUserObject = UserObject(
-//            firebaseAuth.currentUser!!.uid,
-//            nickname,
-//            profileUrl,
-//            36.5,
-//            location.value,
-//            0,
-//            System.currentTimeMillis(),
-//            System.currentTimeMillis(),
-//            GeoPoint(lat, long)
-//        )
+    suspend fun commitUserObject(nickname: String, location: Location) {
+        val insertUserObject = UserObject(
+            firebaseAuth.currentUser!!.uid,
+            nickname,
+            profileUrl,
+            36.5,
+            "${location.str.split(" ")[1]} ${location.str.split(" ")[2]}",
+            0,
+            System.currentTimeMillis(),
+            System.currentTimeMillis(),
+            GeoPoint(location.latitude!!, location.longitude!!)
+        )
 
-//        firebaseStore.collection("users").document(insertUserObject.userId!!).set(insertUserObject)
-//            .addOnSuccessListener {
-//                currentUserObject.value = insertUserObject
-//                loginMode.value = 2
-//                initFCMtoken()
-//                isSignSuccess.value = true
-//            }.await()
+        firebaseStore.collection("users").document(insertUserObject.userId!!).set(insertUserObject)
+            .addOnSuccessListener {
+                currentUserObject.value = insertUserObject
+                loginMode.value = 2
+                initFCMtoken()
+                isSignSuccess.value = true
+            }.await()
     }
-
 
 
     /******************************************************************************************************************
@@ -429,24 +427,12 @@ class FirebaseRepository private constructor() {
     }
 
     fun getCurrentLatLong() = Pair(currentLat, currentLong)
-    fun setCurrentLatLong(lat:Double, long:Double){
+    fun setCurrentLatLong(lat: Double, long: Double) {
         currentLat = lat
         currentLong = long
-        setCurrentLocation()
     }
 
-    fun setCurrentLocation(){
-        // LatLong to Address
-//        var mGeocoder = Geocoder(application, Locale.KOREAN)
-//        var mResultList: List<Address>?
-//        mResultList = mGeocoder.getFromLocation(currentLat, currentLong, 1)
-//
-//        var temp = mResultList[0].getAddressLine(0).split(' ')
-//        var retVal = temp[2] + " " + temp[3]
-//
-//        if (!mResultList.isNullOrEmpty()) currentLocation = retVal
-    }
-    fun getcurrentLocation() = currentLocation
+
     /*
     로그인 성공시 마지막 로그인 시간 Update
      */
@@ -652,6 +638,7 @@ class FirebaseRepository private constructor() {
     }
 
     private fun initFCMtoken() {
+
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
             Firebase.database.reference.child("/user-token/${currentUserObject.value!!.userId}")
                 .setValue(token)

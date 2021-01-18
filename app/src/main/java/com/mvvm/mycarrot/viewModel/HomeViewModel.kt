@@ -26,7 +26,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val firebaseRepository: FirebaseRepository
     private val firebaseStore = FirebaseFirestore.getInstance()
     private var currentUserObject: MutableLiveData<UserObject>
-    var currentLocation: String = ""
 
     var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
 
@@ -62,7 +61,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         currentUserObject = firebaseRepository.getCurretUser()
         userId = currentUserObject.value!!.userId
         userLocation = currentUserObject.value!!.location
-        currentLocation = firebaseRepository.getcurrentLocation()
         homeItemList = firebaseRepository.getHomeItems()
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
@@ -148,7 +146,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun getselectedItemOwnersItem() = selectedItemOwnersItem
     fun setSelectedItemOwnersItem(itemList: ArrayList<String> = selectedItemOwner.itemList) {
+
         selectedItemOwnersItem.value = listOf()
+
+        Log.d("fhrm", "HomeViewModel -setSelectedItemOwnersItem(),    : ${itemList.size}")
+
         itemList.forEach {
             firebaseStore.collection("items")
                 .document(it)
@@ -181,7 +183,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         else categoryList.add(clickString)
     }
 
-    fun getcurrentLocation() =currentLocation
     fun getExtraArrange() = firebaseRepository.extraArrange
     fun setExtraArrange(progress: Int) {
         if (progress in 0..32) firebaseRepository.extraArrange = 0.01

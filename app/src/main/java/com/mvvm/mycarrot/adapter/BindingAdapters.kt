@@ -168,16 +168,20 @@ object BindingAdapters {
     @BindingAdapter("CertificationText")
     fun setCertificationText(view: TextView, vm: HomeViewModel) {
 
-        var currentDong = vm.getcurrentLocation().split(" ")[1]
+        var currentLat = vm.getCurrentLatLong().first
+        var currentLong= vm.getCurrentLatLong().second
+
+        var userLat = vm.getCurrentUserObject().value!!.geoPoint.latitude
+        var userLong = vm.getCurrentUserObject().value!!.geoPoint.longitude
+
         var userDong = vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
         var text = ""
 
-        if (currentDong == userDong) {
+        if(currentLat in userLat-0.01..userLat+0.01 && currentLong in userLong-0.01..userLong+0.01){
             text = "현재 위치가 내 동네로 설정한 '${userDong}' 내에 있어요."
-        } else {
+        }else{
             text = "현재 내 동네로 설정되어 있는 '${userDong}' 에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요."
         }
-
         view.text = text
     }
 
@@ -187,19 +191,25 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("IsCertificationOk")
     fun setIsCertificationOk(btn: Button, vm: HomeViewModel) {
-        var currentDong = vm.getcurrentLocation().split(" ")[1]
-        var userDong = vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
 
-        if (currentDong == userDong) {
+        var currentLat = vm.getCurrentLatLong().first
+        var currentLong= vm.getCurrentLatLong().second
+
+        var userLat = vm.getCurrentUserObject().value!!.geoPoint.latitude
+        var userLong = vm.getCurrentUserObject().value!!.geoPoint.longitude
+
+        Log.d("fhrm", "BindingAdapters -setIsCertificationOk(),    curLat: ${currentLat}, curLong: ${currentLong}")
+        Log.d("fhrm", "BindingAdapters -setIsCertificationOk(),    userLat: ${userLat}, userLong: ${userLong}")
+
+        if(currentLat in userLat-0.01..userLat+0.01 && currentLong in userLong-0.01..userLong+0.01){
             btn.background =
                 ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_orange)
             btn.isEnabled = true
-        } else {
+        }else{
             btn.background =
                 ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_gray)
             btn.isEnabled = false
         }
-
     }
 
     @JvmStatic

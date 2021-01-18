@@ -11,18 +11,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentSetProfileBinding
+import com.mvvm.mycarrot.room.LocationViewModel
+import com.mvvm.mycarrot.view.CustomProgressDialog
+import com.mvvm.mycarrot.view.MainActivity
 import com.mvvm.mycarrot.viewModel.LoginViewModel
 
 class SetProfileFragment : Fragment() {
 
     lateinit var binding: FragmentSetProfileBinding
     lateinit var loginViewModel: LoginViewModel
+    lateinit var locationViewModel: LocationViewModel
+    lateinit var customDialog: CustomProgressDialog
+
     private var PICK_PROFILE_FROM_ALBUM = 1010
 
     override fun onCreateView(
@@ -41,8 +48,23 @@ class SetProfileFragment : Fragment() {
 
         initViewModel()
         initBinding()
+        initCustomDialog()
+        initObserver()
 
+    }
 
+    private fun initObserver() {
+        loginViewModel.getloginMode().observe(this, Observer { mode->
+            if(mode==2){
+                customDialog.dismiss()
+                startActivity(Intent(activity!!, MainActivity::class.java))
+                activity!!.finish()
+            }
+        })
+    }
+
+    private fun initCustomDialog() {
+        customDialog = CustomProgressDialog(activity!!)
     }
 
     private fun initViewModel() {
@@ -50,32 +72,36 @@ class SetProfileFragment : Fragment() {
             ViewModelProvider(activity!!, LoginViewModel.Factory(activity!!.application)).get(
                 LoginViewModel::class.java
             )
+
+        locationViewModel =
+            ViewModelProvider(activity!!, LocationViewModel.Factory(activity!!.application)).get(
+                LocationViewModel::class.java
+            )
+
+        loginViewModel.nickname.value = ""
+        loginViewModel.profileImage = null
     }
-
-
-    /************************************************************************************************************************************************
-     ********************************************************** 여기부터 하면됨 *************************************************************************
-     ************************************************************************************************************************************************/
 
 
     fun commitUser() {
-        if(loginViewModel.nickname.value.isNullOrBlank() || loginViewModel.profileImage == null){
-            Toast.makeText(activity, "정보를 모두 입력해주세용",Toast.LENGTH_SHORT).show()
-        }else{
 
+        if (loginViewModel.nickname.value.isNullOrBlank() || loginViewModel.profileImage == null) {
+            Toast.makeText(activity, "정보를 모두 입력해주세용", Toast.LENGTH_SHORT).show()
+        } else {
+            customDialog.show()
+            loginViewModel.commitUserObject(
+                loginViewModel.nickname.value!!,
+                locationViewModel.getSelectedLocation()!!,
+                loginViewModel.profileImage!!
+            )
         }
     }
-
-    /************************************************************************************************************************************************
-     ************************************************************************************************************************************************
-     ************************************************************************************************************************************************/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK) {
             loginViewModel.profileImage = data!!.data
-//            viewModel.profileUri = data!!.data
             setProfileImage(data!!.data!!)
         }
     }
@@ -98,6 +124,7 @@ class SetProfileFragment : Fragment() {
         binding.apply {
             lifecycleOwner = this@SetProfileFragment
             fm = this@SetProfileFragment
+            loginVm = loginViewModel
         }
     }
 }

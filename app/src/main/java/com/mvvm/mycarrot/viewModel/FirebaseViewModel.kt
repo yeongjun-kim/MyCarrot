@@ -45,8 +45,8 @@ class FirebaseViewModel(application: Application) : AndroidViewModel(application
 
     fun commitUserObject() {
         viewModelScope.launch(Dispatchers.IO) {
-            firebaseRepository.firebaseStorageInsertProfile(profileUri!!)
-            firebaseRepository.commitUserObject(signupNickname)
+//            firebaseRepository.firebaseStorageInsertProfile(profileUri!!)
+//            firebaseRepository.commitUserObject(signupNickname)
         }
     }
 

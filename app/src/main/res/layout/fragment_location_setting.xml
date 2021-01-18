@@ -7,6 +7,7 @@
         <variable
             name="fm"
             type="com.mvvm.mycarrot.view.login.LocationSettingFragment" />
+
         <variable
             name="locationvm"
             type="com.mvvm.mycarrot.room.LocationViewModel" />
@@ -15,7 +16,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff">
+        android:background="#fff"
+        android:clickable="true">
 
         <EditText
             android:id="@+id/locationSetting_et"
@@ -24,11 +26,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:imeOptions="actionSearch"
-            android:paddingStart="32dp"
-            android:text="@={locationvm.searchString}"
-            android:paddingEnd="36dp"
             android:onClick="@{() -> fm.clickCancel()}"
+            android:paddingStart="32dp"
+            android:paddingEnd="36dp"
             android:singleLine="true"
+            android:text="@={locationvm.searchString}"
             android:textSize="18sp"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,13 +54,13 @@
 
         <Button
             android:id="@+id/locationSetting_btn"
-            android:onClick="@{() -> fm.clickCurrentLocation()}"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_custom_button_orange_moreround"
+            android:onClick="@{() -> fm.clickCurrentLocation()}"
             android:text="현재 위치로 찾기"
             android:textColor="#fff"
             android:textSize="16sp"

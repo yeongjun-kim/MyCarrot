@@ -16,7 +16,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff">
+        android:background="#fff"
+        android:clickable="true">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,10 +94,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_custom_button_orange"
+            android:onClick="@{() -> fm.commitUser()}"
             android:text="등록완료"
             android:textColor="#fff"
             android:textSize="16sp"
-            android:onClick="@{() -> fm.commitUser()}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/setProfile_ll1"

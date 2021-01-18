@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.room.LocationViewModel
 import com.mvvm.mycarrot.test.TestActivity
 import com.mvvm.mycarrot.test.TestFragment
 import com.mvvm.mycarrot.view.navigation.ChatFragment
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     var searchFragment = SearchFragment()
     var chatFragment = ChatFragment()
     var myFragment = MyFragment()
-    lateinit var viewModel: FirebaseViewModel
+    lateinit var locationViewModel: LocationViewModel
 
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -82,15 +83,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(com.mvvm.mycarrot.R.id.nav_view)
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        viewModel = ViewModelProvider(
-            this,
-            FirebaseViewModel.Factory(application)
-        ).get(FirebaseViewModel::class.java)
+
 
         initDefulatFragment()
+        initViewModel()
         initStatusBar()
         initCurrentLocation()
 
@@ -99,6 +98,13 @@ class MainActivity : AppCompatActivity() {
         test_btn1.setOnClickListener {
             test()
         }
+    }
+
+    private fun initViewModel() {
+        locationViewModel = ViewModelProvider(
+            this,
+            LocationViewModel.Factory(application)
+        ).get(LocationViewModel::class.java)
     }
 
     /*
@@ -120,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location ->
                 if (location != null) {
-                    viewModel.setCurrentLatLong(location.latitude, location.longitude, application)
+                    locationViewModel.setCurrentLatLong(location.latitude, location.longitude)
                 }
             }
     }
@@ -147,19 +153,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
     }
-
-
-    // 이거 추가할것
-//    @SuppressLint("MissingPermission")
-//    private fun initCurrentLatLong() {
-//        var fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
-//        fusedLocationClient.lastLocation
-//            .addOnSuccessListener { location ->
-//                if (location != null) {
-//                    locationViewModel.setCurrentLatLong(location.latitude, location.longitude, activity!!.application)
-//                }
-//            }
-//    }
 
 
     private var doubleBackToExitPressedOnce = false

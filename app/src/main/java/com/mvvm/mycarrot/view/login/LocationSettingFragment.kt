@@ -52,12 +52,6 @@ class LocationSettingFragment : Fragment() {
         initListener()
         initCurrentLatLong()
         initRv()
-
-
-
-
-
-
     }
 
     private fun initListener() {
@@ -90,7 +84,7 @@ class LocationSettingFragment : Fragment() {
 
     private fun initViewModel() {
         locationViewModel = ViewModelProvider(
-            this,
+            activity!!,
             LocationViewModel.Factory(activity!!.application)
         ).get(LocationViewModel::class.java)
     }
@@ -143,6 +137,7 @@ class LocationSettingFragment : Fragment() {
         mAdapter.listener = object:ItemRvLocationAdatper.ClickListener{
             override fun onClick(position: Int) {
                 locationViewModel.setSelectedLocation(mAdapter.locationList[position])
+                Log.d("fhrm", "LocationSettingFragment -onClick(),    locationViewModel.getSelectedLocation(): ${locationViewModel.getSelectedLocation()}")
                 startSetProfileFragment()
             }
 
