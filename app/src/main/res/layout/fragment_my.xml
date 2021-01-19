@@ -316,6 +316,7 @@
                     android:id="@+id/my_cl6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> fm.startShareActivity()}"
                     app:layout_constraintTop_toBottomOf="@id/my_tv2">
 
                     <ImageView

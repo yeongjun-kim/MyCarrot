@@ -41,6 +41,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
+                android:textColor="#000"
                 android:text="중고거래 글쓰기"
                 android:textSize="14sp"
                 android:textStyle="bold" />

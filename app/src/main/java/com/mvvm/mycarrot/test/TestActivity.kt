@@ -78,7 +78,7 @@ class TestActivity : AppCompatActivity() {
 
 
         aa1.setOnClickListener {
-            startActivity(Intent(this, act::class.java))
+
         }
         aa2.setOnClickListener {
         }

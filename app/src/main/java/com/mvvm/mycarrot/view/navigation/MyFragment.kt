@@ -82,6 +82,15 @@ class MyFragment : Fragment(){
         startActivity(Intent(activity, SetupTownActivity::class.java))
     }
 
+    fun startShareActivity(){
+        var intent = Intent(Intent.ACTION_SEND)
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share))
+        intent.putExtra(Intent.EXTRA_TITLE, "당근마켓")
+        intent.setType("text/plain")
+        startActivity(Intent.createChooser(intent, "앱을 선택해주세용"))
+    }
+
     fun startEditProfileActivity(){
         startActivity(Intent(activity, EditProfileActivity::class.java))
     }
