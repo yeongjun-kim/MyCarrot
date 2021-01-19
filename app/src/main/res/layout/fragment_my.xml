@@ -348,6 +348,7 @@
                     android:id="@+id/my_cl7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> fm.startNoticeActivity()}"
                     app:layout_constraintTop_toBottomOf="@id/my_cl6">
 
                     <ImageView
@@ -379,7 +380,39 @@
                     android:id="@+id/my_cl8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> fm.startSupportActivity()}"
                     app:layout_constraintTop_toBottomOf="@id/my_cl7">
+
+                    <ImageView
+                        android:id="@+id/my_iv_support"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="18dp"
+                        android:src="@drawable/ic_support"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="자주 묻는 질문"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@id/my_iv_support"
+                        app:layout_constraintStart_toEndOf="@id/my_iv_support"
+                        app:layout_constraintTop_toTopOf="@id/my_iv_support" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/my_cl9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/my_cl8">
 
                     <ImageView
                         android:id="@+id/my_iv_preferences"
@@ -412,7 +445,7 @@
                     android:layout_height="1dp"
                     android:background="@color/colorDivision"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/my_cl8" />
+                    app:layout_constraintTop_toBottomOf="@id/my_cl9" />
 
                 <TextView
                     android:id="@+id/my_tv3"

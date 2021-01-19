@@ -107,5 +107,18 @@ class MyFragment : Fragment(){
         startActivity(Intent(activity, BuyListActivity::class.java))
     }
 
+    fun startNoticeActivity(){
+        var intent = Intent(activity, NoticeActivity::class.java)
+        intent.putExtra("mode","notice")
+        startActivity(intent)
+    }
+
+    fun startSupportActivity(){
+        var intent = Intent(activity, NoticeActivity::class.java)
+        intent.putExtra("mode","support")
+        startActivity(intent)
+    }
+
+
 
 }

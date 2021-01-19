@@ -1,9 +1,12 @@
 package com.mvvm.mycarrot.test
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.webkit.WebSettings
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -59,6 +62,7 @@ class TestActivity : AppCompatActivity() {
     var userList: MutableList<firestoreUser> = mutableListOf()            //MutableList 생성
 
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
@@ -73,15 +77,15 @@ class TestActivity : AppCompatActivity() {
         dummy_users.setOnClickListener {
             excelToUserList()
         }
-
-        // *************************************************************************** //
-
-
         aa1.setOnClickListener {
 
         }
         aa2.setOnClickListener {
         }
+
+        // *************************************************************************** //
+
+
     }
 
 
