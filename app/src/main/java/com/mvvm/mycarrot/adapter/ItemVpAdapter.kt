@@ -1,6 +1,5 @@
 package com.mvvm.mycarrot.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,9 @@ import com.mvvm.mycarrot.R
 import kotlinx.android.synthetic.main.item_vp_write.view.*
 
 /**
- * 
+ *
  * Image Url List 이용
- * 
+ *
  */
 class ItemVpAdapter(var urlList: ArrayList<String>) :
     RecyclerView.Adapter<ItemVpAdapter.ViewHolder>() {
@@ -34,7 +33,7 @@ class ItemVpAdapter(var urlList: ArrayList<String>) :
 
     override fun getItemCount() = urlList.size
 
-    fun setList(inputList: ArrayList<String>){
+    fun setList(inputList: ArrayList<String>) {
         urlList = inputList
         notifyDataSetChanged()
     }

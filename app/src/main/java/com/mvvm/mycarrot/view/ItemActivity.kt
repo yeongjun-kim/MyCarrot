@@ -2,10 +2,10 @@ package com.mvvm.mycarrot.view
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -38,16 +38,8 @@ class ItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item)
 
-        homeViewModel = ViewModelProvider(
-            this, HomeViewModel.Factory(application)
-        ).get(HomeViewModel::class.java)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_item)
-        binding.apply {
-            vm = homeViewModel
-            av = this@ItemActivity
-            lifecycleOwner = this@ItemActivity
-        }
-
+        initViewModel()
+        initBinding()
         initStatusBar()
         initLikeButtonListener() // LikeButton은 Databinding 이 안되기때문에 clickListener 해야함
         initRvOwnerItem()
@@ -61,8 +53,12 @@ class ItemActivity : AppCompatActivity() {
         }
 
 
+    }
 
-
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            this, HomeViewModel.Factory(application)
+        ).get(HomeViewModel::class.java)
 
         homeViewModel.getselectedItemOwnersItem().observe(this, Observer { itemList ->
             ownerItemRvAdapter.setList(itemList, 4)
@@ -77,6 +73,15 @@ class ItemActivity : AppCompatActivity() {
                 startItemActivity()
             }
         })
+    }
+
+    private fun initBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_item)
+        binding.apply {
+            vm = homeViewModel
+            av = this@ItemActivity
+            lifecycleOwner = this@ItemActivity
+        }
     }
 
     private fun changeTopLayoutColor(input: String) {
@@ -145,8 +150,8 @@ class ItemActivity : AppCompatActivity() {
 
     fun beforeStartItemActivity(position: Int, adapter: OwnerItemRvAdapter) {
         customDialog.show()
-        homeViewModel.setselectedItem(adapter.itemList[position].id!!,"itemAv")
-        homeViewModel.setselectedItemOwner(adapter.itemList[position].userId!!,"itemAv")
+        homeViewModel.setselectedItem(adapter.itemList[position].id!!, "itemAv")
+        homeViewModel.setselectedItemOwner(adapter.itemList[position].userId!!, "itemAv")
     }
 
 
@@ -161,11 +166,11 @@ class ItemActivity : AppCompatActivity() {
         startActivity(Intent(this, SeeMoreActivity::class.java))
     }
 
-    fun startActivityProfile(){
+    fun startActivityProfile() {
         startActivity(Intent(this, ProfileActivity::class.java))
     }
 
-    fun startActivityChatLog(){
+    fun startActivityChatLog() {
         startActivity(Intent(this, ChatLogActivity::class.java))
     }
 

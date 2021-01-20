@@ -1,7 +1,5 @@
 package com.mvvm.mycarrot.adapter
 
-import android.R.attr.right
-import android.R.attr.left
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

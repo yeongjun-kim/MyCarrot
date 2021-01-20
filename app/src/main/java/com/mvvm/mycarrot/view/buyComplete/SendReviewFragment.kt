@@ -17,7 +17,7 @@ class SendReviewFragment : Fragment() {
 
     lateinit var binding: FragmentSendreviewBinding
     lateinit var buyCompleteViewModel: BuyCompleteViewModel
-    var sendReviewFinishFragment =SendReviewFinishFragment()
+    var sendReviewFinishFragment = SendReviewFinishFragment()
 
 
     override fun onCreateView(
@@ -30,17 +30,25 @@ class SendReviewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        buyCompleteViewModel =
-            ViewModelProvider(activity!!, BuyCompleteViewModel.Factory(activity!!.application)).get(
-                BuyCompleteViewModel::class.java
-            )
 
+        initViewModel()
+        initBinding()
+
+    }
+
+    private fun initBinding() {
         binding.apply {
             vm = buyCompleteViewModel
             lifecycleOwner = this@SendReviewFragment
             fm = this@SendReviewFragment
         }
+    }
 
+    private fun initViewModel() {
+        buyCompleteViewModel =
+            ViewModelProvider(activity!!, BuyCompleteViewModel.Factory(activity!!.application)).get(
+                BuyCompleteViewModel::class.java
+            )
 
         buyCompleteViewModel.getpositiveReviewList().observe(this, Observer {
             if (!binding.sendReviewRbNegative.isChecked) {
@@ -85,7 +93,7 @@ class SendReviewFragment : Fragment() {
         binding.sendReviewClBestLike.visibility = View.VISIBLE
         binding.sendReviewClBad.visibility = View.INVISIBLE
 
-        if(buyCompleteViewModel.getpositiveReviewList().value!!.isEmpty()) makeButtonGray()
+        if (buyCompleteViewModel.getpositiveReviewList().value!!.isEmpty()) makeButtonGray()
         resetNegativeCheckBox()
     }
 
@@ -94,7 +102,7 @@ class SendReviewFragment : Fragment() {
         binding.sendReviewClBestLike.visibility = View.INVISIBLE
         binding.sendReviewClBad.visibility = View.VISIBLE
 
-        if(buyCompleteViewModel.getnegativeReviewList().value!!.isEmpty()) makeButtonGray()
+        if (buyCompleteViewModel.getnegativeReviewList().value!!.isEmpty()) makeButtonGray()
         resetPositiveCheckBox()
     }
 
@@ -122,7 +130,7 @@ class SendReviewFragment : Fragment() {
         binding.sendReviewCbPositive4.isChecked = false
     }
 
-    fun onBackPress(){
+    fun onBackPress() {
         fragmentManager!!.popBackStack()
     }
 

@@ -1,17 +1,13 @@
 package com.mvvm.mycarrot.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mvvm.mycarrot.R
-import com.mvvm.mycarrot.databinding.ItemRvItemBinding
 import com.mvvm.mycarrot.databinding.ItemRvMannerDetailBinding
-import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.ReviewObject
-import com.mvvm.mycarrot.utils.onThrottleClick
 import kotlinx.android.synthetic.main.item_rv_manner_detail.view.*
 
 class ItemRvMannerDetailAdapter :
@@ -51,7 +47,8 @@ class ItemRvMannerDetailAdapter :
                 inputReview.str = "${adapterPosition + 1}. ${inputReview.str}"
                 review = inputReview
 
-                if(adapterPosition==itemList.lastIndex) itemView.itemRvMannerDetail_ll.visibility = View.INVISIBLE
+                if (adapterPosition == itemList.lastIndex) itemView.itemRvMannerDetail_ll.visibility =
+                    View.INVISIBLE
             }
         }
     }

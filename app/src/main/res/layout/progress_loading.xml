@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loading_frame_container"
     android:layout_width="fill_parent"
-    android:background="@android:color/transparent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@android:color/transparent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:background="@android:color/transparent"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_frame_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/frame_loading" />
+            android:background="@drawable/frame_loading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_progress_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
             android:text="로딩중이당 . ."
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff" />
-    </LinearLayout>
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_frame_loading"
+            app:layout_constraintEnd_toEndOf="@id/iv_frame_loading"
+            app:layout_constraintStart_toStartOf="@id/iv_frame_loading" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
 

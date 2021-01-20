@@ -161,10 +161,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_custom_textview"
+                android:onClick="@{() -> fm.finishActivity()}"
                 android:text="지금 안할래요"
                 android:textColor="#000"
                 android:textSize="15sp"
-                android:onClick="@{() -> fm.finishActivity()}"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
 

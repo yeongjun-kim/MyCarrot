@@ -2,13 +2,11 @@ package com.mvvm.mycarrot.view.navigation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -20,12 +18,8 @@ import com.mvvm.mycarrot.adapter.LatestGroupie
 import com.mvvm.mycarrot.databinding.FragmentChatBinding
 import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.mvvm.mycarrot.view.ChatLogActivity
-import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.fragment_chat.*
-import kotlinx.android.synthetic.main.item_rv_latestmessage.view.*
 
 class ChatFragment : Fragment() {
 
@@ -54,7 +48,6 @@ class ChatFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
         binding.chatRv.adapter = mAdapter
 
     }
@@ -62,10 +55,10 @@ class ChatFragment : Fragment() {
     private fun refreshRecyclerViewMessages() {
         mAdapter.clear()
         latestMessagesMap.values.sortedByDescending { it.timestamp }.forEach {
-            mAdapter.add(LatestGroupie(it, object:LatestGroupie.ClickListener{
-                override fun onClick(item:LatestMessageDTO) {
+            mAdapter.add(LatestGroupie(it, object : LatestGroupie.ClickListener {
+                override fun onClick(item: LatestMessageDTO) {
                     val intent = Intent(activity, ChatLogActivity::class.java)
-                    intent.putExtra("LatestMessageDTO",item)
+                    intent.putExtra("LatestMessageDTO", item)
                     startActivity(intent)
 
                 }
@@ -81,14 +74,15 @@ class ChatFragment : Fragment() {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
 
                     snapshot.children.forEach {
-                        val message = it.getValue(LatestMessageDTO::class.java)?:return
+                        val message = it.getValue(LatestMessageDTO::class.java) ?: return
                         latestMessagesMap[it.key!!] = message
                         refreshRecyclerViewMessages()
                     }
                 }
+
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                     snapshot.children.forEach {
-                        val message = it.getValue(LatestMessageDTO::class.java)?:return
+                        val message = it.getValue(LatestMessageDTO::class.java) ?: return
                         latestMessagesMap[it.key!!] = message
                         refreshRecyclerViewMessages()
                     }

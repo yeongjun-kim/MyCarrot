@@ -3,10 +3,10 @@ package com.mvvm.mycarrot.view
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -15,7 +15,6 @@ import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.WriteVpAdapter
 import com.mvvm.mycarrot.databinding.ActivityWriteBinding
 import com.mvvm.mycarrot.viewModel.WriteViewModel
-import kotlinx.android.synthetic.main.activity_write.*
 
 class WriteActivity : AppCompatActivity() {
 
@@ -29,17 +28,26 @@ class WriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         initStatusBar()
+        initViewModel()
+        initBingding()
+        initVp()
 
-        writeViewModel = ViewModelProvider(
-            this, WriteViewModel.Factory(application)
-        ).get(WriteViewModel::class.java)
 
+    }
+
+    private fun initBingding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_write)
         binding.apply {
             av = this@WriteActivity
             vm = writeViewModel
             lifecycleOwner = this@WriteActivity
         }
+    }
+
+    private fun initViewModel() {
+        writeViewModel = ViewModelProvider(
+            this, WriteViewModel.Factory(application)
+        ).get(WriteViewModel::class.java)
 
         writeViewModel.getisWirteSuccess().observe(this) {
             if (it) {
@@ -52,14 +60,6 @@ class WriteActivity : AppCompatActivity() {
         writeViewModel.getUriList().observe(this) {
             adapter.setList(it)
         }
-
-        initVp()
-
-
-        test3.setOnClickListener {
-        }
-
-
     }
 
     private fun initVp() {
@@ -85,17 +85,16 @@ class WriteActivity : AppCompatActivity() {
     }
 
 
-
-    fun commitItemObject(){
-        if(writeViewModel.uriImageListSize.value==0){
-            Toast.makeText(this,"사진을 추가해주세요 !",Toast.LENGTH_SHORT).show()
-        }else if(writeViewModel.title.isNullOrBlank()){
-            Toast.makeText(this,"제목을 입력해주세요 !",Toast.LENGTH_SHORT).show()
-        }else if(writeViewModel.getcategory().value == "카테고리 선택"){
-            Toast.makeText(this,"카테고리를 선택해주세요 !",Toast.LENGTH_SHORT).show()
-        }else if(writeViewModel.overview.isNullOrBlank()){
-            Toast.makeText(this,"내용을 작성해주세요 !",Toast.LENGTH_SHORT).show()
-        }else{
+    fun commitItemObject() {
+        if (writeViewModel.uriImageListSize.value == 0) {
+            Toast.makeText(this, "사진을 추가해주세요 !", Toast.LENGTH_SHORT).show()
+        } else if (writeViewModel.title.isNullOrBlank()) {
+            Toast.makeText(this, "제목을 입력해주세요 !", Toast.LENGTH_SHORT).show()
+        } else if (writeViewModel.getcategory().value == "카테고리 선택") {
+            Toast.makeText(this, "카테고리를 선택해주세요 !", Toast.LENGTH_SHORT).show()
+        } else if (writeViewModel.overview.isNullOrBlank()) {
+            Toast.makeText(this, "내용을 작성해주세요 !", Toast.LENGTH_SHORT).show()
+        } else {
             customDialog.show()
             writeViewModel.commitItemObject()
         }

@@ -79,9 +79,6 @@
             android:name=".view.WriteCategoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.SignupActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".view.WriteActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
@@ -90,13 +87,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
-
-
-        <activity
-            android:name=".view.LoginActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

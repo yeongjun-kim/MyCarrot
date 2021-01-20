@@ -19,7 +19,6 @@ import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.SearchViewModel
-import kotlinx.android.synthetic.main.fragment_search_trading.*
 
 
 class SearchTradingFragment : Fragment() {
@@ -48,7 +47,25 @@ class SearchTradingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         customDialog = CustomProgressDialog(activity!!)
 
+        initViewModel()
+        initBinding()
+        initHotItemRv()
+        initHotItemList()
+        initRecommdItemRv()
+        initRecommendItemList()
+        initSearchItemRv()
 
+    }
+
+    private fun initBinding() {
+        binding.apply {
+            fm = this@SearchTradingFragment
+            lifecycleOwner = this@SearchTradingFragment
+            svm = searchViewModel
+        }
+    }
+
+    private fun initViewModel() {
         searchViewModel =
             ViewModelProvider(activity!!, SearchViewModel.Factory(activity!!.application)).get(
                 SearchViewModel::class.java
@@ -58,12 +75,6 @@ class SearchTradingFragment : Fragment() {
             ViewModelProvider(activity!!, HomeViewModel.Factory(activity!!.application)).get(
                 HomeViewModel::class.java
             )
-
-        binding.apply {
-            fm = this@SearchTradingFragment
-            lifecycleOwner = this@SearchTradingFragment
-            svm = searchViewModel
-        }
 
         searchViewModel.getHotItemList().observe(this, Observer { itemList ->
             hotitemRvAdapter.setList(itemList)
@@ -83,14 +94,6 @@ class SearchTradingFragment : Fragment() {
                 startItemActivity()
             }
         })
-
-
-        initHotItemRv()
-        initHotItemList()
-        initRecommdItemRv()
-        initRecommendItemList()
-        initSearchItemRv()
-
     }
 
     private fun initSearchItemRv() {
@@ -165,16 +168,34 @@ class SearchTradingFragment : Fragment() {
         customDialog.show()
         when (fromRecycler) {
             "fromRecommend" -> {
-                homeViewModel.setselectedItem(recommendRvAdapter.itemList[position].id!!,"searchTradingFm")
-                homeViewModel.setselectedItemOwner(recommendRvAdapter.itemList[position].userId!!,"searchTradingFm")
+                homeViewModel.setselectedItem(
+                    recommendRvAdapter.itemList[position].id!!,
+                    "searchTradingFm"
+                )
+                homeViewModel.setselectedItemOwner(
+                    recommendRvAdapter.itemList[position].userId!!,
+                    "searchTradingFm"
+                )
             }
             "fromHotItem" -> {
-                homeViewModel.setselectedItem(hotitemRvAdapter.itemList[position].id!!,"searchTradingFm")
-                homeViewModel.setselectedItemOwner(hotitemRvAdapter.itemList[position].userId!!,"searchTradingFm")
+                homeViewModel.setselectedItem(
+                    hotitemRvAdapter.itemList[position].id!!,
+                    "searchTradingFm"
+                )
+                homeViewModel.setselectedItemOwner(
+                    hotitemRvAdapter.itemList[position].userId!!,
+                    "searchTradingFm"
+                )
             }
             "fromSearchItem" -> {
-                homeViewModel.setselectedItem(searchItemRvAdapter.itemList[position].id!!,"searchTradingFm")
-                homeViewModel.setselectedItemOwner(searchItemRvAdapter.itemList[position].userId!!,"searchTradingFm")
+                homeViewModel.setselectedItem(
+                    searchItemRvAdapter.itemList[position].id!!,
+                    "searchTradingFm"
+                )
+                homeViewModel.setselectedItemOwner(
+                    searchItemRvAdapter.itemList[position].userId!!,
+                    "searchTradingFm"
+                )
             }
         }
     }

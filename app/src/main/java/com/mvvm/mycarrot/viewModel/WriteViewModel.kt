@@ -1,13 +1,8 @@
 package com.mvvm.mycarrot.viewModel
 
 import android.app.Application
-import android.graphics.Color
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.net.Uri
-import android.util.Log
-import android.widget.TextView
 import androidx.lifecycle.*
-import com.bumptech.glide.Glide.init
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
 import kotlinx.coroutines.Dispatchers

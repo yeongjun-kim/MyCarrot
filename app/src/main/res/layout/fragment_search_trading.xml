@@ -32,7 +32,6 @@
                 android:visibility="invisible">
 
 
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/fm_search_trading_cl1"
                     android:layout_width="match_parent"

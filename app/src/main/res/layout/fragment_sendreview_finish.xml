@@ -44,8 +44,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_arrow_back_black_14dp"
                 android:onClick="@{() -> fm.onBackPress()}"
+                android:src="@drawable/ic_arrow_back_black_14dp"
                 app:layout_constraintBottom_toBottomOf="@id/sendReviewFinish_tv_profile"
                 app:layout_constraintStart_toStartOf="@id/sendReviewFinish_tv_profile"
                 app:layout_constraintTop_toTopOf="@id/sendReviewFinish_tv_profile" />

@@ -12,9 +12,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sell_list_soldout_rv"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_height="match_parent" />
+            android:paddingEnd="16dp" />
 
         <TextView
             android:id="@+id/sell_list_soldout_tv"

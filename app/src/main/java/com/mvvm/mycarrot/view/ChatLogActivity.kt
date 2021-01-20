@@ -35,17 +35,15 @@ class ChatLogActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        homeViewModel = ViewModelProvider(
-            this, HomeViewModel.Factory(application)
-        ).get(HomeViewModel::class.java)
-
-        chatLogViewModel = ViewModelProvider(
-            this, ChatLogViewModel.Factory(application)
-        ).get(ChatLogViewModel::class.java)
-
+        initViewModel()
         latestMessageDTO = initLatest()
+        initBinding()
+        initStatusBar()
+        initRv()
+        initChatListener()
+    }
 
-
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chat_log)
         binding.apply {
             av = this@ChatLogActivity
@@ -53,10 +51,16 @@ class ChatLogActivity : AppCompatActivity() {
             latestMessage = latestMessageDTO
             chatLogvm = chatLogViewModel
         }
+    }
 
-        initStatusBar()
-        initRv()
-        initChatListener()
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            this, HomeViewModel.Factory(application)
+        ).get(HomeViewModel::class.java)
+
+        chatLogViewModel = ViewModelProvider(
+            this, ChatLogViewModel.Factory(application)
+        ).get(ChatLogViewModel::class.java)
     }
 
     private fun initChatListener() {

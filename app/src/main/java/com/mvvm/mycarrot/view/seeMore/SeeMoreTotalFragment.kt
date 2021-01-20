@@ -39,24 +39,30 @@ class SeeMoreTotalFragment : Fragment() {
 
         customDialog = CustomProgressDialog(activity!!)
 
+
+        initViewModel()
+        initBinding()
+        initRv()
+        initItemList()
+
+    }
+
+    private fun initBinding() {
+        binding.apply {
+            lifecycleOwner = this@SeeMoreTotalFragment
+        }
+    }
+
+    private fun initViewModel() {
         homeViewModel = ViewModelProvider(
             activity!!, HomeViewModel.Factory(activity!!.application)
         ).get(HomeViewModel::class.java)
 
-        binding.apply {
-            lifecycleOwner = this@SeeMoreTotalFragment
-        }
-
-        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seemoreTotalFm"){
+        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2 && homeViewModel.getselectedFragment() == "seemoreTotalFm") {
                 startItemActivity()
             }
         })
-
-
-        initRv()
-        initItemList()
-
     }
 
     private fun initItemList() {
@@ -65,13 +71,13 @@ class SeeMoreTotalFragment : Fragment() {
     }
 
     private fun initRv() {
-        binding.seemoreTotalRv.run{
+        binding.seemoreTotalRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = itemRvAdapter
         }
 
-        itemRvAdapter.listener = object : ItemRvAdapter.ClickListener{
+        itemRvAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
                 beforeStartItemActivity(position)
             }
@@ -80,9 +86,13 @@ class SeeMoreTotalFragment : Fragment() {
 
     fun beforeStartItemActivity(position: Int) {
         customDialog.show()
-        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!,"seemoreTotalFm")
-        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!,"seemoreTotalFm")
+        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "seemoreTotalFm")
+        homeViewModel.setselectedItemOwner(
+            itemRvAdapter.itemList[position].userId!!,
+            "seemoreTotalFm"
+        )
     }
+
     fun startItemActivity() {
         customDialog.dismiss()
         homeViewModel.clearIsStartItemActivity()

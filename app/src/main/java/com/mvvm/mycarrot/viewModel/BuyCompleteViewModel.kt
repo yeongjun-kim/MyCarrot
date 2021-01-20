@@ -45,7 +45,7 @@ class BuyCompleteViewModel(application: Application) : AndroidViewModel(applicat
 
 
     fun getisCommitFinish() = isCommitFinish
-    fun commitReviewToServer(){
+    fun commitReviewToServer() {
         viewModelScope.launch(Dispatchers.IO) {
             isCommitFinish.postValue(false)
             firebaseRepository.commitReviewToServer()
@@ -55,19 +55,21 @@ class BuyCompleteViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun getnegativeReviewList() = negativeReviewList
-    fun setnegativeReviewList(str:String){
+    fun setnegativeReviewList(str: String) {
         firebaseRepository.setnegativeReviewList(str)
     }
-    fun clearnegativeReviewList(){
+
+    fun clearnegativeReviewList() {
         firebaseRepository.clearnegativeReviewList()
     }
 
 
     fun getpositiveReviewList() = positiveReviewList
-    fun setpositiveReviewList(str:String){
+    fun setpositiveReviewList(str: String) {
         firebaseRepository.setpositiveReviewList(str)
     }
-    fun clearpositiveReviewList(){
+
+    fun clearpositiveReviewList() {
         firebaseRepository.clearpositiveReviewList()
     }
 

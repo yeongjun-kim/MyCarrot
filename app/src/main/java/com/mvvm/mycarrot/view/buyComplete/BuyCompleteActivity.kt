@@ -1,15 +1,12 @@
 package com.mvvm.mycarrot.view.buyComplete
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.viewModel.BuyCompleteViewModel
-import kotlinx.android.synthetic.main.activity_buy_complete.*
 
 class BuyCompleteActivity : AppCompatActivity() {
 
@@ -21,13 +18,21 @@ class BuyCompleteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_buy_complete)
 
 
-        buyCompleteViewModel =ViewModelProvider(this, BuyCompleteViewModel.Factory(application)).get(BuyCompleteViewModel::class.java)
 
 
+        initViewModel()
         initItem()
         initChatUserList()
         initStatusBar()
         initSelectBuyerFragment()
+    }
+
+    private fun initViewModel() {
+        buyCompleteViewModel =
+            ViewModelProvider(this, BuyCompleteViewModel.Factory(application)).get(
+                BuyCompleteViewModel::class.java
+            )
+
     }
 
     private fun initItem() {
@@ -35,7 +40,7 @@ class BuyCompleteActivity : AppCompatActivity() {
         buyCompleteViewModel.setbuyCompleteItem(itemId)
     }
 
-    private fun initChatUserList(){
+    private fun initChatUserList() {
         val itemId = intent.getStringExtra("itemId")!!
         buyCompleteViewModel.setbuyCompleteChatList(itemId)
     }
@@ -61,12 +66,10 @@ class BuyCompleteActivity : AppCompatActivity() {
     }
 
 
-
     override fun onBackPressed() {
-        if(supportFragmentManager.fragments.size==2) {
+        if (supportFragmentManager.fragments.size == 2) {
             finish()
-        }
-        else {
+        } else {
             super.onBackPressed()
         }
     }

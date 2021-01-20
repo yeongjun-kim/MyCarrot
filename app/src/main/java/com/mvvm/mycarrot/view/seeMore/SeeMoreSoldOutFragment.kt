@@ -39,28 +39,34 @@ class SeeMoreSoldOutFragment : Fragment() {
 
         customDialog = CustomProgressDialog(activity!!)
 
-        homeViewModel = ViewModelProvider(
-            activity!!, HomeViewModel.Factory(activity!!.application)
-        ).get(HomeViewModel::class.java)
-
-        binding.apply {
-            lifecycleOwner = this@SeeMoreSoldOutFragment
-        }
-
-        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seemoreSoldOutFm"){
-                startItemActivity()
-            }
-        })
-
-
+        initViewModel()
+        initBinding()
         initRv()
         initItemList()
 
     }
 
+    private fun initBinding() {
+        binding.apply {
+            lifecycleOwner = this@SeeMoreSoldOutFragment
+        }
+    }
+
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            activity!!, HomeViewModel.Factory(activity!!.application)
+        ).get(HomeViewModel::class.java)
+
+        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2 && homeViewModel.getselectedFragment() == "seemoreSoldOutFm") {
+                startItemActivity()
+            }
+        })
+    }
+
     private fun initItemList() {
-        var list = homeViewModel.getselectedItemOwnersItem().value!!.filter { it.status=="soldout" }
+        var list =
+            homeViewModel.getselectedItemOwnersItem().value!!.filter { it.status == "soldout" }
         itemRvAdapter.setList(list)
     }
 
@@ -71,7 +77,7 @@ class SeeMoreSoldOutFragment : Fragment() {
             adapter = itemRvAdapter
         }
 
-        itemRvAdapter.listener = object :ItemRvAdapter.ClickListener{
+        itemRvAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
                 beforeStartItemActivity(position)
             }
@@ -81,9 +87,13 @@ class SeeMoreSoldOutFragment : Fragment() {
 
     fun beforeStartItemActivity(position: Int) {
         customDialog.show()
-        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!,"seemoreSoldOutFm")
-        homeViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!,"seemoreSoldOutFm")
+        homeViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "seemoreSoldOutFm")
+        homeViewModel.setselectedItemOwner(
+            itemRvAdapter.itemList[position].userId!!,
+            "seemoreSoldOutFm"
+        )
     }
+
     fun startItemActivity() {
         customDialog.dismiss()
         homeViewModel.clearIsStartItemActivity()

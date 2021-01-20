@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.mvvm.mycarrot.R
 import kotlinx.android.synthetic.main.item_vp_write.view.*
 
@@ -35,7 +34,7 @@ class WriteVpAdapter(var uriList: ArrayList<Uri>) :
 
     override fun getItemCount() = uriList.size
 
-    fun setList(inputList: ArrayList<Uri>){
+    fun setList(inputList: ArrayList<Uri>) {
         uriList = inputList
         notifyDataSetChanged()
     }

@@ -2,9 +2,7 @@ package com.mvvm.mycarrot.viewModel
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.*
-import com.google.firebase.firestore.FirebaseFirestore
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository

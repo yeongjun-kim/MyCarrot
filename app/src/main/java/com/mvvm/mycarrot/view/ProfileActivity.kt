@@ -3,7 +3,6 @@ package com.mvvm.mycarrot.view
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,7 +14,10 @@ import com.mvvm.mycarrot.adapter.ItemRvMannerAdapter
 import com.mvvm.mycarrot.databinding.ActivityProfileBinding
 import com.mvvm.mycarrot.view.seeMore.SeeMoreActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
-import com.skydoves.balloon.*
+import com.skydoves.balloon.ArrowOrientation
+import com.skydoves.balloon.Balloon
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.showAlignBottom
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
@@ -28,29 +30,30 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        homeViewModel = ViewModelProvider(
-            this,
-            HomeViewModel.Factory(application)
-        ).get(HomeViewModel::class.java)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
-        binding.apply {
-            lifecycleOwner = this@ProfileActivity
-            av = this@ProfileActivity
-            vm = homeViewModel
-        }
-
-
-
-
-
-
+        initViewModel()
+        initBinding()
         initOtherItemList()
         initStatusBar()
         initBallon()
         initRv()
 
 
+    }
+
+    private fun initBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
+        binding.apply {
+            lifecycleOwner = this@ProfileActivity
+            av = this@ProfileActivity
+            vm = homeViewModel
+        }
+    }
+
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            this,
+            HomeViewModel.Factory(application)
+        ).get(HomeViewModel::class.java)
     }
 
     private fun initRv() {
@@ -61,7 +64,7 @@ class ProfileActivity : AppCompatActivity() {
             Pair(homeViewModel.getselectedItemOwner().positive_4, getString(R.string.positive_4))
         )
 
-        var mAdapter = ItemRvMannerAdapter(mannerList.filter { it.first!=0 })
+        var mAdapter = ItemRvMannerAdapter(mannerList.filter { it.first != 0 })
 
         binding.profileRv.run {
             setHasFixedSize(true)
@@ -103,8 +106,12 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     fun startActivityMannerDetail() {
-        startActivity(Intent(this, MannerDetailActivity
-        ::class.java))
+        startActivity(
+            Intent(
+                this, MannerDetailActivity
+                ::class.java
+            )
+        )
     }
 
     fun startActivitySeeMore() {

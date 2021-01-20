@@ -2,21 +2,20 @@ package com.mvvm.mycarrot.view.navigation
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentMyBinding
 import com.mvvm.mycarrot.view.*
 import com.mvvm.mycarrot.view.sellList.SellListActivity
 import com.mvvm.mycarrot.viewModel.MyViewModel
 
-class MyFragment : Fragment(){
+class MyFragment : Fragment() {
 
 
     lateinit var binding: FragmentMyBinding
@@ -37,38 +36,47 @@ class MyFragment : Fragment(){
 
         customDialog = CustomProgressDialog(activity!!)
 
+        initViewModel()
+        initBinding()
+
+    }
+
+    private fun initViewModel() {
         myViewModel =
             ViewModelProvider(activity!!, MyViewModel.Factory(activity!!.application)).get(
                 MyViewModel::class.java
             )
-
-        binding.apply {
-            lifecycleOwner = this@MyFragment
-            fm = this@MyFragment
-            vm = myViewModel
-        }
-
 
         myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
             if (isStartActivity == 1 && myViewModel.getselectedFragment() == "myFm") {
                 startProfileActivity()
             }
         })
+    }
 
+    private fun initBinding() {
+        binding.apply {
+            lifecycleOwner = this@MyFragment
+            fm = this@MyFragment
+            vm = myViewModel
+        }
     }
 
 
     fun beforeStartProfileActivity() {
         customDialog.show()
-        myViewModel.setselectedItemOwner(myViewModel.getCurrentUserObject().value!!.userId!!,"myFm")
+        myViewModel.setselectedItemOwner(
+            myViewModel.getCurrentUserObject().value!!.userId!!,
+            "myFm"
+        )
     }
 
 
-    fun startNeighborhoodCertificationActivity(){
+    fun startNeighborhoodCertificationActivity() {
         startActivity(Intent(activity, NeighborhoodCertificationActivity::class.java))
     }
 
-    fun startCollectActivity(){
+    fun startCollectActivity() {
         startActivity(Intent(activity, CollectActivity::class.java))
     }
 
@@ -78,11 +86,11 @@ class MyFragment : Fragment(){
         startActivity(Intent(activity, ProfileActivity::class.java))
     }
 
-    fun startSetupTownActivity(){
+    fun startSetupTownActivity() {
         startActivity(Intent(activity, SetupTownActivity::class.java))
     }
 
-    fun startShareActivity(){
+    fun startShareActivity() {
         var intent = Intent(Intent.ACTION_SEND)
         intent.addCategory(Intent.CATEGORY_DEFAULT)
         intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share))
@@ -91,34 +99,33 @@ class MyFragment : Fragment(){
         startActivity(Intent.createChooser(intent, "앱을 선택해주세용"))
     }
 
-    fun startEditProfileActivity(){
+    fun startEditProfileActivity() {
         startActivity(Intent(activity, EditProfileActivity::class.java))
     }
 
-    fun startSellListActivity(){
+    fun startSellListActivity() {
         startActivity(Intent(activity, SellListActivity::class.java))
     }
 
-    fun startLikeListActivity(){
+    fun startLikeListActivity() {
         startActivity(Intent(activity, LikeListActivity::class.java))
     }
 
-    fun startBuyListActivity(){
+    fun startBuyListActivity() {
         startActivity(Intent(activity, BuyListActivity::class.java))
     }
 
-    fun startNoticeActivity(){
+    fun startNoticeActivity() {
         var intent = Intent(activity, NoticeActivity::class.java)
-        intent.putExtra("mode","notice")
+        intent.putExtra("mode", "notice")
         startActivity(intent)
     }
 
-    fun startSupportActivity(){
+    fun startSupportActivity() {
         var intent = Intent(activity, NoticeActivity::class.java)
-        intent.putExtra("mode","support")
+        intent.putExtra("mode", "support")
         startActivity(intent)
     }
-
 
 
 }

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,8 +43,6 @@ class SetProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-
         initViewModel()
         initBinding()
         initCustomDialog()
@@ -54,8 +51,8 @@ class SetProfileFragment : Fragment() {
     }
 
     private fun initObserver() {
-        loginViewModel.getloginMode().observe(this, Observer { mode->
-            if(mode==2){
+        loginViewModel.getloginMode().observe(this, Observer { mode ->
+            if (mode == 2) {
                 customDialog.dismiss()
                 startActivity(Intent(activity!!, MainActivity::class.java))
                 activity!!.finish()

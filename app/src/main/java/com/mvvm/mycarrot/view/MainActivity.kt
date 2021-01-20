@@ -1,6 +1,5 @@
 package com.mvvm.mycarrot.view
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -17,12 +16,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.room.LocationViewModel
 import com.mvvm.mycarrot.test.TestActivity
-import com.mvvm.mycarrot.test.TestFragment
 import com.mvvm.mycarrot.view.navigation.ChatFragment
 import com.mvvm.mycarrot.view.navigation.HomeFragment
 import com.mvvm.mycarrot.view.navigation.MyFragment
 import com.mvvm.mycarrot.view.navigation.SearchFragment
-import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 

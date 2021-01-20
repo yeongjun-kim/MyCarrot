@@ -8,21 +8,21 @@ import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.room.Location
 import com.mvvm.mycarrot.utils.onThrottleClick
 import kotlinx.android.synthetic.main.item_rv_location.view.*
-import kotlinx.android.synthetic.main.item_rv_review.view.*
 
 class ItemRvLocationAdatper : RecyclerView.Adapter<ItemRvLocationAdatper.CustomViewHolder>() {
 
-    interface ClickListener{
-        fun onClick(position:Int)
+    interface ClickListener {
+        fun onClick(position: Int)
     }
 
     var locationList = listOf<Location>()
-    var listener:ClickListener? = null
+    var listener: ClickListener? = null
 
     override fun getItemCount() = locationList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rv_location, parent,false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_rv_location, parent, false)
         return CustomViewHolder(view)
     }
 

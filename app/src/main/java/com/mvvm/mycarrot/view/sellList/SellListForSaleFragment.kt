@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvSellListAdapter
 import com.mvvm.mycarrot.databinding.FragmentSellListForSaleBinding
-import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.view.buyComplete.BuyCompleteActivity
@@ -47,28 +46,33 @@ class SellListForSaleFragment : Fragment() {
 
         customDialog = CustomProgressDialog(activity!!)
 
-        myViewModel = ViewModelProvider(activity!!, MyViewModel.Factory(activity!!.application)).get(MyViewModel::class.java)
+        initViewModel()
+        initRv()
+    }
+
+    private fun initViewModel() {
+        myViewModel =
+            ViewModelProvider(activity!!, MyViewModel.Factory(activity!!.application)).get(
+                MyViewModel::class.java
+            )
         myViewModel.getmyItemList().observe(this, Observer { input ->
 
-            val itemList = input.filter { it.status!="soldout" }
+            val itemList = input.filter { it.status != "soldout" }
 
             itemRvSellListAdapter.setList(itemList)
 
             // 아이템이 있을땐 [판매중인 게시글이 없어요]TextView INVISIBLE
-            if(itemList.isNotEmpty()){
+            if (itemList.isNotEmpty()) {
                 binding.sellListForsaleTv.visibility = View.INVISIBLE
-            }else binding.sellListForsaleTv.visibility = View.VISIBLE
+            } else binding.sellListForsaleTv.visibility = View.VISIBLE
         })
 
 
-        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && myViewModel.getselectedFragment() == "forSaleFm"){
+        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2 && myViewModel.getselectedFragment() == "forSaleFm") {
                 startItemActivity()
             }
         })
-
-
-        initRv()
     }
 
     private fun initRv() {
@@ -78,36 +82,47 @@ class SellListForSaleFragment : Fragment() {
             adapter = itemRvSellListAdapter
         }
 
-        itemRvSellListAdapter.listener = object :ItemRvSellListAdapter.ClickListener{
+        itemRvSellListAdapter.listener = object : ItemRvSellListAdapter.ClickListener {
             override fun onClClick(position: Int) {
                 customDialog.show()
-                myViewModel.setselectedItem(itemRvSellListAdapter.itemList[position].id!!, "forSaleFm")
-                myViewModel.setselectedItemOwner(itemRvSellListAdapter.itemList[position].userId!!, "forSaleFm")
+                myViewModel.setselectedItem(
+                    itemRvSellListAdapter.itemList[position].id!!,
+                    "forSaleFm"
+                )
+                myViewModel.setselectedItemOwner(
+                    itemRvSellListAdapter.itemList[position].userId!!,
+                    "forSaleFm"
+                )
             }
-            override fun onReservationClick(position: Int) {
-                val itemId =itemRvSellListAdapter.itemList[position].id!!
 
-                if(itemRvSellListAdapter.itemList[position].status == "reservation") myViewModel.changeItemStatus(itemId, "sell")
+            override fun onReservationClick(position: Int) {
+                val itemId = itemRvSellListAdapter.itemList[position].id!!
+
+                if (itemRvSellListAdapter.itemList[position].status == "reservation") myViewModel.changeItemStatus(
+                    itemId,
+                    "sell"
+                )
                 else myViewModel.changeItemStatus(itemId, "reservation")
 
             }
+
             override fun onSoldoutClick(position: Int) {
-                val itemId =itemRvSellListAdapter.itemList[position].id!!
+                val itemId = itemRvSellListAdapter.itemList[position].id!!
                 myViewModel.changeItemStatus(itemId, "soldout")
                 startBuycompleteActivity(itemId)
             }
         }
     }
 
-    fun startItemActivity(){
+    fun startItemActivity() {
         customDialog.dismiss()
         myViewModel.clearIsStartItemActivity()
         startActivity(Intent(activity, ItemActivity::class.java))
     }
 
-    fun startBuycompleteActivity(itemId:String){
-        var intent =Intent(activity, BuyCompleteActivity::class.java)
-        intent.putExtra("itemId",itemId)
+    fun startBuycompleteActivity(itemId: String) {
+        var intent = Intent(activity, BuyCompleteActivity::class.java)
+        intent.putExtra("itemId", itemId)
         startActivity(intent)
     }
 }

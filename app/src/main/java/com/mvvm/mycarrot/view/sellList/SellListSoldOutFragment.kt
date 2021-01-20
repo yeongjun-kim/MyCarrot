@@ -42,47 +42,59 @@ class SellListSoldOutFragment : Fragment() {
 
         customDialog = CustomProgressDialog(activity!!)
 
-        myViewModel = ViewModelProvider(activity!!, MyViewModel.Factory(activity!!.application)).get(MyViewModel::class.java)
-        myViewModel.getmyItemList().observe(this, Observer { input ->
 
-            val itemList = input.filter { it.status=="soldout" }
-
-            itemRvSoldoutListAdapter.setList(itemList)
-
-            // 아이템이 있을땐 [거래완료 게시글이 없어요]TextView INVISIBLE
-            if(itemList.isNotEmpty()){
-                binding.sellListSoldoutTv.visibility = View.INVISIBLE
-            }else binding.sellListSoldoutTv.visibility = View.VISIBLE
-        })
-
-        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && myViewModel.getselectedFragment() == "soldOutFm"){
-                startItemActivity()
-            }
-        })
-
-
+        initViewModel()
         initRv()
 
     }
 
-    fun initRv(){
+    private fun initViewModel() {
+        myViewModel =
+            ViewModelProvider(activity!!, MyViewModel.Factory(activity!!.application)).get(
+                MyViewModel::class.java
+            )
+        myViewModel.getmyItemList().observe(this, Observer { input ->
+
+            val itemList = input.filter { it.status == "soldout" }
+
+            itemRvSoldoutListAdapter.setList(itemList)
+
+            // 아이템이 있을땐 [거래완료 게시글이 없어요]TextView INVISIBLE
+            if (itemList.isNotEmpty()) {
+                binding.sellListSoldoutTv.visibility = View.INVISIBLE
+            } else binding.sellListSoldoutTv.visibility = View.VISIBLE
+        })
+
+        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2 && myViewModel.getselectedFragment() == "soldOutFm") {
+                startItemActivity()
+            }
+        })
+    }
+
+    fun initRv() {
         binding.sellListSoldoutRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = itemRvSoldoutListAdapter
         }
 
-        itemRvSoldoutListAdapter.listener = object :ItemRvAdapter.ClickListener{
+        itemRvSoldoutListAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
                 customDialog.show()
-                myViewModel.setselectedItem(itemRvSoldoutListAdapter.itemList[position].id!!, "soldOutFm")
-                myViewModel.setselectedItemOwner(itemRvSoldoutListAdapter.itemList[position].userId!!, "soldOutFm")
+                myViewModel.setselectedItem(
+                    itemRvSoldoutListAdapter.itemList[position].id!!,
+                    "soldOutFm"
+                )
+                myViewModel.setselectedItemOwner(
+                    itemRvSoldoutListAdapter.itemList[position].userId!!,
+                    "soldOutFm"
+                )
             }
         }
     }
 
-    fun startItemActivity(){
+    fun startItemActivity() {
         customDialog.dismiss()
         myViewModel.clearIsStartItemActivity()
         startActivity(Intent(activity, ItemActivity::class.java))

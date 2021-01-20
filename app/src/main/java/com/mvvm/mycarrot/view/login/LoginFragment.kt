@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -21,10 +20,7 @@ import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentLoginBinding
 import com.mvvm.mycarrot.room.DatabaseCopier
 import com.mvvm.mycarrot.room.LocationViewModel
-import com.mvvm.mycarrot.view.LoginActivity
 import com.mvvm.mycarrot.view.MainActivity
-import com.mvvm.mycarrot.view.SignupActivity
-import com.mvvm.mycarrot.viewModel.FirebaseViewModel
 import com.mvvm.mycarrot.viewModel.LoginViewModel
 import kotlinx.coroutines.*
 
@@ -167,6 +163,6 @@ class LoginFragment : Fragment() {
 
         val googleSignInClient = GoogleSignIn.getClient(activity!!, gso)
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, LoginActivity.GOOGLE_SIGNIN_CODE)
+        startActivityForResult(signInIntent, GOOGLE_SIGNIN_CODE)
     }
 }

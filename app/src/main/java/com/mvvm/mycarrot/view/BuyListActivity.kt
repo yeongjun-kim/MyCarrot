@@ -2,19 +2,16 @@ package com.mvvm.mycarrot.view
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.adapter.ItemRvAdapter
 import com.mvvm.mycarrot.databinding.ActivityBuyListBinding
-import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.MyViewModel
 
 class BuyListActivity : AppCompatActivity() {
@@ -30,27 +27,31 @@ class BuyListActivity : AppCompatActivity() {
 
         customDialog = CustomProgressDialog(this)
 
+        initViewModel()
+        initBinding()
+        initRv()
+        initStatusBar()
+
+    }
+
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_buy_list)
+    }
+
+    private fun initViewModel() {
         myViewModel =
             ViewModelProvider(this, MyViewModel.Factory(application)).get(MyViewModel::class.java)
 
 
         myViewModel.getbuyItemList().observe(this, Observer { itemList ->
-            Log.d("fhrm", "BuyListActivity -onCreate(),    itemList.size: ${itemList.size}")
             itemRvAdapter.setList(itemList)
         })
 
-        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && myViewModel.getselectedFragment() == "buyListAv"){
+        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2 && myViewModel.getselectedFragment() == "buyListAv") {
                 startItemActivity()
             }
         })
-
-
-
-        initRv()
-        initStatusBar()
-
     }
 
     override fun onResume() {
@@ -58,7 +59,7 @@ class BuyListActivity : AppCompatActivity() {
         initBuyListItem()
     }
 
-    private fun initBuyListItem(){
+    private fun initBuyListItem() {
         myViewModel.setbuyItemList()
     }
 
@@ -69,23 +70,23 @@ class BuyListActivity : AppCompatActivity() {
             adapter = itemRvAdapter
         }
 
-        itemRvAdapter.listener = object :ItemRvAdapter.ClickListener{
+        itemRvAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
                 beforeStartItemActivity(position)
             }
         }
     }
 
-    fun beforeStartItemActivity(position:Int){
+    fun beforeStartItemActivity(position: Int) {
         customDialog.show()
         myViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "buyListAv")
         myViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!, "buyListAv")
     }
 
-    fun startItemActivity(){
+    fun startItemActivity() {
         customDialog.dismiss()
         myViewModel.clearIsStartItemActivity()
-        startActivity(Intent(this,ItemActivity::class.java))
+        startActivity(Intent(this, ItemActivity::class.java))
     }
 
 

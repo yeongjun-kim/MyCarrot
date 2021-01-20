@@ -1,6 +1,5 @@
 package com.mvvm.mycarrot.adapter
 
-import android.util.Log
 import com.bumptech.glide.Glide
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.model.LatestMessageDTO
@@ -18,7 +17,6 @@ class LatestGroupie(val dto: LatestMessageDTO, val listener: ClickListener?) :
     }
 
 
-
     override fun getLayout() = R.layout.item_rv_latestmessage
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
@@ -30,7 +28,8 @@ class LatestGroupie(val dto: LatestMessageDTO, val listener: ClickListener?) :
         viewHolder.itemView.item_latestmessage_tv_nickname.text = dto.opponentNickname
         viewHolder.itemView.item_latestmessage_tv_message.text = dto.message
         viewHolder.itemView.item_latestmessage_tv_dong.text = dto.opponentLocation.split(" ")[1]
-        viewHolder.itemView.item_latestmessage_tv_time.text = SimpleDateFormat("MM월 dd일").format(dto.timestamp)
+        viewHolder.itemView.item_latestmessage_tv_time.text =
+            SimpleDateFormat("MM월 dd일").format(dto.timestamp)
 
 
         Glide.with(viewHolder.itemView.item_latestmessage_iv_profile.context)

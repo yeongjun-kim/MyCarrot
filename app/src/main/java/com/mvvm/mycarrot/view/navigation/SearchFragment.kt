@@ -1,24 +1,21 @@
 package com.mvvm.mycarrot.view.navigation
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mvvm.mycarrot.databinding.FragmentSearchBinding
-import com.mvvm.mycarrot.test.fm2
 import com.mvvm.mycarrot.viewModel.SearchViewModel
-import android.content.Context
-import android.util.Log
-import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
 
 
 class SearchFragment : Fragment() {
@@ -45,21 +42,26 @@ class SearchFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        searchViewModel =
-            ViewModelProvider(activity!!, SearchViewModel.Factory(activity!!.application)).get(
-                SearchViewModel::class.java
-            )
-
-        binding.apply {
-            fm = this@SearchFragment
-            lifecycleOwner = this@SearchFragment
-        }
-
-
+        initViewModel()
+        initBingding()
         initTabLayoutViewPager()
         initEditTextListener()
 
 
+    }
+
+    private fun initBingding() {
+        binding.apply {
+            fm = this@SearchFragment
+            lifecycleOwner = this@SearchFragment
+        }
+    }
+
+    private fun initViewModel() {
+        searchViewModel =
+            ViewModelProvider(activity!!, SearchViewModel.Factory(activity!!.application)).get(
+                SearchViewModel::class.java
+            )
     }
 
     fun cancel() {

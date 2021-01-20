@@ -4,25 +4,13 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
 import com.mvvm.mycarrot.R
-import com.mvvm.mycarrot.room.DatabaseCopier
-import com.mvvm.mycarrot.room.LocationViewModel
 import com.mvvm.mycarrot.view.CustomLoadingDialog
-import com.mvvm.mycarrot.view.CustomProgressDialog
-import com.mvvm.mycarrot.view.LoginActivity
 import com.mvvm.mycarrot.view.MainActivity
 import com.mvvm.mycarrot.viewModel.LoginViewModel
-import kotlinx.coroutines.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -33,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login2)
+        setContentView(R.layout.activity_login)
 
         initLoadingDialog()
         initViewModel()

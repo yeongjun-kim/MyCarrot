@@ -2,7 +2,6 @@ package com.mvvm.mycarrot.view.seeMore
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -29,26 +28,26 @@ class SeeMoreActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initViewModel()
+        initBinding()
+        initTabLayoutViewPager()
+        initStatusBar()
 
+
+    }
+
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            this, HomeViewModel.Factory(this.application)
+        ).get(HomeViewModel::class.java)
+    }
+
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_see_more)
         binding.apply {
             lifecycleOwner = this@SeeMoreActivity
             av = this@SeeMoreActivity
         }
-        8
-
-        homeViewModel = ViewModelProvider(
-            this, HomeViewModel.Factory(this.application)
-        ).get(HomeViewModel::class.java)
-
-
-
-
-        Log.d("fhrm", "SeeMoreActivity -onCreate(),    homeViewModel.getselectedItemOwnersItem().value!!.size: ${homeViewModel.getselectedItemOwnersItem().value!!.size}")
-        initTabLayoutViewPager()
-        initStatusBar()
-
-
     }
 
     private fun initTabLayoutViewPager() {

@@ -1,21 +1,18 @@
 package com.mvvm.mycarrot.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ItemRvOwneritemBinding
-import com.mvvm.mycarrot.databinding.ItemRvOwneritemHorizontalBinding
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.utils.onThrottleClick
-import kotlinx.android.synthetic.main.activity_item.view.*
 
-class OwnerItemRvAdapter: RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHolder>() {
+class OwnerItemRvAdapter : RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHolder>() {
 
-    interface ClickListener{
-        fun onClick(position:Int)
+    interface ClickListener {
+        fun onClick(position: Int)
     }
 
     var itemList = listOf<ItemObject>()
@@ -26,7 +23,8 @@ class OwnerItemRvAdapter: RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHold
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.item_rv_owneritem,
-                parent, false), listener
+                parent, false
+            ), listener
         )
     }
 
@@ -38,20 +36,23 @@ class OwnerItemRvAdapter: RecyclerView.Adapter<OwnerItemRvAdapter.CustomViewHold
         customViewHolder.bind(item)
     }
 
-    fun setList(inputList:List<ItemObject>,maxNum:Int? = null){
-        itemList = if(maxNum ==null || inputList.size <= maxNum) inputList
-        else inputList.subList(0,maxNum)
+    fun setList(inputList: List<ItemObject>, maxNum: Int? = null) {
+        itemList = if (maxNum == null || inputList.size <= maxNum) inputList
+        else inputList.subList(0, maxNum)
 
         notifyDataSetChanged()
     }
 
 
-    inner class CustomViewHolder(val binding:ItemRvOwneritemBinding, val listener:ClickListener?) : RecyclerView.ViewHolder(binding.root) {
+    inner class CustomViewHolder(
+        val binding: ItemRvOwneritemBinding,
+        val listener: ClickListener?
+    ) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.onThrottleClick { listener?.onClick(adapterPosition) }
         }
 
-        fun bind(inputItem:ItemObject){
+        fun bind(inputItem: ItemObject) {
             binding.apply {
                 item = inputItem
             }

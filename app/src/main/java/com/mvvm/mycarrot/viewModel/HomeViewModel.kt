@@ -3,11 +3,12 @@ package com.mvvm.mycarrot.viewModel
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.Query
-import com.google.type.LatLng
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
@@ -40,7 +41,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var selectedItemRecommendItem: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
 
-
     var isFromCategoryFragment = false
     var categoryList = mutableListOf(
         "디지털/가전",
@@ -70,12 +70,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun initDefaultProgress() {
-        if(firebaseRepository.extraArrange == 0.01) progress.value = 0
-        else if(firebaseRepository.extraArrange == 0.02) progress.value = 33
-        else if(firebaseRepository.extraArrange == 0.03) progress.value = 66
+        if (firebaseRepository.extraArrange == 0.01) progress.value = 0
+        else if (firebaseRepository.extraArrange == 0.02) progress.value = 33
+        else if (firebaseRepository.extraArrange == 0.03) progress.value = 66
         else progress.value = 100
     }
-
 
 
     fun refreshLastLoginTime() = firebaseRepository.refreshLastLoginTime()
@@ -83,9 +82,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun getIsStartItemActivity() = firebaseRepository.getIsStartItemActivity()
     fun getselectedFragment() = firebaseRepository.getselectedFragment()
     fun getselectedItem() = selectedItem
-    fun setselectedItem(id: String, fm:String) = firebaseRepository.setSelectedItem(id,fm)
+    fun setselectedItem(id: String, fm: String) = firebaseRepository.setSelectedItem(id, fm)
     fun getselectedItemOwner() = selectedItemOwner
-    fun setselectedItemOwner(id: String, fm:String) = firebaseRepository.setSelectedItemOwner(id,fm)
+    fun setselectedItemOwner(id: String, fm: String) =
+        firebaseRepository.setSelectedItemOwner(id, fm)
 
     fun addToLikeList(id: String) = firebaseRepository.addToLikeList(id)
     fun deleteFromLikeList(id: String) = firebaseRepository.deleteFromLikeList(id)
@@ -107,23 +107,22 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun doCertification() = firebaseRepository.doCertification()
 
 
-
-
     /*
     아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로
     해당 Item과 같은 카테고리에 있는 다른 아이템 목록들을 selectedItemRecommendItem 에 저장한다.
     .*/
     fun getselectedItemRecommendItem() = selectedItemRecommendItem
+
     fun setSelectedItemRecommendItem(itemObject: ItemObject = selectedItem) {
-        var minGeoPoint =firebaseRepository.getMinGeoPoint()
-        var maxGeoPoint =firebaseRepository.getMaxGeoPoint()
+        var minGeoPoint = firebaseRepository.getMinGeoPoint()
+        var maxGeoPoint = firebaseRepository.getMaxGeoPoint()
 
         firebaseStore.collection("items")
-            .whereEqualTo("id",itemObject.id)
+            .whereEqualTo("id", itemObject.id)
             .get()
-            .addOnSuccessListener {snapshot ->
+            .addOnSuccessListener { snapshot ->
                 firebaseStore.collection("items")
-                    .whereEqualTo("category",itemObject.category)
+                    .whereEqualTo("category", itemObject.category)
                     .whereGreaterThanOrEqualTo("geoPoint", minGeoPoint)
                     .whereLessThanOrEqualTo("geoPoint", maxGeoPoint)
                     .orderBy("geoPoint")
@@ -131,10 +130,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     .startAfter(snapshot.documents[0])
                     .limit(10)
                     .get()
-                    .addOnSuccessListener {result->
-                        if(result.isEmpty) return@addOnSuccessListener
+                    .addOnSuccessListener { result ->
+                        if (result.isEmpty) return@addOnSuccessListener
 
-                        selectedItemRecommendItem.value = result.map { it.toObject(ItemObject::class.java) }
+                        selectedItemRecommendItem.value =
+                            result.map { it.toObject(ItemObject::class.java) }
                     }
             }
     }
@@ -145,6 +145,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     해당 Owner의 다른 아이템 목록들을 selectedItemOwnersItem 에 저장한다.
      */
     fun getselectedItemOwnersItem() = selectedItemOwnersItem
+
     fun setSelectedItemOwnersItem(itemList: ArrayList<String> = selectedItemOwner.itemList) {
 
         selectedItemOwnersItem.value = listOf()
@@ -169,12 +170,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-
-    fun saveSelectedItemOwnersItem(){
+    fun saveSelectedItemOwnersItem() {
         firebaseRepository.selectedItemOwnersItem = selectedItemOwnersItem.value!!
     }
-
-
 
 
     fun clickCustomCheckBox(clickString: String) {

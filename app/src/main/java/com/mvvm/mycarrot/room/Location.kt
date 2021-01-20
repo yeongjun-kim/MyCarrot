@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "locationList")
-data class Location (
+data class Location(
     @PrimaryKey val str: String,
-    @ColumnInfo(name = "latitude") val latitude:Double?,
-    @ColumnInfo(name = "longitude") val longitude:Double?
+    @ColumnInfo(name = "latitude") val latitude: Double?,
+    @ColumnInfo(name = "longitude") val longitude: Double?
 )

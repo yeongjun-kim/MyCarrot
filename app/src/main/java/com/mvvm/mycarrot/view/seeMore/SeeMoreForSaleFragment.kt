@@ -40,24 +40,29 @@ class SeeMoreForSaleFragment : Fragment() {
 
         customDialog = CustomProgressDialog(activity!!)
 
-        homeViewModel = ViewModelProvider(
-            activity!!, HomeViewModel.Factory(activity!!.application)
-        ).get(HomeViewModel::class.java)
+        initViewModel()
+        initBinding()
+        initRv()
+        initItemList()
 
+    }
+
+    private fun initBinding() {
         binding.apply {
             lifecycleOwner = this@SeeMoreForSaleFragment
         }
+    }
+
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            activity!!, HomeViewModel.Factory(activity!!.application)
+        ).get(HomeViewModel::class.java)
 
         homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
             if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "seemoreForSaleFm"){
                 startItemActivity()
             }
         })
-
-
-        initRv()
-        initItemList()
-
     }
 
     private fun initItemList() {

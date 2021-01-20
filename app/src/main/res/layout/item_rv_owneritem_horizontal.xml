@@ -16,9 +16,9 @@
         <ImageView
             android:id="@+id/item_rv_owneritem_iv"
             FirstImage="@{item.imageList[0]}"
-            android:layout_marginTop="20dp"
-            android:layout_height="105dp"
             android:layout_width="140dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="20dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@id/item_rv_ownerItem_tv_title"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,13 +47,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:layout_marginBottom="20dp"
             android:hint="5000원"
             android:textColor="#000"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/item_rv_ownerItem_tv_title"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp"
+            app:layout_constraintStart_toStartOf="@id/item_rv_ownerItem_tv_title"
             app:layout_constraintTop_toBottomOf="@id/item_rv_ownerItem_tv_title" />
 
 

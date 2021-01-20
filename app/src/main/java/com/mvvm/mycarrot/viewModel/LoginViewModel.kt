@@ -3,7 +3,6 @@ package com.mvvm.mycarrot.viewModel
 import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.*
-import com.mvvm.mycarrot.model.UserObject
 import com.mvvm.mycarrot.repository.FirebaseRepository
 import com.mvvm.mycarrot.room.Location
 import kotlinx.coroutines.Dispatchers

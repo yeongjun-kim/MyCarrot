@@ -6,24 +6,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ItemRvBuyerBinding
-import com.mvvm.mycarrot.databinding.ItemRvItemBinding
 import com.mvvm.mycarrot.model.LatestMessageDTO
 import com.mvvm.mycarrot.utils.onThrottleClick
 
-class ItemRvBuyerAdapter :RecyclerView.Adapter<ItemRvBuyerAdapter.CustomViewHolder>(){
+class ItemRvBuyerAdapter : RecyclerView.Adapter<ItemRvBuyerAdapter.CustomViewHolder>() {
 
-    interface ClickListener{
-        fun onClick(position:Int)
+    interface ClickListener {
+        fun onClick(position: Int)
     }
 
     var messageList = listOf<LatestMessageDTO>()
-    var listener:ClickListener? = null
+    var listener: ClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         return CustomViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
                 R.layout.item_rv_buyer,
-                parent,false), listener
+                parent, false
+            ), listener
         )
     }
 
@@ -35,16 +36,18 @@ class ItemRvBuyerAdapter :RecyclerView.Adapter<ItemRvBuyerAdapter.CustomViewHold
         customViewHolder.bind(item)
     }
 
-    fun setList(inputList:List<LatestMessageDTO>){
+    fun setList(inputList: List<LatestMessageDTO>) {
         messageList = inputList
         notifyDataSetChanged()
     }
 
-    inner class CustomViewHolder(val binding: ItemRvBuyerBinding, val listener: ClickListener?):RecyclerView.ViewHolder(binding.root){
+    inner class CustomViewHolder(val binding: ItemRvBuyerBinding, val listener: ClickListener?) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.onThrottleClick { listener?.onClick(adapterPosition) }
         }
-        fun bind(inputMessage:LatestMessageDTO){
+
+        fun bind(inputMessage: LatestMessageDTO) {
             binding.apply {
                 message = inputMessage
             }

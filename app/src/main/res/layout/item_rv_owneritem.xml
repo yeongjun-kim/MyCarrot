@@ -11,9 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="14dp"
         android:layout_height="wrap_content"
-        >
+        android:layout_marginBottom="14dp">
 
         <ImageView
             android:id="@+id/item_rv_owneritem_iv"
@@ -28,11 +27,11 @@
 
         <TextView
             android:id="@+id/item_rv_ownerItem_tv_title"
+            Title="@{item.title}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:hint="title"
-            Title="@{item.title}"
             android:textColor="#000"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"

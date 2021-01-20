@@ -76,10 +76,10 @@
 
                 <TextView
                     android:id="@+id/setup_tv_dong"
+                    DongText="@{vm.getCurrentUserObject().location}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="은천동"
-                    DongText="@{vm.getCurrentUserObject().location}"
                     android:textSize="16sp"
                     app1:layout_constraintBottom_toBottomOf="parent"
                     app1:layout_constraintStart_toStartOf="parent"
@@ -87,11 +87,11 @@
 
                 <TextView
                     android:id="@+id/setup_tv_dong_count"
+                    RangeText="@{vm.progress}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:hint="근처 동네 10개"
-                    RangeText="@{vm.progress}"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app1:layout_constraintBottom_toBottomOf="@id/setup_tv_dong"
@@ -148,17 +148,17 @@
 
             <ImageView
                 android:id="@+id/setup_iv_range"
+                setImage="@{vm.progress}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                setImage="@{vm.progress}"
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="42dp"
-                app1:layout_constraintVertical_bias="0.14"
                 app1:layout_constraintBottom_toBottomOf="parent"
                 app1:layout_constraintDimensionRatio="1:1"
                 app1:layout_constraintEnd_toEndOf="parent"
                 app1:layout_constraintStart_toStartOf="parent"
-                app1:layout_constraintTop_toBottomOf="@id/setup_temp3" />
+                app1:layout_constraintTop_toBottomOf="@id/setup_temp3"
+                app1:layout_constraintVertical_bias="0.14" />
 
 
             <Button

@@ -1,11 +1,11 @@
 package com.mvvm.mycarrot.view.navigation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.FragmentCategoryBinding
@@ -34,27 +34,28 @@ class FilterCategoryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        initViewModel()
+        initBinding()
+        initCheck()
+    }
 
-        homeViewModel = ViewModelProvider(
-            activity!!, HomeViewModel.Factory(activity!!.application)
-        ).get(HomeViewModel::class.java)
-
+    private fun initBinding() {
         binding.apply {
             vm = homeViewModel
             fm = this@FilterCategoryFragment
             lifecycleOwner = this@FilterCategoryFragment
         }
+    }
 
-
-        btn_test2.setOnClickListener {
-        }
-
-        initCheck()
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            activity!!, HomeViewModel.Factory(activity!!.application)
+        ).get(HomeViewModel::class.java)
     }
 
     fun onBackPress() {
         activity!!.supportFragmentManager.beginTransaction()
-            .setCustomAnimations(android.R.animator.fade_in,android.R.animator.fade_out)
+            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
             .addToBackStack(null)
             .replace(R.id.main_fl, (activity as MainActivity).homeFragment).commit()
     }

@@ -15,10 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.like.LikeButton
 import com.mvvm.mycarrot.R
@@ -169,7 +166,7 @@ object BindingAdapters {
     fun setCertificationText(view: TextView, vm: HomeViewModel) {
 
         var currentLat = vm.getCurrentLatLong().first
-        var currentLong= vm.getCurrentLatLong().second
+        var currentLong = vm.getCurrentLatLong().second
 
         var userLat = vm.getCurrentUserObject().value!!.geoPoint.latitude
         var userLong = vm.getCurrentUserObject().value!!.geoPoint.longitude
@@ -177,9 +174,9 @@ object BindingAdapters {
         var userDong = vm.getCurrentUserObject().value!!.location!!.split(" ")[1]
         var text = ""
 
-        if(currentLat in userLat-0.01..userLat+0.01 && currentLong in userLong-0.01..userLong+0.01){
+        if (currentLat in userLat - 0.01..userLat + 0.01 && currentLong in userLong - 0.01..userLong + 0.01) {
             text = "현재 위치가 내 동네로 설정한 '${userDong}' 내에 있어요."
-        }else{
+        } else {
             text = "현재 내 동네로 설정되어 있는 '${userDong}' 에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요."
         }
         view.text = text
@@ -193,19 +190,25 @@ object BindingAdapters {
     fun setIsCertificationOk(btn: Button, vm: HomeViewModel) {
 
         var currentLat = vm.getCurrentLatLong().first
-        var currentLong= vm.getCurrentLatLong().second
+        var currentLong = vm.getCurrentLatLong().second
 
         var userLat = vm.getCurrentUserObject().value!!.geoPoint.latitude
         var userLong = vm.getCurrentUserObject().value!!.geoPoint.longitude
 
-        Log.d("fhrm", "BindingAdapters -setIsCertificationOk(),    curLat: ${currentLat}, curLong: ${currentLong}")
-        Log.d("fhrm", "BindingAdapters -setIsCertificationOk(),    userLat: ${userLat}, userLong: ${userLong}")
+        Log.d(
+            "fhrm",
+            "BindingAdapters -setIsCertificationOk(),    curLat: ${currentLat}, curLong: ${currentLong}"
+        )
+        Log.d(
+            "fhrm",
+            "BindingAdapters -setIsCertificationOk(),    userLat: ${userLat}, userLong: ${userLong}"
+        )
 
-        if(currentLat in userLat-0.01..userLat+0.01 && currentLong in userLong-0.01..userLong+0.01){
+        if (currentLat in userLat - 0.01..userLat + 0.01 && currentLong in userLong - 0.01..userLong + 0.01) {
             btn.background =
                 ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_orange)
             btn.isEnabled = true
-        }else{
+        } else {
             btn.background =
                 ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_gray)
             btn.isEnabled = false

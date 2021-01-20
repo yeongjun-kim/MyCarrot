@@ -15,7 +15,8 @@ class ItemRvReviewAdapter : RecyclerView.Adapter<ItemRvReviewAdapter.CustomViewH
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rv_review, parent,false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_rv_review, parent, false)
         return CustomViewHolder(view)
     }
 

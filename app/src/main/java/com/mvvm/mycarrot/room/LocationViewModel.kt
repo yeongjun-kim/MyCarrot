@@ -1,27 +1,22 @@
 package com.mvvm.mycarrot.room
 
 import android.app.Application
-import android.location.Address
-import android.location.Geocoder
-import android.util.Log
 import androidx.lifecycle.*
 import com.mvvm.mycarrot.repository.FirebaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 class LocationViewModel(application: Application) : AndroidViewModel(application) {
     private var locationRepository: LocationRepository
     private var firebaseRepository: FirebaseRepository
 
     private var locationList: LiveData<MutableList<Location>>
-    private var searchList= MutableLiveData<List<Location>>()
-    private var selectedLocation:Location? = null
+    private var searchList = MutableLiveData<List<Location>>()
+    private var selectedLocation: Location? = null
     var currentLat = 0.toDouble()
     var currentLong = 0.toDouble()
 
-    var searchString= MutableLiveData("")
-
+    var searchString = MutableLiveData("")
 
 
     init {
@@ -34,19 +29,19 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     fun getAll() = locationList
 
 
-    fun setLikeQuery(){
+    fun setLikeQuery() {
         viewModelScope.launch(Dispatchers.IO) {
             locationRepository.setLikeQuery(searchString.value?.trimStart()?.trim())
         }
     }
 
-    fun setLocationQuery(){
+    fun setLocationQuery() {
         viewModelScope.launch(Dispatchers.IO) {
             locationRepository.setLocationQuery(currentLat, currentLong)
         }
     }
 
-    fun setCurrentLatLong(lat:Double, long:Double){
+    fun setCurrentLatLong(lat: Double, long: Double) {
         currentLat = lat
         currentLong = long
 
@@ -55,7 +50,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
 
     fun getSelectedLocation() = selectedLocation
 
-    fun setSelectedLocation(location:Location){
+    fun setSelectedLocation(location: Location) {
         selectedLocation = location
     }
 

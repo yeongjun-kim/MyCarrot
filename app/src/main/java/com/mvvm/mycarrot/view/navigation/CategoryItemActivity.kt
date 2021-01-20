@@ -2,15 +2,12 @@ package com.mvvm.mycarrot.view.navigation
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mvvm.mycarrot.R
@@ -20,13 +17,12 @@ import com.mvvm.mycarrot.view.CustomProgressDialog
 import com.mvvm.mycarrot.view.ItemActivity
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.mvvm.mycarrot.viewModel.SearchViewModel
-import kotlinx.android.synthetic.main.activity_category_item.*
 
 class CategoryItemActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityCategoryItemBinding
     lateinit var searchViewModel: SearchViewModel
-    lateinit var homeViewModel:HomeViewModel
+    lateinit var homeViewModel: HomeViewModel
     lateinit var selectedCategory: String
     var isFirstCreate = true
     var categoryItemAdapter = ItemRvAdapter()
@@ -39,14 +35,23 @@ class CategoryItemActivity : AppCompatActivity() {
 
         selectedCategory = intent.getStringExtra("category")!!
 
+        initViewModel()
+        initBinding()
+        initStatusBar()
+        initRv()
 
+    }
+
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category_item)
 
         binding.apply {
             lifecycleOwner = this@CategoryItemActivity
             av = this@CategoryItemActivity
         }
+    }
 
+    private fun initViewModel() {
         searchViewModel = ViewModelProvider(
             this,
             SearchViewModel.Factory(application)
@@ -61,17 +66,11 @@ class CategoryItemActivity : AppCompatActivity() {
             categoryItemAdapter.setList(itemList)
         })
 
-        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && homeViewModel.getselectedFragment() == "categoryItemAv"){
+        homeViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2 && homeViewModel.getselectedFragment() == "categoryItemAv") {
                 startItemActivity()
             }
         })
-
-
-
-        initStatusBar()
-        initRv()
-
     }
 
 
@@ -109,8 +108,11 @@ class CategoryItemActivity : AppCompatActivity() {
 
     fun beforeStartItemActivity(position: Int) {
         customDialog.show()
-        homeViewModel.setselectedItem(categoryItemAdapter.itemList[position].id!!,"categoryItemAv")
-        homeViewModel.setselectedItemOwner(categoryItemAdapter.itemList[position].userId!!,"categoryItemAv")
+        homeViewModel.setselectedItem(categoryItemAdapter.itemList[position].id!!, "categoryItemAv")
+        homeViewModel.setselectedItemOwner(
+            categoryItemAdapter.itemList[position].userId!!,
+            "categoryItemAv"
+        )
     }
 
     fun startItemActivity() {

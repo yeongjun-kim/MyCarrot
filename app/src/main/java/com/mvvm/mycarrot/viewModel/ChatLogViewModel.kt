@@ -42,7 +42,7 @@ class ChatLogViewModel(application: Application) : AndroidViewModel(application)
     fun getRef() = ref
 
 
-    fun sendMessage(latestMessageDTO : LatestMessageDTO) {
+    fun sendMessage(latestMessageDTO: LatestMessageDTO) {
         if (message.value.isNullOrBlank()) return
 
         val myId = currentUserObject.value!!.userId!!
@@ -57,7 +57,15 @@ class ChatLogViewModel(application: Application) : AndroidViewModel(application)
         val yourReference = ref.child("/user-messages/${yourId}/${myId}/${itemId}").push()
 
         val messageDTO =
-            MessageDTO(myId, yourId, opponentProfileUrl, timestamp, myReference.key!!, message, messageType)
+            MessageDTO(
+                myId,
+                yourId,
+                opponentProfileUrl,
+                timestamp,
+                myReference.key!!,
+                message,
+                messageType
+            )
 
         myReference.setValue(messageDTO)
         yourReference.setValue(messageDTO)
@@ -70,35 +78,44 @@ class ChatLogViewModel(application: Application) : AndroidViewModel(application)
     /*
     전송 버튼 누르면, 상대방 token에 Notification 쏘기
      */
-    fun sendNotificationToUser(targetUid:String, msg:String){
+    fun sendNotificationToUser(targetUid: String, msg: String) {
 
-        ref.child("/user-token/${targetUid}").addListenerForSingleValueEvent(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val token = snapshot.value.toString()
+        ref.child("/user-token/${targetUid}")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val token = snapshot.value.toString()
 
-                var model = NotificationBody(token, NotificationData("채팅알림", "${currentUserObject.value!!.nickname}: $msg"))
-                val apiService = ApiClient.client!!.create(Api::class.java)
-                val responseBodyCall = apiService.sendNotification(model)
+                    var model = NotificationBody(
+                        token,
+                        NotificationData("채팅알림", "${currentUserObject.value!!.nickname}: $msg")
+                    )
+                    val apiService = ApiClient.client!!.create(Api::class.java)
+                    val responseBodyCall = apiService.sendNotification(model)
 
-                responseBodyCall.enqueue(object : Callback<ResponseBody?> {
-                    override fun onResponse(call: Call<ResponseBody?>?, response: Response<ResponseBody?>?) {
-                        Log.d("fhrm", "성공, token: ${token}")
-                    }
-                    override fun onFailure(call: Call<ResponseBody?>?, t: Throwable?) {
-                        Log.d("fhrm", "실패")
-                    }
-                })
+                    responseBodyCall.enqueue(object : Callback<ResponseBody?> {
+                        override fun onResponse(
+                            call: Call<ResponseBody?>?,
+                            response: Response<ResponseBody?>?
+                        ) {
+                            Log.d("fhrm", "성공, token: ${token}")
+                        }
 
-            }
-            override fun onCancelled(error: DatabaseError) {}
+                        override fun onFailure(call: Call<ResponseBody?>?, t: Throwable?) {
+                            Log.d("fhrm", "실패")
+                        }
+                    })
 
-        })
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
     }
 
     /*
     전송 버튼 누르면, latestMessage 갱신
      */
-    fun refreshLatestMessage(inputDTO:LatestMessageDTO){
+    fun refreshLatestMessage(inputDTO: LatestMessageDTO) {
 
         val myId = currentUserObject.value!!.userId!!
         val yourId = inputDTO.yourUid

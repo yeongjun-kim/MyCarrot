@@ -26,40 +26,46 @@ class CollectActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityCollectBinding
     lateinit var myViewModel: MyViewModel
-    lateinit var customDialog:CustomProgressDialog
+    lateinit var customDialog: CustomProgressDialog
     private var collectRvAdapter = CollectRvAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         customDialog = CustomProgressDialog(this)
+
+
+
+        initStatusBar()
+        initViewModel()
+        initBinding()
+        initCollectRv()
+        initCollectItemList()
+    }
+
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_collect)
-
-        myViewModel = ViewModelProvider(
-            this, MyViewModel.Factory(application)
-        ).get(MyViewModel::class.java)
-
         binding.apply {
             lifecycleOwner = this@CollectActivity
             av = this@CollectActivity
         }
 
-        initStatusBar()
+    }
+
+    private fun initViewModel() {
+        myViewModel = ViewModelProvider(
+            this, MyViewModel.Factory(application)
+        ).get(MyViewModel::class.java)
 
         myViewModel.getcollectItemList().observe(this, Observer { inputList ->
             collectRvAdapter.setList(inputList)
         })
 
-        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && myViewModel.getselectedFragment() == "collectAv"){
+        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2 && myViewModel.getselectedFragment() == "collectAv") {
                 startItemActivity()
             }
         })
-
-
-
-        initCollectRv()
-        initCollectItemList()
     }
 
     private fun initCollectRv() {
@@ -70,28 +76,29 @@ class CollectActivity : AppCompatActivity() {
             adapter = collectRvAdapter
         }
 
-        collectRvAdapter.listener = object:CollectRvAdapter.ClickListener{
+        collectRvAdapter.listener = object : CollectRvAdapter.ClickListener {
             override fun onClick(position: Int) {
                 beforeStartItemActivity(position)
             }
         }
     }
 
-    fun beforeStartItemActivity(position:Int){
+    fun beforeStartItemActivity(position: Int) {
         customDialog.show()
         myViewModel.setselectedItem(collectRvAdapter.itemList[position].id!!, "collectAv")
         myViewModel.setselectedItemOwner(collectRvAdapter.itemList[position].userId!!, "collectAv")
     }
 
-    fun startItemActivity(){
+    fun startItemActivity() {
         customDialog.dismiss()
         myViewModel.clearIsStartItemActivity()
-        startActivity(Intent(this,ItemActivity::class.java))
+        startActivity(Intent(this, ItemActivity::class.java))
     }
 
-    fun initCollectItemList(){
+    fun initCollectItemList() {
         myViewModel.setcollectItemList()
     }
+
     private fun initStatusBar() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         window.statusBarColor = Color.TRANSPARENT

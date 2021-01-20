@@ -1,9 +1,9 @@
 package com.mvvm.mycarrot.view.sellList
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -26,19 +26,25 @@ class SellListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initViewModel()
+        initBinding()
+        initTabLayoutViewPager()
+        initStatusBar()
+        myViewModel.setmyItemList()
+    }
+
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sell_list)
-        myViewModel = ViewModelProvider(this, MyViewModel.Factory(application)).get(MyViewModel::class.java)
         binding.apply {
             lifecycleOwner = this@SellListActivity
             av = this@SellListActivity
 
         }
+    }
 
-
-
-        initTabLayoutViewPager()
-        initStatusBar()
-        myViewModel.setmyItemList()
+    private fun initViewModel() {
+        myViewModel =
+            ViewModelProvider(this, MyViewModel.Factory(application)).get(MyViewModel::class.java)
     }
 
 

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -14,7 +13,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.view.MainActivity
-import java.lang.Error
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -43,20 +41,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
         val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT
+            this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         val channelId = "my_channel_01"
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId,channelId,NotificationManager.IMPORTANCE_HIGH)
+            val channel =
+                NotificationChannel(channelId, channelId, NotificationManager.IMPORTANCE_HIGH)
             channel.enableLights(true)
             channel.lightColor = Color.BLUE
             channel.enableVibration(true)
-            channel.vibrationPattern = longArrayOf(100,200,100,200)
+            channel.vibrationPattern = longArrayOf(100, 200, 100, 200)
             channel.lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
             notificationManager.createNotificationChannel(channel)
         }
@@ -70,7 +70,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setLargeIcon(BitmapFactory.decodeResource(applicationContext.resources, R.drawable.ic_carrot_push))
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        applicationContext.resources,
+                        R.drawable.ic_carrot_push
+                    )
+                )
                 .setSmallIcon(R.drawable.ic_carrot_push)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
@@ -81,11 +86,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val topActivitYName = componentName!!.shortClassName
 
         // 채팅창(ChatLogActivity)을 보고 있는 상태면, Noti 알림 X
-        if(topActivitYName != ".view.ChatLogActivity")notificationManager.notify(0 , notificationBuilder.build())
-
-
-
-
+        if (topActivitYName != ".view.ChatLogActivity") notificationManager.notify(
+            0,
+            notificationBuilder.build()
+        )
 
 
     }

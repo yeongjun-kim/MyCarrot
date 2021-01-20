@@ -1,7 +1,7 @@
 package com.mvvm.mycarrot.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -17,19 +17,25 @@ class WriteCategoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        writeViewModel = ViewModelProvider(
-            this, WriteViewModel.Factory(application)
-        ).get(WriteViewModel::class.java)
+        initViewModel()
+        initBinding()
+        initSelectedCategory()
 
+
+    }
+
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category)
         binding.apply {
             av = this@WriteCategoryActivity
             lifecycleOwner = this@WriteCategoryActivity
         }
+    }
 
-        initSelectedCategory()
-
-
+    private fun initViewModel() {
+        writeViewModel = ViewModelProvider(
+            this, WriteViewModel.Factory(application)
+        ).get(WriteViewModel::class.java)
     }
 
     private fun initSelectedCategory() {

@@ -4,10 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,11 +14,6 @@ import com.bumptech.glide.Glide
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.databinding.ActivityEditProfileBinding
 import com.mvvm.mycarrot.viewModel.MyViewModel
-import com.mvvm.mycarrot.viewModel.HomeViewModel
-import com.sucho.placepicker.AddressData
-import com.sucho.placepicker.Constants
-import com.sucho.placepicker.MapType
-import com.sucho.placepicker.PlacePicker
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -35,11 +29,14 @@ class EditProfileActivity : AppCompatActivity() {
 
         customDialog = CustomProgressDialog(this)
 
-        myViewModel = ViewModelProvider(
-            this,
-            MyViewModel.Factory(application)
-        ).get(MyViewModel::class.java)
+        initViewModel()
+        initBinding()
+        initStatusBar()
+        initEt()
 
+    }
+
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile)
         binding.apply {
             vm = myViewModel
@@ -47,16 +44,21 @@ class EditProfileActivity : AppCompatActivity() {
             lifecycleOwner = this@EditProfileActivity
         }
 
+    }
+
+    private fun initViewModel() {
+        myViewModel = ViewModelProvider(
+            this,
+            MyViewModel.Factory(application)
+        ).get(MyViewModel::class.java)
+
         myViewModel.isCommitFinish.observe(this, Observer { isFinish ->
-            if(isFinish){
+            if (isFinish) {
                 customDialog.dismiss()
                 myViewModel.isCommitFinish.value = false
                 finish()
             }
         })
-
-        initStatusBar()
-        initEt()
 
     }
 
@@ -71,7 +73,7 @@ class EditProfileActivity : AppCompatActivity() {
         startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
     }
 
-    fun clickFinishBtn(){
+    fun clickFinishBtn() {
         customDialog.show()
         myViewModel.commitChangeInfo()
     }

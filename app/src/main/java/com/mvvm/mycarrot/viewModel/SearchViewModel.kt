@@ -1,13 +1,11 @@
 package com.mvvm.mycarrot.viewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.Query
 import com.mvvm.mycarrot.model.ItemObject
 import com.mvvm.mycarrot.model.UserObject
@@ -43,6 +41,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
      result 가 10 이상일시 10개만 subList
      */
     fun getHotItemList() = hotItemList
+
     fun setHotItemList() {
         firebaseStore.collection("items")
             .whereGreaterThanOrEqualTo("geoPoint", firebaseRepository.getMinGeoPoint())
@@ -200,7 +199,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun getKeywordUserList() = keywordUserList
     fun setKeywordUserList() {
 
-        var end = keyword[keyword.length-1]
+        var end = keyword[keyword.length - 1]
         val newEnding = ++end
 
         var newString = keyword
@@ -209,7 +208,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
         firebaseStore.collection("users")
             .whereGreaterThanOrEqualTo("nickname", keyword)
-            .whereLessThanOrEqualTo("nickname",newString)
+            .whereLessThanOrEqualTo("nickname", newString)
             .get()
             .addOnSuccessListener { result ->
                 if (result.isEmpty) return@addOnSuccessListener

@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.sqlite.db.SimpleSQLiteQuery
 import com.mvvm.mycarrot.R
 import kotlinx.android.synthetic.main.activity_test_room.*
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +30,7 @@ class TestRoomActivity : AppCompatActivity() {
 
 
         vm.getAll().observe(this, Observer {
-//            Log.d("fhrm", "TestRoomActivity -onCreate(),    : ${it}")
+            //            Log.d("fhrm", "TestRoomActivity -onCreate(),    : ${it}")
         })
 
         vm.getLikeQuery().observe(this, Observer {
@@ -39,7 +38,7 @@ class TestRoomActivity : AppCompatActivity() {
         })
 
 
-        var job = CoroutineScope(Dispatchers.IO).launch{
+        var job = CoroutineScope(Dispatchers.IO).launch {
             DatabaseCopier.copyAttachedDatabase(context = applicationContext)
         }
 
@@ -49,7 +48,10 @@ class TestRoomActivity : AppCompatActivity() {
 
 
         roomBtn1.setOnClickListener {
-            Log.d("fhrm", "TestRoomActivity -onCreate(),    vm.getAll().value.size: ${vm.getAll().value!!.size}")
+            Log.d(
+                "fhrm",
+                "TestRoomActivity -onCreate(),    vm.getAll().value.size: ${vm.getAll().value!!.size}"
+            )
         }
 
         roomBtn2.setOnClickListener {
@@ -60,11 +62,6 @@ class TestRoomActivity : AppCompatActivity() {
         }
 
     }
-
-
-
-
-
 
 
 }

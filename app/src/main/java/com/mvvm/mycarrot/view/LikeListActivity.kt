@@ -17,9 +17,9 @@ import com.mvvm.mycarrot.viewModel.MyViewModel
 
 class LikeListActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityLikeListBinding
-    lateinit var myViewModel:MyViewModel
-    lateinit var customDialog:CustomProgressDialog
+    lateinit var binding: ActivityLikeListBinding
+    lateinit var myViewModel: MyViewModel
+    lateinit var customDialog: CustomProgressDialog
     var itemRvAdapter = ItemRvAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,30 +27,35 @@ class LikeListActivity : AppCompatActivity() {
 
         customDialog = CustomProgressDialog(this)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_like_list)
-        myViewModel = ViewModelProvider(
-            this, MyViewModel.Factory(application)
-        ).get(MyViewModel::class.java)
+        initViewModel()
+        initBinding()
+        initRv()
+        initStatusBar()
 
+    }
+
+    private fun initBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_like_list)
         binding.apply {
             av = this@LikeListActivity
             lifecycleOwner = this@LikeListActivity
         }
+    }
+
+    private fun initViewModel() {
+        myViewModel = ViewModelProvider(
+            this, MyViewModel.Factory(application)
+        ).get(MyViewModel::class.java)
 
         myViewModel.getlikeItemList().observe(this, Observer { itemList ->
             itemRvAdapter.setList(itemList)
         })
 
-        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity->
-            if(isStartActivity ==2 && myViewModel.getselectedFragment() == "likeListAv"){
+        myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
+            if (isStartActivity == 2 && myViewModel.getselectedFragment() == "likeListAv") {
                 startItemActivity()
             }
         })
-
-
-        initRv()
-        initStatusBar()
-
     }
 
     override fun onResume() {
@@ -70,7 +75,7 @@ class LikeListActivity : AppCompatActivity() {
             adapter = itemRvAdapter
         }
 
-        itemRvAdapter.listener = object: ItemRvAdapter.ClickListener{
+        itemRvAdapter.listener = object : ItemRvAdapter.ClickListener {
             override fun onClick(position: Int) {
                 beforeStartItemActivity(position)
             }
@@ -78,16 +83,16 @@ class LikeListActivity : AppCompatActivity() {
         }
     }
 
-    fun beforeStartItemActivity(position:Int){
+    fun beforeStartItemActivity(position: Int) {
         customDialog.show()
         myViewModel.setselectedItem(itemRvAdapter.itemList[position].id!!, "likeListAv")
         myViewModel.setselectedItemOwner(itemRvAdapter.itemList[position].userId!!, "likeListAv")
     }
 
-    fun startItemActivity(){
+    fun startItemActivity() {
         customDialog.dismiss()
         myViewModel.clearIsStartItemActivity()
-        startActivity(Intent(this,ItemActivity::class.java))
+        startActivity(Intent(this, ItemActivity::class.java))
     }
 
     private fun initStatusBar() {

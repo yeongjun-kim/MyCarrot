@@ -1,11 +1,10 @@
 package com.mvvm.mycarrot.view
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,31 +27,37 @@ class NeighborhoodCertificationActivity : AppCompatActivity(), OnMapReadyCallbac
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initViewModel()
+        initBinding()
+        initStatusBar()
+        initMap()
+    }
+
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_neighborhood_certification)
-        homeViewModel = ViewModelProvider(
-            this, HomeViewModel.Factory(application)
-        ).get(HomeViewModel::class.java)
 
         binding.apply {
             lifecycleOwner = this@NeighborhoodCertificationActivity
             av = this@NeighborhoodCertificationActivity
             vm = homeViewModel
         }
-
-        homeViewModel.getIsCertificationFinish().observe(this, Observer {isFinish->
-            if(isFinish){
-                homeViewModel.clearIsCertificationFinish()
-                val dong = homeViewModel.getCurrentUserObject().value!!.location!!.split(" ")[1]
-                Toast.makeText(this,"${dong} 동네인증 성공!",Toast.LENGTH_SHORT).show()
-                finish()
-            }
-
-        })
-
-        initStatusBar()
-        initMap()
     }
 
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            this, HomeViewModel.Factory(application)
+        ).get(HomeViewModel::class.java)
+
+        homeViewModel.getIsCertificationFinish().observe(this, Observer { isFinish ->
+            if (isFinish) {
+                homeViewModel.clearIsCertificationFinish()
+                val dong = homeViewModel.getCurrentUserObject().value!!.location!!.split(" ")[1]
+                Toast.makeText(this, "${dong} 동네인증 성공!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        })
+
+    }
 
 
     override fun onMapReady(googleMap: GoogleMap?) {
@@ -72,7 +77,7 @@ class NeighborhoodCertificationActivity : AppCompatActivity(), OnMapReadyCallbac
         (neighborhood_certification_fm_map as SupportMapFragment).getMapAsync(this)
     }
 
-    fun doCertification(){
+    fun doCertification() {
         homeViewModel.doCertification()
     }
 
