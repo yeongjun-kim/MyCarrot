@@ -22,6 +22,7 @@ import com.mvvm.mycarrot.viewModel.ChatLogViewModel
 import com.mvvm.mycarrot.viewModel.HomeViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import java.text.SimpleDateFormat
 
 class ChatLogActivity : AppCompatActivity() {
 
@@ -67,15 +68,22 @@ class ChatLogActivity : AppCompatActivity() {
         val myId = homeViewModel.getCurrentUserObject().value!!.userId!!
         val targetId = latestMessageDTO.yourUid
         val itemId = latestMessageDTO.itemUid
+        var dateList = mutableMapOf<String, Boolean>()
 
         chatLogViewModel.getRef().child("/user-messages/${myId}/${targetId}/${itemId}")
             .addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     if (snapshot.value == null) return
 
+
                     var message = snapshot.getValue(MessageDTO::class.java)!!
-                    if (message.myUid == homeViewModel.getCurrentUserObject().value!!.userId!!) mAdapter.add(ChatLogToGroupie(message))
-                    else mAdapter.add(ChatLogFromGroupie(message))
+                    var date = SimpleDateFormat("yyyy년 MM월 dd일").format(message.timestamp)
+                    Log.d("fhrm", "ChatLogActivity -onChildAdded(),    date: ${date}")
+
+
+                    if (message.myUid == homeViewModel.getCurrentUserObject().value!!.userId!!) mAdapter.add(ChatLogToGroupie(message, dateList[date]==null))
+                    else mAdapter.add(ChatLogFromGroupie(message, dateList[date]==null))
+                    dateList[date] = true
                     binding.chatlogRv.scrollToPosition(mAdapter.itemCount - 1)
                 }
 

@@ -15,12 +15,53 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chatFrom_cl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="14dp"
+                android:background="@color/colorDivision"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/chatFrom_tv_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/chatFrom_tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2020년 12월 17일"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="@color/colorDivision"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/chatFrom_tv_date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ImageView
             android:id="@+id/chat_from_iv_profile"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/chatFrom_cl1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -28,7 +69,7 @@
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/chat_from_iv_profile"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chatFrom_cl1"
             app:layout_constraintWidth_percent="0.7">
 
 
@@ -39,13 +80,23 @@
                 android:background="@drawable/bg_custom_button_gray"
                 android:gravity="left"
                 android:paddingStart="12dp"
-                android:paddingTop="4dp"
+                android:paddingTop="8dp"
                 android:paddingEnd="12dp"
-                android:paddingBottom="4dp"
+                android:paddingBottom="8dp"
                 android:textColor="#000"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/chat_from_tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/chat_from_tv_message"
+                app:layout_constraintStart_toEndOf="@id/chat_from_tv_message" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
