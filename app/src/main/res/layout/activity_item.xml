@@ -493,6 +493,7 @@
                 android:onClick="@{() -> av.startActivityChatLog()}"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                ChatButton = "@{vm}"
                 android:text="채팅으로 거래하기"
                 android:textColor="#ffffff"
                 android:textSize="13sp"

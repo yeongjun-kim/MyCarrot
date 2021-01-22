@@ -111,7 +111,7 @@
             android:id="@+id/item_rv_item_tv_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="0"
+            android:text="@{Integer.toString(item.chatList.size())}"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/item_rv_item_iv"
             app:layout_constraintEnd_toEndOf="parent" />

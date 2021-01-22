@@ -102,10 +102,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun getCurrentLatLong() = firebaseRepository.getCurrentLatLong()
     fun getIsCertificationFinish() = firebaseRepository.getIsCertificationFinish()
     fun clearIsCertificationFinish() = firebaseRepository.clearIsCertificationFinish()
-
-
     fun doCertification() = firebaseRepository.doCertification()
 
+
+
+    fun addToItemChatList(myId: String, itemId: String) {
+        firebaseRepository.addToItemChatList(myId, itemId)
+    }
 
     /*
     아이템 Click 하여 selectedItem 작업이 끝나면, 불리는 함수로

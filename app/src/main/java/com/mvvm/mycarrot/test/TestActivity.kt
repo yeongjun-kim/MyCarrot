@@ -140,7 +140,8 @@ class TestActivity : AppCompatActivity() {
                             c6_price.split(".")[0],
                             GeoPoint(c11_lat.toDouble(), c12_long.toDouble()),
                             BigDecimal(c7_timestamp.toDouble()).toLong(),
-                            c2_likecount.toLong()
+                            c2_likecount.toLong(),
+                            arrayListOf()
                         )
                     )
                 }
@@ -301,7 +302,8 @@ data class firestoreItem(
     var price: String = "",
     var geoPoint: GeoPoint = GeoPoint(0.0, 0.0),
     var timestamp: Long = 0,
-    var likeCount: Long = 0
+    var likeCount: Long = 0,
+    var chatList: ArrayList<String> = arrayListOf()
 )
 
 data class firestoreUser(

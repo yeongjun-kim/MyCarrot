@@ -42,6 +42,14 @@ class ChatLogActivity : AppCompatActivity() {
         initStatusBar()
         initRv()
         initChatListener()
+        addToItemChatList()
+    }
+
+    private fun addToItemChatList() {
+        var myId = homeViewModel.getCurrentUserObject().value!!.userId!!
+        var itemId = homeViewModel.getselectedItem().id!!
+
+        homeViewModel.addToItemChatList(myId, itemId)
     }
 
     private fun initBinding() {
@@ -81,8 +89,10 @@ class ChatLogActivity : AppCompatActivity() {
                     Log.d("fhrm", "ChatLogActivity -onChildAdded(),    date: ${date}")
 
 
-                    if (message.myUid == homeViewModel.getCurrentUserObject().value!!.userId!!) mAdapter.add(ChatLogToGroupie(message, dateList[date]==null))
-                    else mAdapter.add(ChatLogFromGroupie(message, dateList[date]==null))
+                    if (message.myUid == homeViewModel.getCurrentUserObject().value!!.userId!!) mAdapter.add(
+                        ChatLogToGroupie(message, dateList[date] == null)
+                    )
+                    else mAdapter.add(ChatLogFromGroupie(message, dateList[date] == null))
                     dateList[date] = true
                     binding.chatlogRv.scrollToPosition(mAdapter.itemCount - 1)
                 }
@@ -103,6 +113,7 @@ class ChatLogActivity : AppCompatActivity() {
 
 
     fun sendMessage() {
+
         chatLogViewModel.sendMessage(latestMessageDTO)
     }
 
@@ -111,7 +122,7 @@ class ChatLogActivity : AppCompatActivity() {
         binding.chatlogRv.adapter = mAdapter
     }
 
-    fun startActivityProfile(){
+    fun startActivityProfile() {
         startActivity(Intent(this, ProfileActivity::class.java))
     }
 
@@ -123,6 +134,7 @@ class ChatLogActivity : AppCompatActivity() {
     private fun initLatest(): LatestMessageDTO {
         // CharFragment 에서 넘어왔을시 !=Null
         var latest = intent.getSerializableExtra("LatestMessageDTO") as LatestMessageDTO?
+
 
         // ItemActivity 에서 넘어왔을시
         if (latest == null) {

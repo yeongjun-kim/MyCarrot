@@ -33,6 +33,40 @@ object BindingAdapters {
         view.text = "${formattedStringPrice} 원"
     }
 
+
+    /*
+    닉네임이 2자 이하일시 경고문고(SetProfileFragment)
+     */
+    @JvmStatic
+    @BindingAdapter("Leng")
+    fun setLeng(tv: TextView, str: String?) {
+        if (str.isNullOrBlank() || str.length >= 3){
+            tv.visibility = View.GONE
+        }else tv.visibility = View.VISIBLE
+    }
+
+    /*
+    본인이 자신의 상품 봤을땐 [채팅으로 거래하기] 버튼 비활성화 (ItemActivity)
+     */
+    @JvmStatic
+    @BindingAdapter("ChatButton")
+    fun setChatButton(btn: Button, vm: HomeViewModel) {
+        var myId = vm.getCurrentUserObject().value!!.userId!!
+        var itemOwnerId = vm.getselectedItem().userId!!
+
+        if (myId == itemOwnerId) {
+            btn.background =
+                ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_gray)
+            btn.isEnabled = false
+        } else {
+            btn.background =
+                ContextCompat.getDrawable(btn.context, R.drawable.bg_custom_button_orange)
+            btn.isEnabled = true
+        }
+
+    }
+
+
     /*
     OOO님과 OO를 거래했어요. (SendReviewFinishFragment)
      */

@@ -19,6 +19,48 @@
         android:background="#fff"
         android:clickable="true">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/setProfile_cl1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.07"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="프로필 설정"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> fm.commitUser()}"
+                android:paddingEnd="18dp"
+                android:text="완료"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivision"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/setProfile_cl1" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/setProfile_cl2"
@@ -28,9 +70,9 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.30"
-            app:layout_constraintWidth_percent="0.5">
+            app:layout_constraintTop_toBottomOf="@id/setProfile_cl1"
+            app:layout_constraintVertical_bias="0.10"
+            app:layout_constraintWidth_percent="0.35">
 
             <ImageView
                 android:id="@+id/setProfile_iv_profile"
@@ -54,56 +96,50 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/setProfile_tv_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="닉네임"
-            android:textColor="@color/colorOrange"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@id/setProfile_cl2"
-            app:layout_constraintTop_toBottomOf="@id/setProfile_cl2" />
 
         <EditText
             android:id="@+id/setProfile_et_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@null"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="38dp"
+            android:background="@drawable/bg_custom_textview"
+            android:gravity="center"
             android:hint="닉네임을 입력해주세요."
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:singleLine="true"
             android:text="@={loginVm.nickname}"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@id/setProfile_cl2"
-            app:layout_constraintStart_toStartOf="@id/setProfile_cl2"
-            app:layout_constraintTop_toBottomOf="@id/setProfile_tv_nickname" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setProfile_cl2" />
 
-        <LinearLayout
-            android:id="@+id/setProfile_ll1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="3dp"
-            android:background="@color/colorOrange"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/setProfile_et_nickname"
-            app:layout_constraintStart_toStartOf="@id/setProfile_et_nickname"
-            app:layout_constraintTop_toBottomOf="@id/setProfile_et_nickname" />
-
-        <Button
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/setProfile_tv_warning"
+            Leng="@{loginVm.nickname}"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_custom_button_orange"
-            android:onClick="@{() -> fm.commitUser()}"
-            android:text="등록완료"
-            android:textColor="#fff"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="닉네임은 최소 3자 입니당."
+            android:textColor="@android:color/holo_red_light"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/setProfile_ll1"
-            app:layout_constraintStart_toStartOf="@id/setProfile_ll1"
-            app:layout_constraintTop_toBottomOf="@id/setProfile_ll1"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setProfile_et_nickname" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="프로필 사진과 닉네임을 입력해주세요."
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setProfile_tv_warning" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

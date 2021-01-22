@@ -82,8 +82,8 @@ class SetProfileFragment : Fragment() {
 
     fun commitUser() {
 
-        if (loginViewModel.nickname.value.isNullOrBlank() || loginViewModel.profileImage == null) {
-            Toast.makeText(activity, "정보를 모두 입력해주세용", Toast.LENGTH_SHORT).show()
+        if (loginViewModel.nickname.value.isNullOrBlank() || loginViewModel.nickname.value!!.length < 3 || loginViewModel.profileImage == null) {
+            Toast.makeText(activity, "정보를 올바르게 입력해주세용", Toast.LENGTH_SHORT).show()
         } else {
             customDialog.show()
             loginViewModel.commitUserObject(
