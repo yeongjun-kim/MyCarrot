@@ -486,7 +486,7 @@
                 app:layout_constraintTop_toBottomOf="@id/item_tv_price" />
 
             <Button
-                android:id="@+id/item_test"
+                android:id="@+id/item_btn_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_custom_button_orange"

@@ -86,7 +86,6 @@ class ChatLogActivity : AppCompatActivity() {
 
                     var message = snapshot.getValue(MessageDTO::class.java)!!
                     var date = SimpleDateFormat("yyyy년 MM월 dd일").format(message.timestamp)
-                    Log.d("fhrm", "ChatLogActivity -onChildAdded(),    date: ${date}")
 
 
                     if (message.myUid == homeViewModel.getCurrentUserObject().value!!.userId!!) mAdapter.add(

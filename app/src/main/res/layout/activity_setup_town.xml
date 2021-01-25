@@ -32,7 +32,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="관심 카테고리 설정"
+                android:textColor="#000"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app1:layout_constraintBottom_toBottomOf="parent"
                 app1:layout_constraintEnd_toEndOf="parent"
                 app1:layout_constraintStart_toStartOf="parent"
@@ -159,15 +161,6 @@
                 app1:layout_constraintStart_toStartOf="parent"
                 app1:layout_constraintTop_toBottomOf="@id/setup_temp3"
                 app1:layout_constraintVertical_bias="0.14" />
-
-
-            <Button
-                android:id="@+id/btn_test3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test"
-                app1:layout_constraintBottom_toBottomOf="parent"
-                app1:layout_constraintEnd_toEndOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

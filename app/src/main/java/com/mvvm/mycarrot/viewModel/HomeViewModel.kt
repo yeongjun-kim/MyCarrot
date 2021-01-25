@@ -64,15 +64,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         homeItemList = firebaseRepository.getHomeItems()
         selectedItem = firebaseRepository.getselectedItem()
         selectedItemOwner = firebaseRepository.getselectedItemOwner()
-        selectedItemOwnersItem.value = firebaseRepository.selectedItemOwnersItem
+        selectedItemOwnersItem.value = firebaseRepository.getselectedItemOwnersItem()
         isStartItemActivity = firebaseRepository.getIsStartItemActivity()
         initDefaultProgress()
     }
 
     private fun initDefaultProgress() {
-        if (firebaseRepository.extraArrange == 0.01) progress.value = 0
-        else if (firebaseRepository.extraArrange == 0.02) progress.value = 33
-        else if (firebaseRepository.extraArrange == 0.03) progress.value = 66
+        if (firebaseRepository.getextraArrange() == 0.01) progress.value = 0
+        else if (firebaseRepository.getextraArrange() == 0.02) progress.value = 33
+        else if (firebaseRepository.getextraArrange() == 0.03) progress.value = 66
         else progress.value = 100
     }
 
@@ -153,7 +153,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         selectedItemOwnersItem.value = listOf()
 
-        Log.d("fhrm", "HomeViewModel -setSelectedItemOwnersItem(),    : ${itemList.size}")
 
         itemList.forEach {
             firebaseStore.collection("items")
@@ -174,7 +173,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun saveSelectedItemOwnersItem() {
-        firebaseRepository.selectedItemOwnersItem = selectedItemOwnersItem.value!!
+        firebaseRepository.setselectedItemOwnersItem(selectedItemOwnersItem.value!!)
     }
 
 
@@ -184,12 +183,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         else categoryList.add(clickString)
     }
 
-    fun getExtraArrange() = firebaseRepository.extraArrange
+    fun getExtraArrange() = firebaseRepository.getextraArrange()
     fun setExtraArrange(progress: Int) {
-        if (progress in 0..32) firebaseRepository.extraArrange = 0.01
-        else if (progress in 33..65) firebaseRepository.extraArrange = 0.02
-        else if (progress in 66..99) firebaseRepository.extraArrange = 0.03
-        else firebaseRepository.extraArrange = 0.04
+        if (progress in 0..32) firebaseRepository.setextraArrange(0.01)
+        else if (progress in 33..65) firebaseRepository.setextraArrange(0.02)
+        else if (progress in 66..99) firebaseRepository.setextraArrange(0.03)
+        else firebaseRepository.setextraArrange(0.04)
 
 
     }

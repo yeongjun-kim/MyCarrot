@@ -31,7 +31,7 @@
         </activity>
 
         <activity
-            android:name=".test.TestActivity"
+            android:name=".test.InsertDummyDataActivity"
             android:screenOrientation="portrait">
 
             <!--<intent-filter>-->
@@ -42,7 +42,6 @@
         </activity>
 
 
-        <activity android:name=".room.TestRoomActivity" />
         <activity android:name=".view.BuyListActivity" />
         <activity android:name=".view.MannerDetailActivity" />
         <activity android:name=".view.buyComplete.BuyCompleteActivity" />
@@ -64,8 +63,6 @@
         <activity
             android:name=".view.ChatLogActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".test.TestChatActivity" />
-        <activity android:name=".test.act" />
         <activity android:name=".view.seeMore.SeeMoreActivity" />
         <activity android:name=".view.navigation.CategoryItemActivity" />
         <activity

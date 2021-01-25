@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class WriteViewModel(application: Application) : AndroidViewModel(application) {
     private val firebaseRepository: FirebaseRepository
     private var currentUserObject: MutableLiveData<UserObject>
-    var category: MutableLiveData<String>
+    private var category: MutableLiveData<String> = MutableLiveData("카테고리 선택")
 
     var userId: String? = null
     var userLocation: String? = null
@@ -23,6 +23,8 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
     var price: String = ""
     var viewPagerPosition = MutableLiveData(0)
     var uriImageListSize = MutableLiveData(0)
+
+
 
 
     init {
@@ -48,7 +50,7 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getisWirteSuccess() = firebaseRepository.getisWriteSucess()
 
-    fun getcategory() = firebaseRepository.category
+    fun getcategory() = category
 
     fun addUriToList(uri: Uri) {
         if (uriImageList.value!!.size >= 10) return

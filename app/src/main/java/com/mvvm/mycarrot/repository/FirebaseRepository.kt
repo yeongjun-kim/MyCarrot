@@ -65,39 +65,39 @@ class FirebaseRepository private constructor() {
     private val firebaseStorage = FirebaseStorage.getInstance()
 
 
-    var currentUserObject: MutableLiveData<UserObject> = MutableLiveData()
-    var loginMode: MutableLiveData<Int> = MutableLiveData(0)
-    var currentLat = 37.55
-    var currentLong = 126.97
+    private var currentUserObject: MutableLiveData<UserObject> = MutableLiveData()
+    private var loginMode: MutableLiveData<Int> = MutableLiveData(0)
+    private var currentLat = 37.55
+    private var currentLong = 126.97
 
-    var profileUrl = ""
-    var category: MutableLiveData<String> = MutableLiveData("카테고리 선택")
-    var extraArrange: Double = 0.01
+    private var profileUrl = ""
+    private var category: MutableLiveData<String> = MutableLiveData("카테고리 선택")
+    private var extraArrange: Double = 0.01
 
-    var isExistAccount = MutableLiveData(0)
-    var isSignSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
-    var isWriteSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
-    var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
-    var isCertificationFinish: MutableLiveData<Boolean> = MutableLiveData(false)
+    private var isExistAccount = MutableLiveData(0)
+    private var isSignSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
+    private var isWriteSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
+    private var isStartItemActivity: MutableLiveData<Int> = MutableLiveData(0)
+    private var isCertificationFinish: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    var homeItemQuery: Query? = null
-    var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
-    var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
-    var likeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var homeItemQuery: Query? = null
+    private var homeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var collectItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var likeItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
-    var selectedItem = ItemObject()
-    var selectedItemOwner = UserObject()
-    var selectedItemOwnersItem: List<ItemObject> = listOf()
-    var selectedFragment = ""
+    private var selectedItem = ItemObject()
+    private var selectedItemOwner = UserObject()
+    private var selectedItemOwnersItem: List<ItemObject> = listOf()
+    private var selectedFragment = ""
 
-    var buyItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
-    var myItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var buyItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
+    private var myItemList: MutableLiveData<List<ItemObject>> = MutableLiveData(listOf())
 
-    var buyCompleteItem = MutableLiveData<ItemObject>()
-    var buyCompleteChatList = MutableLiveData<List<LatestMessageDTO>>()
-    var selectedBuyer = MutableLiveData<UserObject>()
-    val positiveReviewList = MutableLiveData<List<String>>(listOf())
-    val negativeReviewList = MutableLiveData<List<String>>(listOf())
+    private var buyCompleteItem = MutableLiveData<ItemObject>()
+    private var buyCompleteChatList = MutableLiveData<List<LatestMessageDTO>>()
+    private var selectedBuyer = MutableLiveData<UserObject>()
+    private val positiveReviewList = MutableLiveData<List<String>>(listOf())
+    private val negativeReviewList = MutableLiveData<List<String>>(listOf())
 
     companion object {
         @Volatile
@@ -112,6 +112,11 @@ class FirebaseRepository private constructor() {
 
     init {
         initCurrentUser()
+    }
+
+    fun getselectedItemOwnersItem() = selectedItemOwnersItem
+    fun setselectedItemOwnersItem(list:List<ItemObject>) {
+        selectedItemOwnersItem = list
     }
 
 
@@ -754,7 +759,11 @@ class FirebaseRepository private constructor() {
         )
     }
 
+    fun setextraArrange(d: Double) {
+        extraArrange = d
+    }
 
+    fun getextraArrange() = extraArrange
     fun getCurretUser() = currentUserObject
     fun getloginMode() = loginMode
     fun getFirebaseAuth() = firebaseAuth

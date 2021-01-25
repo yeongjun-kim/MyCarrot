@@ -15,7 +15,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvvm.mycarrot.R
 import com.mvvm.mycarrot.room.LocationViewModel
-import com.mvvm.mycarrot.test.TestActivity
 import com.mvvm.mycarrot.view.navigation.ChatFragment
 import com.mvvm.mycarrot.view.navigation.HomeFragment
 import com.mvvm.mycarrot.view.navigation.MyFragment
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-
                     supportFragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                         .addToBackStack(null) // setCustomAnimations 이용할시, 빠른 화면전화면 에러나는 버그로 인해 추가
@@ -92,8 +90,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        test_btn1.setOnClickListener {
-            test()
+        main_dummy_data.setOnClickListener {
+            InsertDummyDataActivity()
         }
     }
 
@@ -129,18 +127,14 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("fhrm", "MainActivity -onDestroy(),    : destroy")
-    }
 
     private fun initStatusBar() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         window.statusBarColor = Color.TRANSPARENT
     }
 
-    fun test() {
-        startActivity(Intent(this, TestActivity::class.java))
+    fun InsertDummyDataActivity() {
+        startActivity(Intent(this, com.mvvm.mycarrot.test.InsertDummyDataActivity::class.java))
     }
 
 

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.mvvm.mycarrot.R
-import kotlinx.android.synthetic.main.activity_test.*
+import kotlinx.android.synthetic.main.activity_insert_dummy_data.*
 import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -17,7 +17,7 @@ import java.io.InputStream
 import java.math.BigDecimal
 
 
-class TestActivity : AppCompatActivity() {
+class InsertDummyDataActivity : AppCompatActivity() {
 
     var uri: Uri? = null
     var itemList: MutableList<firestoreItem> = mutableListOf()            //MutableList 생성
@@ -27,7 +27,7 @@ class TestActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+        setContentView(R.layout.activity_insert_dummy_data)
 
 
         //********************************** DEFAULT **********************************//

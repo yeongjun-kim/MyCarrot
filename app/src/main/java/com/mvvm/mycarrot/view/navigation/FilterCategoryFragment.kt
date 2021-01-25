@@ -18,10 +18,6 @@ class FilterCategoryFragment : Fragment() {
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentCategoryBinding
 
-    init {
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

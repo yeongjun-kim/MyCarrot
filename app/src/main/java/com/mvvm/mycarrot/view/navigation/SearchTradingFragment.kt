@@ -85,7 +85,6 @@ class SearchTradingFragment : Fragment() {
         })
 
         searchViewModel.getKeywordItemList().observe(this, Observer { itemList ->
-            Log.d("fhrm", "SearchTradingFragment -onActivityCreated(),    : here")
             searchItemRvAdapter.setList(itemList)
         })
 

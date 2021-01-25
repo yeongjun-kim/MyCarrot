@@ -32,7 +32,7 @@ class ChatLogViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         firebaseRepository = FirebaseRepository.getInstance()
-        currentUserObject = firebaseRepository.currentUserObject
+        currentUserObject = firebaseRepository.getCurretUser()
         db = Firebase.database
         ref = db.reference
     }

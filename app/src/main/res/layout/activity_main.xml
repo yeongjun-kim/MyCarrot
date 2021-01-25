@@ -40,11 +40,11 @@
         app:menu="@menu/bottom_nav_menu" />
 
     <Button
-        android:id="@+id/test_btn1"
+        android:id="@+id/main_dummy_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TESTACTIVITY"
-        android:visibility="visible"
+        android:text="DUMMY DATA"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintEnd_toEndOf="parent" />
 

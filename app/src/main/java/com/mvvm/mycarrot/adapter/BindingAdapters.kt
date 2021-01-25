@@ -146,6 +146,7 @@ object BindingAdapters {
     @BindingAdapter("IsSoldout")
     fun setIsSoldout(cl: ConstraintLayout, status: String) {
         if (status == "soldout") cl.alpha = 0.4f
+        else cl.alpha = 1f
     }
 
     /*
