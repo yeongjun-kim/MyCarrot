@@ -21,7 +21,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
 
-        <activity android:name=".view.login.LoginActivity"
+        <activity android:name=".presentation.login.LoginActivity"
             android:windowSoftInputMode="adjustPan|adjustResize"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -42,18 +42,18 @@
         </activity>
 
 
-        <activity android:name=".view.BuyListActivity" />
-        <activity android:name=".view.MannerDetailActivity" />
-        <activity android:name=".view.buyComplete.BuyCompleteActivity" />
-        <activity android:name=".view.sellList.SellListActivity" />
-        <activity android:name=".view.LikeListActivity" />
-        <activity android:name=".view.CollectActivity" />
-        <activity android:name=".view.NeighborhoodCertificationActivity" />
-        <activity android:name=".view.EditProfileActivity" />
-        <activity android:name=".view.NoticeActivity" />
+        <activity android:name=".presentation.my.BuyListActivity" />
+        <activity android:name=".presentation.my.profile.MannerDetailActivity" />
+        <activity android:name=".presentation.buyComplete.BuyCompleteActivity" />
+        <activity android:name=".presentation.my.sellList.SellListActivity" />
+        <activity android:name=".presentation.my.LikeListActivity" />
+        <activity android:name=".presentation.my.CollectActivity" />
+        <activity android:name=".presentation.my.NeighborhoodCertificationActivity" />
+        <activity android:name=".presentation.my.EditProfileActivity" />
+        <activity android:name=".presentation.my.NoticeActivity" />
 
         <service
-            android:name=".service.MyFirebaseMessagingService"
+            android:name="com.mvvm.mycarrot.data.service.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -61,28 +61,28 @@
         </service>
 
         <activity
-            android:name=".view.ChatLogActivity"
+            android:name=".presentation.chat.ChatLogActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".view.seeMore.SeeMoreActivity" />
-        <activity android:name=".view.navigation.CategoryItemActivity" />
+        <activity android:name=".presentation.seeMore.SeeMoreActivity" />
+        <activity android:name=".presentation.search.CategoryItemActivity" />
         <activity
-            android:name=".view.ItemActivity"
+            android:name=".presentation.common.ItemActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.ProfileActivity"
+            android:name=".presentation.my.profile.ProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.navigation.SetupTownActivity"
+            android:name=".presentation.home.SetupTownActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.WriteCategoryActivity"
+            android:name=".presentation.write.WriteCategoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.WriteActivity"
+            android:name=".presentation.write.WriteActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name=".view.MainActivity"
+            android:name=".presentation.common.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />

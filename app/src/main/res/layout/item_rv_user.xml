@@ -6,7 +6,7 @@
 
         <variable
             name="user"
-            type="com.mvvm.mycarrot.model.UserObject" />
+            type="com.mvvm.mycarrot.data.model.UserObject" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

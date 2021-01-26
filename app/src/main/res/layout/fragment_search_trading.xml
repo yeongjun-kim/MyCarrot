@@ -7,17 +7,17 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.navigation.SearchTradingFragment" />
+            type="com.mvvm.mycarrot.presentation.search.SearchTradingFragment" />
 
         <variable
             name="svm"
-            type="com.mvvm.mycarrot.viewModel.SearchViewModel" />
+            type="com.mvvm.mycarrot.presentation.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.navigation.SearchTradingFragment">
+        tools:context=".presentation.search.SearchTradingFragment">
 
 
         <FrameLayout
@@ -131,11 +131,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
+                            android:paddingStart="18dp"
                             android:text="카테고리"
                             android:textColor="#000"
                             android:textSize="18dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.03"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -368,10 +367,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
+                            android:paddingStart="18dp"
                             android:textColor="#000"
                             android:textSize="18dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.03"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -425,11 +423,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
+                            android:paddingStart="18dp"
                             android:text="@{svm.getCurrentUserObject().nickname}"
                             android:textColor="#000"
                             android:textSize="18dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.03"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

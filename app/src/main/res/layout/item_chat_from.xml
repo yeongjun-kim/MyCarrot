@@ -6,7 +6,7 @@
 
         <variable
             name="dto"
-            type="com.mvvm.mycarrot.model.MessageDTO" />
+            type="com.mvvm.mycarrot.data.model.MessageDTO" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

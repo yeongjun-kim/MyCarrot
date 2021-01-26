@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.mvvm.mycarrot.model.ItemObject" />
+            type="com.mvvm.mycarrot.data.model.ItemObject" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

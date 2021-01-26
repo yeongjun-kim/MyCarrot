@@ -7,11 +7,11 @@
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.HomeViewModel" />
+            type="com.mvvm.mycarrot.presentation.home.HomeViewModel" />
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.ItemActivity" />
+            type="com.mvvm.mycarrot.presentation.common.ItemActivity" />
 
 
     </data>
@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ItemActivity">
+        tools:context=".presentation.common.ItemActivity">
 
 
         <androidx.core.widget.NestedScrollView

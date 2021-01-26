@@ -8,22 +8,22 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.ChatLogActivity" />
+            type="com.mvvm.mycarrot.presentation.chat.ChatLogActivity" />
 
         <variable
             name="latestMessage"
-            type="com.mvvm.mycarrot.model.LatestMessageDTO" />
+            type="com.mvvm.mycarrot.data.model.LatestMessageDTO" />
 
         <variable
             name="chatLogvm"
-            type="com.mvvm.mycarrot.viewModel.ChatLogViewModel" />
+            type="com.mvvm.mycarrot.presentation.chat.ChatLogViewModel" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ChatLogActivity">
+        tools:context=".presentation.chat.ChatLogActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chatlog_cl1"

@@ -8,13 +8,13 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.MannerDetailActivity" />
+            type="com.mvvm.mycarrot.presentation.my.profile.MannerDetailActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.MannerDetailActivity">
+        tools:context=".presentation.my.profile.MannerDetailActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mannerDetail_cl1"

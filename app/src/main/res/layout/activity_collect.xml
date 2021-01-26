@@ -7,7 +7,7 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.CollectActivity" />
+            type="com.mvvm.mycarrot.presentation.my.CollectActivity" />
 
     </data>
 
@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.CollectActivity">
+        tools:context=".presentation.my.CollectActivity">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

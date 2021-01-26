@@ -6,11 +6,11 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.login.SetProfileFragment" />
+            type="com.mvvm.mycarrot.presentation.login.SetProfileFragment" />
 
         <variable
             name="loginVm"
-            type="com.mvvm.mycarrot.viewModel.LoginViewModel" />
+            type="com.mvvm.mycarrot.presentation.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

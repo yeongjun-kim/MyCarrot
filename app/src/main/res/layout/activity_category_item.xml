@@ -7,14 +7,14 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.navigation.CategoryItemActivity" />
+            type="com.mvvm.mycarrot.presentation.search.CategoryItemActivity" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.navigation.CategoryItemActivity">
+        tools:context=".presentation.search.CategoryItemActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/categoryitem_cl"

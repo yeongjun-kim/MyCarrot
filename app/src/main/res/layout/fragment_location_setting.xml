@@ -6,11 +6,11 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.login.LocationSettingFragment" />
+            type="com.mvvm.mycarrot.presentation.login.LocationSettingFragment" />
 
         <variable
             name="locationvm"
-            type="com.mvvm.mycarrot.room.LocationViewModel" />
+            type="com.mvvm.mycarrot.data.db.LocationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,18 +7,18 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.WriteActivity" />
+            type="com.mvvm.mycarrot.presentation.write.WriteActivity" />
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.WriteViewModel" />
+            type="com.mvvm.mycarrot.presentation.write.WriteViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.WriteActivity">
+        tools:context=".presentation.write.WriteActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

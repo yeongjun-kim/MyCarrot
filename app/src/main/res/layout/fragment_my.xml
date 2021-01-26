@@ -7,17 +7,17 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.navigation.MyFragment" />
+            type="com.mvvm.mycarrot.presentation.my.MyFragment" />
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.MyViewModel" />
+            type="com.mvvm.mycarrot.presentation.my.MyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.navigation.MyFragment">
+        tools:context=".presentation.my.MyFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/my_cl1"

@@ -7,13 +7,13 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.BuyListActivity" />
+            type="com.mvvm.mycarrot.presentation.my.BuyListActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.BuyListActivity">
+        tools:context=".presentation.my.BuyListActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/buyList_cl1"

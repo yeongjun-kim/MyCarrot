@@ -8,18 +8,18 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.navigation.SetupTownActivity" />
+            type="com.mvvm.mycarrot.presentation.home.SetupTownActivity" />
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.HomeViewModel" />
+            type="com.mvvm.mycarrot.presentation.home.HomeViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.navigation.SetupTownActivity">
+        tools:context=".presentation.home.SetupTownActivity">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +31,7 @@
                 android:id="@+id/text4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="관심 카테고리 설정"
+                android:text="내 동네 설정"
                 android:textColor="#000"
                 android:textSize="16sp"
                 android:textStyle="bold"

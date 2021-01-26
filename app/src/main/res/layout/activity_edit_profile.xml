@@ -7,17 +7,17 @@
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.MyViewModel" />
+            type="com.mvvm.mycarrot.presentation.my.MyViewModel" />
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.EditProfileActivity" />
+            type="com.mvvm.mycarrot.presentation.my.EditProfileActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.EditProfileActivity">
+        tools:context=".presentation.my.EditProfileActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/edit_profile_cl1"

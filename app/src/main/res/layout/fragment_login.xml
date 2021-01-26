@@ -7,7 +7,7 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.login.LoginFragment" />
+            type="com.mvvm.mycarrot.presentation.login.LoginFragment" />
     </data>
 
 
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="#FAFAFA"
         android:clickable="true"
-        tools:context=".view.login.LoginActivity">
+        tools:context=".presentation.login.LoginActivity">
 
         <ImageView
             android:id="@+id/login_iv1"

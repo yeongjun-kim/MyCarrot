@@ -8,11 +8,11 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.navigation.HomeFragment" />
+            type="com.mvvm.mycarrot.presentation.home.HomeFragment" />
 
         <variable
             name="homeVm"
-            type="com.mvvm.mycarrot.viewModel.HomeViewModel" />
+            type="com.mvvm.mycarrot.presentation.home.HomeViewModel" />
     </data>
 
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.navigation.HomeFragment">
+        tools:context=".presentation.home.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

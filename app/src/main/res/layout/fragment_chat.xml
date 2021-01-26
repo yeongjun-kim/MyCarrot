@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.navigation.ChatFragment">
+        tools:context=".presentation.chat.ChatFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chat_cl"

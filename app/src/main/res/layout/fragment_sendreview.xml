@@ -8,11 +8,11 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.buyComplete.SendReviewFragment" />
+            type="com.mvvm.mycarrot.presentation.buyComplete.SendReviewFragment" />
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.BuyCompleteViewModel" />
+            type="com.mvvm.mycarrot.presentation.buyComplete.BuyCompleteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

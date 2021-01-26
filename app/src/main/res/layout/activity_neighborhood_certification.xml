@@ -5,11 +5,11 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.NeighborhoodCertificationActivity" />
+            type="com.mvvm.mycarrot.presentation.my.NeighborhoodCertificationActivity" />
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.HomeViewModel" />
+            type="com.mvvm.mycarrot.presentation.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,7 +17,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.NeighborhoodCertificationActivity">
+        tools:context=".presentation.my.NeighborhoodCertificationActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/neighborhood_certification_cl1"
@@ -75,7 +75,7 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".view.NeighborhoodCertificationActivity" />
+                tools:context=".presentation.my.NeighborhoodCertificationActivity" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

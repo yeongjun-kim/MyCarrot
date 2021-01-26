@@ -7,17 +7,17 @@
 
         <variable
             name="fm"
-            type="com.mvvm.mycarrot.view.navigation.SearchFragment" />
+            type="com.mvvm.mycarrot.presentation.search.SearchFragment" />
 
         <variable
             name="svm"
-            type="com.mvvm.mycarrot.viewModel.SearchViewModel" />
+            type="com.mvvm.mycarrot.presentation.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.navigation.SearchFragment">
+        tools:context=".presentation.search.SearchFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fm_search_cl1"

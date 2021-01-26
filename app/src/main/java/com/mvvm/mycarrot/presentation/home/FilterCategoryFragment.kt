@@ -1,0 +1,97 @@
+package com.mvvm.mycarrot.presentation.home
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.mvvm.mycarrot.R
+import com.mvvm.mycarrot.databinding.FragmentCategoryBinding
+import com.mvvm.mycarrot.presentation.common.MainActivity
+import kotlinx.android.synthetic.main.fragment_category.*
+
+class FilterCategoryFragment : Fragment() {
+
+    lateinit var homeViewModel: HomeViewModel
+    lateinit var binding: FragmentCategoryBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false)
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        initViewModel()
+        initBinding()
+        initCheck()
+    }
+
+    private fun initBinding() {
+        binding.apply {
+            vm = homeViewModel
+            fm = this@FilterCategoryFragment
+            lifecycleOwner = this@FilterCategoryFragment
+        }
+    }
+
+    private fun initViewModel() {
+        homeViewModel = ViewModelProvider(
+            activity!!, HomeViewModel.Factory(activity!!.application)
+        ).get(HomeViewModel::class.java)
+    }
+
+    fun onBackPress() {
+        activity!!.supportFragmentManager.beginTransaction()
+            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+            .addToBackStack(null)
+            .replace(R.id.main_fl, (activity as MainActivity).homeFragment).commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        homeViewModel.isFromCategoryFragment = true
+    }
+
+    private fun initCheck() {
+        if (homeViewModel.categoryList.contains("디지털/가전")) {
+            fm_category_cb_digital.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("가구/인테리어")) {
+            fm_category_cb_furniture.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("생활/가공식품")) {
+            fm_category_cb_life.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("여성패션/잡화")) {
+            fm_category_cb_woman.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("남성패션/잡화")) {
+            fm_category_cb_man.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("게임/취미/스포츠/레저")) {
+            fm_category_cb_game.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("뷰티/미용")) {
+            fm_category_cb_beauty.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("유아/반려동물용품")) {
+            fm_category_cb_pet.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("도서/티켓/음반")) {
+            fm_category_cb_book.isChecked = true
+        }
+        if (homeViewModel.categoryList.contains("삽니다")) {
+            fm_category_cb_buy.isChecked = true
+        }
+
+    }
+}
+

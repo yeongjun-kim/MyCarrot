@@ -7,7 +7,7 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.seeMore.SeeMoreActivity" />
+            type="com.mvvm.mycarrot.presentation.seeMore.SeeMoreActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,7 +70,7 @@
         <LinearLayout
             android:id="@+id/seemore_temp2"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@color/colorDivision"

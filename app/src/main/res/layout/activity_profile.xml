@@ -7,18 +7,18 @@
 
         <variable
             name="av"
-            type="com.mvvm.mycarrot.view.ProfileActivity" />
+            type="com.mvvm.mycarrot.presentation.my.profile.ProfileActivity" />
 
         <variable
             name="vm"
-            type="com.mvvm.mycarrot.viewModel.HomeViewModel" />
+            type="com.mvvm.mycarrot.presentation.home.HomeViewModel" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ProfileActivity">
+        tools:context=".presentation.my.profile.ProfileActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/profile_cl"
