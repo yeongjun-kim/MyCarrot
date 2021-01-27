@@ -26,14 +26,14 @@
             android:id="@+id/item_nsv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/item_cl_4"
+            app:layout_constraintBottom_toTopOf="@id/item_cl4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_cl_1"
+                android:id="@+id/item_cl1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -57,7 +57,7 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/item_cl_2"
+                    android:id="@+id/item_cl2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -146,23 +146,23 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
-                    android:id="@+id/item_temp2"
+                    android:id="@+id/item_ll2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/colorDivision"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/item_cl_2" />
+                    app:layout_constraintTop_toBottomOf="@id/item_cl2" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/item_cl_3"
+                    android:id="@+id/item_cl3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    app:layout_constraintEnd_toEndOf="@id/item_temp2"
-                    app:layout_constraintStart_toStartOf="@id/item_temp2"
-                    app:layout_constraintTop_toBottomOf="@id/item_temp2">
+                    app:layout_constraintEnd_toEndOf="@id/item_ll2"
+                    app:layout_constraintStart_toStartOf="@id/item_ll2"
+                    app:layout_constraintTop_toBottomOf="@id/item_ll2">
 
                     <TextView
                         android:id="@+id/item_tv_status"
@@ -198,7 +198,7 @@
                         app:layout_constraintTop_toBottomOf="@id/item_title" />
 
                     <TextView
-                        android:id="@+id/item_temp3"
+                        android:id="@+id/item_tv3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" • "
@@ -212,9 +212,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@id/item_temp3"
-                        app:layout_constraintStart_toEndOf="@id/item_temp3"
-                        app:layout_constraintTop_toTopOf="@id/item_temp3" />
+                        app:layout_constraintBottom_toBottomOf="@id/item_tv3"
+                        app:layout_constraintStart_toEndOf="@id/item_tv3"
+                        app:layout_constraintTop_toTopOf="@id/item_tv3" />
 
                     <TextView
                         android:id="@+id/item_tv_overview"
@@ -238,7 +238,7 @@
                         app:layout_constraintTop_toBottomOf="@id/item_tv_overview" />
 
                     <TextView
-                        android:id="@+id/item_temp4"
+                        android:id="@+id/item_tv4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" • "
@@ -250,15 +250,13 @@
                         LookUp="@{vm.getselectedItem().lookup}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="조회 0"
-
-                        app:layout_constraintBottom_toBottomOf="@id/item_temp4"
-                        app:layout_constraintStart_toEndOf="@id/item_temp4"
-                        app:layout_constraintTop_toTopOf="@id/item_temp4" />
+                        app:layout_constraintBottom_toBottomOf="@id/item_tv4"
+                        app:layout_constraintStart_toEndOf="@id/item_tv4"
+                        app:layout_constraintTop_toTopOf="@id/item_tv4" />
 
 
                     <LinearLayout
-                        android:id="@+id/item_temp5"
+                        android:id="@+id/item_ll5"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="22dp"
@@ -275,10 +273,10 @@
                         android:text="이 게시글 신고하기"
                         android:textColor="#000000"
                         android:textSize="16sp"
-                        app:layout_constraintTop_toBottomOf="@id/item_temp5" />
+                        app:layout_constraintTop_toBottomOf="@id/item_ll5" />
 
                     <LinearLayout
-                        android:id="@+id/item_temp6"
+                        android:id="@+id/item_ll6"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/colorDivision"
@@ -286,7 +284,7 @@
                         app:layout_constraintTop_toBottomOf="@id/item_report" />
 
                     <TextView
-                        android:id="@+id/item_temp7"
+                        android:id="@+id/item_tv7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22dp"
@@ -295,7 +293,7 @@
                         android:textSize="15sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/item_temp6" />
+                        app:layout_constraintTop_toBottomOf="@id/item_ll6" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -304,9 +302,9 @@
                         android:textColor="#000"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@id/item_temp7"
-                        app:layout_constraintStart_toEndOf="@id/item_temp7"
-                        app:layout_constraintTop_toTopOf="@id/item_temp7" />
+                        app:layout_constraintBottom_toBottomOf="@id/item_tv7"
+                        app:layout_constraintStart_toEndOf="@id/item_tv7"
+                        app:layout_constraintTop_toTopOf="@id/item_tv7" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -314,19 +312,19 @@
                         android:onClick="@{() -> av.startActivitySeeMore()}"
                         android:text="더보기"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@id/item_temp7"
+                        app:layout_constraintBottom_toBottomOf="@id/item_tv7"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/item_temp7" />
+                        app:layout_constraintTop_toTopOf="@id/item_tv7" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/item_rv_ownerItem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/item_temp7" />
+                        app:layout_constraintTop_toBottomOf="@id/item_tv7" />
 
                     <LinearLayout
-                        android:id="@+id/item_temp8"
+                        android:id="@+id/item_ll8"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
@@ -339,14 +337,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22dp"
-
-                        android:hint="엉겅"
                         android:text="@{vm.getCurrentUserObject().nickname}"
                         android:textColor="#000"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/item_temp8" />
+                        app:layout_constraintTop_toBottomOf="@id/item_ll8" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -397,7 +393,7 @@
                 app:layout_constraintVertical_bias="0.8" />
 
             <LinearLayout
-                android:id="@+id/item_temp10"
+                android:id="@+id/item_ll10"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorDivision"
@@ -411,7 +407,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/item_cl_4"
+            android:id="@+id/item_cl4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -427,7 +423,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_cl_5"
+                android:id="@+id/item_cl5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -454,14 +450,14 @@
 
 
             <TextView
-                android:id="@+id/item_temp1"
+                android:id="@+id/item_tv1"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:background="@color/colorDivision"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/item_cl_5"
+                app:layout_constraintStart_toEndOf="@id/item_cl5"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -473,15 +469,15 @@
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.06"
-                app:layout_constraintStart_toEndOf="@id/item_temp1"
-                app:layout_constraintTop_toTopOf="@id/item_temp1" />
+                app:layout_constraintStart_toEndOf="@id/item_tv1"
+                app:layout_constraintTop_toTopOf="@id/item_tv1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="가격제안 불가"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/item_temp1"
+                app:layout_constraintBottom_toBottomOf="@id/item_tv1"
                 app:layout_constraintStart_toStartOf="@id/item_tv_price"
                 app:layout_constraintTop_toBottomOf="@id/item_tv_price" />
 

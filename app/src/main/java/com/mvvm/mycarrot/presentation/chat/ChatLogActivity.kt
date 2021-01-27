@@ -101,7 +101,7 @@ class ChatLogActivity : AppCompatActivity() {
                         )
                     )
                     dateList[date] = true
-                    binding.chatlogRv.scrollToPosition(mAdapter.itemCount - 1)
+                    binding.chatLogRv.scrollToPosition(mAdapter.itemCount - 1)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -126,7 +126,7 @@ class ChatLogActivity : AppCompatActivity() {
 
 
     private fun initRv() {
-        binding.chatlogRv.adapter = mAdapter
+        binding.chatLogRv.adapter = mAdapter
     }
 
     fun startActivityProfile() {

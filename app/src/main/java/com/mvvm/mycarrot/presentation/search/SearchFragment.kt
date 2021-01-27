@@ -66,22 +66,22 @@ class SearchFragment : Fragment() {
     }
 
     fun cancel() {
-        binding.fmSearchEt.text.clear()
+        binding.searchEt.text.clear()
         searchTradingFragment.changeLayout("toNestedScrollView")
         searchUserFragment.changeLayout("toDefault")
         searchViewModel.clearKeywordList()
     }
 
     private fun initEditTextListener() {
-        binding.fmSearchEt.imeOptions = EditorInfo.IME_ACTION_SEARCH
-        binding.fmSearchEt.setOnEditorActionListener { _, actionId, _ ->
+        binding.searchEt.imeOptions = EditorInfo.IME_ACTION_SEARCH
+        binding.searchEt.setOnEditorActionListener { _, actionId, _ ->
             hideSoftKeyboard()
-            if (binding.fmSearchEt.text.isNullOrBlank()) {
+            if (binding.searchEt.text.isNullOrBlank()) {
                 Toast.makeText(activity, "검색어를 입력해주세용", Toast.LENGTH_SHORT).show()
             } else {
                 searchTradingFragment.changeLayout("toSearchRv")
                 searchUserFragment.changeLayout("toSearchRv")
-                searchViewModel.setKeyword(binding.fmSearchEt.text.toString())
+                searchViewModel.setKeyword(binding.searchEt.text.toString())
                 searchViewModel.test()
             }
             true
@@ -90,15 +90,15 @@ class SearchFragment : Fragment() {
 
     private fun hideSoftKeyboard() {
         val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.fmSearchEt.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.searchEt.windowToken, 0)
     }
 
 
     private fun initTabLayoutViewPager() {
         val vpAdapter = ViewPagerAdapter(activity!!)
-        binding.fmSearchVp.adapter = vpAdapter
+        binding.searchVp.adapter = vpAdapter
 
-        TabLayoutMediator(binding.fmSearchTl, binding.fmSearchVp) { tab, position ->
+        TabLayoutMediator(binding.searchTl, binding.searchVp) { tab, position ->
             val tabLayoutTextArray = arrayOf("중고거래", "사람")
             tab.text = tabLayoutTextArray[position]
         }.attach()

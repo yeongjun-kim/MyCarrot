@@ -9,12 +9,12 @@
         tools:context=".presentation.my.sellList.SellListForSaleFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sell_list_forsale_rv"
+            android:id="@+id/sellListForSale_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/sell_list_forsale_tv"
+            android:id="@+id/sellListForSale_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

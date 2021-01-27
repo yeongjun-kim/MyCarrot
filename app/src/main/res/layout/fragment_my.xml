@@ -241,7 +241,7 @@
                     app:layout_constraintTop_toBottomOf="@id/my_cl3">
 
                     <ImageView
-                        android:id="@+id/my_iv_location_certification"
+                        android:id="@+id/my_iv_locationCertification"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="16dp"
@@ -259,9 +259,9 @@
                         android:text="동네 인증하기"
                         android:textColor="#000"
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@id/my_iv_location_certification"
-                        app:layout_constraintStart_toEndOf="@id/my_iv_location_certification"
-                        app:layout_constraintTop_toTopOf="@id/my_iv_location_certification" />
+                        app:layout_constraintBottom_toBottomOf="@id/my_iv_locationCertification"
+                        app:layout_constraintStart_toEndOf="@id/my_iv_locationCertification"
+                        app:layout_constraintTop_toTopOf="@id/my_iv_locationCertification" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

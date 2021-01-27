@@ -25,26 +25,26 @@ class LatestGroupie(val dto: LatestMessageDTO, val listener: ClickListener?) :
             listener?.onClick(dto)
         }
 
-        viewHolder.itemView.item_latestmessage_tv_nickname.text = dto.opponentNickname
-        viewHolder.itemView.item_latestmessage_tv_message.text = dto.message
-        viewHolder.itemView.item_latestmessage_tv_dong.text = dto.opponentLocation.split(" ")[1]
-        viewHolder.itemView.item_latestmessage_tv_time.text =
+        viewHolder.itemView.itemLatestmessage_tv_nickname.text = dto.opponentNickname
+        viewHolder.itemView.itemLatestmessage_tv_message.text = dto.message
+        viewHolder.itemView.itemLatestmessage_tv_dong.text = dto.opponentLocation.split(" ")[1]
+        viewHolder.itemView.itemLatestmessage_tv_time.text =
             SimpleDateFormat("MM월 dd일").format(dto.timestamp)
 
 
-        Glide.with(viewHolder.itemView.item_latestmessage_iv_profile.context)
+        Glide.with(viewHolder.itemView.itemLatestmessage_iv_profile.context)
             .load(dto.opponentProfileUrl)
             .placeholder(R.drawable.ic_user)
             .circleCrop()
             .thumbnail(0.1f)
-            .into(viewHolder.itemView.item_latestmessage_iv_profile)
+            .into(viewHolder.itemView.itemLatestmessage_iv_profile)
 
-        Glide.with(viewHolder.itemView.item_latestmessage_iv_itemurl.context)
+        Glide.with(viewHolder.itemView.itemLatestmessage_iv_itemurl.context)
             .load(dto.itemImageUrl)
             .placeholder(R.drawable.ic_user)
             .circleCrop()
             .thumbnail(0.1f)
-            .into(viewHolder.itemView.item_latestmessage_iv_itemurl)
+            .into(viewHolder.itemView.itemLatestmessage_iv_itemurl)
     }
 }
 

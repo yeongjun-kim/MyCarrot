@@ -85,7 +85,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/write_temp_one"
+                    android:id="@+id/write_iv1"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_camera_alt_black_24dp"
@@ -96,34 +96,34 @@
                     app:layout_constraintVertical_bias="0.35" />
 
                 <TextView
-                    android:id="@+id/write_tv_image_count"
+                    android:id="@+id/write_tv_imageCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:text="@{Integer.toString(vm.uriImageListSize)}"
                     android:textColor="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="@id/write_temp_two"
-                    app:layout_constraintEnd_toStartOf="@id/write_temp_two"
-                    app:layout_constraintTop_toTopOf="@id/write_temp_two" />
+                    app:layout_constraintBottom_toBottomOf="@id/write_tv2"
+                    app:layout_constraintEnd_toStartOf="@id/write_tv2"
+                    app:layout_constraintTop_toTopOf="@id/write_tv2" />
 
                 <TextView
-                    android:id="@+id/write_temp_two"
+                    android:id="@+id/write_tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="/"
-                    app:layout_constraintEnd_toEndOf="@id/write_temp_one"
-                    app:layout_constraintStart_toStartOf="@id/write_temp_one"
-                    app:layout_constraintTop_toBottomOf="@id/write_temp_one" />
+                    app:layout_constraintEnd_toEndOf="@id/write_iv1"
+                    app:layout_constraintStart_toStartOf="@id/write_iv1"
+                    app:layout_constraintTop_toBottomOf="@id/write_iv1" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="10"
-                    app:layout_constraintBottom_toBottomOf="@id/write_temp_two"
-                    app:layout_constraintStart_toEndOf="@id/write_temp_two"
-                    app:layout_constraintTop_toTopOf="@id/write_temp_two" />
+                    app:layout_constraintBottom_toBottomOf="@id/write_tv2"
+                    app:layout_constraintStart_toEndOf="@id/write_tv2"
+                    app:layout_constraintTop_toTopOf="@id/write_tv2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -143,7 +143,7 @@
             </androidx.viewpager2.widget.ViewPager2>
 
             <TextView
-                android:id="@+id/write_tv_image_count2"
+                android:id="@+id/write_tv_imageCount2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"

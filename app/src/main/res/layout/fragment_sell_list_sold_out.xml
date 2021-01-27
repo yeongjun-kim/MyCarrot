@@ -10,14 +10,14 @@
         tools:context=".presentation.my.sellList.SellListSoldOutFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sell_list_soldout_rv"
+            android:id="@+id/sellListSoldOut_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="16dp"
             android:paddingEnd="16dp" />
 
         <TextView
-            android:id="@+id/sell_list_soldout_tv"
+            android:id="@+id/sellListSoldOut_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

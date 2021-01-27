@@ -72,7 +72,7 @@ class SeeMoreTotalFragment : Fragment() {
     }
 
     private fun initRv() {
-        binding.seemoreTotalRv.run {
+        binding.seeMoreTotalRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = itemRvAdapter

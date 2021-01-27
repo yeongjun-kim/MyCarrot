@@ -22,7 +22,7 @@ class ItemRvReviewAdapter : RecyclerView.Adapter<ItemRvReviewAdapter.CustomViewH
 
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.itemView.item_rv_review_tv.text = reviewList[position]
+        holder.itemView.itemRvReview_tv.text = reviewList[position]
     }
 
     fun setList(inputList: List<String>) {

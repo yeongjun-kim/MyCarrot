@@ -20,7 +20,7 @@
         tools:context=".presentation.my.NeighborhoodCertificationActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/neighborhood_certification_cl1"
+            android:id="@+id/neighborhoodCertification_cl1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.07"
@@ -35,14 +35,14 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/neighborhood_certification_iv_backpress"
-                app:layout_constraintStart_toEndOf="@id/neighborhood_certification_iv_backpress"
-                app:layout_constraintTop_toTopOf="@id/neighborhood_certification_iv_backpress"
+                app:layout_constraintBottom_toBottomOf="@id/neighborhoodCertification_iv_backpress"
+                app:layout_constraintStart_toEndOf="@id/neighborhoodCertification_iv_backpress"
+                app:layout_constraintTop_toTopOf="@id/neighborhoodCertification_iv_backpress"
 
                 />
 
             <ImageView
-                android:id="@+id/neighborhood_certification_iv_backpress"
+                android:id="@+id/neighborhoodCertification_iv_backpress"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="14dp"
@@ -56,22 +56,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/neighborhood_certification_ll1"
+            android:id="@+id/neighborhoodCertification_ll1"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/colorDivision"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/neighborhood_certification_cl1" />
+            app:layout_constraintTop_toBottomOf="@id/neighborhoodCertification_cl1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/neighborhood_certification_cl2"
+            android:id="@+id/neighborhoodCertification_cl2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintTop_toBottomOf="@id/neighborhood_certification_ll1">
+            app:layout_constraintTop_toBottomOf="@id/neighborhoodCertification_ll1">
 
             <fragment
-                android:id="@+id/neighborhood_certification_fm_map"
+                android:id="@+id/neighborhoodCertification_fm_map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -80,10 +80,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/neighborhood_certification_cl3"
+            android:id="@+id/neighborhoodCertification_cl3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/neighborhood_certification_cl2">
+            app:layout_constraintTop_toBottomOf="@id/neighborhoodCertification_cl2">
 
             <TextView
                 CertificationText="@{vm}"
@@ -106,7 +106,7 @@
             android:layout_height="1dp"
             android:background="@color/colorDivision"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/neighborhood_certification_cl3" />
+            app:layout_constraintTop_toBottomOf="@id/neighborhoodCertification_cl3" />
 
         <Button
             IsCertificationOk="@{vm}"

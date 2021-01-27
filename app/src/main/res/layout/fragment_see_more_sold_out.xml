@@ -9,7 +9,7 @@
         tools:context=".presentation.seeMore.SeeMoreSoldOutFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/seemore_soldout_rv"
+            android:id="@+id/seeMoreSoldOut_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

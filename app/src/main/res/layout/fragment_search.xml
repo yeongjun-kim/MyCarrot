@@ -20,7 +20,7 @@
         tools:context=".presentation.search.SearchFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fm_search_cl1"
+            android:id="@+id/search_cl1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
                 app:layout_constraintWidth_percent="0.8">
 
                 <ImageView
-                    android:id="@+id/fm_search_temp1"
+                    android:id="@+id/search_iv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_search_gray_24dp"
@@ -53,7 +53,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/fm_search_et"
+                    android:id="@+id/search_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -64,7 +64,7 @@
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/fm_search_temp1"
+                    app:layout_constraintStart_toEndOf="@id/search_iv1"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -88,13 +88,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/fm_search_tl"
+            android:id="@+id/search_tl"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.058"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fm_search_cl1"
+            app:layout_constraintTop_toBottomOf="@id/search_cl1"
             app:tabIndicatorColor="@color/colorPrimary">
 
             <com.google.android.material.tabs.TabItem
@@ -112,20 +112,20 @@
         </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
-            android:id="@+id/fm_search_temp2"
+            android:id="@+id/search_ll1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorDivision"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/fm_search_tl" />
+            app:layout_constraintTop_toBottomOf="@id/search_tl" />
 
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/fm_search_vp"
+            android:id="@+id/search_vp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fm_search_temp2" />
+            app:layout_constraintTop_toBottomOf="@id/search_ll1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/item_rv_review_iv"
+        android:id="@+id/itemRvReview_iv"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_check_black_24dp"
@@ -15,13 +15,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/item_rv_review_tv"
+        android:id="@+id/itemRvReview_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@id/item_rv_review_iv"
-        app:layout_constraintStart_toEndOf="@id/item_rv_review_iv"
-        app:layout_constraintTop_toTopOf="@id/item_rv_review_iv" />
+        app:layout_constraintBottom_toBottomOf="@id/itemRvReview_iv"
+        app:layout_constraintStart_toEndOf="@id/itemRvReview_iv"
+        app:layout_constraintTop_toTopOf="@id/itemRvReview_iv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

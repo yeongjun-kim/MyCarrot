@@ -16,7 +16,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/item_latestmessage_cl1"
+            android:id="@+id/itemLatestmessage_cl1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="14dp"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/item_latestmessage_iv_profile"
+                android:id="@+id/itemLatestmessage_iv_profile"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="14dp"
@@ -34,61 +34,61 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/item_latestmessage_tv_nickname"
+                android:id="@+id/itemLatestmessage_tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:textColor="#000"
                 android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@id/item_latestmessage_iv_profile"
-                app:layout_constraintTop_toTopOf="@id/item_latestmessage_iv_profile" />
+                app:layout_constraintStart_toEndOf="@id/itemLatestmessage_iv_profile"
+                app:layout_constraintTop_toTopOf="@id/itemLatestmessage_iv_profile" />
 
             <TextView
-                android:id="@+id/item_latestmessage_tv_dong"
+                android:id="@+id/itemLatestmessage_tv_dong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:textSize="13sp"
-                app:layout_constraintStart_toEndOf="@id/item_latestmessage_tv_nickname"
-                app:layout_constraintTop_toTopOf="@id/item_latestmessage_tv_nickname" />
+                app:layout_constraintStart_toEndOf="@id/itemLatestmessage_tv_nickname"
+                app:layout_constraintTop_toTopOf="@id/itemLatestmessage_tv_nickname" />
 
             <TextView
-                android:id="@+id/item_latestmessage_tv_temp1"
+                android:id="@+id/itemLatestmessage_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" • "
                 android:textSize="13sp"
-                app:layout_constraintStart_toEndOf="@id/item_latestmessage_tv_dong"
-                app:layout_constraintTop_toTopOf="@id/item_latestmessage_tv_dong" />
+                app:layout_constraintStart_toEndOf="@id/itemLatestmessage_tv_dong"
+                app:layout_constraintTop_toTopOf="@id/itemLatestmessage_tv_dong" />
 
             <TextView
-                android:id="@+id/item_latestmessage_tv_time"
+                android:id="@+id/itemLatestmessage_tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                app:layout_constraintStart_toEndOf="@id/item_latestmessage_tv_temp1"
-                app:layout_constraintTop_toTopOf="@id/item_latestmessage_tv_temp1" />
+                app:layout_constraintStart_toEndOf="@id/itemLatestmessage_tv1"
+                app:layout_constraintTop_toTopOf="@id/itemLatestmessage_tv1" />
 
             <TextView
-                android:id="@+id/item_latestmessage_tv_message"
+                android:id="@+id/itemLatestmessage_tv_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
                 android:maxLines="1"
                 android:textColor="#000"
-                app:layout_constraintBottom_toBottomOf="@id/item_latestmessage_iv_profile"
-                app:layout_constraintEnd_toStartOf="@id/item_latestmessage_iv_itemurl"
-                app:layout_constraintStart_toStartOf="@id/item_latestmessage_tv_nickname"
-                app:layout_constraintTop_toBottomOf="@id/item_latestmessage_tv_nickname" />
+                app:layout_constraintBottom_toBottomOf="@id/itemLatestmessage_iv_profile"
+                app:layout_constraintEnd_toStartOf="@id/itemLatestmessage_iv_itemurl"
+                app:layout_constraintStart_toStartOf="@id/itemLatestmessage_tv_nickname"
+                app:layout_constraintTop_toBottomOf="@id/itemLatestmessage_tv_nickname" />
 
             <ImageView
-                android:id="@+id/item_latestmessage_iv_itemurl"
+                android:id="@+id/itemLatestmessage_iv_itemurl"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="14dp"
-                app:layout_constraintBottom_toBottomOf="@id/item_latestmessage_iv_profile"
+                app:layout_constraintBottom_toBottomOf="@id/itemLatestmessage_iv_profile"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/item_latestmessage_iv_profile" />
+                app:layout_constraintTop_toTopOf="@id/itemLatestmessage_iv_profile" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/seemore_temp1"
+            android:id="@+id/seeMore_tv1"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
@@ -32,20 +32,20 @@
             android:layout_height="24dp"
             android:onClick="@{() -> av.onBackPressed()}"
             android:src="@drawable/ic_arrow_back_black_14dp"
-            app:layout_constraintBottom_toBottomOf="@id/seemore_temp1"
-            app:layout_constraintEnd_toStartOf="@id/seemore_temp1"
+            app:layout_constraintBottom_toBottomOf="@id/seeMore_tv1"
+            app:layout_constraintEnd_toStartOf="@id/seeMore_tv1"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/seemore_temp1" />
+            app:layout_constraintTop_toTopOf="@id/seeMore_tv1" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/seemore_tl"
+            android:id="@+id/seeMore_tl"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.08"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seemore_temp1"
+            app:layout_constraintTop_toBottomOf="@id/seeMore_tv1"
             app:tabIndicatorColor="@color/colorPrimary">
 
             <com.google.android.material.tabs.TabItem
@@ -68,7 +68,7 @@
         </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
-            android:id="@+id/seemore_temp2"
+            android:id="@+id/seeMore_ll1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
@@ -77,16 +77,16 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seemore_tl" />
+            app:layout_constraintTop_toBottomOf="@id/seeMore_tl" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/seemore_vp"
+            android:id="@+id/seeMore_vp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seemore_temp2" />
+            app:layout_constraintTop_toBottomOf="@id/seeMore_ll1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

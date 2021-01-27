@@ -99,7 +99,7 @@ class SearchTradingFragment : Fragment() {
     }
 
     private fun initSearchItemRv() {
-        binding.fmSearchRvSearchitem.run {
+        binding.searchTradingRvSearchitem.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = searchItemRvAdapter
@@ -119,11 +119,11 @@ class SearchTradingFragment : Fragment() {
      */
     fun changeLayout(mode: String) {
         if (mode == "toSearchRv") {
-            binding.fmSearchTradingNsv.visibility = View.INVISIBLE
-            binding.fmSearchTradingClSearchitem.visibility = View.VISIBLE
+            binding.searchTradingNsv.visibility = View.INVISIBLE
+            binding.searchTradingClSearchitem.visibility = View.VISIBLE
         } else if (mode == "toNestedScrollView") {
-            binding.fmSearchTradingNsv.visibility = View.VISIBLE
-            binding.fmSearchTradingClSearchitem.visibility = View.INVISIBLE
+            binding.searchTradingNsv.visibility = View.VISIBLE
+            binding.searchTradingClSearchitem.visibility = View.INVISIBLE
         }
     }
 
@@ -133,7 +133,7 @@ class SearchTradingFragment : Fragment() {
     }
 
     private fun initRecommdItemRv() {
-        binding.fmSearchRvRecommend.run {
+        binding.searchTradingRvRecommend.run {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 2)
             addItemDecoration(
@@ -158,7 +158,7 @@ class SearchTradingFragment : Fragment() {
     }
 
     private fun initHotItemRv() {
-        binding.fmSearchRvHotitem.run {
+        binding.searchTradingRvHotitem.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             addItemDecoration(

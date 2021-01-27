@@ -53,7 +53,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/profile_division"
+            android:id="@+id/profile_ll1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorDivision"
@@ -66,7 +66,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_division">
+            app:layout_constraintTop_toBottomOf="@id/profile_ll1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -120,12 +120,12 @@
                         android:background="@drawable/bg_custom_textview"
                         android:text="매너평가하기"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toStartOf="@id/profile_empty1"
+                        app:layout_constraintEnd_toStartOf="@id/profile_tv1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/profile_iv_profile" />
 
                     <TextView
-                        android:id="@+id/profile_empty1"
+                        android:id="@+id/profile_tv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="   "
@@ -143,7 +143,7 @@
                         android:onClick="@{() -> av.likeUser()}"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/profile_empty1"
+                        app:layout_constraintStart_toEndOf="@id/profile_tv1"
                         app:layout_constraintTop_toTopOf="@id/profile_btn_manner" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -204,12 +204,12 @@
                         android:layout_height="wrap_content"
                         android:text="첫 온도 36.5°C"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@id/profile_tv_temp3"
-                        app:layout_constraintStart_toStartOf="@id/profile_tv_temp3"
-                        app:layout_constraintTop_toTopOf="@id/profile_tv_temp3" />
+                        app:layout_constraintEnd_toEndOf="@id/profile_tv3"
+                        app:layout_constraintStart_toStartOf="@id/profile_tv3"
+                        app:layout_constraintTop_toTopOf="@id/profile_tv3" />
 
                     <TextView
-                        android:id="@+id/profile_tv_temp3"
+                        android:id="@+id/profile_tv3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="▾"
@@ -290,7 +290,7 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
-                                android:id="@+id/profile_tv_temp2"
+                                android:id="@+id/profile_tv2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="2dp"
@@ -308,8 +308,8 @@
                                 지 않았어요"
                                 android:textSize="10sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="@id/profile_tv_temp2"
-                                app:layout_constraintTop_toBottomOf="@id/profile_tv_temp2"
+                                app:layout_constraintStart_toStartOf="@id/profile_tv2"
+                                app:layout_constraintTop_toBottomOf="@id/profile_tv2"
                                 app:layout_constraintVertical_bias="0.35"
                                 tools:ignore="HardcodedText" />
 
@@ -373,7 +373,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
-                    android:id="@+id/profile_ll1"
+                    android:id="@+id/profile_ll5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorDivision"

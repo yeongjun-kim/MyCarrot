@@ -26,21 +26,21 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/fm_search_trading_cl_searchitem"
+                android:id="@+id/searchTrading_cl_searchitem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="invisible">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/fm_search_trading_cl1"
+                    android:id="@+id/searchTrading_cl1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     app:layout_constraintHeight_percent="0.075"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/fm_search_trading_iv_filter"
+                        android:id="@+id/searchTrading_iv_filter"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:src="@drawable/ic_filter"
@@ -59,12 +59,12 @@
                         android:text="검색 필터"
                         android:textColor="#000"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@id/fm_search_trading_iv_filter"
-                        app:layout_constraintStart_toEndOf="@id/fm_search_trading_iv_filter"
-                        app:layout_constraintTop_toTopOf="@id/fm_search_trading_iv_filter" />
+                        app:layout_constraintBottom_toBottomOf="@id/searchTrading_iv_filter"
+                        app:layout_constraintStart_toEndOf="@id/searchTrading_iv_filter"
+                        app:layout_constraintTop_toTopOf="@id/searchTrading_iv_filter" />
 
                     <TextView
-                        android:id="@+id/fm_search_trading_temp1"
+                        android:id="@+id/searchTrading_tv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="거래완료 안보기"
@@ -80,24 +80,24 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="5dp"
-                        app:layout_constraintBottom_toBottomOf="@id/fm_search_trading_temp1"
+                        app:layout_constraintBottom_toBottomOf="@id/searchTrading_tv1"
                         app:layout_constraintDimensionRatio="1:1"
-                        app:layout_constraintEnd_toStartOf="@id/fm_search_trading_temp1"
+                        app:layout_constraintEnd_toStartOf="@id/searchTrading_tv1"
                         app:layout_constraintHeight_percent="0.6"
-                        app:layout_constraintTop_toTopOf="@id/fm_search_trading_temp1" />
+                        app:layout_constraintTop_toTopOf="@id/searchTrading_tv1" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
-                    android:id="@+id/fm_search_trading_temp2"
+                    android:id="@+id/searchTrading_ll1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorDivision"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/fm_search_trading_cl1" />
+                    app:layout_constraintTop_toBottomOf="@id/searchTrading_cl1" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fm_search_rv_searchitem"
+                    android:id="@+id/searchTrading_rv_searchitem"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
@@ -105,13 +105,13 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/fm_search_trading_temp2" />
+                    app:layout_constraintTop_toBottomOf="@id/searchTrading_ll1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/fm_search_trading_nsv"
+                android:id="@+id/searchTrading_nsv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible">
@@ -121,13 +121,13 @@
                     android:layout_height="match_parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/fm_search_cl_category"
+                        android:id="@+id/searchTrading_cl_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/fm_search_temp3"
+                            android:id="@+id/searchTrading_temp3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
@@ -139,111 +139,111 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_digital"
+                            android:id="@+id/searchTrading_iv_digital"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:layout_marginTop="24dp"
                             android:layout_marginBottom="35dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_digital)}"
                             android:src="@drawable/image_digital"
-                            app:layout_constraintBottom_toTopOf="@id/fm_search_iv_game"
-                            app:layout_constraintEnd_toStartOf="@id/fm_search_iv_furniture"
+                            app:layout_constraintBottom_toTopOf="@id/searchTrading_iv_game"
+                            app:layout_constraintEnd_toStartOf="@id/searchTrading_iv_furniture"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_temp3" />
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_temp3" />
 
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_furniture"
+                            android:id="@+id/searchTrading_iv_furniture"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_furniture)}"
                             android:src="@drawable/image_furniture"
-                            app:layout_constraintEnd_toStartOf="@id/fm_search_iv_pet"
-                            app:layout_constraintStart_toEndOf="@id/fm_search_iv_digital"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_iv_digital" />
+                            app:layout_constraintEnd_toStartOf="@id/searchTrading_iv_pet"
+                            app:layout_constraintStart_toEndOf="@id/searchTrading_iv_digital"
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_iv_digital" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_pet"
+                            android:id="@+id/searchTrading_iv_pet"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_pet)}"
                             android:src="@drawable/image_pet"
-                            app:layout_constraintEnd_toStartOf="@id/fm_search_iv_life"
-                            app:layout_constraintStart_toEndOf="@id/fm_search_iv_furniture"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_iv_digital" />
+                            app:layout_constraintEnd_toStartOf="@id/searchTrading_iv_life"
+                            app:layout_constraintStart_toEndOf="@id/searchTrading_iv_furniture"
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_iv_digital" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_life"
+                            android:id="@+id/searchTrading_iv_life"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_life)}"
                             android:src="@drawable/image_life"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/fm_search_iv_pet"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_iv_digital" />
+                            app:layout_constraintStart_toEndOf="@id/searchTrading_iv_pet"
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_iv_digital" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_game"
+                            android:id="@+id/searchTrading_iv_game"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:layout_marginBottom="35dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_game)}"
 
                             android:src="@drawable/image_game"
-                            app:layout_constraintBottom_toTopOf="@id/fm_search_iv_book"
-                            app:layout_constraintEnd_toStartOf="@id/fm_search_iv_woman"
+                            app:layout_constraintBottom_toTopOf="@id/searchTrading_iv_book"
+                            app:layout_constraintEnd_toStartOf="@id/searchTrading_iv_woman"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_digital" />
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_digital" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_woman"
+                            android:id="@+id/searchTrading_iv_woman"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_woman)}"
                             android:src="@drawable/image_woman"
-                            app:layout_constraintEnd_toStartOf="@id/fm_search_iv_man"
-                            app:layout_constraintStart_toEndOf="@id/fm_search_iv_game"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_iv_game" />
+                            app:layout_constraintEnd_toStartOf="@id/searchTrading_iv_man"
+                            app:layout_constraintStart_toEndOf="@id/searchTrading_iv_game"
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_iv_game" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_man"
+                            android:id="@+id/searchTrading_iv_man"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_man)}"
                             android:src="@drawable/image_man"
-                            app:layout_constraintEnd_toStartOf="@id/fm_search_iv_beauty"
-                            app:layout_constraintStart_toEndOf="@id/fm_search_iv_woman"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_iv_game" />
+                            app:layout_constraintEnd_toStartOf="@id/searchTrading_iv_beauty"
+                            app:layout_constraintStart_toEndOf="@id/searchTrading_iv_woman"
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_iv_game" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_beauty"
+                            android:id="@+id/searchTrading_iv_beauty"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_beauty)}"
                             android:src="@drawable/image_beauty"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/fm_search_iv_man"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_iv_game" />
+                            app:layout_constraintStart_toEndOf="@id/searchTrading_iv_man"
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_iv_game" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_book"
+                            android:id="@+id/searchTrading_iv_book"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:layout_marginBottom="35dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_book)}"
                             android:src="@drawable/image_book"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_game"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_game" />
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_game"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_game" />
 
                         <ImageView
-                            android:id="@+id/fm_search_iv_buy"
+                            android:id="@+id/searchTrading_iv_buy"
                             android:layout_width="74dp"
                             android:layout_height="74dp"
                             android:onClick="@{() -> fm.onStartCategoryItemActivity(@string/category_buy)}"
                             android:src="@drawable/image_buy"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_woman"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_iv_book" />
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_woman"
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_iv_book" />
 
                         <TextView
 
@@ -251,9 +251,9 @@
                             android:layout_height="wrap_content"
                             android:text="디지털/가전"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_digital"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_digital"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_digital" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_digital"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_digital"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_digital" />
 
                         <TextView
 
@@ -261,9 +261,9 @@
                             android:layout_height="wrap_content"
                             android:text="가구/인테리어"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_furniture"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_furniture"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_furniture" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_furniture"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_furniture"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_furniture" />
 
                         <TextView
 
@@ -271,9 +271,9 @@
                             android:layout_height="wrap_content"
                             android:text="생활/가공식품"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_life"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_life"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_life" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_life"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_life"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_life" />
 
                         <TextView
 
@@ -281,9 +281,9 @@
                             android:layout_height="wrap_content"
                             android:text="여성패션/잡화"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_woman"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_woman"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_woman" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_woman"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_woman"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_woman" />
 
                         <TextView
 
@@ -291,9 +291,9 @@
                             android:layout_height="wrap_content"
                             android:text="남성패션/잡화"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_man"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_man"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_man" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_man"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_man"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_man" />
 
                         <TextView
 
@@ -301,9 +301,9 @@
                             android:layout_height="wrap_content"
                             android:text="게임/취미/스포츠/레저"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_game"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_game"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_game" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_game"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_game"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_game" />
 
                         <TextView
 
@@ -311,9 +311,9 @@
                             android:layout_height="wrap_content"
                             android:text="뷰티/미용"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_beauty"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_beauty"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_beauty" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_beauty"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_beauty"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_beauty" />
 
                         <TextView
 
@@ -321,9 +321,9 @@
                             android:layout_height="wrap_content"
                             android:text="유아/반려동물용품"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_pet"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_pet"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_pet" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_pet"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_pet"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_pet" />
 
                         <TextView
 
@@ -331,9 +331,9 @@
                             android:layout_height="wrap_content"
                             android:text="도서/티켓/음반"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_book"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_book"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_book" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_book"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_book"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_book" />
 
                         <TextView
 
@@ -341,28 +341,28 @@
                             android:layout_height="wrap_content"
                             android:text="삽니다"
                             android:textSize="11sp"
-                            app:layout_constraintEnd_toEndOf="@id/fm_search_iv_buy"
-                            app:layout_constraintStart_toStartOf="@id/fm_search_iv_buy"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_iv_buy" />
+                            app:layout_constraintEnd_toEndOf="@id/searchTrading_iv_buy"
+                            app:layout_constraintStart_toStartOf="@id/searchTrading_iv_buy"
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_iv_buy" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/fm_search_tv_division1"
+                        android:id="@+id/searchTrading_tv2"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
                         android:background="#F9F9F9"
-                        app:layout_constraintTop_toBottomOf="@id/fm_search_cl_category" />
+                        app:layout_constraintTop_toBottomOf="@id/searchTrading_cl_category" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/fm_search_cl_hotitem"
+                        android:id="@+id/searchTrading_cl_hotitem"
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
-                        app:layout_constraintTop_toBottomOf="@id/fm_search_tv_division1">
+                        app:layout_constraintTop_toBottomOf="@id/searchTrading_tv2">
 
                         <TextView
-                            android:id="@+id/fm_search_tv_dong"
+                            android:id="@+id/searchTrading_tv_dong"
                             DongText="@{svm.getCurrentUserObject().location}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -379,47 +379,47 @@
                             android:text=" 근처 인기매물"
                             android:textColor="#000"
                             android:textSize="18dp"
-                            app:layout_constraintBottom_toBottomOf="@id/fm_search_tv_dong"
-                            app:layout_constraintStart_toEndOf="@id/fm_search_tv_dong"
-                            app:layout_constraintTop_toTopOf="@+id/fm_search_tv_dong" />
+                            app:layout_constraintBottom_toBottomOf="@id/searchTrading_tv_dong"
+                            app:layout_constraintStart_toEndOf="@id/searchTrading_tv_dong"
+                            app:layout_constraintTop_toTopOf="@+id/searchTrading_tv_dong" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="더보기"
                             android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="@id/fm_search_tv_dong"
+                            app:layout_constraintBottom_toBottomOf="@id/searchTrading_tv_dong"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.96"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_tv_dong" />
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_tv_dong" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/fm_search_rv_hotitem"
+                            android:id="@+id/searchTrading_rv_hotitem"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:orientation="horizontal"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_tv_dong" />
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_tv_dong" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/fm_search_tv_division2"
+                        android:id="@+id/searchTrading_tv_division2"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
                         android:background="#F9F9F9"
-                        app:layout_constraintTop_toBottomOf="@id/fm_search_cl_hotitem" />
+                        app:layout_constraintTop_toBottomOf="@id/searchTrading_cl_hotitem" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/fm_search_cl_recommend"
+                        android:id="@+id/searchTrading_cl_recommend"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/fm_search_tv_division2">
+                        app:layout_constraintTop_toBottomOf="@id/searchTrading_tv_division2">
 
                         <TextView
-                            android:id="@+id/fm_search_tv_nickname"
+                            android:id="@+id/searchTrading_tv_nickname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
@@ -436,13 +436,13 @@
                             android:text="님, 이건 어때요"
                             android:textColor="#000"
                             android:textSize="18sp"
-                            app:layout_constraintBottom_toBottomOf="@id/fm_search_tv_nickname"
-                            app:layout_constraintStart_toEndOf="@id/fm_search_tv_nickname"
-                            app:layout_constraintTop_toTopOf="@id/fm_search_tv_nickname" />
+                            app:layout_constraintBottom_toBottomOf="@id/searchTrading_tv_nickname"
+                            app:layout_constraintStart_toEndOf="@id/searchTrading_tv_nickname"
+                            app:layout_constraintTop_toTopOf="@id/searchTrading_tv_nickname" />
 
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/fm_search_rv_recommend"
+                            android:id="@+id/searchTrading_rv_recommend"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -451,7 +451,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/fm_search_tv_nickname" />
+                            app:layout_constraintTop_toBottomOf="@id/searchTrading_tv_nickname" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

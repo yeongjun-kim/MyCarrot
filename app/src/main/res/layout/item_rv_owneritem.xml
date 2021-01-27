@@ -15,7 +15,7 @@
         android:layout_marginBottom="14dp">
 
         <ImageView
-            android:id="@+id/item_rv_owneritem_iv"
+            android:id="@+id/itemRvOwneritem_iv"
             FirstImage="@{item.imageList[0]}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/item_rv_ownerItem_tv_title"
+            android:id="@+id/itemRvOwneritem_tv_title"
             Title="@{item.title}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:textColor="#000"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_owneritem_iv" />
+            app:layout_constraintTop_toBottomOf="@id/itemRvOwneritem_iv" />
 
         <TextView
             DecimalFormat="@{item.price}"
@@ -47,8 +47,8 @@
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/item_rv_ownerItem_tv_title"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_ownerItem_tv_title" />
+            app:layout_constraintStart_toStartOf="@id/itemRvOwneritem_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/itemRvOwneritem_tv_title" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

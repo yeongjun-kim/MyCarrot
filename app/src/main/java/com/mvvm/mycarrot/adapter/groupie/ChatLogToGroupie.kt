@@ -18,7 +18,7 @@ class ChatLogToGroupie(val dto: MessageDTO, val dateChange:Boolean) : Item<Group
             viewHolder.itemView.chatTo_tv_date.text = SimpleDateFormat("yyyy년 MM월 dd일").format(dto.timestamp)
         } else viewHolder.itemView.chatTo_cl1.visibility = View.GONE
 
-        viewHolder.itemView.chat_to_tv_message.text = dto.message
-        viewHolder.itemView.chat_to_tv_time.text =  SimpleDateFormat("K:mm a").format(dto.timestamp)
+        viewHolder.itemView.chatTo_tv_message.text = dto.message
+        viewHolder.itemView.chatTo_tv_time.text =  SimpleDateFormat("K:mm a").format(dto.timestamp)
     }
 }

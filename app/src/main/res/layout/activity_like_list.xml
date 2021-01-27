@@ -17,7 +17,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/likelist_cl1"
+            android:id="@+id/likeList_cl1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#fff"
@@ -33,13 +33,13 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/likelist_iv_backpress"
-                app:layout_constraintStart_toEndOf="@id/likelist_iv_backpress"
-                app:layout_constraintTop_toTopOf="@id/likelist_iv_backpress" />
+                app:layout_constraintBottom_toBottomOf="@id/likeList_iv_backpress"
+                app:layout_constraintStart_toEndOf="@id/likeList_iv_backpress"
+                app:layout_constraintTop_toTopOf="@id/likeList_iv_backpress" />
 
 
             <ImageView
-                android:id="@+id/likelist_iv_backpress"
+                android:id="@+id/likeList_iv_backpress"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="14dp"
@@ -52,21 +52,21 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/likelist_ll1"
+            android:id="@+id/likeList_ll1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorDivision"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/likelist_cl1" />
+            app:layout_constraintTop_toBottomOf="@id/likeList_cl1" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/likelist_rv"
+            android:id="@+id/likeList_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/likelist_ll1" />
+            app:layout_constraintTop_toBottomOf="@id/likeList_ll1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

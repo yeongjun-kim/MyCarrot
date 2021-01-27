@@ -17,18 +17,17 @@
         tools:context=".presentation.search.CategoryItemActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/categoryitem_cl"
+            android:id="@+id/categoryItem_cl"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.07"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/categoryitem_tv"
+                android:id="@+id/categoryItem_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="Category"
                 android:textColor="#000"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,35 +35,34 @@
                 app:layout_constraintVertical_bias="0.7" />
 
             <ImageView
-                android:id="@+id/aaa"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="8dp"
                 android:onClick="@{() -> av.onBackPressed()}"
                 android:src="@drawable/ic_arrow_back_black_14dp"
-                app:layout_constraintBottom_toBottomOf="@id/categoryitem_tv"
-                app:layout_constraintStart_toStartOf="@id/categoryitem_tv"
-                app:layout_constraintTop_toTopOf="@id/categoryitem_tv" />
+                app:layout_constraintBottom_toBottomOf="@id/categoryItem_tv"
+                app:layout_constraintStart_toStartOf="@id/categoryItem_tv"
+                app:layout_constraintTop_toTopOf="@id/categoryItem_tv" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/categoryitem_temp1"
+            android:id="@+id/categoryItem_ll"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorDivision"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/categoryitem_cl" />
+            app:layout_constraintTop_toBottomOf="@id/categoryItem_cl" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoryitem_rv"
+            android:id="@+id/categoryItem_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/categoryitem_temp1" />
+            app:layout_constraintTop_toBottomOf="@id/categoryItem_ll" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

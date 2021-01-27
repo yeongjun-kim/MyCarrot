@@ -63,8 +63,8 @@ class SellListSoldOutFragment : Fragment() {
 
             // 아이템이 있을땐 [거래완료 게시글이 없어요]TextView INVISIBLE
             if (itemList.isNotEmpty()) {
-                binding.sellListSoldoutTv.visibility = View.INVISIBLE
-            } else binding.sellListSoldoutTv.visibility = View.VISIBLE
+                binding.sellListSoldOutTv.visibility = View.INVISIBLE
+            } else binding.sellListSoldOutTv.visibility = View.VISIBLE
         })
 
         myViewModel.getIsStartItemActivity().observe(this, Observer { isStartActivity ->
@@ -75,7 +75,7 @@ class SellListSoldOutFragment : Fragment() {
     }
 
     fun initRv() {
-        binding.sellListSoldoutRv.run {
+        binding.sellListSoldOutRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = itemRvSoldoutListAdapter

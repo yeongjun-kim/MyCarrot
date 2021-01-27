@@ -27,7 +27,7 @@ class ItemVpAdapter(var urlList: ArrayList<String>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.itemView.context)
             .load(urlList[position])
-            .into(holder.itemView.item_vp_iv)
+            .into(holder.itemView.itemVpWrite_iv)
     }
 
 

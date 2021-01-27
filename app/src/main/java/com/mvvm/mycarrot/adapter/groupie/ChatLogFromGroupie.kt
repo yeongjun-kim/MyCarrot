@@ -19,15 +19,15 @@ class ChatLogFromGroupie(val dto: MessageDTO, val dateChange: Boolean) : Item<Gr
                 SimpleDateFormat("yyyy년 MM월 dd일").format(dto.timestamp)
         } else viewHolder.itemView.chatFrom_cl1.visibility = View.GONE
 
-        viewHolder.itemView.chat_from_tv_message.text = dto.message
-        viewHolder.itemView.chat_from_tv_time.text =
+        viewHolder.itemView.chatFrom_tv_message.text = dto.message
+        viewHolder.itemView.chatFrom_tv_time.text =
             SimpleDateFormat("K:mm a").format(dto.timestamp)
 
-        Glide.with(viewHolder.itemView.chat_from_iv_profile.context)
+        Glide.with(viewHolder.itemView.chatFrom_iv_profile.context)
             .load(dto.opponentProfileUrl)
             .placeholder(R.drawable.ic_user)
             .circleCrop()
             .thumbnail(0.1f)
-            .into(viewHolder.itemView.chat_from_iv_profile)
+            .into(viewHolder.itemView.chatFrom_iv_profile)
     }
 }

@@ -28,7 +28,7 @@
             android:layout_weight="0.7">
 
             <TextView
-                android:id="@+id/text4"
+                android:id="@+id/setupTown_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="내 동네 설정"
@@ -46,11 +46,11 @@
                 android:layout_height="24dp"
                 android:onClick="@{() -> av.finish()}"
                 android:src="@drawable/ic_close_black_24dp"
-                app1:layout_constraintBottom_toBottomOf="@id/text4"
-                app1:layout_constraintEnd_toStartOf="@id/text4"
+                app1:layout_constraintBottom_toBottomOf="@id/setupTown_tv1"
+                app1:layout_constraintEnd_toStartOf="@id/setupTown_tv1"
                 app1:layout_constraintHorizontal_bias="0.141"
                 app1:layout_constraintStart_toStartOf="parent"
-                app1:layout_constraintTop_toTopOf="@id/text4" />
+                app1:layout_constraintTop_toTopOf="@id/setupTown_tv1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -67,7 +67,7 @@
             android:layout_weight="6">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/setup_temp1"
+                android:id="@+id/setupTown_cl1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app1:layout_constraintBottom_toBottomOf="parent"
@@ -77,7 +77,7 @@
                 app1:layout_constraintVertical_bias="0.1">
 
                 <TextView
-                    android:id="@+id/setup_tv_dong"
+                    android:id="@+id/setupTown_tv_dong"
                     DongText="@{vm.getCurrentUserObject().location}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     app1:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/setup_tv_dong_count"
+                    android:id="@+id/setupTown_tv_dongCount"
                     RangeText="@{vm.progress}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,24 +96,24 @@
                     android:hint="근처 동네 10개"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app1:layout_constraintBottom_toBottomOf="@id/setup_tv_dong"
-                    app1:layout_constraintStart_toEndOf="@id/setup_tv_dong"
-                    app1:layout_constraintTop_toTopOf="@id/setup_tv_dong" />
+                    app1:layout_constraintBottom_toBottomOf="@id/setupTown_tv_dong"
+                    app1:layout_constraintStart_toEndOf="@id/setupTown_tv_dong"
+                    app1:layout_constraintTop_toTopOf="@id/setupTown_tv_dong" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/setup_temp2"
+                android:id="@+id/setupTown_tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="선택한 범위의 게시글만 볼 수 있어요."
-                app1:layout_constraintEnd_toEndOf="@id/setup_temp1"
-                app1:layout_constraintStart_toStartOf="@id/setup_temp1"
-                app1:layout_constraintTop_toBottomOf="@id/setup_temp1" />
+                app1:layout_constraintEnd_toEndOf="@id/setupTown_cl1"
+                app1:layout_constraintStart_toStartOf="@id/setupTown_cl1"
+                app1:layout_constraintTop_toBottomOf="@id/setupTown_cl1" />
 
             <SeekBar
-                android:id="@+id/setup_sb_range"
+                android:id="@+id/setupTown_sb_range"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -127,17 +127,17 @@
                 android:thumb="@drawable/custom_thumb"
                 app1:layout_constraintEnd_toEndOf="parent"
                 app1:layout_constraintStart_toStartOf="parent"
-                app1:layout_constraintTop_toBottomOf="@id/setup_temp2" />
+                app1:layout_constraintTop_toBottomOf="@id/setupTown_tv2" />
 
             <TextView
-                android:id="@+id/setup_temp3"
+                android:id="@+id/setupTown_tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:text="내 동네"
                 android:textSize="12sp"
-                app1:layout_constraintStart_toStartOf="@id/setup_sb_range"
-                app1:layout_constraintTop_toBottomOf="@id/setup_sb_range" />
+                app1:layout_constraintStart_toStartOf="@id/setupTown_sb_range"
+                app1:layout_constraintTop_toBottomOf="@id/setupTown_sb_range" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -145,11 +145,11 @@
                 android:layout_marginTop="14dp"
                 android:text="근처동네"
                 android:textSize="12sp"
-                app1:layout_constraintEnd_toEndOf="@id/setup_sb_range"
-                app1:layout_constraintTop_toBottomOf="@id/setup_sb_range" />
+                app1:layout_constraintEnd_toEndOf="@id/setupTown_sb_range"
+                app1:layout_constraintTop_toBottomOf="@id/setupTown_sb_range" />
 
             <ImageView
-                android:id="@+id/setup_iv_range"
+                android:id="@+id/setupTown_iv_range"
                 setImage="@{vm.progress}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -159,7 +159,7 @@
                 app1:layout_constraintDimensionRatio="1:1"
                 app1:layout_constraintEnd_toEndOf="parent"
                 app1:layout_constraintStart_toStartOf="parent"
-                app1:layout_constraintTop_toBottomOf="@id/setup_temp3"
+                app1:layout_constraintTop_toBottomOf="@id/setupTown_tv3"
                 app1:layout_constraintVertical_bias="0.14" />
 
 

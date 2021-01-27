@@ -14,7 +14,7 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/iv_frame_loading"
+            android:id="@+id/progressLoading_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/frame_loading"
@@ -24,16 +24,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_progress_message"
+            android:id="@+id/progressLoading_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="로딩중이당 . ."
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_frame_loading"
-            app:layout_constraintEnd_toEndOf="@id/iv_frame_loading"
-            app:layout_constraintStart_toStartOf="@id/iv_frame_loading" />
+            app:layout_constraintBottom_toBottomOf="@id/progressLoading_iv"
+            app:layout_constraintEnd_toEndOf="@id/progressLoading_iv"
+            app:layout_constraintStart_toStartOf="@id/progressLoading_iv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
 

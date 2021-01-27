@@ -53,9 +53,9 @@ class SeeMoreActivity : AppCompatActivity() {
     private fun initTabLayoutViewPager() {
         val vpAdapter = ViewPagerAdapter(this!!)
 
-        binding.seemoreVp.adapter = vpAdapter
+        binding.seeMoreVp.adapter = vpAdapter
 
-        TabLayoutMediator(binding.seemoreTl, binding.seemoreVp) { tab, position ->
+        TabLayoutMediator(binding.seeMoreTl, binding.seeMoreVp) { tab, position ->
             val tabLayoutTextArray = arrayOf("전체", "판매중", "거래완료")
             tab.text = tabLayoutTextArray[position]
         }.attach()

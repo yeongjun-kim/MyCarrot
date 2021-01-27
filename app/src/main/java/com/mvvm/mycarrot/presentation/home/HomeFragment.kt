@@ -95,21 +95,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun initSwipeListener() {
-        binding.fmHomeSrl.setOnRefreshListener {
+        binding.homeSrl.setOnRefreshListener {
             refreshItem()
-            binding.fmHomeSrl.isRefreshing = false
+            binding.homeSrl.isRefreshing = false
         }
     }
 
     private fun refreshItem() {
-        binding.fmHomeRv.removeAllViewsInLayout()
+        binding.homeRv.removeAllViewsInLayout()
         homeViewModel.clearHomeItem()
         homeViewModel.clearHomeItemQuery()
         homeViewModel.setHomeItems()
     }
 
     private fun initRv() {
-        binding.fmHomeRv.run {
+        binding.homeRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = itemRvAdapter

@@ -65,8 +65,8 @@ class SellListForSaleFragment : Fragment() {
 
             // 아이템이 있을땐 [판매중인 게시글이 없어요]TextView INVISIBLE
             if (itemList.isNotEmpty()) {
-                binding.sellListForsaleTv.visibility = View.INVISIBLE
-            } else binding.sellListForsaleTv.visibility = View.VISIBLE
+                binding.sellListForSaleTv.visibility = View.INVISIBLE
+            } else binding.sellListForSaleTv.visibility = View.VISIBLE
         })
 
 
@@ -78,7 +78,7 @@ class SellListForSaleFragment : Fragment() {
     }
 
     private fun initRv() {
-        binding.sellListForsaleRv.run {
+        binding.sellListForSaleRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = itemRvSellListAdapter

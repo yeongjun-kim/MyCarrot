@@ -94,12 +94,12 @@ class ItemActivity : AppCompatActivity() {
         if (input == "toTransparent") {
             binding.itemClTop.setBackgroundColor(Color.parseColor("#00000000"))
             binding.itemIvBackpress.setImageResource(R.drawable.ic_arrow_back_white_14dp)
-            binding.itemTemp10.visibility = View.GONE
+            binding.itemLl10.visibility = View.GONE
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
         } else {
             binding.itemClTop.setBackgroundColor(Color.parseColor("#FFFFFF"))
             binding.itemIvBackpress.setImageResource(R.drawable.ic_arrow_back_black_14dp)
-            binding.itemTemp10.visibility = View.VISIBLE
+            binding.itemLl10.visibility = View.VISIBLE
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }

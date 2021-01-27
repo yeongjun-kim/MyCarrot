@@ -72,7 +72,7 @@ class SeeMoreSoldOutFragment : Fragment() {
     }
 
     private fun initRv() {
-        binding.seemoreSoldoutRv.run {
+        binding.seeMoreSoldOutRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = itemRvAdapter

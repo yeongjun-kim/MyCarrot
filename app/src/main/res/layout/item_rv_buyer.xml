@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/item_rv_buyer_iv"
+                android:id="@+id/itemRvBuyer_iv"
                 RepresentationcircleSrc="@{message.opponentProfileUrl}"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -34,29 +34,29 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/item_rv_buyer_tv_nickname"
+                android:id="@+id/itemRvBuyer_tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="@{message.opponentNickname}"
                 android:textColor="#000"
-                app:layout_constraintStart_toEndOf="@id/item_rv_buyer_iv"
-                app:layout_constraintTop_toTopOf="@id/item_rv_buyer_iv" />
+                app:layout_constraintStart_toEndOf="@id/itemRvBuyer_iv"
+                app:layout_constraintTop_toTopOf="@id/itemRvBuyer_iv" />
 
             <TextView
                 DongText="@{message.opponentLocation}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:layout_constraintStart_toEndOf="@id/item_rv_buyer_tv_nickname"
-                app:layout_constraintTop_toTopOf="@id/item_rv_buyer_tv_nickname" />
+                app:layout_constraintStart_toEndOf="@id/itemRvBuyer_tv_nickname"
+                app:layout_constraintTop_toTopOf="@id/itemRvBuyer_tv_nickname" />
 
             <TextView
                 LatestMessageTime="@{message.timestamp}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/item_rv_buyer_iv"
-                app:layout_constraintStart_toStartOf="@id/item_rv_buyer_tv_nickname" />
+                app:layout_constraintBottom_toBottomOf="@id/itemRvBuyer_iv"
+                app:layout_constraintStart_toStartOf="@id/itemRvBuyer_tv_nickname" />
 
             <ImageView
                 android:layout_width="wrap_content"

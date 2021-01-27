@@ -74,7 +74,7 @@ class NeighborhoodCertificationActivity : AppCompatActivity(), OnMapReadyCallbac
     }
 
     private fun initMap() {
-        (neighborhood_certification_fm_map as SupportMapFragment).getMapAsync(this)
+        (neighborhoodCertification_fm_map as SupportMapFragment).getMapAsync(this)
     }
 
     fun doCertification() {

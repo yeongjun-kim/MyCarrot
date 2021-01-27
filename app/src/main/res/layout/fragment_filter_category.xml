@@ -25,7 +25,7 @@
             android:layout_weight="0.7">
 
             <TextView
-                android:id="@+id/text3"
+                android:id="@+id/filterCategory_tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="관심 카테고리 설정"
@@ -43,11 +43,11 @@
                 android:layout_height="24dp"
                 android:onClick="@{() -> fm.onBackPress()}"
                 android:src="@drawable/ic_arrow_back_black_14dp"
-                app:layout_constraintBottom_toBottomOf="@id/text3"
-                app:layout_constraintEnd_toStartOf="@id/text3"
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv3"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv3"
                 app:layout_constraintHorizontal_bias="0.14"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/text3" />
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -63,7 +63,7 @@
             android:layout_weight="6">
 
             <TextView
-                android:id="@+id/text4"
+                android:id="@+id/filterCategory_tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -76,19 +76,19 @@
                 app:layout_constraintVertical_bias="0.08" />
 
             <TextView
-                android:id="@+id/text5"
+                android:id="@+id/filterCategory_tv5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:text="최소 1개 이상 선택되어 있어야 합니다."
                 android:textColor="#FF6A737D"
                 android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="@id/text4"
-                app:layout_constraintStart_toStartOf="@id/text4"
-                app:layout_constraintTop_toBottomOf="@id/text4" />
+                app:layout_constraintEnd_toEndOf="@id/filterCategory_tv4"
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv4"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv4" />
 
             <TextView
-                android:id="@+id/text_left"
+                android:id="@+id/filterCategory_tv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="디지털/가전"
@@ -96,94 +96,88 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text5"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv5"
                 app:layout_constraintVertical_bias="0.1" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_digital"
+                android:id="@+id/filterCategory_cb_digital"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_digital)}"
-                app:layout_constraintBottom_toBottomOf="@id/text_left"
-                app:layout_constraintEnd_toStartOf="@id/text_left"
-                app:layout_constraintTop_toTopOf="@id/text_left" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_left"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_left"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_left" />
 
 
             <TextView
-                android:id="@+id/text_left4"
+                android:id="@+id/filterCategory_tv_left4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 android:text="여성패션/잡화"
-                app:layout_constraintStart_toStartOf="@id/text_left"
-                app:layout_constraintTop_toBottomOf="@id/fm_category_cb_digital"
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv_left"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_cb_digital"
                 tools:layout_editor_absoluteY="286dp" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_woman"
+                android:id="@+id/filterCategory_cb_woman"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_woman)}"
-
-                app:layout_constraintBottom_toBottomOf="@id/text_left4"
-                app:layout_constraintEnd_toStartOf="@id/text_left4"
-                app:layout_constraintStart_toStartOf="@+id/fm_category_cb_digital"
-                app:layout_constraintTop_toTopOf="@id/text_left4" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_left4"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_left4"
+                app:layout_constraintStart_toStartOf="@+id/filterCategory_cb_digital"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_left4" />
 
             <TextView
-                android:id="@+id/text_left5"
+                android:id="@+id/filterCategory_tv_left5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 android:text="게임/취미/스포츠/레저"
-                app:layout_constraintStart_toStartOf="@id/text_left"
-                app:layout_constraintTop_toBottomOf="@id/text_left4" />
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv_left"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv_left4" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_game"
+                android:id="@+id/filterCategory_cb_game"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_game)}"
-
-                app:layout_constraintBottom_toBottomOf="@id/text_left5"
-                app:layout_constraintEnd_toStartOf="@id/text_left5"
-                app:layout_constraintStart_toStartOf="@+id/fm_category_cb_digital"
-                app:layout_constraintTop_toTopOf="@id/text_left5" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_left5"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_left5"
+                app:layout_constraintStart_toStartOf="@+id/filterCategory_cb_digital"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_left5" />
 
             <TextView
-                android:id="@+id/text_left6"
+                android:id="@+id/filterCategory_tv_left6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 android:text="유아/반려동물용품"
-                app:layout_constraintStart_toStartOf="@id/text_left"
-                app:layout_constraintTop_toBottomOf="@id/text_left5" />
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv_left"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv_left5" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_pet"
+                android:id="@+id/filterCategory_cb_pet"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-
-
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_pet)}"
-                app:layout_constraintBottom_toBottomOf="@id/text_left6"
-                app:layout_constraintEnd_toStartOf="@id/text_left6"
-                app:layout_constraintStart_toStartOf="@+id/fm_category_cb_digital"
-                app:layout_constraintTop_toTopOf="@id/text_left6" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_left6"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_left6"
+                app:layout_constraintStart_toStartOf="@+id/filterCategory_cb_digital"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_left6" />
 
 
             <TextView
-                android:id="@+id/text_right"
+                android:id="@+id/filterCategory_tv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="가구/인테리어"
@@ -191,136 +185,125 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text5"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv5"
                 app:layout_constraintVertical_bias="0.1" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_furniture"
+                android:id="@+id/filterCategory_cb_furniture"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_furniture)}"
-
-                app:layout_constraintBottom_toBottomOf="@id/text_right"
-                app:layout_constraintEnd_toStartOf="@id/text_right"
-                app:layout_constraintTop_toTopOf="@id/text_right" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_right"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_right"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_right" />
 
             <TextView
-                android:id="@+id/text_right2"
+                android:id="@+id/filterCategory_tv_right2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 android:text="생활/가공식품"
-                app:layout_constraintStart_toStartOf="@id/text_right"
-                app:layout_constraintTop_toBottomOf="@id/text_right" />
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv_right"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv_right" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_life"
+                android:id="@+id/filterCategory_cb_life"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_life)}"
-
-                app:layout_constraintBottom_toBottomOf="@id/text_right2"
-                app:layout_constraintEnd_toStartOf="@id/text_right2"
-                app:layout_constraintStart_toStartOf="@+id/fm_category_cb_furniture"
-                app:layout_constraintTop_toTopOf="@id/text_right2" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_right2"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_right2"
+                app:layout_constraintStart_toStartOf="@+id/filterCategory_cb_furniture"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_right2" />
 
             <TextView
-                android:id="@+id/text_right4"
+                android:id="@+id/filterCategory_tv_right4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 android:text="남성패션/잡화"
-                app:layout_constraintStart_toStartOf="@id/text_right"
-                app:layout_constraintTop_toBottomOf="@id/fm_category_cb_life"
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv_right"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_cb_life"
                 tools:layout_editor_absoluteY="339dp" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_man"
+                android:id="@+id/filterCategory_cb_man"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-
-
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_man)}"
-                app:layout_constraintBottom_toBottomOf="@id/text_right4"
-                app:layout_constraintEnd_toStartOf="@id/text_right4"
-                app:layout_constraintStart_toStartOf="@+id/fm_category_cb_furniture"
-                app:layout_constraintTop_toTopOf="@id/text_right4" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_right4"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_right4"
+                app:layout_constraintStart_toStartOf="@+id/filterCategory_cb_furniture"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_right4" />
 
             <TextView
-                android:id="@+id/text_right5"
+                android:id="@+id/filterCategory_tv_right5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 android:text="뷰티/미용"
-                app:layout_constraintStart_toStartOf="@id/text_right"
-                app:layout_constraintTop_toBottomOf="@id/text_right4" />
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv_right"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv_right4" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_beauty"
+                android:id="@+id/filterCategory_cb_beauty"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_beauty)}"
-
-                app:layout_constraintBottom_toBottomOf="@id/text_right5"
-                app:layout_constraintEnd_toStartOf="@id/text_right5"
-                app:layout_constraintStart_toStartOf="@+id/fm_category_cb_furniture"
-                app:layout_constraintTop_toTopOf="@id/text_right5" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_right5"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_right5"
+                app:layout_constraintStart_toStartOf="@+id/filterCategory_cb_furniture"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_right5" />
 
             <TextView
-                android:id="@+id/text_right6"
+                android:id="@+id/filterCategory_tv_right6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 android:text="도서/티켓/음반"
-                app:layout_constraintStart_toStartOf="@id/text_left"
-                app:layout_constraintTop_toBottomOf="@id/text_left6" />
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv_left"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv_left6" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_book"
+                android:id="@+id/filterCategory_cb_book"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_book)}"
-
-                app:layout_constraintBottom_toBottomOf="@id/text_right6"
-                app:layout_constraintEnd_toStartOf="@id/text_right6"
-                app:layout_constraintStart_toStartOf="@+id/fm_category_cb_digital"
-                app:layout_constraintTop_toTopOf="@id/text_right6" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_right6"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_right6"
+                app:layout_constraintStart_toStartOf="@+id/filterCategory_cb_digital"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_right6" />
 
             <TextView
-                android:id="@+id/text_right7"
+                android:id="@+id/filterCategory_tv_right7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 android:text="삽니다"
-                app:layout_constraintStart_toStartOf="@id/text_right"
-                app:layout_constraintTop_toBottomOf="@id/text_right5" />
+                app:layout_constraintStart_toStartOf="@id/filterCategory_tv_right"
+                app:layout_constraintTop_toBottomOf="@id/filterCategory_tv_right5" />
 
             <CheckBox
-                android:id="@+id/fm_category_cb_buy"
+                android:id="@+id/filterCategory_cb_buy"
                 style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:onClick="@{() -> vm.clickCustomCheckBox(@string/category_buy)}"
-
-                app:layout_constraintBottom_toBottomOf="@id/text_right7"
-                app:layout_constraintEnd_toStartOf="@id/text_right7"
-                app:layout_constraintStart_toStartOf="@+id/fm_category_cb_furniture"
-                app:layout_constraintTop_toTopOf="@id/text_right7" />
+                app:layout_constraintBottom_toBottomOf="@id/filterCategory_tv_right7"
+                app:layout_constraintEnd_toStartOf="@id/filterCategory_tv_right7"
+                app:layout_constraintStart_toStartOf="@+id/filterCategory_cb_furniture"
+                app:layout_constraintTop_toTopOf="@id/filterCategory_tv_right7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

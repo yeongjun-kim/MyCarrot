@@ -36,7 +36,7 @@ class NoticeActivity : AppCompatActivity() {
         val url =
             if (mode == "notice") "https://www.daangn.com/wv/notices/" else "https://www.daangn.com/wv/faqs"
 
-        binding.noticeTitle.text = if(mode=="notice") "공지사항" else "고객센터"
+        binding.noticeTvTitle.text = if(mode=="notice") "공지사항" else "고객센터"
 
 
 

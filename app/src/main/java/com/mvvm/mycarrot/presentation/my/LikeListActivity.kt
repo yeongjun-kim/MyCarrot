@@ -70,7 +70,7 @@ class LikeListActivity : AppCompatActivity() {
 
 
     private fun initRv() {
-        binding.likelistRv.run {
+        binding.likeListRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@LikeListActivity)
             adapter = itemRvAdapter

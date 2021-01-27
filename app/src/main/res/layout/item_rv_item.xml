@@ -17,7 +17,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/item_rv_item_iv"
+            android:id="@+id/itemRvItem_iv"
             FirstImage="@{item.imageList[0]}"
             android:layout_width="100dp"
             android:layout_height="0dp"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/item_rv_item_tv_title"
+            android:id="@+id/itemRvItem_tv_title"
             Title="@{item.title}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -40,38 +40,38 @@
             android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/item_rv_item_iv"
-            app:layout_constraintTop_toTopOf="@id/item_rv_item_iv" />
+            app:layout_constraintStart_toEndOf="@id/itemRvItem_iv"
+            app:layout_constraintTop_toTopOf="@id/itemRvItem_iv" />
 
         <TextView
-            android:id="@+id/item_rv_item_tv_location"
+            android:id="@+id/itemRvItem_tv_location"
             DongText="@{item.userLocation}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/item_rv_item_tv_title"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_item_tv_title" />
+            app:layout_constraintStart_toStartOf="@id/itemRvItem_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/itemRvItem_tv_title" />
 
         <TextView
-            android:id="@+id/item_rv_item_temp1"
+            android:id="@+id/itemRvItem_temp1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" • "
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_item_tv_location"
-            app:layout_constraintStart_toEndOf="@id/item_rv_item_tv_location"
-            app:layout_constraintTop_toTopOf="@id/item_rv_item_tv_location" />
+            app:layout_constraintBottom_toBottomOf="@id/itemRvItem_tv_location"
+            app:layout_constraintStart_toEndOf="@id/itemRvItem_tv_location"
+            app:layout_constraintTop_toTopOf="@id/itemRvItem_tv_location" />
 
         <TextView
-            android:id="@+id/item_rv_item_tv_time"
+            android:id="@+id/itemRvItem_tv_time"
             BeforeDay="@{item.timestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="일 전"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_item_temp1"
-            app:layout_constraintStart_toEndOf="@id/item_rv_item_temp1"
-            app:layout_constraintTop_toTopOf="@+id/item_rv_item_temp1" />
+            app:layout_constraintBottom_toBottomOf="@id/itemRvItem_temp1"
+            app:layout_constraintStart_toEndOf="@id/itemRvItem_temp1"
+            app:layout_constraintTop_toTopOf="@+id/itemRvItem_temp1" />
 
         <TextView
             android:id="@+id/item_rv_tv_status"
@@ -84,8 +84,8 @@
             android:paddingEnd="4dp"
             android:paddingBottom="2dp"
             android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@id/item_rv_item_tv_location"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_item_tv_location" />
+            app:layout_constraintStart_toStartOf="@id/itemRvItem_tv_location"
+            app:layout_constraintTop_toBottomOf="@id/itemRvItem_tv_location" />
 
         <TextView
             DecimalFormat="@{item.price}"
@@ -97,46 +97,46 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/item_rv_tv_status"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_item_tv_location" />
+            app:layout_constraintTop_toBottomOf="@id/itemRvItem_tv_location" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="6dp"
             android:src="@drawable/ic_favorite_border_favorite_20dp"
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_item_tv_chat"
-            app:layout_constraintEnd_toStartOf="@id/item_rv_item_tv_favorite" />
+            app:layout_constraintBottom_toBottomOf="@id/itemRvItem_tv_chat"
+            app:layout_constraintEnd_toStartOf="@id/itemRvItem_tv_favorite" />
 
         <TextView
-            android:id="@+id/item_rv_item_tv_chat"
+            android:id="@+id/itemRvItem_tv_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Integer.toString(item.chatList.size())}"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_item_iv"
+            app:layout_constraintBottom_toBottomOf="@id/itemRvItem_iv"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/item_rv_item_tv_favorite"
+            android:id="@+id/itemRvItem_tv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
             android:hint="0"
             android:text="@{Long.toString(item.likeCount)}"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_item_tv_chat"
-            app:layout_constraintEnd_toStartOf="@id/item_rv_item_temp2" />
+            app:layout_constraintBottom_toBottomOf="@id/itemRvItem_tv_chat"
+            app:layout_constraintEnd_toStartOf="@id/itemRvItem_temp2" />
 
 
         <ImageView
-            android:id="@+id/item_rv_item_temp2"
+            android:id="@+id/itemRvItem_temp2"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="6dp"
             android:src="@drawable/ic_chat"
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_item_tv_chat"
-            app:layout_constraintEnd_toStartOf="@id/item_rv_item_tv_chat"
-            app:layout_constraintTop_toTopOf="@id/item_rv_item_tv_chat" />
+            app:layout_constraintBottom_toBottomOf="@id/itemRvItem_tv_chat"
+            app:layout_constraintEnd_toStartOf="@id/itemRvItem_tv_chat"
+            app:layout_constraintTop_toTopOf="@id/itemRvItem_tv_chat" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -144,7 +144,7 @@
             android:layout_marginTop="16dp"
             android:background="@color/colorDivision"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_item_iv" />
+            app:layout_constraintTop_toBottomOf="@id/itemRvItem_iv" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

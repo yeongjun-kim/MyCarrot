@@ -76,7 +76,7 @@ class CategoryItemActivity : AppCompatActivity() {
 
 
     private fun initRv() {
-        binding.categoryitemRv.run {
+        binding.categoryItemRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@CategoryItemActivity)
             adapter = categoryItemAdapter
@@ -126,6 +126,6 @@ class CategoryItemActivity : AppCompatActivity() {
     private fun initStatusBar() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         window.statusBarColor = Color.TRANSPARENT
-        binding.categoryitemTv.text = selectedCategory
+        binding.categoryItemTv.text = selectedCategory
     }
 }

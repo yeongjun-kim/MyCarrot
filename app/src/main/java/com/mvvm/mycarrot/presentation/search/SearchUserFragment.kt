@@ -92,7 +92,7 @@ class SearchUserFragment : Fragment() {
     }
 
     private fun initUserRv() {
-        binding.fmSearchUserRv.run {
+        binding.searchUserRv.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = userRvAdapter
@@ -113,11 +113,11 @@ class SearchUserFragment : Fragment() {
     fun changeLayout(mode: String) {
         if (!this::binding.isInitialized) return
         if (mode == "toSearchRv") {
-            binding.fmSearchUserClDefault.visibility = View.GONE
-            binding.fmSearchUserClSearch.visibility = View.VISIBLE
+            binding.searchUserClDefault.visibility = View.GONE
+            binding.searchUserClSearch.visibility = View.VISIBLE
         } else if (mode == "toDefault") {
-            binding.fmSearchUserClDefault.visibility = View.VISIBLE
-            binding.fmSearchUserClSearch.visibility = View.GONE
+            binding.searchUserClDefault.visibility = View.VISIBLE
+            binding.searchUserClSearch.visibility = View.GONE
         }
     }
 

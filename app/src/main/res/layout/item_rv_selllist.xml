@@ -16,7 +16,7 @@
         android:orientation="horizontal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/item_rv_selllist_cl1"
+            android:id="@+id/itemRvSelllist_cl1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/item_rv_selllist_iv"
+                android:id="@+id/itemRvSelllist_iv"
                 FirstImage="@{item.imageList[0]}"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/item_rv_selllist_tv_title"
+                android:id="@+id/itemRvSelllist_tv_title"
                 Title="@{item.title}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -48,40 +48,40 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/item_rv_selllist_iv"
-                app:layout_constraintTop_toTopOf="@id/item_rv_selllist_iv" />
+                app:layout_constraintStart_toEndOf="@id/itemRvSelllist_iv"
+                app:layout_constraintTop_toTopOf="@id/itemRvSelllist_iv" />
 
             <TextView
-                android:id="@+id/item_rv_selllist_tv_location"
+                android:id="@+id/itemRvSelllist_tv_location"
                 DongText="@{item.userLocation}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@id/item_rv_selllist_tv_title"
-                app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_tv_title" />
+                app:layout_constraintStart_toStartOf="@id/itemRvSelllist_tv_title"
+                app:layout_constraintTop_toBottomOf="@id/itemRvSelllist_tv_title" />
 
             <TextView
-                android:id="@+id/item_rv_selllist_temp1"
+                android:id="@+id/itemRvSelllist_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" • "
-                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_tv_location"
-                app:layout_constraintStart_toEndOf="@id/item_rv_selllist_tv_location"
-                app:layout_constraintTop_toTopOf="@id/item_rv_selllist_tv_location" />
+                app:layout_constraintBottom_toBottomOf="@id/itemRvSelllist_tv_location"
+                app:layout_constraintStart_toEndOf="@id/itemRvSelllist_tv_location"
+                app:layout_constraintTop_toTopOf="@id/itemRvSelllist_tv_location" />
 
             <TextView
-                android:id="@+id/item_rv_selllist_tv_time"
+                android:id="@+id/itemRvSelllist_tv_time"
                 BeforeDay="@{item.timestamp}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_temp1"
-                app:layout_constraintStart_toEndOf="@id/item_rv_selllist_temp1"
-                app:layout_constraintTop_toTopOf="@+id/item_rv_selllist_temp1" />
+                app:layout_constraintBottom_toBottomOf="@id/itemRvSelllist_tv1"
+                app:layout_constraintStart_toEndOf="@id/itemRvSelllist_tv1"
+                app:layout_constraintTop_toTopOf="@+id/itemRvSelllist_tv1" />
 
             <TextView
-                android:id="@+id/item_rv_selllist_tv_status"
+                android:id="@+id/itemRvSelllist_tv_status"
                 Status="@{item.status}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,8 +91,8 @@
                 android:paddingEnd="4dp"
                 android:paddingBottom="2dp"
                 android:textSize="10sp"
-                app:layout_constraintStart_toStartOf="@id/item_rv_selllist_tv_location"
-                app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_tv_location" />
+                app:layout_constraintStart_toStartOf="@id/itemRvSelllist_tv_location"
+                app:layout_constraintTop_toBottomOf="@id/itemRvSelllist_tv_location" />
 
             <TextView
                 DecimalFormat="@{item.price}"
@@ -103,46 +103,46 @@
                 android:textColor="#000"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/item_rv_selllist_tv_status"
-                app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_tv_location" />
+                app:layout_constraintStart_toEndOf="@id/itemRvSelllist_tv_status"
+                app:layout_constraintTop_toBottomOf="@id/itemRvSelllist_tv_location" />
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="6dp"
                 android:src="@drawable/ic_favorite_border_favorite_20dp"
-                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_tv_chat"
-                app:layout_constraintEnd_toStartOf="@id/item_rv_selllist_tv_favorite" />
+                app:layout_constraintBottom_toBottomOf="@id/itemRvSelllist_tv_chat"
+                app:layout_constraintEnd_toStartOf="@id/itemRvSelllist_tv_favorite" />
 
             <TextView
-                android:id="@+id/item_rv_selllist_tv_chat"
+                android:id="@+id/itemRvSelllist_tv_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{Integer.toString(item.chatList.size())}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_iv"
+                app:layout_constraintBottom_toBottomOf="@id/itemRvSelllist_iv"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
-                android:id="@+id/item_rv_selllist_tv_favorite"
+                android:id="@+id/itemRvSelllist_tv_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:text="@{Long.toString(item.likeCount)}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_tv_chat"
-                app:layout_constraintEnd_toStartOf="@id/item_rv_selllist_temp2" />
+                app:layout_constraintBottom_toBottomOf="@id/itemRvSelllist_tv_chat"
+                app:layout_constraintEnd_toStartOf="@id/itemRvSelllist_iv1" />
 
 
             <ImageView
-                android:id="@+id/item_rv_selllist_temp2"
+                android:id="@+id/itemRvSelllist_iv1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="6dp"
                 android:src="@drawable/ic_chat"
-                app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_tv_chat"
-                app:layout_constraintEnd_toStartOf="@id/item_rv_selllist_tv_chat"
-                app:layout_constraintTop_toTopOf="@id/item_rv_selllist_tv_chat" />
+                app:layout_constraintBottom_toBottomOf="@id/itemRvSelllist_tv_chat"
+                app:layout_constraintEnd_toStartOf="@id/itemRvSelllist_tv_chat"
+                app:layout_constraintTop_toTopOf="@id/itemRvSelllist_tv_chat" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -152,18 +152,18 @@
             android:layout_height="1dp"
             android:background="@color/colorDivision"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_cl1" />
+            app:layout_constraintTop_toBottomOf="@id/itemRvSelllist_cl1" />
 
         <LinearLayout
-            android:id="@+id/item_rv_selllist_ll1"
+            android:id="@+id/itemRvSelllist_ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_rv_selllist_cl1">
+            app:layout_constraintTop_toBottomOf="@id/itemRvSelllist_cl1">
 
             <TextView
-                android:id="@+id/item_rv_selllist_tv_reservation"
+                android:id="@+id/itemRvSelllist_tv_reservation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -180,7 +180,7 @@
                 android:orientation="vertical" />
 
             <TextView
-                android:id="@+id/item_rv_selllist_tv_soldout"
+                android:id="@+id/itemRvSelllist_tv_soldout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -195,6 +195,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorDivision"
-            app:layout_constraintBottom_toBottomOf="@id/item_rv_selllist_ll1" />
+            app:layout_constraintBottom_toBottomOf="@id/itemRvSelllist_ll1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

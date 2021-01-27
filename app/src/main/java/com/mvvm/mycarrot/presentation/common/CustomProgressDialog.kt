@@ -21,7 +21,7 @@ class CustomProgressDialog(private val activity: Activity) {
         progressDialog.show()
 
 
-        val loadingFrame = progressDialog.findViewById<ImageView>(R.id.iv_frame_loading)!!
+        val loadingFrame = progressDialog.findViewById<ImageView>(R.id.progressLoading_iv)!!
         val frameAnimation = loadingFrame.background as AnimationDrawable
         loadingFrame.post { frameAnimation.start() }
 

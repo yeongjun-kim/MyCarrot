@@ -8,13 +8,13 @@
         android:background="#F9F9F9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fm_search_user_cl_default"
+            android:id="@+id/searchUser_cl_default"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible">
 
             <TextView
-                android:id="@+id/fm_search_user_temp1"
+                android:id="@+id/searchUser_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="동네 이웃을 찾고 있나요?"
@@ -28,31 +28,31 @@
                 app:layout_constraintVertical_bias="0.02" />
 
             <TextView
-                android:id="@+id/fm_search_user_temp2"
+                android:id="@+id/searchUser_tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="• 닉네임으로 검색해보세요."
-                app:layout_constraintStart_toStartOf="@id/fm_search_user_temp1"
-                app:layout_constraintTop_toBottomOf="@id/fm_search_user_temp1" />
+                app:layout_constraintStart_toStartOf="@id/searchUser_tv1"
+                app:layout_constraintTop_toBottomOf="@id/searchUser_tv1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="• 사용자 프로필의 닉네임 옆 #문자로 검색할 수 있어요.\n(예: 당근이 #6Ib314e)"
-                app:layout_constraintStart_toStartOf="@id/fm_search_user_temp2"
-                app:layout_constraintTop_toBottomOf="@id/fm_search_user_temp2" />
+                app:layout_constraintStart_toStartOf="@id/searchUser_tv2"
+                app:layout_constraintTop_toBottomOf="@id/searchUser_tv2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fm_search_user_cl_search"
+            android:id="@+id/searchUser_cl_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fm_search_user_rv"
+                android:id="@+id/searchUser_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
