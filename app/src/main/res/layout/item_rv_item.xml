@@ -64,7 +64,7 @@
 
         <TextView
             android:id="@+id/itemRvItem_tv_time"
-            BeforeDay="@{item.timestamp}"
+            BeforeDay="@{safeUnbox(item.timestamp)}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="일 전"

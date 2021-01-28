@@ -99,7 +99,7 @@ class SetProfileFragment : Fragment() {
 
         if (requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK) {
             loginViewModel.profileImage = data!!.data
-            setProfileImage(data!!.data!!)
+            setProfileImage(data.data!!)
         }
     }
 

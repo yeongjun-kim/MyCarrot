@@ -60,7 +60,7 @@ class WriteViewModel(application: Application) : AndroidViewModel(application) {
 
     fun commitItemObject() {
         viewModelScope.launch(Dispatchers.IO) {
-            uriImageList.value!!.forEachIndexed { index, uri ->
+            uriImageList.value!!.forEachIndexed { _, uri ->
                 imageList.add(firebaseRepository.firebaseStorageInsertItemImage(uri))
             }
             var itemRef = firebaseRepository.commitItemObject(imageList, title, overview, price)

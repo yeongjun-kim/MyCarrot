@@ -51,7 +51,7 @@ class SeeMoreActivity : AppCompatActivity() {
     }
 
     private fun initTabLayoutViewPager() {
-        val vpAdapter = ViewPagerAdapter(this!!)
+        val vpAdapter = ViewPagerAdapter(this)
 
         binding.seeMoreVp.adapter = vpAdapter
 

@@ -172,7 +172,7 @@ class FirebaseRepository private constructor() {
     suspend fun firebaseStorageInsertProfile(uri: Uri) {
         var storageRef =
             firebaseStorage.reference.child("userProfileImages").child(firebaseAuth.uid!!)
-        storageRef.putFile(uri).continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
+        storageRef.putFile(uri).continueWithTask {
             return@continueWithTask storageRef.downloadUrl
         }.addOnSuccessListener { uri ->
             profileUrl = uri.toString()
@@ -695,7 +695,7 @@ class FirebaseRepository private constructor() {
 
         var storageRef =
             firebaseStorage.reference.child("itemImages").child(imageFileName)
-        storageRef.putFile(uri).continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
+        storageRef.putFile(uri).continueWithTask {
             return@continueWithTask storageRef.downloadUrl
         }.addOnSuccessListener { uri ->
             imageUrl = uri.toString()

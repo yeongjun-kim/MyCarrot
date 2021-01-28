@@ -74,7 +74,7 @@ class SearchFragment : Fragment() {
 
     private fun initEditTextListener() {
         binding.searchEt.imeOptions = EditorInfo.IME_ACTION_SEARCH
-        binding.searchEt.setOnEditorActionListener { _, actionId, _ ->
+        binding.searchEt.setOnEditorActionListener { _, _, _ ->
             hideSoftKeyboard()
             if (binding.searchEt.text.isNullOrBlank()) {
                 Toast.makeText(activity, "검색어를 입력해주세용", Toast.LENGTH_SHORT).show()

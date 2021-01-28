@@ -32,7 +32,7 @@ class UserRvAdapter : RecyclerView.Adapter<UserRvAdapter.CustomViewHolder>() {
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val user = itemList[position]
-        val customViewHolder = holder as CustomViewHolder
+        val customViewHolder = holder
         customViewHolder.bind(user)
     }
 

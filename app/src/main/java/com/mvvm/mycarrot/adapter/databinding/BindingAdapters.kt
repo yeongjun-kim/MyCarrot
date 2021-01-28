@@ -470,7 +470,7 @@ object BindingAdapters {
     @BindingAdapter(value = ["likeList", "itemId"], requireAll = false)
     fun setLiked(likeButton: LikeButton, likeList: ArrayList<String>?, itemId: String?) {
         if (likeList.isNullOrEmpty() || itemId.isNullOrBlank()) return
-        likeButton.isLiked = likeList!!.contains(itemId)
+        likeButton.isLiked = likeList.contains(itemId)
     }
 
 

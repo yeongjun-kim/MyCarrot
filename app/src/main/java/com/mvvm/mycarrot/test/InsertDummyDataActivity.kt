@@ -17,6 +17,7 @@ import java.io.InputStream
 import java.math.BigDecimal
 
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class InsertDummyDataActivity : AppCompatActivity() {
 
     var uri: Uri? = null
@@ -249,7 +250,7 @@ class InsertDummyDataActivity : AppCompatActivity() {
         itemList.forEachIndexed { index, item ->
             qry.document(item.id)
                 .set(item)
-                .addOnSuccessListener { documentReference ->
+                .addOnSuccessListener { _ ->
                     Log.d("fhrm", "저장 성공 ${index}")
                 }
                 .addOnFailureListener { e ->
@@ -276,7 +277,7 @@ class InsertDummyDataActivity : AppCompatActivity() {
 
             qry.document(item.userId!!)
                 .set(item)
-                .addOnSuccessListener { documentReference ->
+                .addOnSuccessListener { _ ->
                     Log.d("fhrm", "저장 성공 ${index}")
                 }
                 .addOnFailureListener { e ->

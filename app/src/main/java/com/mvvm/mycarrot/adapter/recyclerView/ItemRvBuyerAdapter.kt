@@ -32,7 +32,7 @@ class ItemRvBuyerAdapter : RecyclerView.Adapter<ItemRvBuyerAdapter.CustomViewHol
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val item = messageList[position]
-        val customViewHolder = holder as CustomViewHolder
+        val customViewHolder = holder
         customViewHolder.bind(item)
     }
 

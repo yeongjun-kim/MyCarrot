@@ -31,7 +31,7 @@ class ItemRvMannerDetailAdapter :
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val item = itemList[position]
-        val customViewHolder = holder as CustomViewHolder
+        val customViewHolder = holder
         customViewHolder.bind(item)
     }
 

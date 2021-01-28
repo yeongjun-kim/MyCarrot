@@ -50,7 +50,7 @@ class SellListActivity : AppCompatActivity() {
 
 
     private fun initTabLayoutViewPager() {
-        val vpAdapter = ViewPagerAdapter(this!!)
+        val vpAdapter = ViewPagerAdapter(this)
 
         binding.sellListVp.adapter = vpAdapter
 

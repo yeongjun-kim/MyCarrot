@@ -32,7 +32,7 @@ class CustomLoadingDialog(private val activity: Activity) {
 
     fun dismiss() {
         if (this::progressDialog.isInitialized) {
-            if (progressDialog != null && progressDialog.isShowing) {
+            if (progressDialog.isShowing) {
                 progressDialog.dismiss()
             }
         }

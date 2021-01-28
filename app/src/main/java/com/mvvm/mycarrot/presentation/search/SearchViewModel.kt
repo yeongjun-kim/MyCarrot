@@ -158,7 +158,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getKeyword() = keyword
     fun setKeyword(inputKeyword: String) {
-        if (keyword != null && keyword != inputKeyword) {// 다른 키워드 검색하면 기존 list clear
+        if (keyword != inputKeyword) {// 다른 키워드 검색하면 기존 list clear
             clearKeywordList()
         } else if (keyword == inputKeyword) return
 

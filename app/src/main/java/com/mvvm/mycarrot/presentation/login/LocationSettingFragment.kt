@@ -53,7 +53,7 @@ class LocationSettingFragment : Fragment() {
     }
 
     private fun initListener() {
-        binding.locationSettingEt.setOnEditorActionListener { textView, actionId, keyEvent ->
+        binding.locationSettingEt.setOnEditorActionListener { _, actionId, _ ->
             if(actionId.and(EditorInfo.IME_MASK_ACTION)!=0){
                 locationViewModel.setLikeQuery()
                 keyboardHide()

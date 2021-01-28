@@ -53,7 +53,7 @@ class ItemActivity : AppCompatActivity() {
         initVp()
         initOtherItemList()
 
-        item_nsv.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+        item_nsv.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
             if (scrollY < 900) changeTopLayoutColor("toTransparent")
             else changeTopLayoutColor("toWhite")
         }

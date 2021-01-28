@@ -85,7 +85,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         if (requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK) {
             myViewModel.newImageUri = data!!.data!!
-            changeImageView(data!!.data!!)
+            changeImageView(data.data!!)
         }
     }
 
