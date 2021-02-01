@@ -13,10 +13,8 @@ import com.mvvm.mycarrot.presentation.common.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var customDialog: CustomLoadingDialog
-
-    lateinit var loginViewModel: LoginViewModel
-
+    private lateinit var customDialog: CustomLoadingDialog
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +63,8 @@ class LoginActivity : AppCompatActivity() {
     private fun initLoginFragment() {
         customDialog.dismiss()
         supportFragmentManager.beginTransaction()
-            .add(R.id.login_fl,
+            .add(
+                R.id.login_fl,
                 LoginFragment()
             )
             .commit()

@@ -19,16 +19,13 @@ import com.mvvm.mycarrot.presentation.home.HomeViewModel
 
 class CategoryItemActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityCategoryItemBinding
-    lateinit var searchViewModel: SearchViewModel
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var selectedCategory: String
-    var isFirstCreate = true
-    var categoryItemAdapter =
-        ItemRvAdapter()
-    var customDialog =
-        CustomProgressDialog(this)
-
+    private lateinit var binding: ActivityCategoryItemBinding
+    private lateinit var searchViewModel: SearchViewModel
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var selectedCategory: String
+    private var isFirstCreate = true
+    private var categoryItemAdapter = ItemRvAdapter()
+    private var customDialog = CustomProgressDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

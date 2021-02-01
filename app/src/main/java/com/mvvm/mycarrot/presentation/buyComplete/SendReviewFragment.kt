@@ -14,9 +14,9 @@ import com.mvvm.mycarrot.databinding.FragmentSendreviewBinding
 
 class SendReviewFragment : Fragment() {
 
-    lateinit var binding: FragmentSendreviewBinding
-    lateinit var buyCompleteViewModel: BuyCompleteViewModel
-    var sendReviewFinishFragment =
+    private lateinit var binding: FragmentSendreviewBinding
+    private lateinit var buyCompleteViewModel: BuyCompleteViewModel
+    private var sendReviewFinishFragment =
         SendReviewFinishFragment()
 
 

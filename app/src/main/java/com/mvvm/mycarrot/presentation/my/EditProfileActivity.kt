@@ -17,19 +17,15 @@ import com.mvvm.mycarrot.presentation.common.CustomProgressDialog
 
 class EditProfileActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityEditProfileBinding
-    lateinit var myViewModel: MyViewModel
-    lateinit var customDialog: CustomProgressDialog
-    var PICK_PROFILE_FROM_ALBUM = 1010
-    lateinit var uri: Uri
-
+    private lateinit var binding: ActivityEditProfileBinding
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var customDialog: CustomProgressDialog
+    private var PICK_PROFILE_FROM_ALBUM = 1010
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        customDialog =
-            CustomProgressDialog(this)
-
+        customDialog = CustomProgressDialog(this)
         initViewModel()
         initBinding()
         initStatusBar()

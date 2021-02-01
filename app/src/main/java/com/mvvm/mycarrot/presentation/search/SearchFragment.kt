@@ -19,12 +19,10 @@ import com.mvvm.mycarrot.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
 
-    lateinit var binding: FragmentSearchBinding
-    lateinit var searchViewModel: SearchViewModel
-    var searchTradingFragment =
-        SearchTradingFragment()
-    var searchUserFragment =
-        SearchUserFragment()
+    private lateinit var binding: FragmentSearchBinding
+    private lateinit var searchViewModel: SearchViewModel
+    private var searchTradingFragment = SearchTradingFragment()
+    private var searchUserFragment = SearchUserFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +40,10 @@ class SearchFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
         initViewModel()
         initBingding()
         initTabLayoutViewPager()
         initEditTextListener()
-
 
     }
 

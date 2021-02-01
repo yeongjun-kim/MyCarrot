@@ -20,9 +20,9 @@ import com.mvvm.mycarrot.presentation.my.MyViewModel
 
 class SellListForSaleFragment : Fragment() {
 
-    lateinit var binding: FragmentSellListForSaleBinding
-    lateinit var myViewModel: MyViewModel
-    lateinit var customDialog: CustomProgressDialog
+    private lateinit var binding: FragmentSellListForSaleBinding
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var customDialog: CustomProgressDialog
 
     var itemRvSellListAdapter =
         ItemRvSellListAdapter()

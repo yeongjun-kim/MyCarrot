@@ -25,10 +25,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     var homeFragment = HomeFragment()
-    var searchFragment = SearchFragment()
-    var chatFragment = ChatFragment()
-    var myFragment = MyFragment()
-    lateinit var locationViewModel: LocationViewModel
+    private var searchFragment = SearchFragment()
+    private var chatFragment = ChatFragment()
+    private var myFragment = MyFragment()
+    private lateinit var locationViewModel: LocationViewModel
 
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -125,7 +125,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
-
 
 
     private fun initStatusBar() {

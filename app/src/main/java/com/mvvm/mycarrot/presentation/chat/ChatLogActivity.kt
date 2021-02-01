@@ -25,10 +25,10 @@ import java.text.SimpleDateFormat
 
 class ChatLogActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityChatLogBinding
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var chatLogViewModel: ChatLogViewModel
-    lateinit var latestMessageDTO: LatestMessageDTO
+    private lateinit var binding: ActivityChatLogBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var chatLogViewModel: ChatLogViewModel
+    private lateinit var latestMessageDTO: LatestMessageDTO
     private val mAdapter = GroupAdapter<GroupieViewHolder>()
 
 

@@ -18,10 +18,9 @@ import com.mvvm.mycarrot.presentation.my.sellList.SellListActivity
 
 class MyFragment : Fragment() {
 
-
-    lateinit var binding: FragmentMyBinding
-    lateinit var myViewModel: MyViewModel
-    lateinit var customDialog: CustomProgressDialog
+    private lateinit var binding: FragmentMyBinding
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var customDialog: CustomProgressDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -22,9 +22,9 @@ import com.xwray.groupie.GroupieViewHolder
 
 class ChatFragment : Fragment() {
 
-    lateinit var binding: FragmentChatBinding
+    private lateinit var binding: FragmentChatBinding
     private val mAdapter = GroupAdapter<GroupieViewHolder>()
-    val latestMessagesMap = HashMap<String, LatestMessageDTO>()
+    private val latestMessagesMap = HashMap<String, LatestMessageDTO>()
 
     init {
         initLatestEventListener()

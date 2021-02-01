@@ -26,11 +26,12 @@ import kotlinx.coroutines.*
 class LoginFragment : Fragment() {
 
 
-    val GOOGLE_SIGNIN_CODE = 9001
-    lateinit var binding: FragmentLoginBinding
-    lateinit var locationViewModel: LocationViewModel
-    lateinit var loginViewModel: LoginViewModel
-    lateinit var job: Job
+    private val GOOGLE_SIGNIN_CODE = 9001
+    private lateinit var binding: FragmentLoginBinding
+    private lateinit var locationViewModel: LocationViewModel
+    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var job: Job
+
 
 
     override fun onCreateView(

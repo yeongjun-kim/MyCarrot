@@ -16,14 +16,11 @@ import com.mvvm.mycarrot.presentation.home.HomeViewModel
 
 class SeeMoreActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivitySeeMoreBinding
-    lateinit var homeViewModel: HomeViewModel
-    val seeMoreTotalFragment =
-        SeeMoreTotalFragment()
-    val seeMoreForSaleFragment =
-        SeeMoreForSaleFragment()
-    val seeMoreSoldOutFragment =
-        SeeMoreSoldOutFragment()
+    private lateinit var binding: ActivitySeeMoreBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private val seeMoreTotalFragment = SeeMoreTotalFragment()
+    private val seeMoreForSaleFragment = SeeMoreForSaleFragment()
+    private val seeMoreSoldOutFragment = SeeMoreSoldOutFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +29,6 @@ class SeeMoreActivity : AppCompatActivity() {
         initBinding()
         initTabLayoutViewPager()
         initStatusBar()
-
 
     }
 

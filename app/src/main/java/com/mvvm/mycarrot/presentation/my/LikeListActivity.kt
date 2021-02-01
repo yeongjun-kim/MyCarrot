@@ -2,9 +2,9 @@ package com.mvvm.mycarrot.presentation.my
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,10 +17,10 @@ import com.mvvm.mycarrot.presentation.common.ItemActivity
 
 class LikeListActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityLikeListBinding
-    lateinit var myViewModel: MyViewModel
-    lateinit var customDialog: CustomProgressDialog
-    var itemRvAdapter = ItemRvAdapter()
+    private lateinit var binding: ActivityLikeListBinding
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var customDialog: CustomProgressDialog
+    private var itemRvAdapter = ItemRvAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

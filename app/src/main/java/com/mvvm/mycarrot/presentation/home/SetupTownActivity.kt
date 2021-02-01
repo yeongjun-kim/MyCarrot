@@ -13,8 +13,8 @@ import com.mvvm.mycarrot.databinding.ActivitySetupTownBinding
 class SetupTownActivity : AppCompatActivity() {
 
 
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var binding: ActivitySetupTownBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: ActivitySetupTownBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

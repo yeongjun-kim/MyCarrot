@@ -9,8 +9,8 @@ import com.mvvm.mycarrot.R
 
 class BuyCompleteActivity : AppCompatActivity() {
 
-    lateinit var buyCompleteViewModel: BuyCompleteViewModel
-    var selectBuyerFragment =
+    private lateinit var buyCompleteViewModel: BuyCompleteViewModel
+    private var selectBuyerFragment =
         SelectBuyerFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {

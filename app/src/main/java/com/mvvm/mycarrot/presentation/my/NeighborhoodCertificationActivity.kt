@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.activity_neighborhood_certification.*
 
 class NeighborhoodCertificationActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    lateinit var binding: ActivityNeighborhoodCertificationBinding
-    lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: ActivityNeighborhoodCertificationBinding
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +56,7 @@ class NeighborhoodCertificationActivity : AppCompatActivity(), OnMapReadyCallbac
                 finish()
             }
         })
-
     }
-
 
     override fun onMapReady(googleMap: GoogleMap?) {
 

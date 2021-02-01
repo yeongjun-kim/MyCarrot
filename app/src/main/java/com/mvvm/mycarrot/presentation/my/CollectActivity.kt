@@ -18,20 +18,15 @@ import com.mvvm.mycarrot.presentation.common.ItemActivity
 
 class CollectActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityCollectBinding
-    lateinit var myViewModel: MyViewModel
-    lateinit var customDialog: CustomProgressDialog
-    private var collectRvAdapter =
-        CollectRvAdapter()
+    private lateinit var binding: ActivityCollectBinding
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var customDialog: CustomProgressDialog
+    private var collectRvAdapter = CollectRvAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        customDialog =
-            CustomProgressDialog(this)
-
-
-
+        customDialog = CustomProgressDialog(this)
         initStatusBar()
         initViewModel()
         initBinding()

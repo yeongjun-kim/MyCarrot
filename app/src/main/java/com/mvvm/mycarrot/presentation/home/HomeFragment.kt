@@ -19,9 +19,9 @@ import com.mvvm.mycarrot.presentation.common.ItemActivity
 
 class HomeFragment : Fragment() {
 
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var binding: FragmentHomeBinding
-    lateinit var customDialog: CustomProgressDialog
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var customDialog: CustomProgressDialog
 
     val SETUP_TOWN_ACTIVITY = 1234
     var itemRvAdapter = ItemRvAdapter()

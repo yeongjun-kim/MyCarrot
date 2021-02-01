@@ -19,13 +19,11 @@ import com.mvvm.mycarrot.presentation.home.HomeViewModel
 
 class SearchUserFragment : Fragment() {
 
-    lateinit var binding: FragmentSearchUserBinding
-    lateinit var searchViewModel: SearchViewModel
-    lateinit var homeViewModel: HomeViewModel // Item Click 에 대한 로직이 있어서 Click에 사용 (selectedItem)
-    lateinit var customDialog: CustomProgressDialog
-
-    var userRvAdapter = UserRvAdapter()
-
+    private lateinit var binding: FragmentSearchUserBinding
+    private lateinit var searchViewModel: SearchViewModel
+    private lateinit var homeViewModel: HomeViewModel // Item Click 에 대한 로직이 있어서 Click에 사용 (selectedItem)
+    private lateinit var customDialog: CustomProgressDialog
+    private var userRvAdapter = UserRvAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -11,8 +11,8 @@ import com.mvvm.mycarrot.R
 
 class WriteCategoryActivity : AppCompatActivity() {
 
-    lateinit var binding: com.mvvm.mycarrot.databinding.ActivityCategoryBinding
-    lateinit var writeViewModel: WriteViewModel
+    private lateinit var binding: com.mvvm.mycarrot.databinding.ActivityCategoryBinding
+    private lateinit var writeViewModel: WriteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -12,14 +12,12 @@ import com.mvvm.mycarrot.databinding.ActivityNoticeBinding
 
 class NoticeActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityNoticeBinding
+    private lateinit var binding: ActivityNoticeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         var mode = intent.getStringExtra("mode")!!
-
-
         initBinding()
         initStatusBar()
         initWebView(mode)
@@ -37,10 +35,6 @@ class NoticeActivity : AppCompatActivity() {
             if (mode == "notice") "https://www.daangn.com/wv/notices/" else "https://www.daangn.com/wv/faqs"
 
         binding.noticeTvTitle.text = if(mode=="notice") "공지사항" else "고객센터"
-
-
-
-
         binding.noticeWb.webViewClient = WebViewClient()
         binding.noticeWb.settings.apply {
             javaScriptEnabled = true

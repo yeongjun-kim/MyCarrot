@@ -23,8 +23,8 @@ import com.mvvm.mycarrot.data.db.LocationViewModel
 class LocationSettingFragment : Fragment() {
 
 
-    lateinit var binding: FragmentLocationSettingBinding
-    lateinit var locationViewModel: LocationViewModel
+    private lateinit var binding: FragmentLocationSettingBinding
+    private lateinit var locationViewModel: LocationViewModel
     private var mAdapter =
         ItemRvLocationAdatper()
 

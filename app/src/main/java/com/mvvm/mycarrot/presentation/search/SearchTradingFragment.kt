@@ -22,18 +22,13 @@ import com.mvvm.mycarrot.presentation.home.HomeViewModel
 
 class SearchTradingFragment : Fragment() {
 
-    lateinit var binding: FragmentSearchTradingBinding
-    lateinit var searchViewModel: SearchViewModel
-    lateinit var homeViewModel: HomeViewModel // Item Click 에 대한 로직이 있어서 Click에 사용 (selectedItem)
-
-    var hotitemRvAdapter =
-        OwnerItemRvAdapterHorizontal()
-    var recommendRvAdapter =
-        OwnerItemRvAdapter()
-    var searchItemRvAdapter =
-        ItemRvAdapter()
-
-    lateinit var customDialog: CustomProgressDialog
+    private lateinit var binding: FragmentSearchTradingBinding
+    private lateinit var searchViewModel: SearchViewModel
+    private lateinit var homeViewModel: HomeViewModel // Item Click 에 대한 로직이 있어서 Click에 사용 (selectedItem)
+    private var hotitemRvAdapter = OwnerItemRvAdapterHorizontal()
+    private var recommendRvAdapter = OwnerItemRvAdapter()
+    private var searchItemRvAdapter = ItemRvAdapter()
+    private lateinit var customDialog: CustomProgressDialog
 
 
     override fun onCreateView(

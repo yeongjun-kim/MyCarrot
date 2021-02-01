@@ -11,7 +11,7 @@ import com.mvvm.mycarrot.R
 
 class CustomLoadingDialog(private val activity: Activity) {
 
-    lateinit var progressDialog: AppCompatDialog
+    private lateinit var progressDialog: AppCompatDialog
 
 
     fun show() {

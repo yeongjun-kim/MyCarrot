@@ -15,23 +15,17 @@ import com.mvvm.mycarrot.presentation.home.HomeViewModel
 
 class MannerDetailActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMannerDetailBinding
-    lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: ActivityMannerDetailBinding
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-
-
 
         initViewModel()
         initBinding()
         initPositiveRv()
         initNegativeRv()
         initStatusBar()
-
 
     }
 

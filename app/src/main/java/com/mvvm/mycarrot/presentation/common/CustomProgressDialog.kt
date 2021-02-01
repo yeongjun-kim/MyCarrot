@@ -10,7 +10,7 @@ import com.mvvm.mycarrot.R
 
 class CustomProgressDialog(private val activity: Activity) {
 
-    lateinit var progressDialog: AppCompatDialog
+    private lateinit var progressDialog: AppCompatDialog
 
 
     fun show() {

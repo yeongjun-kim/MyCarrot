@@ -20,11 +20,10 @@ import com.mvvm.mycarrot.presentation.home.HomeViewModel
 
 class SeeMoreForSaleFragment : Fragment() {
 
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var binding: FragmentSeeMoreForSaleBinding
-    lateinit var customDialog: CustomProgressDialog
-    val itemRvAdapter = ItemRvAdapter()
-
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: FragmentSeeMoreForSaleBinding
+    private lateinit var customDialog: CustomProgressDialog
+    private val itemRvAdapter = ItemRvAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -17,9 +17,9 @@ import com.mvvm.mycarrot.presentation.common.CustomProgressDialog
 
 class SendReviewFinishFragment : Fragment() {
 
-    lateinit var binding: FragmentSendreviewFinishBinding
-    lateinit var buyCompleteViewModel: BuyCompleteViewModel
-    lateinit var customDialog: CustomProgressDialog
+    private lateinit var binding: FragmentSendreviewFinishBinding
+    private lateinit var buyCompleteViewModel: BuyCompleteViewModel
+    private lateinit var customDialog: CustomProgressDialog
     private var itemRvReviewAdapter =
         ItemRvReviewAdapter()
 

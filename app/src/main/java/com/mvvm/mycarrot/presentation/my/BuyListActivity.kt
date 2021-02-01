@@ -17,18 +17,16 @@ import com.mvvm.mycarrot.presentation.common.ItemActivity
 
 class BuyListActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityBuyListBinding
-    lateinit var myViewModel: MyViewModel
-    lateinit var customDialog: CustomProgressDialog
-    var itemRvAdapter = ItemRvAdapter()
+    private lateinit var binding: ActivityBuyListBinding
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var customDialog: CustomProgressDialog
+    private var itemRvAdapter = ItemRvAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy_list)
 
-        customDialog =
-            CustomProgressDialog(this)
-
+        customDialog = CustomProgressDialog(this)
         initViewModel()
         initBinding()
         initRv()
@@ -47,7 +45,8 @@ class BuyListActivity : AppCompatActivity() {
     private fun initViewModel() {
         myViewModel =
             ViewModelProvider(this, MyViewModel.Factory(application)).get(
-                MyViewModel::class.java)
+                MyViewModel::class.java
+            )
 
 
         myViewModel.getbuyItemList().observe(this, Observer { itemList ->

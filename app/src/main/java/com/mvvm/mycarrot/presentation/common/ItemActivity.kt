@@ -27,17 +27,13 @@ import kotlinx.android.synthetic.main.activity_item.*
 
 class ItemActivity : AppCompatActivity() {
 
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var binding: ActivityItemBinding
-    var ownerItemRvAdapter =
-        OwnerItemRvAdapter()
-    var recommendItemRvAdapter =
-        OwnerItemRvAdapter()
-    var customDialog =
-        CustomProgressDialog(this)
-    private var vpAdapter =
-        ItemVpAdapter(arrayListOf())
-    var flag = false
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: ActivityItemBinding
+    private var ownerItemRvAdapter = OwnerItemRvAdapter()
+    private var recommendItemRvAdapter = OwnerItemRvAdapter()
+    private var customDialog = CustomProgressDialog(this)
+    private var vpAdapter = ItemVpAdapter(arrayListOf())
+    private var flag = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

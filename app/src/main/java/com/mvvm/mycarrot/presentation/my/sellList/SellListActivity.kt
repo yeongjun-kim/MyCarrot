@@ -16,12 +16,10 @@ import com.mvvm.mycarrot.presentation.my.MyViewModel
 
 class SellListActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivitySellListBinding
-    lateinit var myViewModel: MyViewModel
-    var sellListForSaleFragment =
-        SellListForSaleFragment()
-    var sellListSoldOutFragment =
-        SellListSoldOutFragment()
+    private lateinit var binding: ActivitySellListBinding
+    private lateinit var myViewModel: MyViewModel
+    private var sellListForSaleFragment = SellListForSaleFragment()
+    private var sellListSoldOutFragment = SellListSoldOutFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

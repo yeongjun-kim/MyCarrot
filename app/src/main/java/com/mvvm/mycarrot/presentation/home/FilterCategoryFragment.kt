@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.fragment_filter_category.*
 
 class FilterCategoryFragment : Fragment() {
 
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var binding: FragmentFilterCategoryBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: FragmentFilterCategoryBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,

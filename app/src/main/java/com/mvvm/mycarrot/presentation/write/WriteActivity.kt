@@ -18,13 +18,11 @@ import com.mvvm.mycarrot.presentation.common.CustomProgressDialog
 
 class WriteActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityWriteBinding
-    lateinit var writeViewModel: WriteViewModel
+    private lateinit var binding: ActivityWriteBinding
+    private lateinit var writeViewModel: WriteViewModel
     private val PICK_PROFILE_FROM_ALBUM = 10
-    private var adapter =
-        WriteVpAdapter(arrayListOf())
-    private val customDialog =
-        CustomProgressDialog(this)
+    private var adapter = WriteVpAdapter(arrayListOf())
+    private val customDialog = CustomProgressDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +31,6 @@ class WriteActivity : AppCompatActivity() {
         initViewModel()
         initBingding()
         initVp()
-
 
     }
 

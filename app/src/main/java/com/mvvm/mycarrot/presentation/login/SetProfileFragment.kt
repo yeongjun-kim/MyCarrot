@@ -23,11 +23,10 @@ import com.mvvm.mycarrot.presentation.common.MainActivity
 
 class SetProfileFragment : Fragment() {
 
-    lateinit var binding: FragmentSetProfileBinding
-    lateinit var loginViewModel: LoginViewModel
-    lateinit var locationViewModel: LocationViewModel
-    lateinit var customDialog: CustomProgressDialog
-
+    private lateinit var binding: FragmentSetProfileBinding
+    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var locationViewModel: LocationViewModel
+    private lateinit var customDialog: CustomProgressDialog
     private var PICK_PROFILE_FROM_ALBUM = 1010
 
     override fun onCreateView(

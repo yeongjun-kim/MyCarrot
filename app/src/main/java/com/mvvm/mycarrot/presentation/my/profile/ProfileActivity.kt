@@ -22,9 +22,9 @@ import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityProfileBinding
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var balloon: Balloon
+    private lateinit var binding: ActivityProfileBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var balloon: Balloon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -15,11 +15,11 @@ import com.mvvm.mycarrot.databinding.FragmentSelectbuyerBinding
 
 class SelectBuyerFragment : Fragment() {
 
-    lateinit var binding: FragmentSelectbuyerBinding
-    lateinit var buyCompleteViewModel: BuyCompleteViewModel
+    private lateinit var binding: FragmentSelectbuyerBinding
+    private lateinit var buyCompleteViewModel: BuyCompleteViewModel
     private var sendReviewFragment =
         SendReviewFragment()
-    var itemRvBuyerAdapter =
+    private var itemRvBuyerAdapter =
         ItemRvBuyerAdapter()
 
     override fun onCreateView(
